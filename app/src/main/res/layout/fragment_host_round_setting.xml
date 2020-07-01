@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RoundSetting.HostRoundSetting"
+    android:paddingHorizontal="27dp"
+    android:paddingTop="165.4dp"
+    android:paddingBottom="101.6dp">
+
+    <ImageView
+        android:id="@+id/imageview_symbol"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.144"
+        app:layout_constraintHeight_percent="0.158"
+        android:layout_marginTop="147.7dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginEnd="130dp"
+        android:layout_marginBottom="323dp"
+        android:src="@drawable/host_b_1_symbol"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textview_roundnumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26.3dp"
+        android:layout_marginTop="291.1dp"
+        android:fontFamily="@font/notosans_bold"
+        android:text="ROUND 1"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/textview_round_goal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginHorizontal="23dp"
+        android:background="@drawable/box_roundcorner"
+        android:fontFamily="@font/notosans_medium"
+        android:gravity="center_vertical"
+        android:hint="라운드 목표"
+        android:paddingLeft="20dp"
+        android:textColor="@color/storm_gray"
+        app:layout_constraintEnd_toEndOf="@+id/imageview_symbol"
+        app:layout_constraintStart_toStartOf="@+id/imageview_symbol"
+        app:layout_constraintTop_toBottomOf="@+id/textview_roundnumber" />
+
+    <EditText
+        android:id="@+id/edittext_round_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13.7dp"
+        android:layout_marginHorizontal="23dp"
+        android:background="@drawable/box_roundcorner"
+        android:fontFamily="@font/notosans_medium"
+        android:hint="라운드 소요 시간"
+        android:paddingLeft="20dp"
+        android:textColor="@color/storm_gray"
+        app:layout_constraintEnd_toEndOf="@+id/textview_round_goal"
+        app:layout_constraintStart_toStartOf="@+id/textview_round_goal"
+        app:layout_constraintTop_toBottomOf="@+id/textview_round_goal" />
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

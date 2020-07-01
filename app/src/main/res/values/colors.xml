@@ -3,4 +3,12 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="storm_purple">#866dc9</color>
+    <color name="storm_yellow">#f5ca6e</color>
+    <color name="storm_red">#ec6565</color>
+    <color name="storm_white">#ffffff</color>
+    <color name="cardshadow">#29000000</color>
+    <color name="storm_gray">#0d000000</color>
+    <color name="storm_popup_gray">#000000</color>
+    <color name="storm_gray1">#707070</color>
 </resources>
