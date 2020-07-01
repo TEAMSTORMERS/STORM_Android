@@ -18,12 +18,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <ImageButton
+        android:id="@+id/imagebutton_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintWidth_percent="0.442"
         app:layout_constraintHeight_percent="0.122"
-        android:layout_marginLeft="100dp"
+        android:layout_marginLeft="98dp"
         android:layout_marginRight="100dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/host_b_1_logo"
