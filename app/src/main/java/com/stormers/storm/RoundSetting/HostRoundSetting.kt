@@ -2,6 +2,7 @@ package com.stormers.storm.RoundSetting
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.stormers.storm.R
 
 class RoundSetting : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
