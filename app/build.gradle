@@ -17,10 +17,32 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        release {
+            Properties keystoreProperties = new Properties()
+            keystoreProperties.load(rootProject.file("./keystores/keystore.properties").newDataInputStream())
+
+            storeFile rootProject.file("./keystores/STORM_keystores.jks")
+
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storePassword keystoreProperties['storePassword']
+        }
+        debug {
+
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            signingConfig signingConfigs.release
+        }
+
+        debug {
+            signingConfig signingConfigs.release
         }
     }
 }
