@@ -52,9 +52,9 @@
         android:fontFamily="@font/notosans_medium"
         android:gravity="center_vertical"
         android:hint="라운드 목표"
-        android:textColorHint="@color/storm_gray1"
+        android:textColorHint="@color/brownish_grey"
         android:paddingLeft="10dp"
-        android:textColor="@color/storm_gray"
+        android:textColor="@color/brownish_grey"
         app:layout_constraintEnd_toEndOf="@+id/imageview_symbol"
         app:layout_constraintStart_toStartOf="@+id/imageview_symbol"
         app:layout_constraintTop_toBottomOf="@+id/textview_roundnumber" />
@@ -69,7 +69,7 @@
         android:fontFamily="@font/notosans_medium"
         android:hint="라운드 소요 시간"
         android:paddingLeft="10dp"
-        android:textColorHint="@color/storm_gray1"
+        android:textColorHint="@color/brownish_grey"
         app:layout_constraintEnd_toEndOf="@+id/textview_round_goal"
         app:layout_constraintStart_toStartOf="@+id/textview_round_goal"
         app:layout_constraintTop_toBottomOf="@+id/textview_round_goal" />
