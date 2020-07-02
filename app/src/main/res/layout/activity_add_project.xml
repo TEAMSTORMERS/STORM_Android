@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbar_addproject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="37dp"
@@ -48,10 +48,10 @@
         android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar_addproject" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint_back_card"
+        android:id="@+id/constraintlayout_back_card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="26dp"
@@ -75,7 +75,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/edittext_projectname"
+            android:id="@+id/edittext_addproject_projectname"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -96,9 +96,10 @@
             android:layout_marginTop="37dp"
             android:text="호스트의 한마디"
             app:layout_constraintStart_toStartOf="@id/textview2"
-            app:layout_constraintTop_toBottomOf="@id/edittext_projectname" />
+            app:layout_constraintTop_toBottomOf="@id/edittext_addproject_projectname" />
 
         <EditText
+            android:id="@+id/edittext_addproject_notice"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="12dp"
@@ -107,10 +108,13 @@
             android:paddingHorizontal="16dp"
             android:paddingVertical="11dp"
             android:textSize="11sp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
             app:layout_constraintDimensionRatio="w,1:2"
-            app:layout_constraintEnd_toEndOf="@id/edittext_projectname"
+            app:layout_constraintEnd_toEndOf="@id/edittext_addproject_projectname"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@id/edittext_projectname"
+            app:layout_constraintStart_toStartOf="@id/edittext_addproject_projectname"
             app:layout_constraintTop_toBottomOf="@id/textview3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -119,10 +123,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/constraint_back_card"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintlayout_back_card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraint_back_card">
+        app:layout_constraintTop_toBottomOf="@+id/constraintlayout_back_card">
 
         <Button
             android:layout_width="wrap_content"
