@@ -8,10 +8,11 @@
     tools:context=".AddProjectActivity">
 
     <ImageView
+        android:id="@+id/imageView_addproject_background"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:src="@drawable/background_red_radius"
         android:elevation="10dp"
+        android:src="@drawable/background_red_radius"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,8 +31,8 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/host_a_1_logo"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:src="@drawable/host_a_1_logo" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -39,20 +40,20 @@
         android:id="@+id/textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="프로젝트 추가하기"
-        android:elevation="10dp"
-        android:textSize="15sp"
-        android:textColor="@color/storm_white"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="26dp"
         android:layout_marginTop="40dp"
-        android:layout_marginStart="26dp"/>
+        android:elevation="10dp"
+        android:text="프로젝트 추가하기"
+        android:textColor="@color/storm_white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_back_card"
-        android:layout_width="357dp"
-        android:layout_height="427dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="26dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/background_white_radius"
@@ -114,18 +115,25 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="10dp"
-        android:text="추가하기"
-        android:paddingHorizontal="44dp"
-        android:paddingVertical="13dp"
-        android:background="@drawable/background_button_yellow_radius"
-        android:backgroundTint="@color/storm_yellow"
-        app:layout_constraintBottom_toBottomOf="@id/constraint_back_card"
+        app:layout_constraintBottom_toBottomOf="@+id/constraint_back_card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/constraint_back_card" />
+        app:layout_constraintTop_toBottomOf="@+id/constraint_back_card">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_button_yellow_radius"
+            android:backgroundTint="@color/storm_yellow"
+            android:paddingHorizontal="44dp"
+            android:paddingVertical="13dp"
+            android:text="추가하기"
+            android:layout_margin="5dp"/>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
