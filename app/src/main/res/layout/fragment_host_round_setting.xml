@@ -5,10 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RoundSetting.HostRoundSetting"
-    android:paddingHorizontal="27dp"
-    android:paddingTop="165.4dp"
-    android:paddingBottom="101.6dp">
+    tools:context=".RoundSetting.HostRoundSetting">
 
     <ImageView
         android:id="@+id/imageview_symbol"
@@ -30,13 +27,13 @@
         android:id="@+id/textview_roundnumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="38.3dp"
         android:layout_marginStart="26.3dp"
-        android:layout_marginTop="291.1dp"
         android:fontFamily="@font/notosans_bold"
         android:text="ROUND 1"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageview_symbol" />
 
     <EditText
         android:id="@+id/textview_round_goal"
@@ -48,7 +45,7 @@
         android:fontFamily="@font/notosans_medium"
         android:gravity="center_vertical"
         android:hint="라운드 목표"
-        android:paddingLeft="20dp"
+        android:paddingLeft="10dp"
         android:textColor="@color/storm_gray"
         app:layout_constraintEnd_toEndOf="@+id/imageview_symbol"
         app:layout_constraintStart_toStartOf="@+id/imageview_symbol"
@@ -63,14 +60,10 @@
         android:background="@drawable/box_roundcorner"
         android:fontFamily="@font/notosans_medium"
         android:hint="라운드 소요 시간"
-        android:paddingLeft="20dp"
+        android:paddingLeft="10dp"
         android:textColor="@color/storm_gray"
         app:layout_constraintEnd_toEndOf="@+id/textview_round_goal"
         app:layout_constraintStart_toStartOf="@+id/textview_round_goal"
         app:layout_constraintTop_toBottomOf="@+id/textview_round_goal" />
-
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
