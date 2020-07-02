@@ -1,77 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!-- fixme: activity_host_round_setting.xml과 함께 수정되어야 합니다.-->
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RoundSetting.HostRoundSettingActivity"
-    android:background="@drawable/host_b_1_card_white">
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/round_setting_fragment_guideline"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.354" />
+    tools:context=".RoundSetting.HostRoundSettingActivity">
 
     <ImageView
         android:id="@+id/imageview_symbol"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:src="@drawable/host_b_1_symbol"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textview_roundnumber"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.158"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/round_setting_fragment_guideline"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.74"
+        app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintWidth_percent="0.144" />
 
     <TextView
         android:id="@+id/textview_roundnumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="38.3dp"
-        android:layout_marginStart="26.3dp"
         android:fontFamily="@font/notosans_bold"
         android:text="ROUND 1"
         android:textSize="15sp"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="38dp"
+        app:layout_constraintBottom_toTopOf="@+id/textview_round_goal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageview_symbol" />
 
     <EditText
+        android:id="@+id/edittext_round_time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/box_roundcorner"
+        android:fontFamily="@font/notosans_medium"
+        android:hint="라운드 소요 시간"
+        android:paddingHorizontal="10dp"
+        android:layout_marginTop="14dp"
+        android:textColorHint="@color/brownish_grey"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textview_round_goal"
+        app:layout_constraintStart_toStartOf="@+id/textview_round_goal"
+        app:layout_constraintTop_toBottomOf="@+id/textview_round_goal" />
+
+    <EditText
         android:id="@+id/textview_round_goal"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="13dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="23dp"
         android:background="@drawable/box_roundcorner"
         android:fontFamily="@font/notosans_medium"
         android:gravity="center_vertical"
         android:hint="라운드 목표"
-        android:textColorHint="@color/brownish_grey"
-        android:paddingLeft="10dp"
+        android:paddingHorizontal="10dp"
         android:textColor="@color/brownish_grey"
-        app:layout_constraintEnd_toEndOf="@+id/imageview_symbol"
-        app:layout_constraintStart_toStartOf="@+id/imageview_symbol"
-        app:layout_constraintTop_toBottomOf="@+id/textview_roundnumber" />
-
-    <EditText
-        android:id="@+id/edittext_round_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="13.7dp"
-        android:layout_marginHorizontal="23dp"
-        android:background="@drawable/box_roundcorner"
-        android:fontFamily="@font/notosans_medium"
-        android:hint="라운드 소요 시간"
-        android:paddingLeft="10dp"
         android:textColorHint="@color/brownish_grey"
-        app:layout_constraintEnd_toEndOf="@+id/textview_round_goal"
-        app:layout_constraintStart_toStartOf="@+id/textview_round_goal"
-        app:layout_constraintTop_toBottomOf="@+id/textview_round_goal" />
+        android:layout_marginTop="13dp"
+        app:layout_constraintBottom_toTopOf="@+id/edittext_round_time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_roundnumber" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
