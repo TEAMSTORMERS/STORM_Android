@@ -84,7 +84,7 @@
             android:hint="프로젝트 명을 입력해주세요"
             android:paddingHorizontal="16dp"
             android:paddingVertical="11dp"
-            android:textColor="@color/hint_gray"
+            android:textColor="@color/storm_gray1"
             android:textSize="11sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
