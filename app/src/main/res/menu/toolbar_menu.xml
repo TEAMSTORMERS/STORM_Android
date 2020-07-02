@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_toolbar_mypage"
+        android:title="mypage"
+        android:icon="@drawable/host_a_1_btn_mypage"
+        app:showAsAction="always"/>
+
+</menu>
