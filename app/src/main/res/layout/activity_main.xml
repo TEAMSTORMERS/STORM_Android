@@ -4,15 +4,140 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@drawable/host_a_1_bg_circle"
+    tools:context=".AddProjectActivity">
+
+    <ImageView
+        android:id="@+id/imageView_addproject_background"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:elevation="10dp"
+        android:src="@drawable/background_red_radius"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_addproject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="37dp"
+        android:elevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/host_a_1_logo" />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <TextView
+        android:id="@+id/textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="40dp"
+        android:elevation="10dp"
+        android:text="프로젝트 추가하기"
+        android:textColor="@color/storm_white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_addproject" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintlayout_back_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="26dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/background_white_radius"
+        android:elevation="10dp"
+        android:paddingHorizontal="20dp"
+        android:paddingBottom="92dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textview">
+
+        <TextView
+            android:id="@+id/textview2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="40dp"
+            android:text="프로젝트 명"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/edittext_addproject_projectname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/background_edittext_gray_radious"
+            android:hint="프로젝트 명을 입력해주세요"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="11dp"
+            android:textColor="@color/hint_gray"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview2" />
+
+        <TextView
+            android:id="@+id/textview3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="37dp"
+            android:text="호스트의 한마디"
+            app:layout_constraintStart_toStartOf="@id/textview2"
+            app:layout_constraintTop_toBottomOf="@id/edittext_addproject_projectname" />
+
+        <EditText
+            android:id="@+id/edittext_addproject_notice"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/background_edittext_gray_radious"
+            android:hint="프로젝트의 공지 사항을 입력해주세요."
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="11dp"
+            android:textSize="11sp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            app:layout_constraintDimensionRatio="w,1:2"
+            app:layout_constraintEnd_toEndOf="@id/edittext_addproject_projectname"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@id/edittext_addproject_projectname"
+            app:layout_constraintTop_toBottomOf="@id/textview3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintlayout_back_card"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintlayout_back_card">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_button_yellow_radius"
+            android:backgroundTint="@color/storm_yellow"
+            android:paddingHorizontal="44dp"
+            android:paddingVertical="13dp"
+            android:text="추가하기"
+            android:layout_margin="5dp"/>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

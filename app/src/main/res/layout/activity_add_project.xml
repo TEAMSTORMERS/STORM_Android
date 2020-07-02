@@ -61,6 +61,7 @@
         android:paddingHorizontal="20dp"
         android:paddingBottom="92dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textview">
 
@@ -98,19 +99,20 @@
             app:layout_constraintStart_toStartOf="@id/textview2"
             app:layout_constraintTop_toBottomOf="@id/edittext_addproject_projectname" />
 
+        <!--Todo: 줄 간격 디자이너한테 물어보고 조절하기-->
         <EditText
             android:id="@+id/edittext_addproject_notice"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="12dp"
             android:background="@drawable/background_edittext_gray_radious"
+            android:ems="10"
+            android:gravity="start|top"
             android:hint="프로젝트의 공지 사항을 입력해주세요."
+            android:inputType="textMultiLine"
             android:paddingHorizontal="16dp"
             android:paddingVertical="11dp"
             android:textSize="11sp"
-            android:ems="10"
-            android:gravity="start|top"
-            android:inputType="textMultiLine"
             app:layout_constraintDimensionRatio="w,1:2"
             app:layout_constraintEnd_toEndOf="@id/edittext_addproject_projectname"
             app:layout_constraintHorizontal_bias="1.0"
