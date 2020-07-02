@@ -1,0 +1,11 @@
+package com.stormers.storm
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+
+class activity_round_ongoing : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_round_ongoing)
+    }
+}
