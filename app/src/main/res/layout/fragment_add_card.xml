@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <ImageView
+        android:id="@+id/ImageView_tap_add_card"
+        android:layout_width="254dp"
+        android:layout_height="161dp"
+        android:layout_marginTop="186dp"
+        android:elevation="10dp"
+        android:src="@drawable/round1_card"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageButton
+        android:id="@+id/ImageButton_tap_add_card"
+        android:layout_width="84dp"
+        android:layout_height="44dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/round1_btn_addcard"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ImageView_tap_add_card"
+        app:layout_constraintEnd_toEndOf="@+id/ImageView_tap_add_card"
+        app:layout_constraintStart_toStartOf="@+id/ImageView_tap_add_card"
+        app:layout_constraintTop_toTopOf="@+id/ImageView_tap_add_card" />
+
+    <ImageView
+        android:id="@+id/ImageView_add_card"
+        android:layout_width="103dp"
+        android:layout_height="112dp"
+        android:layout_marginBottom="165dp"
+        android:src="@drawable/round1_ic_addcard"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
