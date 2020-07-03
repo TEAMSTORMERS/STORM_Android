@@ -38,22 +38,22 @@ class AddedCardFragment : Fragment() {
         datas.apply {
             add(
                 AddedCardData(
-                    ImageView_added_card = context?.getDrawable(R.drawable.round2_card1)
+                    ImageView_added_card = context?.getDrawable(R.drawable.storm_logo_example)
                 )
             )
             add(
                 AddedCardData(
-                    ImageView_added_card = context?.getDrawable(R.drawable.round2_card1)
+                    ImageView_added_card = context?.getDrawable(R.drawable.storm_logo_example)
                 )
             )
             add(
                 AddedCardData(
-                    ImageView_added_card = context?.getDrawable(R.drawable.round2_card1)
+                    ImageView_added_card = context?.getDrawable(R.drawable.storm_logo_example)
                 )
             )
             add(
                 AddedCardData(
-                    ImageView_added_card = context?.getDrawable(R.drawable.round2_card1)
+                    ImageView_added_card = context?.getDrawable(R.drawable.storm_logo_example)
                 )
             )
         }
