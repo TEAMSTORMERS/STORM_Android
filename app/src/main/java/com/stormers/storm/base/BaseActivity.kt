@@ -10,7 +10,7 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
     }
 
-    protected fun showDialog(message: String) {
-        StormDialog().show(supportFragmentManager, StormDialog.TAG)
+    protected fun showDialog(dialog: Int, message: String) {
+        StormDialog(dialog, message).show(supportFragmentManager, StormDialog.TAG)
     }
 }
