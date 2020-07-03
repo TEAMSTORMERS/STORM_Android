@@ -14,7 +14,7 @@
         <item name="android:paddingEnd">16dp</item>
         <item name="android:paddingTop">11dp</item>
         <item name="android:paddingBottom">11dp</item>
-        <item name="android:textColor">@color/storm_gray1</item>
+        <item name="android:textColor">@color/brownish_grey</item>
         <item name="android:textSize">11sp</item>
     </style>
 
