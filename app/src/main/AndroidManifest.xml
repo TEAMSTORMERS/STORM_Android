@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".activity_round_ongoing"/>
         <activity android:name=".AddProjectActivity" />
-        <activity android:name=".RoundSetting.HostRoundSetting" />
+        <activity android:name=".RoundSetting.HostRoundSettingActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
