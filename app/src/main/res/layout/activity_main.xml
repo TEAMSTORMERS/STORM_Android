@@ -106,7 +106,6 @@
         android:text="참여한 프로젝트"
         android:textColor="@color/brownish_grey"
         android:textSize="16sp"
-        android:layout_marginTop="25dp"
         app:layout_constraintEnd_toStartOf="@+id/imageButton"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="@+id/imagebutton_start_storming"
@@ -135,21 +134,22 @@
         android:scrollbarThumbHorizontal="@color/storm_yellow"
         android:scrollbarTrackHorizontal="@color/brownish_grey">
 
-        <androidx.recyclerview.widget.RecyclerView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/textview_past_project_list"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:layout_editor_absoluteX="151dp">
+            android:orientation="horizontal">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_participated_projects_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/textview_past_project_list"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_participated_projects_list">
+            </androidx.recyclerview.widget.RecyclerView>
 
-        </androidx.recyclerview.widget.RecyclerView>
-
-
-
-
+        </LinearLayout>
     </HorizontalScrollView>
 
 
