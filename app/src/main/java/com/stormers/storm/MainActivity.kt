@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.stormers.storm.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_add_project.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -28,7 +29,7 @@ class MainActivity : BaseActivity() {
 
         participatedProjectsAdapter = ParticipatedProjectsAdapter(this)
         recycler_participated_projects_list.adapter = participatedProjectsAdapter
-        recycler_participated_projects_list.layoutManager = LinearLayoutManager(this)
+        recycler_participated_projects_list.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
 
         loadProjectsDatas()
     }
@@ -67,6 +68,8 @@ class MainActivity : BaseActivity() {
             )
 
         }
+
+        participatedProjectsAdapter.datas = datas
     }
 
 
