@@ -2,7 +2,11 @@ package com.stormers.storm
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stormers.storm.base.BaseActivity
@@ -27,10 +31,48 @@ class MainActivity : BaseActivity() {
         val ab = supportActionBar!!
         ab.setDisplayShowTitleEnabled(false)
 
+
+
+        val drawerToggle: ActionBarDrawerToggle = object : ActionBarDrawerToggle(
+            this,
+            drawerlayout_main,
+            mainview_toolbar,
+            R.string.drawer_open,
+            R.string.drawer_close
+        ){
+            override fun onDrawerClosed(view: View){
+                super.onDrawerClosed(view)
+            }
+            override fun onDrawerOpened(drawerView: View){
+                super.onDrawerOpened(drawerView)
+            }
+        }
+        // Configure the drawer layout to add listener and show icon on toolbar
+        drawerToggle.isDrawerIndicatorEnabled = true
+        drawerlayout_main.addDrawerListener(drawerToggle)
+        drawerToggle.syncState()
+
+        navigationview_main.setNavigationItemSelectedListener{menuItem ->
+            when(menuItem.itemId){
+                R.id.item1 -> Toast.makeText(this,"item1 selected", Toast.LENGTH_SHORT).show()
+                R.id.item2 -> Toast.makeText(this,"item2 selected", Toast.LENGTH_SHORT).show()
+                R.id.item3 -> Toast.makeText(this,"item3 selected", Toast.LENGTH_SHORT).show()
+            }
+            drawerlayout_main.closeDrawer(GravityCompat.START)
+            true
+        }
+
+
+        // Configure the drawer layout to add listener and show icon on toolbar
+        drawerToggle.isDrawerIndicatorEnabled = true
+        drawerlayout_main.addDrawerListener(drawerToggle)
+        drawerToggle.syncState()
+
+
+
         participatedProjectsAdapter = ParticipatedProjectsAdapter(this)
         recycler_participated_projects_list.adapter = participatedProjectsAdapter
         recycler_participated_projects_list.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-
         loadProjectsDatas()
     }
 

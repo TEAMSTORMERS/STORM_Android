@@ -1,138 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/drawerlayout_main"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start"
     tools:context=".MainActivity">
 
-
-    <ImageView
-        android:id="@+id/imageView_background_red_radius"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/background_red_radius"
-        android:elevation="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.548"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/mainview_toolbar"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="49dp"
-        android:elevation="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
+        android:layout_height="match_parent">
         <ImageView
-            android:id="@+id/imagebutton_storm_logo"
+            android:id="@+id/imageView_background_red_radius"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/background_red_radius"
+            android:elevation="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.548"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/mainview_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="49dp"
+            android:elevation="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imagebutton_storm_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/storm_logo" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+        <TextView
+            android:id="@+id/textview_participate_project"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/storm_logo" />
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="42dp"
+            android:elevation="10dp"
+            android:fontFamily="@font/notosans_bold"
+            android:text="프로젝트 참여하기"
+            android:textColor="@color/storm_white"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainview_toolbar" />
 
-    </androidx.appcompat.widget.Toolbar>
+        <EditText
+            android:id="@+id/edittext_input_participate_code"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="26dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/background_edittext_search"
+            android:drawableLeft="@drawable/main_ic_search"
+            android:elevation="10dp"
+            android:hint="참여 코드 입력"
+            android:paddingLeft="15dp"
+            android:textColorHint="@color/brownish_grey"
+            android:textColor="@color/brownish_grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textview_participate_project" />
 
-
-    <TextView
-        android:id="@+id/textview_participate_project"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="42dp"
-        android:elevation="10dp"
-        android:fontFamily="@font/notosans_bold"
-        android:text="프로젝트 참여하기"
-        android:textColor="@color/storm_white"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainview_toolbar" />
-
-    <EditText
-        android:id="@+id/edittext_input_participate_code"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="26dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/background_edittext_search"
-        android:drawableLeft="@drawable/main_ic_search"
-        android:elevation="10dp"
-        android:hint="참여 코드 입력"
-        android:paddingLeft="15dp"
-        android:textColorHint="@color/brownish_grey"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_participate_project" />
-
-    <TextView
-        android:id="@+id/textview_add_project"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="216dp"
-        android:elevation="10dp"
-        android:fontFamily="@font/notosans_bold"
-        android:text="프로젝트 추가하기"
-        android:textColor="@color/storm_white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/imageView_background_red_radius"
-        app:layout_constraintTop_toBottomOf="@+id/edittext_input_participate_code" />
+        <TextView
+            android:id="@+id/textview_add_project"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="216dp"
+            android:elevation="10dp"
+            android:fontFamily="@font/notosans_bold"
+            android:text="프로젝트 추가하기"
+            android:textColor="@color/storm_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/imageView_background_red_radius"
+            app:layout_constraintTop_toBottomOf="@+id/edittext_input_participate_code" />
 
 
-    <ImageButton
-        android:id="@+id/imagebutton_start_storming"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/mainview_stormingstartcard"
-        android:elevation="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/edittext_input_participate_code"
-        app:layout_constraintHorizontal_bias="0.47"
-        app:layout_constraintStart_toStartOf="@+id/edittext_input_participate_code"
-        app:layout_constraintTop_toBottomOf="@+id/textview_add_project" />
+        <ImageButton
+            android:id="@+id/imagebutton_start_storming"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/mainview_stormingstartcard"
+            android:elevation="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/edittext_input_participate_code"
+            app:layout_constraintHorizontal_bias="0.47"
+            app:layout_constraintStart_toStartOf="@+id/edittext_input_participate_code"
+            app:layout_constraintTop_toBottomOf="@+id/textview_add_project" />
 
-    <TextView
-        android:id="@+id/textview_past_project_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/notosans_bold"
-        android:text="참여한 프로젝트"
-        android:textColor="@color/brownish_grey"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toStartOf="@+id/imagebutton_start_storming"
-        app:layout_constraintTop_toBottomOf="@+id/imagebutton_start_storming" />
+        <TextView
+            android:id="@+id/textview_past_project_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/notosans_bold"
+            android:text="참여한 프로젝트"
+            android:textColor="@color/brownish_grey"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/imageButton"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="@+id/imagebutton_start_storming"
+            app:layout_constraintTop_toBottomOf="@+id/imagebutton_start_storming" />
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:background="@drawable/mainview_btn_all"
-        app:layout_constraintBottom_toBottomOf="@+id/textview_past_project_list"
-        app:layout_constraintEnd_toEndOf="@+id/imagebutton_start_storming"
-        app:layout_constraintStart_toEndOf="@+id/textview_past_project_list"
-        app:layout_constraintTop_toTopOf="@+id/textview_past_project_list" />
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/mainview_btn_all"
+            app:layout_constraintBottom_toBottomOf="@+id/textview_past_project_list"
+            app:layout_constraintEnd_toEndOf="@+id/imagebutton_start_storming"
+            app:layout_constraintStart_toEndOf="@+id/textview_past_project_list"
+            app:layout_constraintTop_toTopOf="@+id/textview_past_project_list" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scrollbarAlwaysDrawHorizontalTrack="true"
+            android:scrollbarThumbHorizontal="@color/brownish_grey"
+            android:scrollbarTrackHorizontal="@color/storm_yellow"
+            android:scrollbars="horizontal"
+            android:scrollbarFadeDuration="0"
+            android:scrollbarStyle="outsideInset"
+            app:layout_constraintStart_toStartOf="@id/imagebutton_start_storming"
+            app:layout_constraintTop_toBottomOf="@+id/textview_past_project_list"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_participated_projects_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_participated_projects_list" />
+
+        </androidx.core.widget.NestedScrollView>
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_participated_projects_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/imagebutton_start_storming"
-        app:layout_constraintTop_toBottomOf="@+id/textview_past_project_list"
-        tools:listitem="@layout/item_participated_projects_list" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+<com.google.android.material.navigation.NavigationView
+    android:id="@+id/navigationview_main"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    app:menu="@menu/navigation_main"
+    android:fitsSystemWindows="true"/>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.drawerlayout.widget.DrawerLayout>
