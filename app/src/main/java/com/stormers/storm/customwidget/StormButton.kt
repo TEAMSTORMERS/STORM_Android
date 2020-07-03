@@ -3,6 +3,7 @@ package com.stormers.storm.customwidget
 import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.View
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseConstraintLayout
@@ -38,12 +39,14 @@ class StormButton : BaseConstraintLayout {
             textview_custombutton.text = null
         }
 
-        //Fixme: 작동하지 않음 현재 padding을 하드코딩 한 상태
-//        val paddingVertical = typedArray.getDimension(R.styleable.StormButton_paddingVertical, 0f).toInt()
-//        val paddingHorizontal = typedArray.getDimension(R.styleable.StormButton_paddingHorizontal, 0f).toInt()
-//        this.setPadding(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical)
+        val paddingVertical = typedArray.getDimension(R.styleable.StormButton_paddingVertical, 0f).toInt()
+        val paddingHorizontal = typedArray.getDimension(R.styleable.StormButton_paddingHorizontal, 0f).toInt()
+        constraintlayout_custombutton_root.setPadding(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical)
 
-        val textSize = typedArray.getDimension(R.styleable.StormButton_android_textSize, 12f)
-        textview_custombutton.textSize = textSize
+        //픽셀단위로 리턴됨
+        val textSize = typedArray.getDimension(R.styleable.StormButton_textSize, 12f)
+
+        //픽셀 단위임을 명시해주어야 함 TypeValue.COMPLEX_UNIT_PX
+        textview_custombutton.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
     }
 }

@@ -18,4 +18,10 @@
         <item name="android:textSize">11sp</item>
     </style>
 
+    <!--Custom Button-->
+    <style name="custom_button" parent="Widget.AppCompat.TextView">
+        <item name="android:textStyle">bold</item>
+        <!--Todo: 폰트 지정하기-->
+    </style>
+
 </resources>

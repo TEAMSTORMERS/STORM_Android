@@ -37,12 +37,16 @@ abstract class BaseConstraintLayout : ConstraintLayout {
         val typedArray = context.obtainStyledAttributes(attrs, styleableRes)
 
         setTypedArray(typedArray)
+
+        typedArray.recycle()
     }
 
     private fun getAttrs(attrs: AttributeSet, defStyleAttr: Int, @StyleableRes styleableRes: IntArray) {
         val typedArray = context.obtainStyledAttributes(attrs, styleableRes, defStyleAttr, 0) as TypedArray
 
         setTypedArray(typedArray)
+
+        typedArray.recycle()
     }
 
     abstract fun setTypedArray(typedArray: TypedArray)
