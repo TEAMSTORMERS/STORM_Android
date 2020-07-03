@@ -19,13 +19,10 @@ class MainActivity : BaseActivity() {
 
         val ab = supportActionBar!!
         ab.setDisplayShowTitleEnabled(false)
-
-
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_main, menu)
         return super.onCreateOptionsMenu(menu)
     }
-
 
 }

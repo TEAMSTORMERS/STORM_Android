@@ -7,4 +7,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TextHint" parent="Base.TextAppearance.AppCompat">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColorHint">@color/brownish_grey</item>
+        <item name="android:paddingLeft">13dp</item>
+    </style>
+
 </resources>
