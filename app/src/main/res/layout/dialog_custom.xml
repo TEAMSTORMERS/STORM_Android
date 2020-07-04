@@ -29,101 +29,58 @@
         android:textColor="@color/brownish_grey"
         android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/constraintLayout_dialog_code"
+        app:layout_constraintBottom_toTopOf="@id/linearlayout_dialog_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageview_dialog_symbol" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout_dialog_code"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="49dp"
-        app:layout_constraintBottom_toTopOf="@+id/view_dialog_divider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_dialog_title"
-        app:layout_constraintWidth_percent="0.67">
-
-        <TextView
-            android:id="@+id/textview_dialog_code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="V2X3ER"
-            android:textColor="@color/brownish_grey"
-            android:textIsSelectable="true"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/button_dialog_copy"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/button_dialog_copy"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/background_button_gray_radius"
-            android:text="복사"
-            android:textColor="@color/brownish_grey"
-            android:textSize="9sp"
-            app:layout_constraintBottom_toBottomOf="@id/textview_dialog_code"
-            app:layout_constraintDimensionRatio="2.2:1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/textview_dialog_code"
-            app:layout_constraintTop_toTopOf="@id/textview_dialog_code" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
     <View
-        android:id="@+id/view_dialog_divider"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="9dp"
-        android:background="@color/brownish_grey"
-        app:layout_constraintBottom_toTopOf="@id/view_dialog_divider2"
-        app:layout_constraintEnd_toEndOf="@id/constraintLayout_dialog_code"
-        app:layout_constraintStart_toStartOf="@id/constraintLayout_dialog_code"
-        app:layout_constraintTop_toBottomOf="@id/constraintLayout_dialog_code" />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/group_dialog_code"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="constraintLayout_dialog_code, view_dialog_divider" />
-
-    <View
-        android:id="@+id/view_dialog_divider2"
+        android:id="@+id/view_dialog_framing"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="61dp"
-        android:background="@color/brownish_grey"
-        app:layout_constraintBottom_toTopOf="@id/constraintLayout_dialog_button"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_dialog_divider" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout_dialog_button"
-        android:layout_width="0dp"
-        android:layout_height="64dp"
-        android:background="?android:selectableItemBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="invisible"/>
+
+    <LinearLayout
+        android:id="@+id/linearlayout_dialog_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_dialog_divider2">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textview_dialog_title"
+        app:layout_constraintBottom_toTopOf="@+id/linearlayout_dialog_buttons">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <!--empty yet-->
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearlayout_dialog_buttons"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearlayout_dialog_content"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!--empty yet-->
+
+        <LinearLayout
+            android:id="@+id/linearlayout_dialog_horizontalbuttons"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="확인"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:orientation="horizontal">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <!--empty yet-->
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
