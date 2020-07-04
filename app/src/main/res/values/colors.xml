@@ -14,5 +14,5 @@
     <color name="storm_popup_gray">#000000</color>
     <color name="brownish_grey">#707070</color>
     <color name="cardshadow_5">#0d000000</color>
-
+    <color name="gray_copy_button">#d5d5d5</color>
 </resources>
