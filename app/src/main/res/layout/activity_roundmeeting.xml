@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView_background_red_radius"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.52"
+        android:background="@drawable/background_red_radius"
+        android:elevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imageView_logo_roundmeeting"
+        android:layout_width="159dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="37dp"
+        android:elevation="10dp"
+        android:background="@drawable/round1_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- TODO : Round Setting Fragment  -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout_roundmeeting"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="40dp"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_scrapcard_save_roundmeeting"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_round_goal_roundmeeting">
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView_project_name_roundmeeting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="32dp"
+        android:elevation="10dp"
+        android:text="프로젝트 명"
+        android:textSize="12sp"
+        android:textColor="@color/storm_white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_logo_roundmeeting" />
+
+    <TextView
+        android:id="@+id/textView_round_goal_roundmeeting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="라운드 목표"
+        android:textColor="@color/storm_white"
+        android:textSize="12sp"
+        android:elevation="10dp"
+        app:layout_constraintStart_toStartOf="@+id/textView_project_name_roundmeeting"
+        app:layout_constraintTop_toBottomOf="@+id/textView_project_name_roundmeeting" />
+
+    <TextView
+        android:id="@+id/textView_round_roundmeeting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:text="ROUND 1"
+        android:textSize="12sp"
+        android:elevation="10dp"
+        android:textColor="@color/storm_white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView_project_name_roundmeeting" />
+
+    <TextView
+        android:id="@+id/textView_time_roundmeeting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="총 00:00 남음"
+        android:textSize="12sp"
+        android:elevation="10dp"
+        android:textColor="@color/storm_white"
+        app:layout_constraintEnd_toEndOf="@+id/textView_round_roundmeeting"
+        app:layout_constraintTop_toBottomOf="@+id/textView_round_roundmeeting" />
+
+    <Button
+        android:id="@+id/button_scrapcard_save_roundmeeting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/storm_white"
+        android:elevation="10dp"
+        android:fontFamily="@font/notosans_bold"
+        android:paddingHorizontal="35dp"
+        android:paddingVertical="14dp"
+        android:text="FINISH !"
+        android:textColor="@color/storm_red"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
