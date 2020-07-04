@@ -9,17 +9,23 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
 import com.stormers.storm.R
-import kotlinx.android.synthetic.main.dialog_custom.*
 import kotlinx.android.synthetic.main.dialog_custom.view.*
 import kotlinx.android.synthetic.main.dialog_custom.view.imageview_dialog_symbol
 
 class StormDialog(private val dialogType: Int, val message: String) : DialogFragment() {
+
     companion object {
         const val TAG = "storm_dialog"
 
         const val NORMAL_WITH_ONE_BUTTON = 0
         const val CODE_FOR_PARTICIPATION = 1
         const val WAITING_NO_BUTTON = 2
+    }
+
+    var listener: OnClickListener? = null
+
+    constructor(dialogType: Int, message: String, listener: OnClickListener) : this(dialogType, message) {
+        this.listener = listener
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -49,9 +55,14 @@ class StormDialog(private val dialogType: Int, val message: String) : DialogFrag
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
 
         view.constraintLayout_dialog_button.setOnClickListener {
+            listener?.onClick()
             dismiss()
         }
 
         return view
+    }
+
+    interface OnClickListener {
+        fun onClick()
     }
 }

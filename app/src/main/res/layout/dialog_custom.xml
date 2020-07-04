@@ -28,6 +28,7 @@
         android:text="참여 코드 생성 완료!"
         android:textColor="@color/brownish_grey"
         android:textSize="15sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/constraintLayout_dialog_code"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,12 +38,12 @@
         android:id="@+id/constraintLayout_dialog_code"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintWidth_percent="0.67"
         android:layout_marginTop="49dp"
         app:layout_constraintBottom_toTopOf="@+id/view_dialog_divider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_dialog_title">
+        app:layout_constraintTop_toBottomOf="@id/textview_dialog_title"
+        app:layout_constraintWidth_percent="0.67">
 
         <TextView
             android:id="@+id/textview_dialog_code"
@@ -86,6 +87,12 @@
         app:layout_constraintStart_toStartOf="@id/constraintLayout_dialog_code"
         app:layout_constraintTop_toBottomOf="@id/constraintLayout_dialog_code" />
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_dialog_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="constraintLayout_dialog_code, view_dialog_divider" />
+
     <View
         android:id="@+id/view_dialog_divider2"
         android:layout_width="match_parent"
@@ -99,11 +106,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout_dialog_button"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:background="?android:selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.19"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view_dialog_divider2">
 
@@ -111,12 +118,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="확인"
+            android:textSize="14sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
