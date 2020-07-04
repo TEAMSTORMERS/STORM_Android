@@ -59,7 +59,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Todo: 배경색 디자이너에게 정확하게 알아와서 수정하기-->
         <Button
             android:id="@+id/button_dialog_copy"
             android:layout_width="0dp"
