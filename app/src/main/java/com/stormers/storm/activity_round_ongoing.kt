@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.stormers.storm.RoundSetting.AddCardFragment
 import com.stormers.storm.addcard.AddedCardFragment
+import com.stormers.storm.scrapcard.ScrapcardDetailFragment
 
 class activity_round_ongoing : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,7 +14,8 @@ class activity_round_ongoing : AppCompatActivity() {
         setContentView(R.layout.activity_round_ongoing)
 
         //addFragment(AddCardFragment())
-        addFragment(AddedCardFragment())
+        //addFragment(AddedCardFragment())
+        addFragment(ScrapcardDetailFragment())
     }
 
     private fun addFragment(fragment: Fragment) {

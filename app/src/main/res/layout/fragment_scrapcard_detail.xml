@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview_scrapcard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="5dp"
+        app:layout_constraintDimensionRatio="w,1:1.08"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!--Todo: 더미데이터 (카드 상세 이미지가 들어갈 공간입니다) -->
+        <ImageView
+            android:id="@+id/imageView_scrapcard_detail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/scrapview_card" />
+    </androidx.cardview.widget.CardView>
+
+
+    <ImageButton
+        android:id="@+id/imageButton_heart_scrapcard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="9dp"
+        android:elevation="10dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/scrapview_heart"
+        app:layout_constraintEnd_toEndOf="@+id/cardview_scrapcard"
+        app:layout_constraintTop_toTopOf="@+id/cardview_scrapcard" />
+
+    <!--Todo: 더미데이터 (프로필 사진이 들어갈 공간입니다) -->
+    <ImageView
+        android:id="@+id/imageView_scrapcard_profile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="20dp"
+        android:elevation="10dp"
+        android:src="@drawable/scrapview_profile"
+        app:layout_constraintStart_toStartOf="@+id/cardview_scrapcard"
+        app:layout_constraintTop_toTopOf="@+id/cardview_scrapcard" />
+
+    <EditText
+        android:id="@+id/editText_scrapcard_memo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/box_roundcorner_scrapcard"
+        android:elevation="10dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Memo"
+        android:textColorHint="@color/storm_popup_line_gray"
+        android:fontFamily="@font/notosans_regular"
+        android:lines="3"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="7dp"
+        android:textSize="13sp"
+        app:layout_constraintDimensionRatio="w,1:2.3"
+        app:layout_constraintEnd_toEndOf="@+id/cardview_scrapcard"
+        app:layout_constraintStart_toStartOf="@+id/cardview_scrapcard"
+        app:layout_constraintTop_toBottomOf="@+id/cardview_scrapcard" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
