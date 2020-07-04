@@ -7,10 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import androidx.annotation.DrawableRes
+import androidx.annotation.LayoutRes
 import androidx.fragment.app.DialogFragment
 import com.stormers.storm.R
 import kotlinx.android.synthetic.main.dialog_custom.view.*
 import kotlinx.android.synthetic.main.dialog_custom.view.imageview_dialog_symbol
+import kotlinx.android.synthetic.main.item_dialog_buttons.view.*
 
 /**
  * 간단 다이얼로그 생성 클래스
@@ -23,44 +26,39 @@ import kotlinx.android.synthetic.main.dialog_custom.view.imageview_dialog_symbol
  * @const CODE_FOR_PARTICIPATION : 참여 코드를 보여주는 다이얼로그
  * @const WAITING_NO_BUTTON : 로딩 중일 때 띄우는 다이얼로그
  */
-class StormDialog(private val dialogType: Int, val message: String) : DialogFragment() {
+class StormDialog(@DrawableRes val imageRes: Int, private val title: String, @LayoutRes val contentRes: Int?,
+                  private val buttonArray: ArrayList<StormDialogButton>?) : DialogFragment() {
 
     companion object {
         const val TAG = "storm_dialog"
-
-        const val NORMAL_WITH_ONE_BUTTON = 0
-        const val CODE_FOR_PARTICIPATION = 1
-        const val WAITING_NO_BUTTON = 2
-    }
-
-    var listener: OnClickListener? = null
-
-    constructor(dialogType: Int, message: String, listener: OnClickListener) : this(dialogType, message) {
-        this.listener = listener
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.dialog_custom, container)
 
-        when (dialogType) {
-            NORMAL_WITH_ONE_BUTTON -> {
-                view.group_dialog_code.visibility = View.GONE
-                view.textview_dialog_title.text = message
-            }
+        //이미지 적용
+        view.imageview_dialog_symbol.setImageResource(imageRes)
 
-            CODE_FOR_PARTICIPATION -> {
-                //Todo: 참여 코드 복사 기능 추가
-                view.group_dialog_code.visibility = View.VISIBLE
-            }
+        //문구 적용
+        view.textview_dialog_title.text = title
 
-            else -> { // WAITING_NO_BUTTON
-                //Todo: 애니메이션이 계속 진행되도록
-                //Todo: 로딩이 끝나면 다이얼로그를 닫을 수 있는 메서드 추가
-                view.imageview_dialog_symbol.setImageResource(R.drawable.h_roundstart_popup_symbol)
-                view.group_dialog_code.visibility = View.GONE
-                view.constraintLayout_dialog_button.visibility = View.GONE
-                view.view_dialog_divider2.visibility = View.INVISIBLE
-                view.textview_dialog_title.text = message
+        //ContentView 적용
+        contentRes?.let {
+            view.linearlayout_dialog_content.addView(inflater.inflate(contentRes, container))
+        }
+
+        //버튼 적용
+        buttonArray?.let {
+            for (stormDialogButton in buttonArray) {
+                val button = inflater.inflate(R.layout.item_dialog_buttons, container)
+                button.textview_dialog_button.text = stormDialogButton.text
+
+                button.constraintlayout_dialog_button.setOnClickListener {
+                    stormDialogButton.listener.onClick()
+                    dismiss()
+                }
+
+                view.linearlayout_dialog_buttons.addView(button)
             }
         }
 
@@ -68,15 +66,6 @@ class StormDialog(private val dialogType: Int, val message: String) : DialogFrag
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
 
-        view.constraintLayout_dialog_button.setOnClickListener {
-            listener?.onClick()
-            dismiss()
-        }
-
         return view
-    }
-
-    interface OnClickListener {
-        fun onClick()
     }
 }
