@@ -71,6 +71,16 @@
 
         <!--empty yet-->
 
+        <LinearLayout
+            android:id="@+id/linearlayout_dialog_horizontalbuttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!--empty yet-->
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
