@@ -6,27 +6,49 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginRight="16dp">
+    android:layout_marginRight="16dp"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
+    <GridLayout
+        android:id="@+id/item_project_folder"
         android:layout_width="128dp"
         android:layout_height="140dp"
-        app:cardCornerRadius="15dp"
-        app:layout_constraintBottom_toTopOf="@id/name_of_project"
+        android:columnCount="2"
+        android:rowCount="2"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="@drawable/box_roundcorner"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/name_of_project">
 
         <ImageView
-            android:id="@+id/project_img"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/mainview_card_1" />
+            android:id="@+id/card1"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:scaleType="fitXY"
+            android:background="@drawable/left_top_radius_box"/>
+        <ImageView
+            android:id="@+id/card2"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:scaleType="fitXY"
+            android:background="@drawable/right_top_radius"/>
+        <ImageView
+            android:id="@+id/card3"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:scaleType="fitXY"
+            android:background="@drawable/left_bottom_radius"/>
+        <ImageView
+            android:id="@+id/card4"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:scaleType="fitXY"
+            android:background="@drawable/right_bottom_radius"/>
 
 
-    </androidx.cardview.widget.CardView>
+    </GridLayout>
 
     <TextView
         android:id="@+id/name_of_project"
@@ -36,10 +58,10 @@
         android:text="평화의 프로젝트"
         android:textSize="11sp"
         android:textColor="@color/brownish_grey"
-        app:layout_constraintEnd_toEndOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="@+id/item_project_folder"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/cardView"
-        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+        app:layout_constraintStart_toStartOf="@+id/item_project_folder"
+        app:layout_constraintTop_toBottomOf="@+id/item_project_folder" />
 
 
 

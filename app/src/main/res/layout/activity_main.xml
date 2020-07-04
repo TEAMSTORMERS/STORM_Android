@@ -8,7 +8,7 @@
     android:id="@+id/drawerlayout_main"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
-    tools:context=".MainActivity">
+    tools:context=".MainView.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -129,13 +129,14 @@
             app:layout_constraintStart_toEndOf="@+id/textview_past_project_list"
             app:layout_constraintTop_toTopOf="@+id/textview_past_project_list" />
 
-        <HorizontalScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:scrollbars="horizontal"
             android:scrollbarAlwaysDrawHorizontalTrack="true"
             android:scrollbarThumbHorizontal="@color/storm_yellow"
-            android:scrollbarTrackHorizontal="@color/storm_lightyellow"
-            android:scrollbars="horizontal"
+            android:scrollbarTrackHorizontal="@drawable/mainview_processingbar_1"
             android:scrollbarFadeDuration="0"
             android:scrollbarStyle="outsideInset"
             app:layout_constraintStart_toStartOf="@id/imagebutton_start_storming"
@@ -151,7 +152,7 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/item_participated_projects_list" />
 
-        </HorizontalScrollView>
+        </androidx.core.widget.NestedScrollView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

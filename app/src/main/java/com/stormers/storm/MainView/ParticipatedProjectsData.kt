@@ -1,6 +1,9 @@
-package com.stormers.storm
+package com.stormers.storm.MainView
 
 data class ParticipatedProjectsData(
-    val project_img : String,
-    val name_of_project :String
+    val name_of_project :String,
+    val card1 : String,
+    val card2 : String,
+    val card3 : String,
+    val card4 : String
 )
