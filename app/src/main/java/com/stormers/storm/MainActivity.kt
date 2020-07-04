@@ -31,8 +31,6 @@ class MainActivity : BaseActivity() {
         val ab = supportActionBar!!
         ab.setDisplayShowTitleEnabled(false)
 
-
-
         val drawerToggle: ActionBarDrawerToggle = object : ActionBarDrawerToggle(
             this,
             drawerlayout_main,
@@ -47,6 +45,7 @@ class MainActivity : BaseActivity() {
                 super.onDrawerOpened(drawerView)
             }
         }
+
         // Configure the drawer layout to add listener and show icon on toolbar
         drawerToggle.isDrawerIndicatorEnabled = true
         drawerlayout_main.addDrawerListener(drawerToggle)
@@ -69,10 +68,11 @@ class MainActivity : BaseActivity() {
         drawerToggle.syncState()
 
 
-
+        // ParticipatedProjectAdapter
         participatedProjectsAdapter = ParticipatedProjectsAdapter(this)
         recycler_participated_projects_list.adapter = participatedProjectsAdapter
         recycler_participated_projects_list.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+
         loadProjectsDatas()
     }
 
@@ -83,6 +83,8 @@ class MainActivity : BaseActivity() {
     }
 
     private fun loadProjectsDatas() {
+        val datas = mutableListOf<ParticipatedProjectsData>()
+
         datas.apply {
             add(
                 ParticipatedProjectsData(
@@ -104,16 +106,26 @@ class MainActivity : BaseActivity() {
             )
             add(
                 ParticipatedProjectsData(
-                    project_img = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    name_of_project = "평화의 브레인스토밍"
+                    project_img = "https://iv09.wordpress.com/files/2009/09/img_0001.jpg",
+                    name_of_project = "성규의 브레인스토밍"
                 )
             )
-
+            add(
+                ParticipatedProjectsData(
+                    project_img = "https://iv09.wordpress.com/files/2009/09/img_0001.jpg",
+                    name_of_project = "성규의 브레인스토밍"
+                )
+            )
+            add(
+                ParticipatedProjectsData(
+                    project_img = "https://iv09.wordpress.com/files/2009/09/img_0001.jpg",
+                    name_of_project = "성규의 브레인스토밍"
+                )
+            )
         }
 
         participatedProjectsAdapter.datas = datas
+        participatedProjectsAdapter.notifyDataSetChanged()
+
     }
-
-
-
 }
