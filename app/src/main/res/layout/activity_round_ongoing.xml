@@ -41,6 +41,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_round_goal">
 
+        <Button
+            android:id="@+id/button_scrapcard_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_button_yellow_radius"
+            android:elevation="10dp"
+            android:fontFamily="@font/notosans_bold"
+            android:layout_marginBottom="28dp"
+            android:paddingHorizontal="35dp"
+            android:paddingVertical="5dp"
+            android:text="저장"
+            android:textColor="@color/storm_gray"
+            android:textSize="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
@@ -93,5 +111,8 @@
         android:textColor="@color/storm_white"
         app:layout_constraintEnd_toEndOf="@+id/textView_round"
         app:layout_constraintTop_toBottomOf="@+id/textView_round" />
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
