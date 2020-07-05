@@ -68,12 +68,17 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/background_edittext_search"
             android:drawableLeft="@drawable/main_ic_search"
+            android:drawablePadding="12.6dp"
             android:elevation="10dp"
             android:hint="참여 코드 입력"
             android:paddingLeft="15dp"
+            android:fontFamily="@font/notosans_regular"
             android:textColorHint="@color/brownish_grey"
             android:textColor="@color/brownish_grey"
             android:includeFontPadding="false"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textview_participate_project" />
@@ -127,7 +132,6 @@
             android:id="@+id/imageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:background="@drawable/mainview_btn_all"
             app:layout_constraintBottom_toBottomOf="@+id/textview_past_project_list"
             app:layout_constraintEnd_toEndOf="@+id/imagebutton_start_storming"
@@ -150,17 +154,18 @@
             android:scrollbarStyle="outsideInset"
             app:layout_constraintStart_toStartOf="@id/imagebutton_start_storming"
             app:layout_constraintTop_toBottomOf="@+id/textview_past_project_list"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-<com.google.android.material.navigation.NavigationView
-    android:id="@+id/navigationview_main"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:layout_gravity="start"
-    app:menu="@menu/navigation_main"
-    android:fitsSystemWindows="true"/>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigationview_main"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:menu="@menu/navigation_main"
+        android:fitsSystemWindows="true"/>
+
 
 
 </androidx.drawerlayout.widget.DrawerLayout>
