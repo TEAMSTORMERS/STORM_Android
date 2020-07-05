@@ -2,16 +2,16 @@ package com.stormers.storm.customwidget
 
 import android.content.Context
 import android.content.res.TypedArray
+import android.os.Handler
 import android.util.AttributeSet
-import android.util.Log
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.TextView
 import androidx.cardview.widget.CardView
 import com.stormers.storm.R
 import com.stormers.storm.util.MetricsUtil
-import kotlinx.android.synthetic.main.view_button_custom.view.*
 import kotlinx.android.synthetic.main.view_card_custom.view.*
+
 
 class StormCard : CardView {
     companion object {
@@ -19,7 +19,10 @@ class StormCard : CardView {
         private val styleableRes = R.styleable.StormCard
 
         private const val RADIUS = 15f
+        private const val CLICK_DELAY = 250L
     }
+
+    private var doubleClickFlag = 0
 
     var heartState = true
 
@@ -67,16 +70,37 @@ class StormCard : CardView {
         if (!showHeartButton) {
             imagebutton_customcard_heart.visibility = View.GONE
         } else {
-            switchHeartState()
+            imagebutton_customcard_heart.setOnClickListener {
+                switchHeartState()
+            }
         }
 
         val isTouchable = typedArray.getBoolean(R.styleable.StormCard_isTouchable, false)
 
         if (isTouchable) {
-            //Todo: 더블 클릭 시 하트 채우기
+
+            this.setOnClickListener {
+                doubleClickFlag++
+
+                val handler = Handler()
+
+                val clickRunnable = Runnable {
+                    doubleClickFlag = 0
+                }
+
+                if (doubleClickFlag == 1) {
+
+                    handler.postDelayed(clickRunnable, CLICK_DELAY)
+                } else if (doubleClickFlag == 2) {
+
+                    // Todo: 이벤트 효과 적용
+                    doubleClickFlag = 0
+                    switchHeartState()
+                }
+            }
         }
 
-        val elevation = typedArray.getDimension(R.styleable.StormButton_android_elevation, 1f)
+        val elevation = typedArray.getDimension(R.styleable.StormCard_android_elevation, 1f)
         this.elevation = elevation
 
         radius = MetricsUtil.convertDpToPixel(RADIUS, context)
@@ -84,15 +108,12 @@ class StormCard : CardView {
     }
 
     private fun switchHeartState() {
-        imagebutton_customcard_heart.setOnClickListener {
-            heartState = if (heartState) {
-                imagebutton_customcard_heart.setImageResource(R.drawable.scrapcard_btn_heart_1)
-                false
-            } else {
-                imagebutton_customcard_heart.setImageResource(R.drawable.scrapview_heart)
-                true
-            }
+        heartState = if (heartState) {
+            imagebutton_customcard_heart.setImageResource(R.drawable.scrapcard_btn_heart_1)
+            false
+        } else {
+            imagebutton_customcard_heart.setImageResource(R.drawable.scrapview_heart)
+            true
         }
     }
-
 }
