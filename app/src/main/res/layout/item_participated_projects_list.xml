@@ -9,46 +9,48 @@
     android:layout_marginRight="16dp"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <GridLayout
-        android:id="@+id/item_project_folder"
-        android:layout_width="128dp"
-        android:layout_height="140dp"
-        android:columnCount="2"
-        android:rowCount="2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/box_roundcorner"
-        android:elevation="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/name_of_project">
 
-        <ImageView
-            android:id="@+id/card1"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:scaleType="fitXY"
-            android:background="@drawable/left_top_radius_box"/>
-        <ImageView
-            android:id="@+id/card2"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:scaleType="fitXY"
-            android:background="@drawable/right_top_radius"/>
-        <ImageView
-            android:id="@+id/card3"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:scaleType="fitXY"
-            android:background="@drawable/left_bottom_radius"/>
-        <ImageView
-            android:id="@+id/card4"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:scaleType="fitXY"
-            android:background="@drawable/right_bottom_radius"/>
+        <GridLayout
+            android:id="@+id/item_project_folder"
+            android:layout_width="128dp"
+            android:layout_height="140dp"
+            android:columnCount="2"
+            android:rowCount="2"
+            app:layout_constraintBottom_toTopOf="@+id/name_of_project"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
 
-    </GridLayout>
+            <ImageView
+                android:id="@+id/card1"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:scaleType="fitXY" />
+
+            <ImageView
+                android:id="@+id/card2"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:scaleType="fitXY" />
+
+            <ImageView
+                android:id="@+id/card3"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:scaleType="fitXY" />
+
+            <ImageView
+                android:id="@+id/card4"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:scaleType="fitXY" />
+
+        </GridLayout>
+
+
+
+
 
     <TextView
         android:id="@+id/name_of_project"

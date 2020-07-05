@@ -129,10 +129,14 @@
             app:layout_constraintStart_toEndOf="@+id/textview_past_project_list"
             app:layout_constraintTop_toTopOf="@+id/textview_past_project_list" />
 
-        <androidx.core.widget.NestedScrollView
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_participated_projects_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_participated_projects_list"
             android:scrollbars="horizontal"
             android:scrollbarAlwaysDrawHorizontalTrack="true"
             android:scrollbarThumbHorizontal="@color/storm_yellow"
@@ -142,17 +146,7 @@
             app:layout_constraintStart_toStartOf="@id/imagebutton_start_storming"
             app:layout_constraintTop_toBottomOf="@+id/textview_past_project_list"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_participated_projects_list"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_participated_projects_list" />
-
-        </androidx.core.widget.NestedScrollView>
+            app:layout_constraintEnd_toEndOf="parent"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

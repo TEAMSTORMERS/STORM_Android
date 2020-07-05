@@ -63,12 +63,6 @@ class MainActivity : BaseActivity() {
         }
 
 
-        // Configure the drawer layout to add listener and show icon on toolbar
-        drawerToggle.isDrawerIndicatorEnabled = true
-        drawerlayout_main.addDrawerListener(drawerToggle)
-        drawerToggle.syncState()
-
-
         // ParticipatedProjectAdapter
         participatedProjectsAdapter =
             ParticipatedProjectsAdapter(this)
