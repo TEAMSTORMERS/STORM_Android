@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--Todo: 수직,수평 divider 추가 -->
-<!--Todo: margin은 빼고 MarginDecoration 클래스 사용하자 !-->
 <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/item_participated_list"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -10,7 +8,6 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Todo: Radius 값은 임의로 넣은 거라 이게 맞는지 모르겠어! 확인하고 수정해줘 !-->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview_project_forder"
         android:layout_width="128dp"
