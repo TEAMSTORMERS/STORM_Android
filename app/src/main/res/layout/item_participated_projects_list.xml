@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<!--fixme : 그리드뷰의 모서리 round처리 적용해야함 그리고 수직,수평 divider도 추가해야함) -->
 <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/item_participated_list"
     xmlns:android="http://schemas.android.com/apk/res/android"
