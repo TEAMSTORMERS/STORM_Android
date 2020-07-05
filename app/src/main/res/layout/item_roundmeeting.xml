@@ -15,8 +15,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginBottom="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_marginVertical="10dp"
+        android:layout_marginHorizontal="10dp">
 
         <ImageView
             android:id="@+id/ImageView_added_card_roundmeeting"
