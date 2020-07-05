@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
+import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_participated_projects_list.*
 
@@ -68,7 +69,7 @@ class MainActivity : BaseActivity() {
             ParticipatedProjectsAdapter(this)
         recycler_participated_projects_list.adapter = participatedProjectsAdapter
         recycler_participated_projects_list.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-
+        recycler_participated_projects_list.addItemDecoration(MarginDecoration(baseContext,16,RecyclerView.HORIZONTAL))
         loadProjectsDatas()
     }
 

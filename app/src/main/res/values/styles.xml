@@ -7,12 +7,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-<<<<<<< HEAD
     <style name="TextHint" parent="Base.TextAppearance.AppCompat">
         <item name="android:textSize">14sp</item>
         <item name="android:textColorHint">@color/brownish_grey</item>
         <item name="android:paddingLeft">13dp</item>
-=======
+    </style>
     <!--Custom EditText-->
     <style name="custom_editText" parent="Widget.AppCompat.EditText">
         <item name="android:background">@drawable/background_edittext_gray_radious</item>
@@ -23,7 +22,7 @@
         <item name="android:textColor">@color/storm_gray</item>
         <item name="android:textColorHint">@color/storm_popup_line_gray</item>
         <item name="android:textSize">13sp</item>
->>>>>>> 7df8c9779bdde291916d1ef35ce6f5a5ae0701e5
+
     </style>
 
 </resources>
