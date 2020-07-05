@@ -8,10 +8,11 @@
 
     <ImageView
         android:id="@+id/ImageView_tap_add_card"
-        android:layout_width="254dp"
-        android:layout_height="161dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:elevation="10dp"
         android:src="@drawable/round1_card"
+        app:layout_constraintDimensionRatio="2,1.58:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,14 +31,15 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RecyclerView_added_card"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="11dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ImageView_tap_add_card"
         app:spanCount="2"
-        tools:layout_editor_absoluteX="20dp"
         tools:listitem="@layout/item_added_card" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
