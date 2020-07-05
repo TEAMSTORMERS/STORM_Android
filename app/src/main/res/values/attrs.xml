@@ -4,4 +4,10 @@
         <attr name="showRemoveAll" format="boolean" />
         <attr name="android:hint" format="reference|string"/>
     </declare-styleable>
+
+    <declare-styleable name="StormButton">
+        <attr name="android:text" format="reference|string"/>
+        <attr name="android:elevation" format="dimension"/>
+    </declare-styleable>
 </resources>
+

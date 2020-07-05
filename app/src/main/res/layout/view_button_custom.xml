@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:id="@+id/cardview_custombutton_root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:clickable="true"
+    android:foreground="?android:selectableItemBackground">
+
+    <TextView
+        android:id="@+id/textview_custombutton"
+        android:text="StormButton"
+        style="@style/storm_button_textview" />
+
+</androidx.cardview.widget.CardView>
