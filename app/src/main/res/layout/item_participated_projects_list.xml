@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--Todo: 수직,수평 divider 추가 -->
-
 <!--Todo: margin은 빼고 MarginDecoration 클래스 사용하자 !-->
 <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/item_participated_list"
@@ -14,8 +13,8 @@
     <!-- Todo: Radius 값은 임의로 넣은 거라 이게 맞는지 모르겠어! 확인하고 수정해줘 !-->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview_project_forder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="128dp"
+        android:layout_height="140dp"
         app:cardCornerRadius="15dp"
         app:layout_constraintBottom_toTopOf="@+id/name_of_project"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,8 +23,9 @@
 
         <GridLayout
             android:id="@+id/item_project_folder"
-            android:layout_width="128dp"
-            android:layout_height="140dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/storm_popup_line_gray"
             android:columnCount="2"
             android:rowCount="2"
             >
@@ -34,25 +34,33 @@
                 android:id="@+id/card1"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
+                android:layout_marginRight="0.5dp"
+                android:layout_marginBottom="0.5dp"
                 android:scaleType="fitXY" />
 
             <ImageView
                 android:id="@+id/card2"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
+                android:layout_marginLeft="0.5dp"
+                android:layout_marginBottom="0.5dp"
                 android:scaleType="fitXY" />
 
             <ImageView
                 android:id="@+id/card3"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
+                android:layout_marginTop="0.5dp"
+                android:layout_marginRight="0.5dp"
                 android:scaleType="fitXY" />
 
             <ImageView
                 android:id="@+id/card4"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:scaleType="fitXY" />
+                android:layout_marginTop="0.5dp"
+                android:layout_marginLeft="0.5dp"
+                android:scaleType="fitXY"/>
 
         </GridLayout>
 
@@ -66,6 +74,7 @@
         android:text="평화의 프로젝트"
         android:textSize="11sp"
         android:textColor="@color/brownish_grey"
+        android:includeFontPadding="false"
         app:layout_constraintEnd_toEndOf="@+id/cardview_project_forder"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/cardview_project_forder"
