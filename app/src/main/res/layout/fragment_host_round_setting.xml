@@ -35,34 +35,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageview_symbol" />
 
-    <EditText
+    <com.stormers.storm.customwidget.StormEditText
         android:id="@+id/edittext_round_time"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/box_roundcorner"
-        android:fontFamily="@font/notosans_medium"
         android:hint="라운드 소요 시간"
-        android:paddingHorizontal="10dp"
         android:layout_marginTop="14dp"
-        android:textColorHint="@color/brownish_grey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textview_round_goal"
         app:layout_constraintStart_toStartOf="@+id/textview_round_goal"
         app:layout_constraintTop_toBottomOf="@+id/textview_round_goal" />
 
-    <EditText
+    <com.stormers.storm.customwidget.StormEditText
         android:id="@+id/textview_round_goal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="23dp"
-        android:background="@drawable/box_roundcorner"
-        android:fontFamily="@font/notosans_medium"
-        android:gravity="center_vertical"
         android:hint="라운드 목표"
-        android:paddingHorizontal="10dp"
-        android:textColor="@color/brownish_grey"
-        android:textColorHint="@color/brownish_grey"
         android:layout_marginTop="13dp"
+        app:showRemoveAll="true"
         app:layout_constraintBottom_toTopOf="@+id/edittext_round_time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

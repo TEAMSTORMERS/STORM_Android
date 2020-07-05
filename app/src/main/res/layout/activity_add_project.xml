@@ -75,17 +75,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
+        <com.stormers.storm.customwidget.StormEditText
             android:id="@+id/edittext_addproject_projectname"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@drawable/box_roundcorner"
             android:hint="프로젝트 명을 입력해주세요"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="11dp"
-            android:textColor="@color/brownish_grey"
-            android:textSize="11sp"
+            app:showRemoveAll="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textview2" />
