@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.stormers.storm.RoundSetting.AddCardFragment
 import com.stormers.storm.addcard.AddedCardFragment
+import com.stormers.storm.roundmeeting.RoundmeetingFragment
 import com.stormers.storm.scrapcard.ScrapcardDetailFragment
 
 class activity_round_ongoing : AppCompatActivity() {
@@ -15,7 +16,8 @@ class activity_round_ongoing : AppCompatActivity() {
 
         //addFragment(AddCardFragment())
         //addFragment(AddedCardFragment())
-        addFragment(ScrapcardDetailFragment())
+        //addFragment(ScrapcardDetailFragment())
+        addFragment(RoundmeetingFragment())
     }
 
     private fun addFragment(fragment: Fragment) {

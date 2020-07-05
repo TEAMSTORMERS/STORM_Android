@@ -35,29 +35,31 @@
         android:layout_height="0dp"
         android:layout_marginTop="27dp"
         android:elevation="10dp"
-        android:paddingHorizontal="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/button_scrapcard_save_roundmeeting"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_round_goal">
 
+        <!-- TODO : button_scrapcard_save의 visibility 속성을 gone으로 주었습니다  -->
         <Button
             android:id="@+id/button_scrapcard_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
             android:background="@drawable/background_button_yellow_radius"
             android:elevation="10dp"
             android:fontFamily="@font/notosans_bold"
-            android:layout_marginBottom="28dp"
             android:paddingHorizontal="35dp"
             android:paddingVertical="5dp"
             android:text="저장"
             android:textColor="@color/storm_gray"
             android:textSize="15dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -70,7 +72,7 @@
         android:layout_marginTop="32dp"
         android:elevation="10dp"
         android:text="프로젝트 명"
-        android:textSize="12sp"
+        android:textSize="13sp"
         android:textColor="@color/storm_white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView_logo" />
@@ -82,7 +84,7 @@
         android:layout_marginTop="5dp"
         android:text="라운드 목표"
         android:textColor="@color/storm_white"
-        android:textSize="12sp"
+        android:textSize="13sp"
         android:elevation="10dp"
         app:layout_constraintStart_toStartOf="@+id/textView_project_name"
         app:layout_constraintTop_toBottomOf="@+id/textView_project_name" />
@@ -94,7 +96,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:text="ROUND 1"
-        android:textSize="12sp"
+        android:textSize="13sp"
         android:elevation="10dp"
         android:textColor="@color/storm_white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -106,11 +108,28 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="총 00:00 남음"
-        android:textSize="12sp"
+        android:textSize="13sp"
         android:elevation="10dp"
         android:textColor="@color/storm_white"
         app:layout_constraintEnd_toEndOf="@+id/textView_round"
         app:layout_constraintTop_toBottomOf="@+id/textView_round" />
+
+    <Button
+        android:id="@+id/button_scrapcard_save_roundmeeting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/storm_white"
+        android:elevation="10dp"
+        android:fontFamily="@font/notosans_bold"
+        android:paddingHorizontal="35dp"
+        android:paddingVertical="14dp"
+        android:text="FINISH !"
+        android:textColor="@color/storm_red"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 
