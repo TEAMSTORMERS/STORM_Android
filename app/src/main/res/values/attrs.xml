@@ -9,5 +9,11 @@
         <attr name="android:text" format="reference|string"/>
         <attr name="android:elevation" format="dimension"/>
     </declare-styleable>
+
+    <declare-styleable name="StormCard">
+        <attr name="android:elevation" format="dimension"/>
+        <attr name="showHeartButton" format="reference|boolean"/>
+        <attr name="isTouchable" format="reference|boolean"/>
+    </declare-styleable>
 </resources>
 
