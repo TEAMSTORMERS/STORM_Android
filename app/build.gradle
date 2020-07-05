@@ -32,6 +32,7 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$project.android_x_version"
     implementation "androidx.constraintlayout:constraintlayout:$project.constraintlayout_version"
     implementation "androidx.appcompat:appcompat:$project.android_x_version"
+    implementation "androidx.cardview:cardview:$project.cardview_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
