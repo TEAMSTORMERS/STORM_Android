@@ -1,9 +1,0 @@
-diff a/app/src/main/res/layout/item_participated_projects_list.xml b/app/src/main/res/layout/item_participated_projects_list.xml	(rejected hunks)
-@@ -2,6 +2,7 @@
- 
- <!--Todo: 수직,수평 divider 추가 -->
- 
-+<!--Todo: 각각의 item에 margin을 넣으면 다른 배열 (세로, 그리드)에 재사용이 어려움!-->
- <!--Todo: margin은 빼고 MarginDecoration 클래스 사용하자 !-->
- <androidx.constraintlayout.widget.ConstraintLayout
-     android:id="@+id/item_participated_list"
