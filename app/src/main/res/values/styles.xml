@@ -14,14 +14,27 @@
         <item name="android:paddingEnd">16dp</item>
         <item name="android:paddingTop">11dp</item>
         <item name="android:paddingBottom">11dp</item>
-        <item name="android:textColor">@color/storm_gray1</item>
-        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/storm_gray</item>
+        <item name="android:textColorHint">@color/storm_popup_line_gray</item>
+        <item name="android:textSize">13sp</item>
     </style>
 
-    <!--Custom Button-->
-    <style name="custom_button" parent="Widget.AppCompat.TextView">
+    <!--Storm Button-->
+    <style name="storm_button_cardview" parent="CardView">
+        <item name="cardCornerRadius">7dp</item>
+        <item name="cardBackgroundColor">@color/storm_yellow</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="layout_constraintWidth_percent">0.23</item>
+        <item name="layout_constraintHeight_percent">0.06</item>
+    </style>
+    
+    <style name="storm_button_textview" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">15sp</item>
         <item name="android:textStyle">bold</item>
-        <!--Todo: 폰트 지정하기-->
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
     </style>
 
 </resources>

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.stormers.storm">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,7 +13,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".activity_round_ongoing"/>
         <activity android:name=".AddProjectActivity" />
-        <activity android:name=".RoundSetting.HostRoundSetting" />
+        <activity android:name=".RoundSetting.HostRoundSettingActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
