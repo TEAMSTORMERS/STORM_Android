@@ -33,6 +33,7 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$project.android_x_version"
     implementation "androidx.constraintlayout:constraintlayout:$project.constraintlayout_version"
     implementation "androidx.appcompat:appcompat:$project.android_x_version"
+    implementation "androidx.cardview:cardview:$project.cardview_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation "com.github.bumptech.glide:glide:4.10.0"
     implementation 'androidx.cardview:cardview:1.0.0'
