@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RoundSetting.HostRoundSetting">
-
-
+    tools:context=".RoundSetting.HostRoundSettingActivity">
+    
     <ImageView
         android:id="@+id/imageView_background_red_radius"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.52"
         android:background="@drawable/background_red_radius"
+        android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.52"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,54 +21,80 @@
         android:id="@+id/imagebutton_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintWidth_percent="0.442"
-        app:layout_constraintHeight_percent="0.122"
         android:layout_marginLeft="98dp"
-        android:layout_marginRight="100dp"
         android:layout_marginTop="16dp"
+        android:layout_marginRight="100dp"
         android:background="@drawable/host_b_1_logo"
+        android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.122"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-
-    <!-- TODO : Round Setting Fragment  -->
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.442" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginHorizontal="27dp"
+        android:layout_marginTop="84dp"
+        android:layout_marginBottom="102dp"
+        android:background="@drawable/background_white_radius"
+        android:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintWidth_percent="0.847"
-        app:layout_constraintHeight_percent="0.649"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/host_b_1_card_white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/imagebutton_logo">
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewpager_host_round_setting_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </androidx.viewpager.widget.ViewPager>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageButton
         android:id="@+id/button_tab_copy_code"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/host_b_1_btn_tab_card"
+        android:layout_height="189dp"
         android:layout_marginTop="90dp"
+        android:background="@drawable/host_b_1_btn_tab_card"
+        android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="@+id/imageView_background_red_radius"
         app:layout_constraintStart_toStartOf="@+id/imageView_background_red_radius"
         app:layout_constraintTop_toTopOf="@+id/imageView_background_red_radius" />
 
-    <Button
-        android:id="@+id/button_host_ok"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="180dp"
-        android:background="@drawable/host_b_1_btn_ok"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginHorizontal="101dp"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.064"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_tab_copy_code" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintWidth_percent="0.44">
+
+        <Button
+            android:id="@+id/button_host_ok"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="@drawable/background_button_yellow_radius"
+            android:paddingHorizontal="58dp"
+            android:paddingVertical="14dp"
+            android:text="확인"
+            android:textColor="@color/brownish_grey"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
