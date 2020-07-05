@@ -25,16 +25,7 @@
 
     </style>
 
-    <!--Storm Button-->
-    <style name="storm_button_cardview" parent="CardView">
-        <item name="cardCornerRadius">7dp</item>
-        <item name="cardBackgroundColor">@color/storm_yellow</item>
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">0dp</item>
-        <item name="layout_constraintWidth_percent">0.23</item>
-        <item name="layout_constraintHeight_percent">0.06</item>
-    </style>
-    
+    <!--StormButton TextView-->
     <style name="storm_button_textview" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">15sp</item>
         <item name="android:textStyle">bold</item>
