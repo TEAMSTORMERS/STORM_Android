@@ -7,5 +7,7 @@
 
     <declare-styleable name="StormButton">
         <attr name="android:text" format="reference|string"/>
+        <attr name="android:elevation" format="dimension"/>
     </declare-styleable>
 </resources>
+

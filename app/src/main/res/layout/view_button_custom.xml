@@ -2,14 +2,15 @@
 <androidx.cardview.widget.CardView
     android:id="@+id/cardview_custombutton_root"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="?android:selectableItemBackground">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:clickable="true"
+    android:foreground="?android:selectableItemBackground">
 
     <TextView
         android:id="@+id/textview_custombutton"
         android:text="StormButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        style="@style/storm_button_textview" />
 
 </androidx.cardview.widget.CardView>
