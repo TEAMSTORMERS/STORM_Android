@@ -35,6 +35,15 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$project.android_x_version"
     implementation "androidx.cardview:cardview:$project.cardview_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.material:material:1.1.0'
+
+    implementation "com.github.bumptech.glide:glide:4.10.0"
+    implementation 'androidx.cardview:cardview:1.0.0'
+    kapt "com.github.bumptech.glide:compiler:4.10.0"
+
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0' // DrawerLayout
+    implementation 'com.google.android.material:material:1.0.0' // NavigationView
+
     implementation "com.github.bumptech.glide:glide:4.10.0"
     implementation 'androidx.cardview:cardview:1.0.0'
     kapt "com.github.bumptech.glide:compiler:4.10.0"
