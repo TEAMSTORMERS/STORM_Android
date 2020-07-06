@@ -141,20 +141,26 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_participated_projects_list"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:paddingHorizontal="26dp"
+            android:clipToPadding="false"
             android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_participated_projects_list"
-            android:scrollbars="horizontal"
+
             android:scrollbarAlwaysDrawHorizontalTrack="true"
+            android:scrollbarFadeDuration="0"
+            android:scrollbarStyle="insideInset"
             android:scrollbarThumbHorizontal="@color/storm_yellow"
             android:scrollbarTrackHorizontal="@drawable/mainview_processingbar_1"
-            android:scrollbarFadeDuration="0"
-            android:scrollbarStyle="outsideInset"
-            app:layout_constraintStart_toStartOf="@id/imagebutton_start_storming"
+            android:scrollbars="horizontal"
+
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textview_past_project_list"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            tools:listitem="@layout/item_participated_projects_list" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
