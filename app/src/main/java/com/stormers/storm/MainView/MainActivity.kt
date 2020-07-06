@@ -64,10 +64,11 @@ class MainActivity : BaseActivity() {
 
 
         // ParticipatedProjectAdapter
-        participatedProjectsAdapter = ParticipatedProjectsAdapter()
+        participatedProjectsAdapter =
+            ParticipatedProjectsAdapter(this)
         recycler_participated_projects_list.adapter = participatedProjectsAdapter
         recycler_participated_projects_list.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        recycler_participated_projects_list.addItemDecoration(MarginDecoration(baseContext,16, RecyclerView.HORIZONTAL))
+        recycler_participated_projects_list.addItemDecoration(MarginDecoration(baseContext,16,RecyclerView.HORIZONTAL))
         loadProjectsDatas()
     }
 
@@ -138,6 +139,8 @@ class MainActivity : BaseActivity() {
             )
         }
 
-        participatedProjectsAdapter.addAll(datas)
+        participatedProjectsAdapter.datas = datas
+        participatedProjectsAdapter.notifyDataSetChanged()
+
     }
 }

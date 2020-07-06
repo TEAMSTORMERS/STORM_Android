@@ -43,6 +43,7 @@ dependencies {
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0' // DrawerLayout
     implementation 'com.google.android.material:material:1.0.0' // NavigationView
+    implementation 'de.hdodenhof:circleimageview:3.1.0' //동그란 이미지 커스텀 뷰 라이브러리
 
     implementation "com.github.bumptech.glide:glide:4.10.0"
     implementation 'androidx.cardview:cardview:1.0.0'

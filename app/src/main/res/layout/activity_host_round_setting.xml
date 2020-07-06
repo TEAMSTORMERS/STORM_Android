@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RoundSetting.HostRoundSettingActivity">
-    
+    tools:context=".RoundSetting.HostRoundActivity">
+
     <ImageView
         android:id="@+id/imageView_background_red_radius"
         android:layout_width="0dp"
@@ -25,7 +25,7 @@
         android:layout_marginLeft="98dp"
         android:layout_marginTop="16dp"
         android:layout_marginRight="100dp"
-        android:background="@drawable/host_b_1_logo"
+        android:background="@drawable/storm_logo"
         android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.122"
@@ -34,7 +34,7 @@
         app:layout_constraintWidth_percent="0.442" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/fragment_round_setting_activity"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginHorizontal="27dp"
@@ -65,23 +65,23 @@
         android:id="@+id/button_tab_copy_code"
         android:layout_width="wrap_content"
         android:layout_height="189dp"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="42dp"
         android:background="@drawable/host_b_1_btn_tab_card"
         android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="@+id/imageView_background_red_radius"
         app:layout_constraintStart_toStartOf="@+id/imageView_background_red_radius"
-        app:layout_constraintTop_toTopOf="@+id/imageView_background_red_radius" />
+        app:layout_constraintTop_toBottomOf="@+id/imagebutton_logo" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="101dp"
         android:elevation="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_round_setting_activity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.064"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_round_setting_activity"
         app:layout_constraintWidth_percent="0.44">
 
         <Button

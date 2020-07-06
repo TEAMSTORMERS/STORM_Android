@@ -2,12 +2,13 @@
 
 <!-- fixme: activity_host_round_setting.xml과 함께 수정되어야 합니다.-->
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/fragment_round_setting"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RoundSetting.HostRoundSettingActivity">
+    tools:context=".RoundSetting.HostRoundActivity">
 
     <ImageView
         android:id="@+id/imageview_symbol"
