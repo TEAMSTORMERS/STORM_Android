@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RoundSetting.HostRoundSettingActivity">
+    tools:context=".RoundSetting.HostRoundActivity">
 
     <ImageView
         android:id="@+id/imageView_background_red_radius"
@@ -24,7 +24,7 @@
         android:layout_marginLeft="98dp"
         android:layout_marginTop="16dp"
         android:layout_marginRight="100dp"
-        android:background="@drawable/host_b_1_logo"
+        android:background="@drawable/storm_logo"
         android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.122"
@@ -32,6 +32,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.442" />
 
+    <!--Todo: 커스텀 뷰로 만들어 사용하기-->
     <androidx.cardview.widget.CardView
         android:id="@+id/constraintLayout_fragment"
         android:layout_width="0dp"
@@ -48,9 +49,19 @@
         app:layout_constraintTop_toBottomOf="@+id/imagebutton_logo"
         app:layout_constraintVertical_bias="0.0">
 
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewpager_host_round_setting_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </androidx.viewpager.widget.ViewPager>
+
     </androidx.cardview.widget.CardView>
 
-    <!--Todo: 커스텀 뷰로 만들어 사용하기-->
     <androidx.cardview.widget.CardView
         android:id="@+id/constraintlayout_setting_projectcard"
         android:layout_width="0dp"
@@ -106,6 +117,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout_fragment" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
