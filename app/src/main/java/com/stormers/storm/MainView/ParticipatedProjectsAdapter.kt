@@ -19,6 +19,5 @@ class ParticipatedProjectsAdapter (private val context: Context) : RecyclerView.
 
     override fun onBindViewHolder(holder: ParticipatedProjectsViewHolder, position: Int) {
         holder.bind(datas[position])
-
     }
 }
