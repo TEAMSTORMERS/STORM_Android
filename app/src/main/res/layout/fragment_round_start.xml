@@ -1,14 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RoundStartFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+<!-- ToDo: 전체적으로 margin값 작업해야함 -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/textview_round_setting_complete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/notosans_bold"
+        android:includeFontPadding="false"
+        android:text="ROUND 설정완료"
+        android:textColor="@color/storm_gray"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:layout_marginTop="113dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/textview_round_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/h_roundstart_round"
+        android:fontFamily="@font/notosans_bold"
+        android:textColor="@color/storm_white"
+        android:includeFontPadding="false"
+        android:gravity="center"
+        android:text="ROUND 1"
+        android:textSize="14sp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/textview_round_setting_complete"
+        app:layout_constraintStart_toStartOf="@+id/textview_round_setting_complete"
+        app:layout_constraintEnd_toEndOf="@+id/textview_round_setting_complete"/>
+
+    <TextView
+        android:id="@+id/round_subject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/notosans_medium"
+        android:text="ROUND 목표"
+        android:textColor="@color/storm_gray"
+        android:includeFontPadding="false"
+        android:textSize="12sp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/textview_round_no"
+        app:layout_constraintStart_toStartOf="@+id/textview_round_no"
+        app:layout_constraintTop_toBottomOf="@+id/textview_round_no" />
+
+    <TextView
+        android:id="@+id/round_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/notosans_medium"
+        android:includeFontPadding="false"
+        android:text="총 10분 예정"
+        android:textColor="@color/storm_gray"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/round_subject"
+        app:layout_constraintStart_toStartOf="@+id/round_subject"
+        app:layout_constraintTop_toBottomOf="@+id/round_subject" />
+
+    <TextView
+        android:id="@+id/announce_click_startbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/notosans_medium"
+        android:text="시작버튼을 누를 시, ROUND가 시작됩니다."
+        android:textColor="@color/storm_red"
+        android:textSize="12sp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/round_time"
+        app:layout_constraintStart_toStartOf="@+id/round_time"
+        app:layout_constraintTop_toBottomOf="@+id/round_time" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintlayout_user_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/storm_gray2"
+        app:layout_constraintTop_toBottomOf="@+id/announce_click_startbutton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_user_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintWidth_percent="0.825"
+            app:layout_constraintHeight_percent="0.579"
+            android:background="@drawable/background_white_radius"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:listitem="@layout/item_participants_list"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:scrollbarFadeDuration="0"
+            android:scrollbarStyle="outsideInset"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:scrollbars="vertical"
+            android:scrollbarThumbVertical="@drawable/h_roundstart_scroll"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
