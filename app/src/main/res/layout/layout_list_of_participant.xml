@@ -30,11 +30,19 @@
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="21dp"
                 android:layout_marginVertical="20dp"
+
+                android:scrollbarAlwaysDrawVerticalTrack="true"
+                android:scrollbarFadeDuration="0"
+                android:scrollbarStyle="insideInset"
+                android:scrollbarThumbVertical="@drawable/scrollbar_participant_vertical"
+                android:scrollbarTrackVertical="@null"
+                android:scrollbars="vertical"
+
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                tools:listitem="@layout/item_participant_with_picture"/>
+                tools:listitem="@layout/item_participant_with_profile"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
