@@ -3,9 +3,9 @@ package com.stormers.storm.RoundSetting
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.stormers.storm.RoundStartFragment
+import com.stormers.storm.RoundSetting.RoundStartFragment
 
-class RoundSettingAdapter (fm:FragmentManager):FragmentPagerAdapter(fm,
+class RoundAdapter (fm:FragmentManager):FragmentPagerAdapter(fm,
     BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     override fun getItem(position: Int): Fragment {

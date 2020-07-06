@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/fragment_round_start"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="308dp"
     android:layout_height="484dp"
     android:background="@drawable/background_white_radius"
-    tools:context=".RoundStartFragment">
-
-<!-- Todo: 전체적으로 margin값 작업해야함 -->
+    tools:context=".RoundSetting.RoundStartFragment">
 
     <TextView
         android:id="@+id/textview_round_setting_complete"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="160dp"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/notosans_bold"
         android:includeFontPadding="false"
         android:text="ROUND 설정완료"
         android:textColor="@color/storm_gray"
         android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -73,7 +73,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="12dp"
         android:fontFamily="@font/notosans_medium"
-        android:text="시작버튼을 누를 시, ROUND가 시작됩니다."
+        android:text="시작 버튼을 누를 시, ROUND가 시작됩니다."
         android:textColor="@color/storm_red"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/round_time"

@@ -12,7 +12,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".activity_round_ongoing"/>
         <activity android:name=".AddProjectActivity" />
-        <activity android:name=".RoundSetting.HostRoundSettingActivity" android:windowSoftInputMode="adjustNothing"> <intent-filter>
+        <activity android:name=".RoundSetting.HostRoundActivity" android:windowSoftInputMode="adjustNothing">
+            <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
             <category android:name="android.intent.category.LAUNCHER" />
