@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RoundSetting.HostRoundSettingActivity">
-    
+
     <ImageView
         android:id="@+id/imageView_background_red_radius"
         android:layout_width="0dp"
@@ -33,70 +32,80 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.442" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/constraintLayout_fragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginHorizontal="27dp"
         android:layout_marginTop="84dp"
         android:layout_marginBottom="102dp"
         android:background="@drawable/background_white_radius"
-        android:elevation="10dp"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imagebutton_logo">
+        app:layout_constraintTop_toBottomOf="@+id/imagebutton_logo"
+        app:layout_constraintVertical_bias="0.0">
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewpager_host_round_setting_fragment"
+    </androidx.cardview.widget.CardView>
+
+    <!--Todo: 커스텀 뷰로 만들어 사용하기-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/constraintlayout_setting_projectcard"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout_fragment"
+        app:layout_constraintDimensionRatio="1:0.63"
+        app:layout_constraintEnd_toEndOf="@+id/imageView_background_red_radius"
+        app:layout_constraintHeight_percent="0.21"
+        app:layout_constraintStart_toStartOf="@+id/imageView_background_red_radius"
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout_fragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:background="@drawable/card_rectangular">
 
-        </androidx.viewpager.widget.ViewPager>
+            <TextView
+                android:id="@+id/textview_projectcard_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="프로젝트 제목이 들어갑니다"
+                android:textFontWeight="700"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toTopOf="@id/textview_projectcard_describe"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
 
+            <TextView
+                android:id="@+id/textview_projectcard_describe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="탭하여 참여코드 복사하기"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textview_projectcard_title" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageButton
-        android:id="@+id/button_tab_copy_code"
-        android:layout_width="wrap_content"
-        android:layout_height="189dp"
-        android:layout_marginTop="90dp"
-        android:background="@drawable/host_b_1_btn_tab_card"
-        android:elevation="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView_background_red_radius"
-        app:layout_constraintStart_toStartOf="@+id/imageView_background_red_radius"
-        app:layout_constraintTop_toTopOf="@+id/imageView_background_red_radius" />
+    </androidx.cardview.widget.CardView>
 
-    <LinearLayout
+    <com.stormers.storm.customwidget.StormButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="101dp"
         android:elevation="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
+        android:text="확인"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout_fragment"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.064"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        app:layout_constraintWidth_percent="0.44">
-
-        <Button
-            android:id="@+id/button_host_ok"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:background="@drawable/background_button_yellow_radius"
-            android:paddingHorizontal="58dp"
-            android:paddingVertical="14dp"
-            android:text="확인"
-            android:textColor="@color/brownish_grey"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout_fragment" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
