@@ -70,12 +70,14 @@
         android:fontFamily="@font/notosans_medium"
         android:text="평화의 프로젝트"
         android:textSize="11sp"
+        android:layout_marginVertical="16dp"
         android:textColor="@color/brownish_grey"
         android:includeFontPadding="false"
         app:layout_constraintEnd_toEndOf="@+id/cardview_project_forder"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/cardview_project_forder"
-        app:layout_constraintTop_toBottomOf="@+id/cardview_project_forder" />
+        app:layout_constraintTop_toBottomOf="@+id/cardview_project_forder"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 
 
