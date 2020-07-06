@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.os.Handler
 import android.util.AttributeSet
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import androidx.cardview.widget.CardView
@@ -24,20 +23,29 @@ class StormCard : CardView {
 
     private var doubleClickFlag = 0
 
-    var heartState = true
+    var heartState = false
+        set(value) {
+            field = value
+            if (field) {
+                imagebutton_customcard_heart.setImageResource(R.drawable.scrapcard_btn_heart_1)
+            } else {
+                imagebutton_customcard_heart.setImageResource(R.drawable.scrapview_heart)
+            }
+        }
+
 
     constructor(context: Context) : super(context) {
         init()
     }
 
-    constructor(context: Context, attrs: AttributeSet?) : super(context) {
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
         init()
         if (attrs != null) {
             getAttrs(attrs)
         }
     }
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context) {
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         init()
         if (attrs != null) {
             getAttrs(attrs, defStyleAttr)
@@ -108,12 +116,12 @@ class StormCard : CardView {
     }
 
     private fun switchHeartState() {
-        heartState = if (heartState) {
+        heartState = if (!heartState) {
             imagebutton_customcard_heart.setImageResource(R.drawable.scrapcard_btn_heart_1)
-            false
+            true
         } else {
             imagebutton_customcard_heart.setImageResource(R.drawable.scrapview_heart)
-            true
+            false
         }
     }
 }
