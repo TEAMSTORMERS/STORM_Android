@@ -3,8 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="308dp"
+    android:layout_height="484dp"
+    android:background="@drawable/background_white_radius"
     tools:context=".RoundStartFragment">
 
 <!-- Todo: 전체적으로 margin값 작업해야함 -->
@@ -13,9 +14,8 @@
         android:id="@+id/textview_round_setting_complete"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginTop="212dp"
+        android:layout_marginTop="160dp"
         android:fontFamily="@font/notosans_bold"
-        android:gravity="center"
         android:includeFontPadding="false"
         android:text="ROUND 설정완료"
         android:textColor="@color/storm_gray"
