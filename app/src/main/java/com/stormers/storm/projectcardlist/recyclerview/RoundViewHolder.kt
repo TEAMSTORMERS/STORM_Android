@@ -5,10 +5,10 @@ import android.widget.TextView
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseViewHolder
 
-class ProjectCardListViewHolder(parent: ViewGroup) : BaseViewHolder<ProjectCardListData>(R.layout.item_round_info_card, parent) {
+class RoundViewHolder(parent: ViewGroup) : BaseViewHolder<RoundDescriptionModel>(R.layout.item_round_info_card, parent) {
     private val textViewProjectTitleRoundInfo = itemView.findViewById<TextView>(R.id.Textview_project_title_roundinfo)
 
-    override fun bind(data: ProjectCardListData) {
+    override fun bind(data: RoundDescriptionModel) {
         textViewProjectTitleRoundInfo.text = data.Textview_project_title_roundinfo
     }
 }

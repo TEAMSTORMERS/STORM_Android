@@ -7,12 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.stormers.storm.R
-import com.stormers.storm.projectcardlist.recyclerview.ProjectCardListData
-import kotlinx.android.synthetic.main.item_participated_projects_list.*
-import kotlinx.android.synthetic.main.item_participated_projects_list.view.*
+import com.stormers.storm.projectcardlist.recyclerview.RoundDescriptionModel
 import kotlinx.android.synthetic.main.item_round_info_card.view.*
 
-class IndicatorAdapter (val context: Context, var cardList: List<ProjectCardListData>)
+class IndicatorAdapter (val context: Context, var cardList: List<RoundDescriptionModel>)
     : RecyclerView.Adapter<IndicatorAdapter.IndexListViewHolder>() {
     val indexList = Array(cardList.size) { false } // 리스트를 모두 false로 초기화
     var index = 0 // 선택된 item의 index
