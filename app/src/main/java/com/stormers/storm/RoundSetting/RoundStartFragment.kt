@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stormers.storm.ParticipantAdapter
-import com.stormers.storm.ParticipantModel
+import com.stormers.storm.UserModel
 import com.stormers.storm.R
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.fragment_round_start.view.*
@@ -38,14 +38,14 @@ class RoundStartFragment : Fragment() {
         participantAdapter.addAll(loadDatas())
     }
 
-    fun loadDatas() : MutableList<ParticipantModel> {
-        val datas = mutableListOf<ParticipantModel>()
+    fun loadDatas() : MutableList<UserModel> {
+        val datas = mutableListOf<UserModel>()
 
-        datas.add(ParticipantModel(
+        datas.add(UserModel(
                 "https://www.notion.so/STORM-e0234061dd594af79f1035691830e698#8f611dc7d34b42f785d65cf7cc7a95bb", "김성규"))
-        datas.add(ParticipantModel(
+        datas.add(UserModel(
                 "https://www.notion.so/STORM-e0234061dd594af79f1035691830e698#0a957fd1e94d43739b018f87d3cadd2b", "손평화"))
-        datas.add(ParticipantModel(
+        datas.add(UserModel(
                 "https://www.notion.so/STORM-e0234061dd594af79f1035691830e698#56815b6b35c347109dc3bd3434bd6041", "강희원"))
 
         return datas
