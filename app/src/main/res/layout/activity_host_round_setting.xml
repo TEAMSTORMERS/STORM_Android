@@ -37,17 +37,16 @@
         android:id="@+id/constraintLayout_fragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="27dp"
-        android:layout_marginTop="84dp"
-        android:layout_marginBottom="102dp"
         android:background="@drawable/background_white_radius"
         app:cardCornerRadius="25dp"
         app:cardElevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.60"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imagebutton_logo"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.6"
+        app:layout_constraintWidth_percent="0.86">
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewpager_host_round_setting_fragment"
@@ -117,7 +116,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout_fragment" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
