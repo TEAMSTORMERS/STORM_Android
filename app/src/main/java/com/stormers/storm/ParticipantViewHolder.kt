@@ -8,11 +8,11 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.stormers.storm.base.BaseViewHolder
 
-class ParticipantViewHolder(parent: ViewGroup): BaseViewHolder<ParticipantModel>(R.layout.item_participant_with_profile, parent) {
+class ParticipantViewHolder(parent: ViewGroup): BaseViewHolder<UserModel>(R.layout.item_participant_with_profile, parent) {
     private val imageViewParticipantItemProfile = itemView.findViewById<ImageView>(R.id.imageview_participantitem_profile)
     private val textViewParticipantItemName = itemView.findViewById<TextView>(R.id.textview_participantitem_name)
 
-    override fun bind(data: ParticipantModel) {
+    override fun bind(data: UserModel) {
         //배경 둥글게 자르기
         imageViewParticipantItemProfile.background = ShapeDrawable(OvalShape())
         imageViewParticipantItemProfile.clipToOutline = true

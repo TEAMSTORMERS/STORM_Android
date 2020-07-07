@@ -25,9 +25,7 @@ class RoundListActivity : AppCompatActivity() {
 
         viewpager_roundcardlist_round.run {
             adapter = roundListAdapter
-
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
-
             offscreenPageLimit = 3
         }
 
@@ -48,15 +46,15 @@ class RoundListActivity : AppCompatActivity() {
         val data = mutableListOf<CardModel>()
 
         data.apply {
-            add(CardModel("", false))
-            add(CardModel("", true))
-            add(CardModel("", false))
-            add(CardModel("", false))
-            add(CardModel("", true))
-            add(CardModel("", false))
-            add(CardModel("", true))
-            add(CardModel("", false))
-            add(CardModel("", false))
+            add(CardModel("", false, null))
+            add(CardModel("", true, null))
+            add(CardModel("", false, null))
+            add(CardModel("", false, null))
+            add(CardModel("", true, null))
+            add(CardModel("", false, null))
+            add(CardModel("", true, null))
+            add(CardModel("", false, null))
+            add(CardModel("", false, null))
         }
 
         return data
