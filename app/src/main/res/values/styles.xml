@@ -8,10 +8,17 @@
 
         <!--custom font-family 적용-->
         <item name="android:textViewStyle">@style/customTextViewFontStyle</item>
+        <item name="android:includeFontPadding">false</item>
         <item name="android:buttonStyle">@style/customButtonFontStyle</item>
         <item name="android:editTextStyle">@style/customEditTextFontStyle</item>
         <item name="android:radioButtonStyle">@style/customRadioButtonFontStyle</item>
         <item name="android:checkboxStyle">@style/customCheckboxFontStyle</item>
+    </style>
+
+    <!-- Login Activity -->
+    <style name="loginTheme" parent="AppTheme">
+        <item name="android:statusBarColor">@color/storm_white</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="TextHint" parent="Base.TextAppearance.AppCompat">

@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.stormers.storm.R
 
-class Host_Round_Setting_Fragment : Fragment() {
+class HostRoundSettingFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?

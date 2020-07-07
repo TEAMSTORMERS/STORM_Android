@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/storm_red">
+
+    <ImageButton
+        android:id="@+id/imageButton_logo_scrap_collect"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="49dp"
+        android:background="@drawable/storm_logo"
+        app:layout_constraintDimensionRatio="w,4.46:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imageButton_back_scrap_collect"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/scrapcardview_ic_back"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButton_logo_scrap_collect"
+        app:layout_constraintDimensionRatio="w,1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageButton_logo_scrap_collect" />
+
+    <ImageButton
+        android:id="@+id/imageButton_mypage_scrap_collect"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/scrapcardview_ic_mypage"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButton_logo_scrap_collect"
+        app:layout_constraintDimensionRatio="w,1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageButton_logo_scrap_collect" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="42dp"
+        android:text="스크랩한 카드 모아보기"
+        android:textColor="@color/storm_white"
+        android:textFontWeight="600"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton_logo_scrap_collect" />
+
+    <TextView
+        android:id="@+id/textView_project_name_scrap_collect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="26dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/background_textview_white_radius"
+        android:paddingHorizontal="14dp"
+        android:paddingVertical="12dp"
+        android:text="프로젝트 제목"
+        android:textColor="@color/storm_red"
+        android:textFontWeight="600"
+        android:textSize="13sp"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <TextView
+        android:id="@+id/textView_card_count_scrap_collect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="14dp"
+        android:paddingVertical="12dp"
+        android:text="총 10개의 카드"
+        android:textColor="@color/storm_gray"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView_project_name_scrap_collect"
+        app:layout_constraintTop_toTopOf="@+id/textView_project_name_scrap_collect" />
+
+    <!-- TODO : 카드 리스트의 좌우 여백 재설정이 필요할 것 같습니다  -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_project_name_scrap_collect"
+        android:layout_marginTop="16dp"
+        android:background="@color/storm_gray2">
+
+        <ScrollView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/RecyclerView_scrap_collect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:spanCount="2"
+                    tools:listitem="@layout/item_scrap_collect" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

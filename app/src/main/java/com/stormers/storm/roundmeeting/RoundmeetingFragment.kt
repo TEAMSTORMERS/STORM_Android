@@ -29,11 +29,9 @@ class RoundmeetingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        roundmeetingAdapter = RoundmeetingAdapter(view.context)
+        roundmeetingAdapter = RoundmeetingAdapter()
         RecyclerView_added_card_roundmeeting.adapter = roundmeetingAdapter
         loadRoundmeetingDatas()
-
-
     }
 
     private fun loadRoundmeetingDatas() {
@@ -84,8 +82,7 @@ class RoundmeetingFragment : Fragment() {
             )
         }
 
-        roundmeetingAdapter.datas = datas
-        roundmeetingAdapter.notifyDataSetChanged()
+        roundmeetingAdapter.addAll(datas)
     }
 
 }
