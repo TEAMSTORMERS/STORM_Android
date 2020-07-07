@@ -32,7 +32,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.442" />
 
-    <!--Todo: 커스텀 뷰로 만들어 사용하기-->
     <androidx.cardview.widget.CardView
         android:id="@+id/constraintLayout_fragment"
         android:layout_width="0dp"
@@ -61,12 +60,16 @@
 
     </androidx.cardview.widget.CardView>
 
+    <!--Todo: 커스텀 뷰로 만들어 사용하기-->
     <androidx.cardview.widget.CardView
         android:id="@+id/constraintlayout_setting_projectcard"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:cardCornerRadius="15dp"
         app:cardElevation="20dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:selectableItemBackground"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout_fragment"
         app:layout_constraintDimensionRatio="1:0.63"
         app:layout_constraintEnd_toEndOf="@+id/imageView_background_red_radius"
