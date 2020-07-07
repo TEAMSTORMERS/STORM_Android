@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.stormers.storm">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -10,16 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity_round_ongoing"/>
+        <activity android:name=".activity_round_ongoing" />
         <activity android:name=".AddProjectActivity" />
-        <activity android:name=".RoundSetting.HostRoundActivity" android:windowSoftInputMode="adjustNothing"></activity>
+        <activity android:name=".projectcardlist.RoundListActivity"/>
+        <activity android:name=".RoundSetting.HostRoundActivity" android:windowSoftInputMode="adjustNothing"/>
         <activity android:name=".MainView.MainActivity" android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
-
 </manifest>
