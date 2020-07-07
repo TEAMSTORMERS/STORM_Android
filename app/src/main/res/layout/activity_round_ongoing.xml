@@ -17,16 +17,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/imageView_logo"
-        android:layout_width="159dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="37dp"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toollbar_logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:elevation="10dp"
-        android:background="@drawable/round1_logo"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/storm_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/storm_logo" />
+
+
+    </androidx.appcompat.widget.Toolbar>
 
     <!-- TODO : Round Setting Fragment  -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -69,13 +78,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginLeft="28dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="42dp"
         android:elevation="10dp"
         android:text="프로젝트 명"
         android:textSize="13sp"
         android:textColor="@color/storm_white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_logo" />
+        app:layout_constraintTop_toBottomOf="@+id/toollbar_logo" />
 
     <TextView
         android:id="@+id/textView_round_goal"
@@ -123,6 +132,7 @@
         android:fontFamily="@font/notosans_bold"
         android:paddingHorizontal="35dp"
         android:paddingVertical="14dp"
+        android:visibility="gone"
         android:text="FINISH !"
         android:textColor="@color/storm_red"
         android:textSize="16dp"
@@ -130,6 +140,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <com.stormers.storm.customwidget.StormButton
+        android:id="@+id/button_apply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:layout_marginTop="242dp"
+        android:text="적용"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_background_red_radius"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 
 
