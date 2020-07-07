@@ -14,14 +14,14 @@
         <activity android:name=".AddProjectActivity" />
         <activity android:name=".RoundSetting.HostRoundSettingActivity" />
         <activity android:name=".projectcardlist.ProjectCardlistActivity">
+
+        </activity>
+        <activity android:name=".MainView.MainActivity" android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".MainView.MainActivity" android:windowSoftInputMode="adjustNothing">
-
         </activity>
     </application>
 

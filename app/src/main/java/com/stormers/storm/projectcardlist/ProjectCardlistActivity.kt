@@ -36,21 +36,6 @@ class ProjectCardlistActivity : AppCompatActivity() {
                     Textview_project_title_roundinfo = "베개와 유리병의 공통점은?"
                 )
             )
-            add(
-                ProjectCardListData(
-                    Textview_project_title_roundinfo = "베개와 유리병의 공통점은?"
-                )
-            )
-            add(
-                ProjectCardListData(
-                    Textview_project_title_roundinfo = "베개와 유리병의 공통점은?"
-                )
-            )
-            add(
-                ProjectCardListData(
-                    Textview_project_title_roundinfo = "베개와 유리병의 공통점은?"
-                )
-            )
         }
         projectCardListAdapter.addAll(datas)
 

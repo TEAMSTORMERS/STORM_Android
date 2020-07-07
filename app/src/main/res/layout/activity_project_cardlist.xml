@@ -8,7 +8,7 @@
     android:background="@color/storm_red">
 
     <ImageButton
-        android:id="@+id/imageButton3"
+        android:id="@+id/imageButton_storm_logo_cardlist"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="49dp"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="31dp"
         android:paddingHorizontal="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton3"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton_storm_logo_cardlist"
         tools:layout_editor_absoluteX="-16dp"
         tools:listitem="@layout/item_round_info_card" />
 
