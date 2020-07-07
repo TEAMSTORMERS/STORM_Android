@@ -81,7 +81,7 @@
         app:layout_constraintEnd_toEndOf="@+id/textView_project_name_scrap_collect"
         app:layout_constraintTop_toTopOf="@+id/textView_project_name_scrap_collect" />
 
-    <!-- FIXME : 카드 리스트의 좌우 여백 재설정이 필요할 것 같습니다  -->
+    <!-- TODO : 카드 리스트의 좌우 여백 재설정이 필요할 것 같습니다  -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
