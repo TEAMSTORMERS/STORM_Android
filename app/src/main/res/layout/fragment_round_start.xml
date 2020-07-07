@@ -1,41 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/fragment_round_start"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="308dp"
-    android:layout_height="484dp"
-    android:background="@drawable/background_white_radius"
+    android:id="@+id/fragment_round_start"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".RoundSetting.RoundStartFragment">
+
 
     <TextView
         android:id="@+id/textview_round_setting_complete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/notosans_bold"
-        android:includeFontPadding="false"
         android:text="ROUND 설정완료"
         android:textColor="@color/storm_gray"
+        android:textFontWeight="700"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/textview_round_no"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
         android:id="@+id/textview_round_no"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/h_roundstart_round"
-        android:fontFamily="@font/notosans_bold"
         android:gravity="center"
-        android:includeFontPadding="false"
         android:text="ROUND 1"
         android:textColor="@color/storm_white"
+        android:textFontWeight="700"
         android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/round_subject"
         app:layout_constraintEnd_toEndOf="@+id/textview_round_setting_complete"
         app:layout_constraintStart_toStartOf="@+id/textview_round_setting_complete"
         app:layout_constraintTop_toBottomOf="@+id/textview_round_setting_complete" />
@@ -43,26 +42,24 @@
     <TextView
         android:id="@+id/round_subject"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/notosans_medium"
-        android:includeFontPadding="false"
         android:text="ROUND 목표"
         android:textColor="@color/storm_gray"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/textview_round_no"
-        app:layout_constraintStart_toStartOf="@+id/textview_round_no"
+        app:layout_constraintBottom_toTopOf="@id/round_time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_round_no" />
 
     <TextView
         android:id="@+id/round_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/notosans_medium"
-        android:includeFontPadding="false"
         android:text="총 10분 예정"
         android:textColor="@color/storm_gray"
         android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@id/announce_click_startbutton"
         app:layout_constraintEnd_toEndOf="@+id/round_subject"
         app:layout_constraintStart_toStartOf="@+id/round_subject"
         app:layout_constraintTop_toBottomOf="@+id/round_subject" />
@@ -70,52 +67,28 @@
     <TextView
         android:id="@+id/announce_click_startbutton"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/notosans_medium"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
         android:text="시작 버튼을 누를 시, ROUND가 시작됩니다."
         android:textColor="@color/storm_red"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/round_time"
-        app:layout_constraintVertical_bias="0.45"
-        app:layout_constraintStart_toStartOf="@+id/round_time"
-        app:layout_constraintTop_toBottomOf="@+id/round_time" />
+        app:layout_constraintBottom_toTopOf="@id/include_roundstart_participant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/round_time" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintlayout_user_list"
-        android:layout_width="match_parent"
+
+    <include
+        android:id="@+id/include_roundstart_participant"
+        layout="@layout/layout_list_of_participant"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/storm_gray2"
+        android:layout_marginTop="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/announce_click_startbutton"
-        app:layout_constraintHeight_percent="0.442"
-        app:layout_constraintStart_toStartOf="@+id/announce_click_startbutton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.44"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/announce_click_startbutton"
-        app:layout_constraintVertical_bias="1.0">
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_user_list"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/background_white_radius"
-            android:orientation="vertical"
-            android:scrollbarAlwaysDrawVerticalTrack="true"
-            android:scrollbarFadeDuration="0"
-            android:scrollbarStyle="outsideInset"
-            android:scrollbarThumbVertical="@drawable/h_roundstart_scroll"
-            android:scrollbars="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.579"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.825"
-            tools:listitem="@layout/item_participants_list" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
