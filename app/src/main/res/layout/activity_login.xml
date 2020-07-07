@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_bg_circle_white"
+    tools:context=".ui.LoginActivity">
+
+    <ImageView
+        android:id="@+id/imageview_login_logo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/h_roundsetting_logo"
+        app:layout_constraintBottom_toTopOf="@id/imageview_login_stormlogo"
+        app:layout_constraintDimensionRatio="1:2.11"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.12"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.32"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <ImageView
+        android:id="@+id/imageview_login_stormlogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:src="@drawable/login_logo_storm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageview_login_logo" />
+
+    <ImageButton
+        android:id="@+id/imagebutton_login_kakao"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@null"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:selectableItemBackground"
+        android:scaleType="fitCenter"
+        android:src="@drawable/login_btn_kakao"
+        app:layout_constraintBottom_toTopOf="@id/imagebutton_login_google"
+        app:layout_constraintDimensionRatio="1:0.16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.84000003"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintWidth_percent="0.73" />
+
+    <ImageButton
+        android:id="@+id/imagebutton_login_google"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:background="@null"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:selectableItemBackground"
+        android:scaleType="fitCenter"
+        android:src="@drawable/login_btn_google"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:0.16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imagebutton_login_kakao"
+        app:layout_constraintWidth_percent="0.73" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
