@@ -12,5 +12,5 @@ class ScrapCollectViewHolder(parent: ViewGroup) : BaseViewHolder<ScrapCollectDat
     override fun bind(data : ScrapCollectData){
         Glide.with(itemView).load(data.imageView_scrap_collect).into(imageView_scrap_collect)
     }
-
+//날림
 }

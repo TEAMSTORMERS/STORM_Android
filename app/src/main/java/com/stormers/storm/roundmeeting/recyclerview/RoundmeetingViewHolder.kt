@@ -13,4 +13,4 @@ class RoundmeetingViewHolder(parent: ViewGroup) : BaseViewHolder<RoundmeetingDat
         Glide.with(itemView).load(data.ImageView_added_card_roundmeeting).into(ImageView_added_card_roundmeeting)
     }
 
-}
+}//날림

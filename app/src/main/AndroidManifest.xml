@@ -17,12 +17,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainView.MainActivity" android:windowSoftInputMode="adjustNothing"/>
-        <activity android:name=".ParticipatedProjectListActivity"/>
-        <activity android:name=".scrapcollect.ScrapcardCollectingActivity"/>
-        <activity android:name=".AddProjectActivity" />
-        <activity android:name=".RoundSetting.HostRoundActivity" android:windowSoftInputMode="adjustNothing"/>
-        <activity android:name=".activity_round_ongoing" />
-        <activity android:name=".projectcardlist.RoundListActivity"/>
+        <activity android:name=".ui.MainActivity" android:windowSoftInputMode="adjustNothing"/>
+        <activity android:name=".ui.ParticipatedProjectListActivity"/>
+        <activity android:name=".ui.ScrapcardCollectingActivity"/>
+        <activity android:name=".ui.AddProjectActivity" />
+        <activity android:name=".ui.HostRoundActivity" android:windowSoftInputMode="adjustNothing"/>
+        <activity android:name=".ui.RoundProgressActivity" />
+        <activity android:name=".ui.RoundListActivity"/>
     </application>
 </manifest>

@@ -4,4 +4,4 @@ import android.graphics.drawable.Drawable
 
 class RoundmeetingData (
     val ImageView_added_card_roundmeeting : Drawable?
-)
+)//날림

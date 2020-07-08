@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.stormers.storm.R
-import com.stormers.storm.projectcardlist.recyclerview.RoundDescriptionModel
+import com.stormers.storm.round.RoundDescriptionModel
 import kotlinx.android.synthetic.main.item_round_info_card.view.*
 
 class IndicatorAdapter (val context: Context, var cardList: List<RoundDescriptionModel>)

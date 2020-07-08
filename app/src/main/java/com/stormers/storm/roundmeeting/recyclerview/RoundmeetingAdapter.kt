@@ -9,4 +9,5 @@ class RoundmeetingAdapter () : BaseAdapter<RoundmeetingData>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<RoundmeetingData> {
         return RoundmeetingViewHolder(parent)
     }
+    //날림
 }

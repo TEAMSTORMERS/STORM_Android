@@ -1,6 +1,6 @@
 package com.stormers.storm.card
 
-import com.stormers.storm.UserModel
+import com.stormers.storm.user.UserModel
 
 data class CardModel(
     val url: String,
