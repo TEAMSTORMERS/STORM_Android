@@ -87,22 +87,33 @@ class StormCard : CardView {
     }
 
     private fun setTypedArray(typedArray: TypedArray) {
-        val showHeartButton = typedArray.getBoolean(R.styleable.StormCard_showHeartButton, false)
+        showHeartButton(typedArray)
 
-        if (!showHeartButton) {
-            imagebutton_customcard_heart.visibility = View.GONE
-        } else {
-            imagebutton_customcard_heart.setOnClickListener {
-                switchHeartState()
-            }
-        }
+        setDoubleTab(typedArray)
 
+        setMargin(typedArray)
+
+        setElevation(typedArray)
+
+        setRadius()
+    }
+
+    private fun setRadius() {
+        radius = MetricsUtil.convertDpToPixel(RADIUS, context)
+        cardview_customcard_root.setCardBackgroundColor(context.getColor(R.color.storm_white))
+    }
+
+    private fun setElevation(typedArray: TypedArray) {
+        val elevation = typedArray.getDimension(R.styleable.StormCard_android_elevation, 1f)
+        this.elevation = elevation
+    }
+
+    private fun setDoubleTab(typedArray: TypedArray) {
         val isTouchable = typedArray.getBoolean(R.styleable.StormCard_isTouchable, false)
 
         if (isTouchable) {
-
             this.setOnClickListener {
-                doubleClickFlag++
+                doubleClickFlag ++
 
                 val handler = Handler()
 
@@ -121,12 +132,29 @@ class StormCard : CardView {
                 }
             }
         }
+    }
 
-        val elevation = typedArray.getDimension(R.styleable.StormCard_android_elevation, 1f)
-        this.elevation = elevation
+    private fun setMargin(typedArray: TypedArray) {
+        val marginHorizontal = MetricsUtil.convertDpToPixel(
+            typedArray.getDimension(R.styleable.StormCard_android_layout_marginHorizontal, 0f), context).toInt()
 
-        radius = MetricsUtil.convertDpToPixel(RADIUS, context)
-        cardview_customcard_root.setCardBackgroundColor(context.getColor(R.color.storm_white))
+        val marginVertical = MetricsUtil.convertDpToPixel(
+            typedArray.getDimension(R.styleable.StormCard_android_layout_marginVertical, 0f), context).toInt()
+
+        (this.cardview_customcard_root.layoutParams as MarginLayoutParams)
+            .setMargins(marginHorizontal, marginVertical, marginHorizontal, marginVertical)
+    }
+
+    private fun showHeartButton(typedArray: TypedArray) {
+        val showHeartButton = typedArray.getBoolean(R.styleable.StormCard_showHeartButton, false)
+
+        if (!showHeartButton) {
+            imagebutton_customcard_heart.visibility = View.GONE
+        } else {
+            imagebutton_customcard_heart.setOnClickListener {
+                switchHeartState()
+            }
+        }
     }
 
     private fun switchHeartState() {
