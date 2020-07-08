@@ -50,7 +50,7 @@ class StormDialogBuilder {
 
                 buttons.add(
                     StormDialogButton(
-                        "확인",
+                        "확인", true,
                         object :
                             StormDialogButton.OnClickListener {
                             override fun onClick() {

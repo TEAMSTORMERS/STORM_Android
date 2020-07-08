@@ -12,10 +12,8 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.DialogFragment
 import com.stormers.storm.R
-import com.stormers.storm.util.MetricsUtil
 import kotlinx.android.synthetic.main.dialog_custom.view.*
 import kotlinx.android.synthetic.main.dialog_custom.view.imageview_dialog_symbol
-import kotlinx.android.synthetic.main.dialog_custom.view.linearlayout_dialog_horizontalbuttons
 import kotlinx.android.synthetic.main.item_dialog_buttons.view.*
 
 /**
@@ -59,6 +57,10 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, @La
                 val button = inflater.inflate(R.layout.item_dialog_buttons, container)
                 button.textview_dialog_button.text = stormDialogButton.text
 
+                if (stormDialogButton.accentColor) {
+                    button.constraintlayout_dialog_button.setBackgroundColor(resources.getColor(R.color.storm_yellow))
+                }
+
                 button.constraintlayout_dialog_button.setOnClickListener {
                     stormDialogButton.listener.onClick()
                     dismiss()
@@ -70,26 +72,36 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, @La
 
         //가로 버튼 적용
         horizontalButtonArray?.let {
+            val linearLayout = LinearLayout(context)
+            linearLayout.layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+
             for (stormDialogButton in horizontalButtonArray) {
                 val button = inflater.inflate(R.layout.item_dialog_buttons, container)
                 button.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
                 button.textview_dialog_button.text = stormDialogButton.text
+
+                if (stormDialogButton.accentColor) {
+                    button.constraintlayout_dialog_button.setBackgroundColor(resources.getColor(R.color.storm_yellow))
+                }
 
                 button.constraintlayout_dialog_button.setOnClickListener {
                     stormDialogButton.listener.onClick()
                     dismiss()
                 }
 
-                view.linearlayout_dialog_horizontalbuttons.addView(button)
+                linearLayout.addView(button)
 
-                if (stormDialogButton != horizontalButtonArray[horizontalButtonArray.size - 1]) {
-                    val divider = View(context)
-                    divider.layoutParams = LinearLayout.LayoutParams(MetricsUtil.convertDpToPixel(1f, context).toInt(), LinearLayout.LayoutParams.MATCH_PARENT)
-                    divider.setBackgroundResource(R.color.brownish_grey)
-
-                    view.linearlayout_dialog_horizontalbuttons.addView(divider)
-                }
+                //디자인상 divider 가 빠짐
+//                if (stormDialogButton != horizontalButtonArray[horizontalButtonArray.size - 1]) {
+//                    val divider = View(context)
+//                    divider.layoutParams = LinearLayout.LayoutParams(MetricsUtil.convertDpToPixel(1f, context).toInt(), LinearLayout.LayoutParams.MATCH_PARENT)
+//                    divider.setBackgroundResource(R.color.brownish_grey)
+//
+//                    view.linearlayout_dialog_horizontalbuttons.addView(divider)
+//                }
             }
+            view.linearlayout_dialog_buttons.addView(linearLayout)
         }
 
         //직각 모서리를 없애기 위함
