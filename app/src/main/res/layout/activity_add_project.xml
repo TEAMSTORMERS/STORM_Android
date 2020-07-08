@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/host_a_1_bg_circle"
-    tools:context=".AddProjectActivity">
+    tools:context=".ui.AddProjectActivity">
 
     <ImageView
         android:id="@+id/imageView_addproject_background"
@@ -68,7 +68,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.stormers.storm.customwidget.StormEditText
+        <com.stormers.storm.customview.StormEditText
             android:id="@+id/edittext_addproject_projectname"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

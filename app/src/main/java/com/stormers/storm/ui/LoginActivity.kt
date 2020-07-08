@@ -2,7 +2,6 @@ package com.stormers.storm.ui
 
 import android.content.Intent
 import android.os.Bundle
-import com.stormers.storm.MainView.MainActivity
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_login.*

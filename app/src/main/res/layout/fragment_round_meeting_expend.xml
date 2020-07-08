@@ -52,7 +52,7 @@
         app:layout_constraintVertical_bias="0.68"
         app:layout_constraintWidth_percent="0.86" />
 
-    <com.stormers.storm.customwidget.StormButton
+    <com.stormers.storm.customview.StormButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="104dp"
