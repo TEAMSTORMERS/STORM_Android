@@ -21,7 +21,7 @@
 **✅ width나 height값을 constraint_percent로 조정한 뒤, constraintDimensionRatio 속성으로 나머지 값을 결정하였음**
 
 
-**fragment_host_round_setting.xml / fragment_round_meeting_expend.xml / fragment_round_start.xml / fragment_waiting_for_starting_project.xml / etc.**
+**(fragment_host_round_setting.xml / fragment_round_meeting_expend.xml / fragment_round_start.xml / fragment_waiting_for_starting_project.xml / etc.)**
 
 **ex) fragment_host_round_setting.xm (chain속성)**
 
@@ -89,7 +89,7 @@
 **➡️ view_botton_custom.xml**
 
  - [ ] **ViewPager2의 아이템 레이아웃**
-(최상위 레이아웃의 가로세로가 match_parent가 아니면 예외가 발생하여 FrameLayout으로 해결)
+**(최상위 레이아웃의 가로세로가 match_parent가 아니면 예외가 발생하여 FrameLayout으로 해결)**
 **➡️ item_round_info_card.xml**
 **➡️ item_card_detail.xml**
 ## (A-2항목) Kotlin collection의 확장함수 사용 / Custom 확장함수 사용📝
@@ -127,4 +127,3 @@
 **🎥Animation 적용**
 
 **📢Notification**
-
