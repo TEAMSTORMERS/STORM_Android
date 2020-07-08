@@ -29,18 +29,18 @@ class AddCardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         addedCardAdapter = CardAdapter()
-        RecyclerView_added_card.layoutManager = GridLayoutManager(context, 2)
-        RecyclerView_added_card.addItemDecoration(MarginDecoration(context!!, 2, 20, 20))
-        RecyclerView_added_card.adapter = addedCardAdapter
+        recyclerview_addcard_card.layoutManager = GridLayoutManager(context, 2)
+        recyclerview_addcard_card.addItemDecoration(MarginDecoration(context!!, 2, 20, 20))
+        recyclerview_addcard_card.adapter = addedCardAdapter
 
         //데이터가 있으면 리사이클러뷰를 보이고 없으면 보이지 않기. 따로 Fragment 만들지 않기
         if (loadCardDataOfRound().isNotEmpty()) {
             addedCardAdapter.addAll(loadCardDataOfRound())
-            RecyclerView_added_card.visibility = View.VISIBLE
-            ImageView_add_card.visibility = View.GONE
+            recyclerview_addcard_card.visibility = View.VISIBLE
+            ImageView_addcard_nocard.visibility = View.GONE
         } else {
-            RecyclerView_added_card.visibility = View.GONE
-            ImageView_add_card.visibility = View.VISIBLE
+            recyclerview_addcard_card.visibility = View.GONE
+            ImageView_addcard_nocard.visibility = View.VISIBLE
         }
     }
 
