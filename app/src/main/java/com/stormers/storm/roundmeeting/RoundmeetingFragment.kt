@@ -5,16 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import com.stormers.storm.R
-import com.stormers.storm.addcard.recyclerview.AddedCardAdapter
-import com.stormers.storm.addcard.recyclerview.AddedCardData
 import com.stormers.storm.roundmeeting.recyclerview.RoundmeetingAdapter
 import com.stormers.storm.roundmeeting.recyclerview.RoundmeetingData
-import com.stormers.storm.util.MarginDecoration
-import kotlinx.android.synthetic.main.fragment_added_card.*
 import kotlinx.android.synthetic.main.fragment_roundmeeting.*
-import kotlinx.android.synthetic.main.item_roundmeeting.*
 
 class RoundmeetingFragment : Fragment() {
 

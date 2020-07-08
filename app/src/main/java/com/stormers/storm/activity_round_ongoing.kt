@@ -7,9 +7,6 @@ import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.stormers.storm.RoundSetting.AddCardFragment
-import com.stormers.storm.addcard.AddedCardFragment
-import com.stormers.storm.roundmeeting.RoundmeetingFragment
-import com.stormers.storm.scrapcard.ScrapcardDetailFragment
 import kotlinx.android.synthetic.main.activity_add_project.*
 import kotlinx.android.synthetic.main.activity_round_ongoing.*
 import kotlinx.android.synthetic.main.view_toolbar.view.*
@@ -25,7 +22,7 @@ class activity_round_ongoing : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_round_ongoing)
 
-        setSupportActionBar(include_addproject_toolbar.toolbar)
+        setSupportActionBar(include_roundprogress_toolbar.toolbar)
 
         supportActionBar?.let {
             it.setDisplayShowTitleEnabled(false)
@@ -33,15 +30,15 @@ class activity_round_ongoing : AppCompatActivity() {
             it.setHomeAsUpIndicator(R.drawable.host_a_1_btn_back)
         }
 
-        //addFragment(AddCardFragment())
+        addFragment(AddCardFragment())
         //addFragment(AddedCardFragment())
         //addFragment(ScrapcardDetailFragment())
-        addFragment(CanvasTextFragment())
+        //addFragment(CanvasTextFragment())
 
-        button_apply.setOnClickListener{
-            val fragmentTransaction = fragmentManager.beginTransaction()
-            fragmentTransaction.replace(R.id.constraintLayout_round_ongoing, canvasDrawingFragment )
-        }
+//        button_apply.setOnClickListener{
+//            val fragmentTransaction = fragmentManager.beginTransaction()
+//            fragmentTransaction.replace(R.id.constraintLayout_round_ongoing, canvasDrawingFragment )
+//        }
 
     }
 
