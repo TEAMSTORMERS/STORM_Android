@@ -23,7 +23,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val mainview_toolbar = findViewById(R.id.mainview_toolbar) as Toolbar
+        val mainview_toolbar = findViewById(R.id.include_main_toolbar) as Toolbar
 
         setSupportActionBar(mainview_toolbar)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.mainview_ic_bamburgerbar)
@@ -65,11 +65,11 @@ class MainActivity : BaseActivity() {
 
         // ParticipatedProjectAdapter
         participatedProjectsAdapter =
-            ParticipatedProjectsAdapter(this)
+            ParticipatedProjectsAdapter()
         recycler_participated_projects_list.adapter = participatedProjectsAdapter
         recycler_participated_projects_list.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         recycler_participated_projects_list.addItemDecoration(MarginDecoration(baseContext,16,RecyclerView.HORIZONTAL))
-        loadProjectsDatas()
+        participatedProjectsAdapter.addAll(loadProjectsDatas())
     }
 
 
@@ -78,7 +78,7 @@ class MainActivity : BaseActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    private fun loadProjectsDatas() {
+    private fun loadProjectsDatas() : MutableList<ParticipatedProjectsData>{
 
         val datas = mutableListOf<ParticipatedProjectsData>()
 
@@ -139,8 +139,6 @@ class MainActivity : BaseActivity() {
             )
         }
 
-        participatedProjectsAdapter.datas = datas
-        participatedProjectsAdapter.notifyDataSetChanged()
-
+        return datas
     }
 }

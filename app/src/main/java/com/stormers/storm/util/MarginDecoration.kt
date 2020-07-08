@@ -58,13 +58,10 @@ private constructor(private var context: Context) : RecyclerView.ItemDecoration(
         }
 
         numOfColumns?.let {
-            if (position + 1 < numOfColumns!! || (position + 1) % numOfColumns!! != 0) {
-                outRect.right = marginHorizontal!! / 2
-                Log.d("test", outRect.right.toString())
-            }
-
-            if (position < numOfColumns!! || position < itemCount - (numOfColumns!! - itemCount % numOfColumns!!)) {
-                outRect.bottom = marginVertical!!
+            outRect.left = marginHorizontal!!
+            outRect.bottom = marginVertical!!
+            if (position + 1 % numOfColumns!! == 0) {
+                outRect.right = marginHorizontal!!
             }
         }
     }

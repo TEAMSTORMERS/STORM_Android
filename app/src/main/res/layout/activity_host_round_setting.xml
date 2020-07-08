@@ -17,20 +17,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/imagebutton_logo"
-        android:layout_width="wrap_content"
+    <include
+        android:id="@+id/include_roundsetting_toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="98dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="100dp"
-        android:background="@drawable/storm_logo"
         android:elevation="10dp"
+        android:layout_marginTop="49dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.122"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.442" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/constraintLayout_fragment"
@@ -43,7 +38,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.60"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imagebutton_logo"
+        app:layout_constraintTop_toBottomOf="@+id/include_roundsetting_toolbar"
         app:layout_constraintVertical_bias="0.6"
         app:layout_constraintWidth_percent="0.86">
 

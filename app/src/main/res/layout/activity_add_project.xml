@@ -18,23 +18,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_addproject"
+    <include
+        android:id="@+id/include_addproject_toolbar"
+        layout="@layout/view_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="37dp"
         android:elevation="10dp"
+        android:layout_marginTop="49dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/host_a_1_logo" />
-
-    </androidx.appcompat.widget.Toolbar>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textview"
@@ -48,7 +41,7 @@
         android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_addproject" />
+        app:layout_constraintTop_toBottomOf="@id/include_addproject_toolbar" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintlayout_back_card"

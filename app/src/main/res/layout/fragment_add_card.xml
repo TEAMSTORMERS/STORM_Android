@@ -6,9 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <ImageView
-        android:id="@+id/ImageView_tap_add_card"
+        android:id="@+id/imageview_addcard_add"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:elevation="10dp"
@@ -18,22 +17,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <ImageButton
-        android:id="@+id/ImageButton_tap_add_card"
+        android:id="@+id/imagebutton_addcard_add"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:background="@drawable/round1_btn_addcard"
         app:layout_constraintDimensionRatio="w,2:1"
         android:elevation="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ImageView_tap_add_card"
-        app:layout_constraintEnd_toEndOf="@+id/ImageView_tap_add_card"
-        app:layout_constraintStart_toStartOf="@+id/ImageView_tap_add_card"
-        app:layout_constraintTop_toTopOf="@+id/ImageView_tap_add_card" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageview_addcard_add"
+        app:layout_constraintEnd_toEndOf="@+id/imageview_addcard_add"
+        app:layout_constraintStart_toStartOf="@+id/imageview_addcard_add"
+        app:layout_constraintTop_toTopOf="@+id/imageview_addcard_add" />
 
     <ImageView
-        android:id="@+id/ImageView_add_card"
+        android:id="@+id/ImageView_addcard_nocard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="136dp"
@@ -41,6 +39,20 @@
         app:layout_constraintDimensionRatio="w,1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ImageView_tap_add_card" />
+        app:layout_constraintTop_toBottomOf="@+id/imageview_addcard_add" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_addcard_card"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="11dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageview_addcard_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:spanCount="2"
+        tools:listitem="@layout/item_added_card" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

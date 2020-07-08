@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.stormers.storm.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_add_project.*
+import kotlinx.android.synthetic.main.view_toolbar.view.*
 
 class AddProjectActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -12,7 +13,7 @@ class AddProjectActivity : BaseActivity() {
         setContentView(R.layout.activity_add_project)
 
         //뒤로 가기 버튼 설장
-        setSupportActionBar(toolbar_addproject)
+        setSupportActionBar(include_addproject_toolbar.toolbar)
 
         supportActionBar?.let {
             it.setDisplayShowTitleEnabled(false)
