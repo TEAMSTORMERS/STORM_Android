@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import androidx.cardview.widget.CardView
+import com.bumptech.glide.Glide
 import com.stormers.storm.R
 import com.stormers.storm.util.MetricsUtil
 import kotlinx.android.synthetic.main.view_card_custom.view.*
@@ -123,5 +124,9 @@ class StormCard : CardView {
             imagebutton_customcard_heart.setImageResource(R.drawable.scrapview_heart)
             false
         }
+    }
+
+    fun setImageUrl(url: String) {
+        Glide.with(context).load(url).into(this.imageview_customcard_background)
     }
 }
