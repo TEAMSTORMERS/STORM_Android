@@ -12,16 +12,16 @@
 
 **1️⃣ constraintLayout의 다양한 속성 활용**
 
-**✅ Fragment에 들어갈 뷰들은 위아래가 잘라먹힐 가능성이 있어 모두 chain으로 묶은 뒤 bias 값을 조정하였음**
+	**✅ Fragment에 들어갈 뷰들은 위아래가 잘라먹힐 가능성이 있어 모두 chain으로 묶은 뒤 bias 값을 조정하였음**
 
 
-**✅ View의 width, height 값을 constraint_percent 속성으로 적용하였기 때문에 대부분 match_constraint를 사용하였음**
+	**✅ View의 width, height 값을 constraint_percent 속성으로 적용하였기 때문에 대부분 match_constraint를 사용하였음**
 
 
-**✅ width나 height값을 constraint_percent로 조정한 뒤, constraintDimensionRatio 속성으로 나머지 값을 결정하였음**
+	**✅ width나 height값을 constraint_percent로 조정한 뒤, constraintDimensionRatio 속성으로 나머지 값을 결정하였음**
 
 
-**(fragment_host_round_setting.xml / fragment_round_meeting_expend.xml / fragment_round_start.xml / fragment_waiting_for_starting_project.xml / etc.)**
+	**(fragment_host_round_setting.xml / fragment_round_meeting_expend.xml / fragment_round_start.xml / fragment_waiting_for_starting_project.xml / etc.)**
 
 **ex) fragment_host_round_setting.xm (chain속성)**
 
@@ -71,35 +71,35 @@
 
 **2️⃣ 제약조건의 연관성**
 
-**✅ 화면의 크기의 변화가 있어도 겹쳐지지 말아야할 뷰들은 서로 제약 조건을 갖도록 하였음**
+	**✅ 화면의 크기의 변화가 있어도 겹쳐지지 말아야할 뷰들은 서로 제약 조건을 갖도록 하였음**
 
-**✅ 뷰의 위치는 부모보다는 최대한 가까운 뷰에게 제약조건을 걸고 여백을 통해 지정하였음**
+	**✅ 뷰의 위치는 부모보다는 최대한 가까운 뷰에게 제약조건을 걸고 여백을 통해 지정하였음**
 
-**✅ 제약 조건을 주지 않아도 위치가 결정되는 경우가 있었지만 각 뷰의 상대적 위치를 확실하게 하기 위해 가까운 뷰와 제약 조건을 가짐**
+	**✅ 제약 조건을 주지 않아도 위치가 결정되는 경우가 있었지만 각 뷰의 상대적 위치를 확실하게 하기 위해 가까운 뷰와 제약 조건을 가짐**
 
 
 **3️⃣ match_parent, wrap_content, match_constraint의 사용**
 
-**- GridRecyclerView의 item으로 들어갈 layout들은 해당 속성을 사용하기 어려워 길이 값을 하드코딩하였음**
+	**- GridRecyclerView의 item으로 들어갈 layout들은 해당 속성을 사용하기 어려워 길이 값을 하드코딩하였음**
 
-**- 그 외에는 해당 속성을 모두 사용하였음**
+	**- 그 외에는 해당 속성을 모두 사용하였음**
 
 
- **ConstraintLayout을 사용하지 않은 레이아웃**
+ 	**ConstraintLayout을 사용하지 않은 레이아웃**
  
 
 
- - [ ] **CustomView를 위한 레이아웃**
+	 - [ ] **CustomView를 위한 레이아웃**
  
-	**➡️ view_card_custom.xml**
+		**➡️ view_card_custom.xml**
 
-	**➡️ view_botton_custom.xml**
+		**➡️ view_botton_custom.xml**
 
- - [ ] **ViewPager2의 아이템 레이아웃 (최상위 레이아웃의 가로세로가 match_parent가 아니면 예외가 발생하여 FrameLayout으로 해결)**
+ 	- [ ] **ViewPager2의 아이템 레이아웃 (최상위 레이아웃의 가로세로가 match_parent가 아니면 예외가 발생하여 FrameLayout으로 해결)**
 
-	**➡️ item_round_info_card.xml**
+		**➡️ item_round_info_card.xml**
 
-	**➡️ item_card_detail.xml**
+		**➡️ item_card_detail.xml**
 ## (A-2항목) Kotlin collection의 확장함수 사용 / Custom 확장함수 사용📝
 
 
