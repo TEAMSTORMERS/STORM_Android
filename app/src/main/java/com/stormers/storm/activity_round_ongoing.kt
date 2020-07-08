@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.stormers.storm.RoundSetting.AddCardFragment
 import com.stormers.storm.addcard.AddedCardFragment
@@ -13,6 +12,7 @@ import com.stormers.storm.roundmeeting.RoundmeetingFragment
 import com.stormers.storm.scrapcard.ScrapcardDetailFragment
 import kotlinx.android.synthetic.main.activity_add_project.*
 import kotlinx.android.synthetic.main.activity_round_ongoing.*
+import kotlinx.android.synthetic.main.view_toolbar.view.*
 
 class activity_round_ongoing : AppCompatActivity() {
 
@@ -25,8 +25,7 @@ class activity_round_ongoing : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_round_ongoing)
 
-
-        setSupportActionBar(toolbar_addproject)
+        setSupportActionBar(include_addproject_toolbar.toolbar)
 
         supportActionBar?.let {
             it.setDisplayShowTitleEnabled(false)
@@ -73,7 +72,4 @@ class activity_round_ongoing : AppCompatActivity() {
         transaction.replace(R.id.constraintLayout_round_ongoing, fragment).commitAllowingStateLoss()
 
     }
-
-
-
 }
