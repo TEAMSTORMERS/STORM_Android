@@ -22,19 +22,6 @@ class StormCard : CardView {
         private const val CLICK_DELAY = 250L
     }
 
-    private var doubleClickFlag = 0
-
-    var heartState = false
-        set(value) {
-            field = value
-            if (field) {
-                imagebutton_customcard_heart.setImageResource(R.drawable.scrapcard_btn_heart_1)
-            } else {
-                imagebutton_customcard_heart.setImageResource(R.drawable.scrapview_heart)
-            }
-        }
-
-
     constructor(context: Context) : super(context) {
         init()
     }
@@ -51,6 +38,32 @@ class StormCard : CardView {
         if (attrs != null) {
             getAttrs(attrs, defStyleAttr)
         }
+    }
+
+    private var doubleClickFlag = 0
+
+    var heartState = false
+        set(value) {
+            field = value
+            if (field) {
+                imagebutton_customcard_heart.setImageResource(R.drawable.scrapcard_btn_heart_1)
+            } else {
+                imagebutton_customcard_heart.setImageResource(R.drawable.scrapview_heart)
+            }
+        }
+
+    private var cardId = -1
+
+    private var listener : OnHeartStateChangedListener? = null
+
+    fun getCardId() = cardId
+
+    fun setCardId(id: Int) {
+        cardId = id
+    }
+
+    fun setOnHeartStateChangedListener(listener: StormCard.OnHeartStateChangedListener) {
+        this.listener = listener
     }
 
     private fun init() {
@@ -124,9 +137,16 @@ class StormCard : CardView {
             imagebutton_customcard_heart.setImageResource(R.drawable.scrapview_heart)
             false
         }
+
+        //리스너 동작
+        listener?.onHeartStateChanged(heartState)
     }
 
     fun setImageUrl(url: String) {
         Glide.with(context).load(url).into(this.imageview_customcard_background)
+    }
+
+    interface OnHeartStateChangedListener {
+        fun onHeartStateChanged(state: Boolean)
     }
 }
