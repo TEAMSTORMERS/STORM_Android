@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintlayout_part_detail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/storm_red">
+
+            <ImageButton
+                android:id="@+id/imagebutton_storm_logo_part_detail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="49dp"
+                android:background="@drawable/storm_logo"
+                app:layout_constraintBottom_toTopOf="@id/cardView_date_round_part_detail"
+                app:layout_constraintDimensionRatio="w,4.46:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/imageButton_back_part_detail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/scrapcardview_ic_back"
+                app:layout_constraintBottom_toBottomOf="@+id/imagebutton_storm_logo_part_detail"
+                app:layout_constraintDimensionRatio="w,1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imagebutton_storm_logo_part_detail" />
+
+            <ImageButton
+                android:id="@+id/imageButton_mypage_part_detail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/scrapcardview_ic_mypage"
+                app:layout_constraintBottom_toBottomOf="@+id/imagebutton_storm_logo_part_detail"
+                app:layout_constraintDimensionRatio="w,1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imagebutton_storm_logo_part_detail" />
+
+            <!--Todo: 실시간으로 참여하는 사람의 프로필 사진이 들어갈 동그라미를 추가해야 합니다 -->
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView_date_round_part_detail"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="115dp"
+                android:background="@drawable/background_white_radius"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="10dp"
+                app:layout_constraintBottom_toTopOf="@id/textView_scrap_card"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.22"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imagebutton_storm_logo_part_detail"
+                app:layout_constraintVertical_bias="0.3"
+                app:layout_constraintWidth_percent="0.86">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView_date_part_detail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="135dp"
+                        android:text="2020/00/00"
+                        android:textColor="@color/storm_gray"
+                        android:textSize="13sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView_round_count_part_detail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="ROUND 총 4회"
+                        android:textColor="@color/storm_gray"
+                        android:textSize="13sp"
+                        app:layout_constraintEnd_toEndOf="@+id/textView_date_part_detail"
+                        app:layout_constraintStart_toStartOf="@+id/textView_date_part_detail"
+                        app:layout_constraintTop_toBottomOf="@+id/textView_date_part_detail" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView_title_part_detail"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="53dp"
+                android:layout_marginTop="30dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:selectableItemBackground"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="20dp"
+                app:layout_constraintDimensionRatio="1:0.67"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imagebutton_storm_logo_part_detail">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/card_rectangular">
+
+                    <TextView
+                        android:id="@+id/textview_projectcard_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="프로젝트 제목입력칸"
+                        android:textFontWeight="700"
+                        android:textSize="15sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/textView_scrap_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="스크랩한 카드"
+                android:textColor="@color/storm_white"
+                android:textFontWeight="600"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toTopOf="@id/rv_scrap_card_part_detail"
+                app:layout_constraintStart_toStartOf="@+id/cardView_date_round_part_detail"
+                app:layout_constraintTop_toBottomOf="@+id/cardView_date_round_part_detail" />
+
+            <TextView
+                android:id="@+id/textView_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="더보기"
+                android:textColor="@color/storm_white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView_scrap_card"
+                app:layout_constraintEnd_toStartOf="@+id/imageButton_more"
+                app:layout_constraintTop_toTopOf="@+id/textView_scrap_card" />
+
+            <ImageButton
+                android:id="@+id/imageButton_more"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/participatingprojectview_new_more"
+                app:layout_constraintBottom_toBottomOf="@+id/textView_more"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView_more" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_scrap_card_part_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:paddingHorizontal="26dp"
+                android:scrollbarAlwaysDrawHorizontalTrack="true"
+                android:scrollbarFadeDuration="0"
+                android:scrollbarStyle="insideInset"
+                android:scrollbarThumbHorizontal="@color/storm_white"
+                android:scrollbarTrackHorizontal="@color/scrollbar_track_gray"
+                android:scrollbars="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toTopOf="@id/rv_round_part_detail"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_scrap_card"
+                tools:listitem="@layout/item_scrap_card" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_round_part_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="29dp"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rv_scrap_card_part_detail" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</FrameLayout>
