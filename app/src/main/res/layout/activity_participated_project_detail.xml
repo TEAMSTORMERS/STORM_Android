@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -50,6 +50,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/imagebutton_storm_logo_part_detail" />
 
+            <!--Todo: 실시간으로 참여하는 사람의 프로필 사진이 들어갈 동그라미를 추가해야 합니다 -->
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView_date_round_part_detail"
                 android:layout_width="0dp"
@@ -60,7 +62,7 @@
                 app:cardElevation="10dp"
                 app:layout_constraintBottom_toTopOf="@id/textView_scrap_card"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_percent="0.25"
+                app:layout_constraintHeight_percent="0.22"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imagebutton_storm_logo_part_detail"
                 app:layout_constraintVertical_bias="0.3"
@@ -74,7 +76,7 @@
                         android:id="@+id/textView_date_part_detail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="125dp"
+                        android:layout_marginTop="135dp"
                         android:text="2020/00/00"
                         android:textColor="@color/storm_gray"
                         android:textSize="13sp"
@@ -105,17 +107,16 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="53dp"
+                android:layout_marginTop="30dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?android:selectableItemBackground"
                 app:cardCornerRadius="15dp"
                 app:cardElevation="20dp"
-                app:layout_constraintBottom_toTopOf="@id/cardView_date_round_part_detail"
                 app:layout_constraintDimensionRatio="1:0.67"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imagebutton_storm_logo_part_detail"
-                app:layout_constraintTop_toTopOf="@id/cardView_date_round_part_detail">
+                app:layout_constraintTop_toBottomOf="@+id/imagebutton_storm_logo_part_detail">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
