@@ -4,4 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
+    <string name="rule_reminder">
+        아이디어를 시각화하며 진행해요\n다듬어지지 않은 아이디어를 장려해요\n다른 사람의 아이디어를 더 발전시켜요\n주제에 집중하고 목표에 초점을 맞추어 토론해요\n한 번에 한 가지 주제로 대화를 해요\n판단은 보류해요\n아이디어의 질보다는 양을 추구해요
+    </string>
 </resources>
