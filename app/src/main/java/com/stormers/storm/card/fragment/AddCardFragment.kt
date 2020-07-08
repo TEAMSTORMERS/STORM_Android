@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import com.stormers.storm.R
 import com.stormers.storm.user.UserModel
-import com.stormers.storm.card.CardAdapter
-import com.stormers.storm.card.CardModel
+import com.stormers.storm.card.adapter.CardAdapter
+import com.stormers.storm.card.model.CardModel
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.fragment_add_card.*
 
@@ -59,11 +59,41 @@ class AddCardFragment : Fragment() {
 
 
         data.apply {
-            add(CardModel("https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4", true, gyu))
-            add(CardModel("https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4", true, piece))
-            add(CardModel("https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4", true, one))
-            add(CardModel("https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4", true, gyu))
-            add(CardModel("https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4", true, piece))
+            add(
+                CardModel(
+                    "https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4",
+                    true,
+                    gyu
+                )
+            )
+            add(
+                CardModel(
+                    "https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4",
+                    true,
+                    piece
+                )
+            )
+            add(
+                CardModel(
+                    "https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4",
+                    true,
+                    one
+                )
+            )
+            add(
+                CardModel(
+                    "https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4",
+                    true,
+                    gyu
+                )
+            )
+            add(
+                CardModel(
+                    "https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4",
+                    true,
+                    piece
+                )
+            )
         }
 
         return data

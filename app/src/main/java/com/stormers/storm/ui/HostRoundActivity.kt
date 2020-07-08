@@ -3,7 +3,7 @@ package com.stormers.storm.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.stormers.storm.R
-import com.stormers.storm.RoundSetting.RoundAdapter
+import com.stormers.storm.round.adapter.RoundPagerAdapter
 import kotlinx.android.synthetic.main.activity_host_round_setting.*
 
 class HostRoundActivity : AppCompatActivity() {
@@ -12,7 +12,7 @@ class HostRoundActivity : AppCompatActivity() {
         setContentView(R.layout.activity_host_round_setting)
 
         viewpager_host_round_setting_fragment.adapter =
-            RoundAdapter(supportFragmentManager)
+            RoundPagerAdapter(supportFragmentManager)
         viewpager_host_round_setting_fragment.offscreenPageLimit = 2
 
     }

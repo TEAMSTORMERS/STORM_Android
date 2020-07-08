@@ -4,10 +4,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.stormers.storm.R
-import com.stormers.storm.card.CardAdapter
-import com.stormers.storm.card.CardModel
-import com.stormers.storm.round.RoundListAdapter
-import com.stormers.storm.round.RoundDescriptionModel
+import com.stormers.storm.card.adapter.CardAdapter
+import com.stormers.storm.card.model.CardModel
+import com.stormers.storm.round.adapter.RoundListAdapter
+import com.stormers.storm.round.model.RoundDescriptionModel
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_project_cardlist.*
 

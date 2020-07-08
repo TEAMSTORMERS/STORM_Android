@@ -68,7 +68,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.stormers.storm.customwidget.StormEditText
+        <com.stormers.storm.customview.StormEditText
             android:id="@+id/edittext_addproject_projectname"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

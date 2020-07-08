@@ -19,7 +19,7 @@
         </activity>
         <activity android:name=".ui.MainActivity" android:windowSoftInputMode="adjustNothing"/>
         <activity android:name=".ui.ParticipatedProjectListActivity"/>
-        <activity android:name=".ui.ScrapcardCollectingActivity"/>
+        <activity android:name=".ui.ScrapCardCollectingActivity"/>
         <activity android:name=".ui.AddProjectActivity" />
         <activity android:name=".ui.HostRoundActivity" android:windowSoftInputMode="adjustNothing"/>
         <activity android:name=".ui.RoundProgressActivity" />

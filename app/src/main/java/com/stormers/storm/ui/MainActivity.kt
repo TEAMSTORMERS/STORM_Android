@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
-import com.stormers.storm.project.ProjectsAdapter
-import com.stormers.storm.project.ProjectsData
+import com.stormers.storm.project.adapter.ProjectsAdapter
+import com.stormers.storm.project.model.ProjectsData
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_main.*
 
