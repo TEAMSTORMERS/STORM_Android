@@ -87,12 +87,17 @@
 
 
  - [ ] **CustomView를 위한 레이아웃**
+ 
 **➡️ view_card_custom.xml**
+
 **➡️ view_botton_custom.xml**
 
  - [ ] **ViewPager2의 아이템 레이아웃**
+ 
 **(최상위 레이아웃의 가로세로가 match_parent가 아니면 예외가 발생하여 FrameLayout으로 해결)**
+
 **➡️ item_round_info_card.xml**
+
 **➡️ item_card_detail.xml**
 ## (A-2항목) Kotlin collection의 확장함수 사용 / Custom 확장함수 사용📝
 
