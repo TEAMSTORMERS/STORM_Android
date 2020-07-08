@@ -16,13 +16,12 @@
         android:elevation="10dp"
         android:background="@color/storm_red">
 
-    <ImageButton
-        android:id="@+id/imageButton_roundcardlist_logo"
-        android:layout_width="0dp"
+    <include
+        android:id="@+id/include_cardlist_toolbar"
+        layout="@layout/view_toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="49dp"
-        android:background="@drawable/storm_logo"
-        app:layout_constraintDimensionRatio="w,4.46:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -37,7 +36,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton_roundcardlist_logo"
+        app:layout_constraintTop_toBottomOf="@+id/include_cardlist_toolbar"
         app:layout_constraintVertical_bias="0.43" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
