@@ -10,7 +10,7 @@
 ## (A-1항목) ConstraintLayout을 이용한 xml🔗
 
 
-**1. constraintLayout의 다양한 속성 활용**
+**1️⃣ constraintLayout의 다양한 속성 활용**
 
 **✅ Fragment에 들어갈 뷰들은 위아래가 잘라먹힐 가능성이 있어 모두 chain으로 묶은 뒤 bias 값을 조정하였음**
 
@@ -69,7 +69,7 @@
 
 
 
-**2. 제약조건의 연관성**
+**2️⃣ 제약조건의 연관성**
 
 **✅ 화면의 크기의 변화가 있어도 겹쳐지지 말아야할 뷰들은 서로 제약 조건을 갖도록 하였음**
 
@@ -78,7 +78,7 @@
 **✅ 제약 조건을 주지 않아도 위치가 결정되는 경우가 있었지만 각 뷰의 상대적 위치를 확실하게 하기 위해 가까운 뷰와 제약 조건을 가짐**
 
 
-**3. match_parent, wrap_content, match_constraint의 사용**
+**3️⃣ match_parent, wrap_content, match_constraint의 사용**
 
 **- GridRecyclerView의 item으로 들어갈 layout들은 해당 속성을 사용하기 어려워 길이 값을 하드코딩하였음**
 
