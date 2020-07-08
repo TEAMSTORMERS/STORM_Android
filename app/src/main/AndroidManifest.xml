@@ -24,5 +24,6 @@
         <activity android:name=".ui.HostRoundActivity" android:windowSoftInputMode="adjustNothing"/>
         <activity android:name=".ui.RoundProgressActivity" />
         <activity android:name=".ui.RoundListActivity"/>
+        <activity android:name=".ui.ParticipatedProjectDetailActivity"/>
     </application>
 </manifest>

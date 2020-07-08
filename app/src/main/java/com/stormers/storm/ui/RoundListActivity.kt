@@ -6,14 +6,14 @@ import androidx.viewpager2.widget.ViewPager2
 import com.stormers.storm.R
 import com.stormers.storm.card.adapter.CardAdapter
 import com.stormers.storm.card.model.CardModel
-import com.stormers.storm.round.adapter.RoundListAdapter
+import com.stormers.storm.round.adapter.RoundListAdapterForViewPager
 import com.stormers.storm.round.model.RoundDescriptionModel
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_project_cardlist.*
 
 class RoundListActivity : AppCompatActivity() {
 
-    lateinit var roundListAdapter: RoundListAdapter
+    lateinit var roundListAdapterForViewPager: RoundListAdapterForViewPager
 
     private val cardAdapter: CardAdapter by lazy { CardAdapter() }
 
@@ -21,15 +21,15 @@ class RoundListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_project_cardlist)
 
-        roundListAdapter = RoundListAdapter()
+        roundListAdapterForViewPager = RoundListAdapterForViewPager()
 
         viewpager_roundcardlist_round.run {
-            adapter = roundListAdapter
+            adapter = roundListAdapterForViewPager
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
             offscreenPageLimit = 3
         }
 
-        roundListAdapter.addAll(loadRoundDatas())
+        roundListAdapterForViewPager.addAll(loadRoundDatas())
 
         recyclerView_roundcardlist_cardlist.run {
             adapter = cardAdapter
@@ -66,23 +66,9 @@ class RoundListActivity : AppCompatActivity() {
         val datas = mutableListOf<RoundDescriptionModel>()
 
         datas.apply {
-            add(
-                RoundDescriptionModel(
-                    Textview_project_title_roundinfo = "베개와 유리병의 공통점은?"
-                )
-            )
-
-            add(
-                RoundDescriptionModel(
-                    Textview_project_title_roundinfo = "Pillow 와 Glass 의 공통점은?"
-                )
-            )
-
-            add(
-                RoundDescriptionModel(
-                    Textview_project_title_roundinfo = "평화와 희원이의 공통점은?"
-                )
-            )
+            add(RoundDescriptionModel(null, null, "베개와 유리병의 공통점은?", "11분 소요"))
+            add(RoundDescriptionModel(null, null, "Pillow 와 Glass 의 공통점은?", "11분 소요"))
+            add(RoundDescriptionModel(null, null, "평화와 희원이의 공통점은?", "11분 소요"))
         }
 
         return datas
