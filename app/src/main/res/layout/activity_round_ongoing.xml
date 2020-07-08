@@ -17,25 +17,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toollbar_logo"
+    <include
+        android:id="@+id/include_roundprogress_toolbar"
+        layout="@layout/view_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="10dp"
-
+        android:layout_marginTop="49dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageButton
-            android:id="@+id/storm_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/storm_logo" />
-
-
-    </androidx.appcompat.widget.Toolbar>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <!-- TODO : Round Setting Fragment  -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -84,7 +75,7 @@
         android:textSize="13sp"
         android:textColor="@color/storm_white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toollbar_logo" />
+        app:layout_constraintTop_toBottomOf="@+id/include_roundprogress_toolbar" />
 
     <TextView
         android:id="@+id/textView_round_goal"

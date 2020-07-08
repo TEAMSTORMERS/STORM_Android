@@ -7,38 +7,15 @@
     android:layout_height="match_parent"
     android:background="@color/storm_red">
 
-    <ImageButton
-        android:id="@+id/imageButton_logo_scrap_collect"
-        android:layout_width="0dp"
+    <include
+        android:id="@+id/include_scrapcardlist_toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="49dp"
-        android:background="@drawable/storm_logo"
-        app:layout_constraintDimensionRatio="w,4.46:1"
+        layout="@layout/view_toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/imageButton_back_scrap_collect"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:background="@drawable/scrapcardview_ic_back"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton_logo_scrap_collect"
-        app:layout_constraintDimensionRatio="w,1:1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageButton_logo_scrap_collect" />
-
-    <ImageButton
-        android:id="@+id/imageButton_mypage_scrap_collect"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/scrapcardview_ic_mypage"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton_logo_scrap_collect"
-        app:layout_constraintDimensionRatio="w,1:1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageButton_logo_scrap_collect" />
 
     <TextView
         android:id="@+id/textView"
@@ -51,7 +28,7 @@
         android:textFontWeight="600"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton_logo_scrap_collect" />
+        app:layout_constraintTop_toBottomOf="@+id/include_scrapcardlist_toolbar" />
 
     <TextView
         android:id="@+id/textView_project_name_scrap_collect"

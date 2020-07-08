@@ -23,7 +23,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val mainview_toolbar = findViewById(R.id.mainview_toolbar) as Toolbar
+        val mainview_toolbar = findViewById(R.id.include_main_toolbar) as Toolbar
 
         setSupportActionBar(mainview_toolbar)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.mainview_ic_bamburgerbar)
