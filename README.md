@@ -87,9 +87,7 @@
 
  **ConstraintLayout을 사용하지 않은 레이아웃**
  
-
-
- - [ ] **CustomView를 위한 레이아웃**
+- [ ] **CustomView를 위한 레이아웃**
  
 	**➡️ view_card_custom.xml**
 
