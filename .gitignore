@@ -126,3 +126,6 @@ fabric.properties
 
 !/gradle/wrapper/gradle-wrapper.jar
 
+### key
+keystores/
+
