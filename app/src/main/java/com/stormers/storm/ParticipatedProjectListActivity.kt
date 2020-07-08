@@ -1,81 +1,27 @@
-package com.stormers.storm.MainView
+package com.stormers.storm
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.View
-import android.widget.Toast
-import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.stormers.storm.R
+import com.stormers.storm.MainView.ParticipatedProjectsAdapter
+import com.stormers.storm.MainView.ParticipatedProjectsData
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.util.MarginDecoration
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_participated_project_list.*
 
-class MainActivity : BaseActivity() {
-
-    lateinit var participatedProjectsAdapter: ParticipatedProjectsAdapter
-    val datas = mutableListOf<ParticipatedProjectsData>()
+class ParticipatedProjectListActivity : BaseActivity() {
+    private val participatedProjectsAdapter : ParticipatedProjectsAdapter by lazy { ParticipatedProjectsAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_participated_project_list)
 
-        val mainview_toolbar = findViewById(R.id.mainview_toolbar) as Toolbar
-
-        setSupportActionBar(mainview_toolbar)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.mainview_ic_bamburgerbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        val ab = supportActionBar!!
-        ab.setDisplayShowTitleEnabled(false)
-
-        val drawerToggle: ActionBarDrawerToggle = object : ActionBarDrawerToggle(
-            this,
-            drawerlayout_main,
-            mainview_toolbar,
-            R.string.drawer_open,
-            R.string.drawer_close
-        ){
-            override fun onDrawerClosed(view: View){
-                super.onDrawerClosed(view)
-            }
-            override fun onDrawerOpened(drawerView: View){
-                super.onDrawerOpened(drawerView)
-            }
+        recyclerview_participatedproject.run {
+            adapter = participatedProjectsAdapter
+            addItemDecoration(MarginDecoration(this@ParticipatedProjectListActivity,
+                2, 20, 10))
         }
 
-        // Configure the drawer layout to add listener and show icon on toolbar
-        drawerToggle.isDrawerIndicatorEnabled = true
-        drawerlayout_main.addDrawerListener(drawerToggle)
-        drawerToggle.syncState()
-
-        navigationview_main.setNavigationItemSelectedListener{menuItem ->
-            when(menuItem.itemId){
-                R.id.item1 -> Toast.makeText(this,"item1 selected", Toast.LENGTH_SHORT).show()
-                R.id.item2 -> Toast.makeText(this,"item2 selected", Toast.LENGTH_SHORT).show()
-                R.id.item3 -> Toast.makeText(this,"item3 selected", Toast.LENGTH_SHORT).show()
-            }
-            drawerlayout_main.closeDrawer(GravityCompat.START)
-            true
-        }
-
-
-        // ParticipatedProjectAdapter
-        participatedProjectsAdapter =
-            ParticipatedProjectsAdapter()
-        recycler_participated_projects_list.adapter = participatedProjectsAdapter
-        recycler_participated_projects_list.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        recycler_participated_projects_list.addItemDecoration(MarginDecoration(baseContext,16,RecyclerView.HORIZONTAL))
         participatedProjectsAdapter.addAll(loadProjectsDatas())
-    }
-
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.toolbar_main, menu)
-        return super.onCreateOptionsMenu(menu)
     }
 
     private fun loadProjectsDatas() : MutableList<ParticipatedProjectsData>{
@@ -128,6 +74,36 @@ class MainActivity : BaseActivity() {
                     name_of_project = "성규의 브레인스토밍"
                 )
             )
+            add(
+                ParticipatedProjectsData(
+                    card1 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
+                    card2 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
+                    card3 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
+                    card4 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
+                    name_of_project = "성규의 브레인스토밍"
+                )
+            )
+
+            add(
+                ParticipatedProjectsData(
+                    card1 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
+                    card2 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
+                    card3 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
+                    card4 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
+                    name_of_project = "성규의 브레인스토밍"
+                )
+            )
+
+            add(
+                ParticipatedProjectsData(
+                    card1 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
+                    card2 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
+                    card3 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
+                    card4 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
+                    name_of_project = "성규의 브레인스토밍"
+                )
+            )
+
             add(
                 ParticipatedProjectsData(
                     card1 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
