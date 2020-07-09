@@ -26,6 +26,8 @@ class StormDialogBuilder {
 
     private var title: String
 
+    private var contentText: String? = null
+
     @LayoutRes
     private var contentRes: Int? = null
 
@@ -83,6 +85,7 @@ class StormDialogBuilder {
         return StormDialog(
             imageRes,
             title,
+            contentText,
             contentRes,
             buttonArray,
             horizontalButton
@@ -101,6 +104,11 @@ class StormDialogBuilder {
 
     fun setHorizontalArray(stormDialogButtonArray: ArrayList<StormDialogButton>) : StormDialogBuilder {
         this.horizontalButton = stormDialogButtonArray
+        return this
+    }
+
+    fun setContentText(contentText: String) : StormDialogBuilder {
+        this.contentText = contentText
         return this
     }
 }

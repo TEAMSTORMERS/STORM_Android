@@ -32,7 +32,7 @@
             android:layout_marginTop="23dp"
             android:text="참여 코드 생성 완료!"
             android:textColor="@color/brownish_grey"
-            android:textSize="15sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/linearlayout_dialog_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -59,6 +59,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textview_dialog_title">
+
+            <TextView
+                android:id="@+id/textview_dialog_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="여기는 텍스트로 된 컨텐츠가 들어갈 공간입니다."
+                android:layout_marginBottom="40dp"
+                android:layout_marginTop="15dp"
+                android:paddingHorizontal="54dp"
+                android:gravity="center"
+                android:textColor="@color/storm_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_dialog_title"
+                app:layout_constraintBottom_toTopOf="@id/linearlayout_dialog_buttons"/>
 
             <!--empty yet-->
 

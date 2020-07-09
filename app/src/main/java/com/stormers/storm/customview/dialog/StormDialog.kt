@@ -14,6 +14,7 @@ import androidx.fragment.app.DialogFragment
 import com.stormers.storm.R
 import kotlinx.android.synthetic.main.dialog_custom.view.*
 import kotlinx.android.synthetic.main.dialog_custom.view.imageview_dialog_symbol
+import kotlinx.android.synthetic.main.dialog_custom.view.textview_dialog_content
 import kotlinx.android.synthetic.main.item_dialog_buttons.view.*
 
 /**
@@ -29,7 +30,7 @@ import kotlinx.android.synthetic.main.item_dialog_buttons.view.*
  * @param horizontalButtonArray? 가로로 정렬 될 버튼들의 배열
  * listener 는 StromDialogButton.OnClickListener 인터페이스를 구현하여 사용
  */
-class StormDialog(@DrawableRes val imageRes: Int, private val title: String, @LayoutRes val contentRes: Int?,
+class StormDialog(@DrawableRes val imageRes: Int, private val title: String, private val contentText: String?, @LayoutRes val contentRes: Int?,
                   private val buttonArray: ArrayList<StormDialogButton>?,
                   private val horizontalButtonArray: ArrayList<StormDialogButton>?) : DialogFragment() {
 
@@ -40,14 +41,25 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, @La
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.dialog_custom, container)
 
+        //파라미터 검사
+        contentCheck()
+
         //이미지 적용
         view.imageview_dialog_symbol.setImageResource(imageRes)
 
         //문구 적용
         view.textview_dialog_title.text = title
 
+        //contentText 적용
+        contentText?.let {
+            view.textview_dialog_content.text = contentText
+        }?: run {
+            view.textview_dialog_content.visibility = View.GONE
+        }
+
         //ContentView 적용
         contentRes?.let {
+            view.textview_dialog_content.visibility = View.GONE
             view.linearlayout_dialog_content.addView(inflater.inflate(contentRes, container))
         }
 
@@ -112,5 +124,11 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, @La
         isCancelable = false
 
         return view
+    }
+
+    private fun contentCheck() {
+        if (contentText != null && contentRes != null) {
+            throw IllegalArgumentException("ContentText cannot be used with ContentRes. Please choose one of the two.")
+        }
     }
 }
