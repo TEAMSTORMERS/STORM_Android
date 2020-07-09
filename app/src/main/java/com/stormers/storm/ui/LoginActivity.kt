@@ -1,10 +1,13 @@
 package com.stormers.storm.ui
 
+
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+
+import com.airbnb.lottie.LottieAnimationView
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -14,14 +17,18 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.kakao.auth.AuthType
+
 import com.kakao.auth.ISessionCallback
-import com.kakao.auth.KakaoSDK
 import com.kakao.auth.Session
+import com.kakao.auth.helper.Base64
 import com.kakao.network.ErrorResult
 import com.kakao.usermgmt.UserManagement
 import com.kakao.usermgmt.callback.MeV2ResponseCallback
 import com.kakao.usermgmt.response.MeV2Response
 import com.kakao.util.exception.KakaoException
+import com.kakao.util.helper.Utility.getKeyHash
+import com.kakao.util.helper.Utility.getPackageInfo
 
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
@@ -29,9 +36,8 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 
 class LoginActivity : BaseActivity(){
-
+    //fixme: 여기에 문제가 있을까???? 그리고 결정적으로 왜 LoginActivity에서만 kakaoSDK가 import가 안돼,,,
     private var callback: SessionCallback = SessionCallback()
-
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
     private val RC_SIGN_IN = 99 //private const val TAG = "GoogleActivity"
@@ -40,15 +46,13 @@ class LoginActivity : BaseActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-
+        //fixme: 여기에 문제가 있을까????
         //Kakao 로그인 연동
-
         imagebutton_login_kakao.setOnClickListener {
-            //Todo: 카카오 로그인 기능
-            Session.getCurrentSession().addCallback(callback)
-            Session.getCurrentSession().checkAndImplicitOpen()
-            //Debug 용도로 일단 메인화면으로 이동하게 함
 
+            Session.getCurrentSession().open(AuthType.KAKAO_LOGIN_ALL,this)
+            Session.getCurrentSession().addCallback(callback)
+            //Debug 용도로 일단 메인화면으로 이동하게 함
             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
             this@LoginActivity.finish()
         }
@@ -64,7 +68,27 @@ class LoginActivity : BaseActivity(){
         googleSignInClient = GoogleSignIn.getClient(this, gso)
         firebaseAuth = FirebaseAuth.getInstance()
 
+        initView()
+
     }
+
+    //fixme: 여기에 문제가 있을까????
+    //Kakao
+    @SuppressLint("MissingSuperCall")
+    override fun onDestroy() {
+        super.onDestroy()
+        Session.getCurrentSession().removeCallback(callback)
+    }
+    //Lottie 애니메이션 로그인뷰
+    private fun initView(){
+
+        val animationView = findViewById<LottieAnimationView>(R.id.lottieanimation_login) as LottieAnimationView
+        animationView.setAnimation("login_bg.json")
+        animationView.loop(true)
+        animationView.playAnimation()
+
+    }
+
 
     //Firebase
     public override fun onStart() {
@@ -76,14 +100,15 @@ class LoginActivity : BaseActivity(){
     } //onStart End
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
-            Log.i("Log", "session get current session")
+        //Kakao Session
+        //fixme: 여기에 문제가 있을까????
+        if (Session.getCurrentSession().handleActivityResult(requestCode,resultCode,data)){
+            Log.i("Log","session get current session")
             return
         }
+
         super.onActivityResult(requestCode, resultCode, data)
+
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
@@ -99,10 +124,6 @@ class LoginActivity : BaseActivity(){
         }
     } // onActivityResult End
 
-    override fun onDestroy() {
-        super.onDestroy()
-        Session.getCurrentSession().removeCallback(callback)
-    }
 
     private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
         Log.d("LoginActivity", "firebaseAuthWithGoogle:" + acct.id!!)
@@ -133,58 +154,5 @@ class LoginActivity : BaseActivity(){
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
-    // Google SignOut
-    private fun signOut() { // 로그아웃
-        // Firebase sign out
-        firebaseAuth.signOut()
-
-        // Google sign out
-        googleSignInClient.signOut().addOnCompleteListener(this) {
-            //updateUI(null)
-        }
-    }
-    // Firebase sign out(회원탈퇴)
-    private fun revokeAccess() {
-        firebaseAuth.signOut()
-        googleSignInClient.revokeAccess().addOnCompleteListener(this) {
-
-        }
-    }
-
-    private inner class SessionCallback : ISessionCallback {
-        override fun onSessionOpened() {
-            // 로그인 세션이 열렸을 때
-            UserManagement.getInstance().me( object : MeV2ResponseCallback() {
-                override fun onSuccess(result: MeV2Response?) {
-                    // 로그인이 성공했을 때
-                    var intent = Intent(this@LoginActivity, MainActivity::class.java)
-                    intent.putExtra("name", result!!.getNickname())
-                    intent.putExtra("profile", result!!.getProfileImagePath())
-                    startActivity(intent)
-                    finish()
-                }
-
-                override fun onSessionClosed(errorResult: ErrorResult?) {
-                    // 로그인 도중 세션이 비정상적인 이유로 닫혔을 때
-                    Toast.makeText(
-                        this@LoginActivity,
-                        "세션이 닫혔습니다. 다시 시도해주세요 : ${errorResult.toString()}",
-                        Toast.LENGTH_SHORT).show()
-                }
-            })
-        }
-        override fun onSessionOpenFailed(exception: KakaoException?) {
-            // 로그인 세션이 정상적으로 열리지 않았을 때
-            if (exception != null) {
-                com.kakao.util.helper.log.Logger.e(exception)
-                Toast.makeText(
-                    this@LoginActivity,
-                    "로그인 도중 오류가 발생했습니다. 인터넷 연결을 확인해주세요 : $exception",
-                    Toast.LENGTH_SHORT).show()
-            }
-        }
-
-    }
-
 
 }

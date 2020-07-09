@@ -1,9 +1,13 @@
 package com.stormers.storm.ui
 
 import android.app.Application
+import com.kakao.auth.*
 import com.kakao.auth.KakaoSDK
+import okhttp3.internal.Internal.instance
 
-class GlobalApplication : Application() {
+
+//fixme: 여기에 문제가 있을까????
+class GlobalApplication : Application(){
     override fun onCreate() {
         super.onCreate()
 
@@ -13,15 +17,15 @@ class GlobalApplication : Application() {
 
     override fun onTerminate() {
         super.onTerminate()
-        instance = null
+        instance= null
     }
 
-    fun getGlobalApplicationContext(): GlobalApplication {
-        checkNotNull(instance) { "this application does not inherit com.kakao.GlobalApplication" }
-        return instance!!
-    }
-
-    companion object {
+    fun getGlobalApplicationContext():GlobalApplication{
+        checkNotNull(instance){
+            "this application does not inherit com.kakao.GlobalApplication"}
+            return instance!!
+        }
+    companion object{
         var instance: GlobalApplication? = null
     }
 }
