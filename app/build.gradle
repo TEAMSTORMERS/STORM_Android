@@ -45,6 +45,7 @@ dependencies {
 
     //Kakao 로그인 api
     implementation group: project.KAKAO_SDK_GROUP, name: 'usermgmt', version: project.KAKAO_SDK_VERSION
+
     //로그인뷰 lottie애니메이션
     implementation "com.airbnb.android:lottie:3.4.1"
 
