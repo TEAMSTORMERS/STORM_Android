@@ -24,14 +24,14 @@ class StormButton : CardView {
         init()
     }
 
-    constructor(context: Context, attrs: AttributeSet?) : super(context) {
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
         init()
         if (attrs != null) {
             getAttrs(attrs)
         }
     }
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context) {
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         init()
         if (attrs != null) {
             getAttrs(attrs, defStyleAttr)
@@ -78,4 +78,9 @@ class StormButton : CardView {
         radius = MetricsUtil.convertDpToPixel(7f, context)
         cardview_custombutton_root.setCardBackgroundColor(context.getColor(R.color.storm_yellow))
     }
+
+    override fun setOnClickListener(l: OnClickListener?) {
+        this.cardview_custombutton_root.setOnClickListener(l)
+    }
+
 }
