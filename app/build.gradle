@@ -57,6 +57,10 @@ dependencies {
         exclude group: 'org.json', module: 'json'
     }
 
+    //Retrofit2
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.squareup.retrofit2:retrofit:2.7.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
 
     //평화랑 겹칠 수 있음 둘 중 하나 지우기
     implementation 'com.airbnb.android:lottie:3.4.1'
