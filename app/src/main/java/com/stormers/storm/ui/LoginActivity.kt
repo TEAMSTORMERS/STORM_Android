@@ -5,9 +5,8 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
-
 import com.airbnb.lottie.LottieAnimationView
+import com.airbnb.lottie.LottieDrawable.INFINITE
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -18,25 +17,15 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.kakao.auth.AuthType
-
-import com.kakao.auth.ISessionCallback
 import com.kakao.auth.Session
-import com.kakao.auth.helper.Base64
-import com.kakao.network.ErrorResult
-import com.kakao.usermgmt.UserManagement
-import com.kakao.usermgmt.callback.MeV2ResponseCallback
-import com.kakao.usermgmt.response.MeV2Response
-import com.kakao.util.exception.KakaoException
-import com.kakao.util.helper.Utility.getKeyHash
-import com.kakao.util.helper.Utility.getPackageInfo
 
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
 
-class LoginActivity : BaseActivity(){
-    //fixme: 여기에 문제가 있을까???? 그리고 결정적으로 왜 LoginActivity에서만 kakaoSDK가 import가 안돼,,,
+class LoginActivity : BaseActivity() {
+
     private var callback: SessionCallback = SessionCallback()
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
@@ -46,11 +35,12 @@ class LoginActivity : BaseActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        //fixme: 여기에 문제가 있을까????
+        //Todo: 카카오 로그인이랑 구글 로그인이 짬뽕 되어 있어서 유지보수가 어려우니 구분 지어 작성하거나 메서드 이름이라도 잘 바꿔보자 !
+
         //Kakao 로그인 연동
         imagebutton_login_kakao.setOnClickListener {
 
-            Session.getCurrentSession().open(AuthType.KAKAO_LOGIN_ALL,this)
+            Session.getCurrentSession().open(AuthType.KAKAO_LOGIN_ALL, this)
             Session.getCurrentSession().addCallback(callback)
             //Debug 용도로 일단 메인화면으로 이동하게 함
             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
@@ -58,7 +48,7 @@ class LoginActivity : BaseActivity(){
         }
 
         //Google Firebase 로그인
-        imagebutton_login_google.setOnClickListener{signIn()}
+        imagebutton_login_google.setOnClickListener { signIn() }
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -72,21 +62,19 @@ class LoginActivity : BaseActivity(){
 
     }
 
-    //fixme: 여기에 문제가 있을까????
     //Kakao
     @SuppressLint("MissingSuperCall")
     override fun onDestroy() {
         super.onDestroy()
         Session.getCurrentSession().removeCallback(callback)
     }
+
     //Lottie 애니메이션 로그인뷰
-    private fun initView(){
-
-        val animationView = findViewById<LottieAnimationView>(R.id.lottieanimation_login) as LottieAnimationView
+    private fun initView() {
+        val animationView = findViewById<LottieAnimationView>(R.id.lottieanimation_login)
         animationView.setAnimation("login_bg.json")
-        animationView.loop(true)
+        animationView.repeatCount = INFINITE
         animationView.playAnimation()
-
     }
 
 
@@ -94,16 +82,15 @@ class LoginActivity : BaseActivity(){
     public override fun onStart() {
         super.onStart()
         val account = GoogleSignIn.getLastSignedInAccount(this)
-        if(account!==null){ // 이미 로그인 되어있을시 바로 메인 액티비티로 이동
+        if (account !== null) { // 이미 로그인 되어있을시 바로 메인 액티비티로 이동
             toMainActivity(firebaseAuth.currentUser)
         }
     } //onStart End
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         //Kakao Session
-        //fixme: 여기에 문제가 있을까????
-        if (Session.getCurrentSession().handleActivityResult(requestCode,resultCode,data)){
-            Log.i("Log","session get current session")
+        if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
+            Log.i("Log", "session get current session")
             return
         }
 
@@ -137,13 +124,14 @@ class LoginActivity : BaseActivity(){
                     toMainActivity(firebaseAuth?.currentUser)
                 } else {
                     Log.w("LoginActivity", "firebaseAuthWithGoogle 실패", task.exception)
-                    Snackbar.make(constraintlayout_login, "로그인에 실패하였습니다.", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(constraintlayout_login, "로그인에 실패하였습니다.", Snackbar.LENGTH_SHORT)
+                        .show()
                 }
             }
     }// firebaseAuthWithGoogle END
 
     fun toMainActivity(user: FirebaseUser?) {
-        if(user !=null) { // MainActivity 로 이동
+        if (user != null) { // MainActivity 로 이동
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
