@@ -32,9 +32,9 @@
             <!--Todo: 로딩 이미지 크기 정확히 알아와서 반영하기-->
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lottie_dialog_loading"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:scaleType="fitCenter"
+                android:layout_width="210dp"
+                android:layout_height="70dp"
+                android:scaleType="centerCrop"
                 android:visibility="gone"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
