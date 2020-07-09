@@ -59,6 +59,16 @@ class StormButton : CardView {
     }
 
     private fun setTypedArray(typedArray: TypedArray) {
+        setText(typedArray)
+
+        setPadding()
+
+        setElevation(typedArray)
+
+        setRadius()
+    }
+
+    private fun setText(typedArray: TypedArray) {
         val strText = typedArray.getString(R.styleable.StormButton_android_text)
 
         if (strText != null) {
@@ -66,21 +76,27 @@ class StormButton : CardView {
         } else {
             textview_custombutton.text = null
         }
-
-        val marginVertical = MetricsUtil.convertDpToPixel(MARGIN_VERTICAL, context).toInt()
-        val marginHorizontal = MetricsUtil.convertDpToPixel(MARGIN_HORIZONTAL, context).toInt()
-        (textview_custombutton.layoutParams as MarginLayoutParams).setMargins(marginHorizontal, marginVertical, marginHorizontal, marginVertical)
-
-        val elevation = typedArray.getDimension(R.styleable.StormButton_android_elevation, 1f)
-
-        this.elevation = elevation
-
-        radius = MetricsUtil.convertDpToPixel(7f, context)
-        cardview_custombutton_root.setCardBackgroundColor(context.getColor(R.color.storm_yellow))
     }
 
     override fun setOnClickListener(l: OnClickListener?) {
         this.cardview_custombutton_root.setOnClickListener(l)
     }
 
+    private fun setPadding() {
+        val marginVertical = MetricsUtil.convertDpToPixel(MARGIN_VERTICAL, context).toInt()
+        val marginHorizontal = MetricsUtil.convertDpToPixel(MARGIN_HORIZONTAL, context).toInt()
+        (textview_custombutton.layoutParams as MarginLayoutParams).setMargins(marginHorizontal, marginVertical, marginHorizontal, marginVertical)
+    }
+
+    private fun setElevation(typedArray: TypedArray) {
+        val elevation = typedArray.getDimension(R.styleable.StormButton_android_elevation, 1f)
+        this.elevation = elevation
+
+        useCompatPadding = true
+    }
+
+    private fun setRadius() {
+        radius = MetricsUtil.convertDpToPixel(7f, context)
+        cardview_custombutton_root.setCardBackgroundColor(context.getColor(R.color.storm_yellow))
+    }
 }
