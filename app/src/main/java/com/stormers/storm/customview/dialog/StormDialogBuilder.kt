@@ -36,7 +36,7 @@ class StormDialogBuilder(private var dialogImg: Int, private var title: String) 
 
             STORM_LOGO -> R.drawable.h_roundstart_popup_symbol
             THUNDER_LOGO -> R.drawable.h_projectsetting_popup_lightning
-            LOADING_LOGO -> -1 //Todo: 애니메이션 로고 넣기
+            LOADING_LOGO -> StormDialog.LOADING //Todo: 애니메이션 로고 넣기
 
             else -> throw IllegalArgumentException("Unresolved dialog image")
         }

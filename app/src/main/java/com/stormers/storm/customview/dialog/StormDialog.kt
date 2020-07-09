@@ -12,6 +12,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.DialogFragment
 import com.stormers.storm.R
+import com.stormers.storm.util.MetricsUtil
 import kotlinx.android.synthetic.main.dialog_custom.view.*
 import kotlinx.android.synthetic.main.dialog_custom.view.imageview_dialog_symbol
 import kotlinx.android.synthetic.main.dialog_custom.view.textview_dialog_content
@@ -36,6 +37,8 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
 
     companion object {
         const val TAG = "storm_dialog"
+
+        const val LOADING = -1
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -45,7 +48,13 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
         contentCheck()
 
         //이미지 적용
-        view.imageview_dialog_symbol.setImageResource(imageRes)
+
+        if (imageRes != LOADING) {
+            view.imageview_dialog_symbol.setImageResource(imageRes)
+        } else {
+            view.imageview_dialog_symbol.visibility = View.GONE
+            view.lottie_dialog_loading.visibility = View.VISIBLE
+        }
 
         //문구 적용
         view.textview_dialog_title.text = title
@@ -114,6 +123,11 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
 //                }
             }
             view.linearlayout_dialog_buttons.addView(linearLayout)
+        }
+
+        if (buttonArray == null && horizontalButtonArray == null) {
+            ((view.linearlayout_dialog_buttons.layoutParams) as ViewGroup.MarginLayoutParams)
+                .setMargins(0, MetricsUtil.convertDpToPixel(20f, context).toInt(), 0, 0)
         }
 
         //직각 모서리를 없애기 위함
