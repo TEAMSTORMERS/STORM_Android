@@ -6,24 +6,16 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import com.stormers.storm.draw.CanvasDrawingFragment
-import com.stormers.storm.draw.CanvasTextFragment
 import com.stormers.storm.R
 import com.stormers.storm.RoundSetting.AddCardFragment
-import kotlinx.android.synthetic.main.activity_round_ongoing.*
+import kotlinx.android.synthetic.main.activity_round_progress.*
 import kotlinx.android.synthetic.main.view_toolbar.view.*
 
 class RoundProgressActivity : AppCompatActivity() {
 
-    private val fragmentManager = supportFragmentManager
-    private val canvasDrawingFragment =
-        CanvasDrawingFragment()
-    private val canvasTextFragment = CanvasTextFragment()
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_round_ongoing)
+        setContentView(R.layout.activity_round_progress)
 
         setSupportActionBar(include_roundprogress_toolbar.toolbar)
 
@@ -33,16 +25,10 @@ class RoundProgressActivity : AppCompatActivity() {
             it.setHomeAsUpIndicator(R.drawable.host_a_1_btn_back)
         }
 
-        addFragment(AddCardFragment())
+        replaceFragment(AddCardFragment())
         //addFragment(AddedCardFragment())
         //addFragment(ScrapcardDetailFragment())
         //addFragment(CanvasTextFragment())
-
-//        button_apply.setOnClickListener{
-//            val fragmentTransaction = fragmentManager.beginTransaction()
-//            fragmentTransaction.replace(R.id.constraintLayout_round_ongoing, canvasDrawingFragment )
-//        }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -67,9 +53,8 @@ class RoundProgressActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun addFragment(fragment: Fragment) {
+    private fun replaceFragment(fragment: Fragment) {
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.constraintLayout_round_ongoing, fragment).commitAllowingStateLoss()
-
+        transaction.replace(R.id.framelayout_roundprogress_fragment, fragment).commitAllowingStateLoss()
     }
 }
