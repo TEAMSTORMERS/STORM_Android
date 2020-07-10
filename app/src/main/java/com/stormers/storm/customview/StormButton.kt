@@ -119,4 +119,8 @@ class StormButton : CardView {
             }
         }
     }
+
+    fun setText(text: String) {
+        textview_custombutton.text = text
+    }
 }
