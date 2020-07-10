@@ -3,6 +3,7 @@ package com.stormers.storm.ui
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+<<<<<<< HEAD
 import android.util.Log
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable.INFINITE
@@ -18,6 +19,10 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.kakao.auth.AuthType
 import com.kakao.auth.Session
 
+=======
+import android.view.View
+import android.widget.Toast
+>>>>>>> 3c7a4a1df888e103167bed274441a4cfc4f18cc7
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_login.*
@@ -102,6 +107,7 @@ class LoginActivity : BaseActivity() {
                 Log.w("LoginActivity", "Google sign in failed", e)
             }
         }
+<<<<<<< HEAD
     } // onActivityResult End
 
 
@@ -134,6 +140,12 @@ class LoginActivity : BaseActivity() {
     private fun signIn() {
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
+=======
+
+        stormbutton.setOnClickListener {
+            Toast.makeText(baseContext, "눌림", Toast.LENGTH_SHORT).show()
+        }
+>>>>>>> 3c7a4a1df888e103167bed274441a4cfc4f18cc7
     }
 
 }

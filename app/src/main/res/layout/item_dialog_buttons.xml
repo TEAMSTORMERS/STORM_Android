@@ -5,16 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_weight="1"
-    android:background="?android:selectableItemBackground">
-
-    <View
-        android:id="@+id/view_dialog_divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/brownish_grey"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:foreground="?android:selectableItemBackground">
 
     <TextView
         android:id="@+id/textview_dialog_button"
@@ -23,6 +14,7 @@
         android:text="확인"
         android:textSize="14sp"
         android:textStyle="bold"
+        android:textColor="@color/storm_gray"
         android:layout_marginVertical="22dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
