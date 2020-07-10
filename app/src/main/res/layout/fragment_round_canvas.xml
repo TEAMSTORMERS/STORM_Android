@@ -69,6 +69,7 @@
     </androidx.cardview.widget.CardView>
 
     <com.stormers.storm.customview.StormButton
+        android:id="@+id/stormbutton_roundcanvas_apply"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="10dp"
