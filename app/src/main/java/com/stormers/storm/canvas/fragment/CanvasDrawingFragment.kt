@@ -2,7 +2,9 @@ package com.stormers.storm.canvas.fragment
 
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import com.stormers.storm.R
 import com.stormers.storm.canvas.base.BaseCanvasFragment
 import kotlinx.android.synthetic.main.fragment_round_canvas.*
 
@@ -16,5 +18,8 @@ class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE) {
         imagebutton_change_text.setOnClickListener {
             showChangeDialog()
         }
+
+        LayoutInflater.from(context).inflate(R.layout.view_signaturepad, cardview_roundcanvas_canvas)
+        
     }
 }
