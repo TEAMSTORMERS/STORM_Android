@@ -38,6 +38,10 @@ class StormButton : CardView {
         }
     }
 
+
+    private var activation = true
+
+
     private fun init() {
         LayoutInflater.from(context).inflate(layoutRes, this, true)
     }
@@ -98,5 +102,21 @@ class StormButton : CardView {
     private fun setRadius() {
         radius = MetricsUtil.convertDpToPixel(7f, context)
         cardview_custombutton_root.setCardBackgroundColor(context.getColor(R.color.storm_yellow))
+    }
+
+    fun getActivation() : Boolean {
+        return this.activation
+    }
+
+    fun setActivation(activation: Boolean) {
+        this.activation = activation
+
+        cardview_custombutton_root.run {
+            if (activation) {
+                setCardBackgroundColor(context.getColor(R.color.storm_yellow))
+            } else {
+                setCardBackgroundColor(context.getColor(R.color.storm_popup_gray))
+            }
+        }
     }
 }
