@@ -12,7 +12,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.Signin"></activity>
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
@@ -21,15 +20,18 @@
         <activity
             android:name=".ui.LoginActivity"
             android:theme="@style/loginTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.MainActivity"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustNothing" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity android:name=".ui.ParticipatedProjectListActivity" />
         <activity android:name=".ui.ScrapCardCollectingActivity" />
         <activity android:name=".ui.AddProjectActivity" />

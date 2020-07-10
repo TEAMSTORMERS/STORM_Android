@@ -1,6 +1,8 @@
 package com.stormers.storm.ui
 
+import android.content.Intent
 import android.util.Log
+import androidx.core.content.ContextCompat.startActivity
 import com.kakao.auth.ISession
 import com.kakao.auth.ISessionCallback
 import com.kakao.network.ErrorResult

@@ -72,6 +72,7 @@ class MainActivity : BaseActivity() {
         recycler_participated_projects_list.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         recycler_participated_projects_list.addItemDecoration(MarginDecoration(baseContext,16,RecyclerView.HORIZONTAL))
         recentProjectsAdapter.addAll(loadProjectsDatas())
+
     }
 
 
@@ -83,7 +84,6 @@ class MainActivity : BaseActivity() {
     private fun loadProjectsDatas() : MutableList<RecentProjectsModel>{
 
         val datas = mutableListOf<RecentProjectsModel>()
-
         datas.apply {
             add(
                 RecentProjectsModel(
@@ -100,7 +100,7 @@ class MainActivity : BaseActivity() {
                     card2 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
                     card3 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
                     card4 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    projectName = "평화의 브레인스토밍"
+                    projectName = "희원이의 브레인스토밍"
                 )
             )
             add(
@@ -109,7 +109,7 @@ class MainActivity : BaseActivity() {
                     card2 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
                     card3 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
                     card4 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    projectName = "평화의 브레인스토밍"
+                    projectName = "성규의 브레인스토밍"
                 )
             )
             add(
@@ -142,5 +142,11 @@ class MainActivity : BaseActivity() {
         }
 
         return datas
+
+            if (datas.isNotEmpty()) {
+                imageview_mainview_symbol.visibility = View.GONE
+                textview_info_project_list.visibility = View.GONE
+                recycler_participated_projects_list.visibility = View.VISIBLE
+            }
     }
 }

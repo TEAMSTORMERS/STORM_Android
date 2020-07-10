@@ -1,6 +1,5 @@
 package com.stormers.storm.ui
 
-
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
@@ -37,15 +36,10 @@ class LoginActivity : BaseActivity() {
 
         //Todo: 카카오 로그인이랑 구글 로그인이 짬뽕 되어 있어서 유지보수가 어려우니 구분 지어 작성하거나 메서드 이름이라도 잘 바꿔보자 !
 
-        //Kakao 로그인 연동
-        imagebutton_login_kakao.setOnClickListener {
+
 
             Session.getCurrentSession().open(AuthType.KAKAO_LOGIN_ALL, this)
             Session.getCurrentSession().addCallback(callback)
-            //Debug 용도로 일단 메인화면으로 이동하게 함
-            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-            this@LoginActivity.finish()
-        }
 
         //Google Firebase 로그인
         imagebutton_login_google.setOnClickListener { signIn() }
@@ -93,7 +87,6 @@ class LoginActivity : BaseActivity() {
             Log.i("Log", "session get current session")
             return
         }
-
         super.onActivityResult(requestCode, resultCode, data)
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
