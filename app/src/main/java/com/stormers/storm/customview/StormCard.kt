@@ -91,8 +91,6 @@ class StormCard : CardView {
 
         setDoubleTab(typedArray)
 
-        setMargin(typedArray)
-
         setElevation(typedArray)
 
         setRadius()
@@ -106,6 +104,7 @@ class StormCard : CardView {
     private fun setElevation(typedArray: TypedArray) {
         val elevation = typedArray.getDimension(R.styleable.StormCard_android_elevation, 1f)
         this.elevation = elevation
+        useCompatPadding = true
     }
 
     private fun setDoubleTab(typedArray: TypedArray) {
@@ -132,17 +131,6 @@ class StormCard : CardView {
                 }
             }
         }
-    }
-
-    private fun setMargin(typedArray: TypedArray) {
-        val marginHorizontal = MetricsUtil.convertDpToPixel(
-            typedArray.getDimension(R.styleable.StormCard_android_layout_marginHorizontal, 0f), context).toInt()
-
-        val marginVertical = MetricsUtil.convertDpToPixel(
-            typedArray.getDimension(R.styleable.StormCard_android_layout_marginVertical, 0f), context).toInt()
-
-        (this.cardview_customcard_root.layoutParams as MarginLayoutParams)
-            .setMargins(marginHorizontal, marginVertical, marginHorizontal, marginVertical)
     }
 
     private fun showHeartButton(typedArray: TypedArray) {
