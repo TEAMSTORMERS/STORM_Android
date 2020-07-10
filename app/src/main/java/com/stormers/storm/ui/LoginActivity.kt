@@ -20,9 +20,5 @@ class LoginActivity : BaseActivity() {
             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
             this@LoginActivity.finish()
         }
-
-        stormbutton.setOnClickListener {
-            Toast.makeText(baseContext, "눌림", Toast.LENGTH_SHORT).show()
-        }
     }
 }
