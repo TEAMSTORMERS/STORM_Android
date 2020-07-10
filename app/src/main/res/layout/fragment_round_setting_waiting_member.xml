@@ -7,18 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".round.fragment.RoundStartFragment">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottieAnimationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/include_roundstart_participant_member"
-        app:layout_constraintDimensionRatio="w,3:1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout"
-        app:lottie_autoPlay="true"
-        app:lottie_fileName="@raw/loading_animation"
-        app:lottie_loop="true" />
 
     <FrameLayout
         android:id="@+id/frameLayout"
@@ -111,9 +99,22 @@
                 android:textColor="@color/storm_gray"
                 android:textFontWeight="700"
                 android:textSize="15sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/lottieAnimationView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottieAnimationView"
+                android:layout_width="45dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_round_ready"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textview_round_ready"
+                app:layout_constraintTop_toTopOf="@+id/textview_round_ready"
+                app:lottie_autoPlay="true"
+                app:lottie_rawRes="@raw/loading_animation"
+                app:lottie_loop="true" />
 
             <TextView
                 android:id="@+id/textview_round_no_member"
@@ -154,7 +155,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/round_announce1" />
 
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 
@@ -169,8 +169,6 @@
         app:layout_constraintHeight_percent="0.44"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintVertical_bias="1.0" />
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
