@@ -9,6 +9,8 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.stormers.storm.R
+import com.stormers.storm.base.BaseActivity
+import com.stormers.storm.canvas.fragment.CanvasDrawingFragment
 import com.stormers.storm.project.fragment.WaitingForStartingProjectFragment
 import com.stormers.storm.round.adapter.RoundPagerAdapter
 import com.stormers.storm.round.fragment.RoundSettingWaitingMemberFragment
@@ -17,39 +19,26 @@ import kotlinx.android.synthetic.main.activity_host_round_setting.*
 import kotlinx.android.synthetic.main.fragment_round_start.*
 import kotlinx.android.synthetic.main.fragment_waiting_for_starting_project.*
 
-class HostRoundActivity : AppCompatActivity() {
+class HostRoundActivity : BaseActivity() {
     val manager = supportFragmentManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_host_round_setting)
-        ShowTabWaitingForStartingProject()
+        goToFragment(WaitingForStartingProjectFragment::class.java, null)
 
+        stormButton_start_host_round_setting.setActivation(false)
 
-        stormButton_nonstart_host_round_setting.setOnClickListener {
+        stormButton_start_host_round_setting.setOnClickListener {
             if (imageview_checkrules_checkcircle.visibility == View.VISIBLE) {
-                stormButton_nonstart_host_round_setting.visibility = View.INVISIBLE
-                ShowTabRoundSettingWaitingMember()
+                stormButton_start_host_round_setting.visibility = View.INVISIBLE
+                goToFragment(RoundSettingWaitingMemberFragment::class.java, null)
             }
         }
     }
 
-
-    fun ShowTabWaitingForStartingProject() {
-        val transaction = manager.beginTransaction()
-        val fragment = WaitingForStartingProjectFragment()
-        transaction.replace(R.id.constraint_host_round, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+    override fun initFragmentId(): Int? {
+        return R.id.constraint_host_round
     }
-
-    fun ShowTabRoundSettingWaitingMember() {
-        val transaction = manager.beginTransaction()
-        val fragment = RoundSettingWaitingMemberFragment()
-        transaction.replace(R.id.constraint_host_round, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
-    }
-
 
 }

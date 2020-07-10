@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stormers.storm.R
+import com.stormers.storm.customview.StormButton
 import com.stormers.storm.customview.dialog.StormDialog
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
@@ -45,6 +46,9 @@ class WaitingForStartingProjectFragment : Fragment() {
 
         participantAdapter.addAll(loadData())
 
+        //stormButton_start_host_round_setting이 비활성화 상태에서 활성 상태로 잘 바뀌는지 테스트하기 위한 코드입니다
+        //val stormbutton: StormButton? = activity?.findViewById(R.id.stormButton_start_host_round_setting)
+
         cardview_waitingproject_checkrules.setOnClickListener {
             val buttonArray = ArrayList<StormDialogButton>()
 
@@ -54,6 +58,11 @@ class WaitingForStartingProjectFragment : Fragment() {
                         //Toast.makeText(context, "확인 눌렀음", Toast.LENGTH_SHORT).show()
                         imageview_checkrules_uncheckcircle.visibility = View.INVISIBLE
                         imageview_checkrules_checkcircle.visibility = View.VISIBLE
+
+                        //stormButton_start_host_round_setting이 비활성화 상태에서 활성 상태로 잘 바뀌는지 테스트하기 위한 코드입니다
+                        /*if (stormbutton != null) {
+                            stormbutton.setActivation(true)
+                        }*/
                     }
                 })
             )
