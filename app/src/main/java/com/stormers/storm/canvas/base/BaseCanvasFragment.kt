@@ -16,7 +16,7 @@ abstract class BaseCanvasFragment(private val mode: Int) : BaseFragment(R.layout
         const val TEXT_MODE = 200
     }
 
-    lateinit var targetModeStr: String
+    private lateinit var targetModeStr: String
     lateinit var targetFragment: Class<*>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -24,12 +24,12 @@ abstract class BaseCanvasFragment(private val mode: Int) : BaseFragment(R.layout
 
         when (mode) {
             DRAWING_MODE -> {
-                targetModeStr = "그림"
+                targetModeStr = "글 "
                 targetFragment = CanvasTextFragment::class.java
             }
 
             else -> {
-                targetModeStr = ""
+                targetModeStr = "그림 "
                 targetFragment = CanvasDrawingFragment::class.java
             }
         }

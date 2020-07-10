@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
-import com.stormers.storm.R
 
 abstract class BaseFragment(@LayoutRes private val layoutResId: Int) : Fragment() {
 
