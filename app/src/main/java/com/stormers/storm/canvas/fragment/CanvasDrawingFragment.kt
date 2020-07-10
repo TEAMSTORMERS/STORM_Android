@@ -64,6 +64,7 @@ class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE) {
 
         imagebutton_canvas_trash.setOnClickListener{
             signaturepad.clear()
+            Toast.makeText(context, "지웠습니다!", Toast.LENGTH_SHORT).show()
         }
     }
 }
