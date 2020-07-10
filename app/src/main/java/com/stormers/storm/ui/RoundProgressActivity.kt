@@ -1,17 +1,17 @@
 package com.stormers.storm.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.stormers.storm.R
-import com.stormers.storm.RoundSetting.AddCardFragment
+import com.stormers.storm.base.BaseActivity
+import com.stormers.storm.canvas.fragment.CanvasDrawingFragment
 import kotlinx.android.synthetic.main.activity_round_progress.*
 import kotlinx.android.synthetic.main.view_toolbar.view.*
 
-class RoundProgressActivity : AppCompatActivity() {
+class RoundProgressActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,10 +25,11 @@ class RoundProgressActivity : AppCompatActivity() {
             it.setHomeAsUpIndicator(R.drawable.host_a_1_btn_back)
         }
 
-        replaceFragment(AddCardFragment())
-        //addFragment(AddedCardFragment())
-        //addFragment(ScrapcardDetailFragment())
-        //addFragment(CanvasTextFragment())
+        goToFragment(CanvasDrawingFragment::class.java, null)
+    }
+
+    override fun initFragmentId(): Int? {
+        return R.id.framelayout_roundprogress_fragment
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -51,10 +52,5 @@ class RoundProgressActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    private fun replaceFragment(fragment: Fragment) {
-        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.framelayout_roundprogress_fragment, fragment).commitAllowingStateLoss()
     }
 }
