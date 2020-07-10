@@ -1,12 +1,13 @@
-package com.stormers.storm.base
+package com.stormers.storm.canvas.base
 
 import android.os.Bundle
 import android.view.View
 import com.stormers.storm.R
+import com.stormers.storm.base.BaseFragment
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
-import com.stormers.storm.draw.CanvasDrawingFragment
-import com.stormers.storm.round.fragment.CanvasTextFragment
+import com.stormers.storm.canvas.fragment.CanvasDrawingFragment
+import com.stormers.storm.canvas.fragment.CanvasTextFragment
 
 abstract class BaseCanvasFragment(private val mode: Int) : BaseFragment(R.layout.fragment_round_canvas) {
 

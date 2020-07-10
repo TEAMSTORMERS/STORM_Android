@@ -1,9 +1,9 @@
-package com.stormers.storm.draw
+package com.stormers.storm.canvas.fragment
 
 
 import android.os.Bundle
 import android.view.View
-import com.stormers.storm.base.BaseCanvasFragment
+import com.stormers.storm.canvas.base.BaseCanvasFragment
 import kotlinx.android.synthetic.main.fragment_round_canvas.*
 
 class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE) {
