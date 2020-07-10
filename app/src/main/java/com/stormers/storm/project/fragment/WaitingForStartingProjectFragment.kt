@@ -18,7 +18,9 @@ import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.user.ParticipantAdapter
 import com.stormers.storm.user.UserModel
 import com.stormers.storm.util.MarginDecoration
+import kotlinx.android.synthetic.main.activity_host_round_setting.*
 import kotlinx.android.synthetic.main.fragment_host_round_setting.*
+import kotlinx.android.synthetic.main.fragment_round_setting_waiting_member.*
 import kotlinx.android.synthetic.main.fragment_waiting_for_starting_project.*
 import kotlinx.android.synthetic.main.fragment_waiting_for_starting_project.view.*
 import kotlinx.android.synthetic.main.layout_list_of_participant.view.*
@@ -43,38 +45,27 @@ class WaitingForStartingProjectFragment : Fragment() {
 
         participantAdapter.addAll(loadData())
 
-        cardview_waitingproject_checkrules.setOnClickListener{
-
-            //룰 리마인더 다이얼로그
+        cardview_waitingproject_checkrules.setOnClickListener {
             val buttonArray = ArrayList<StormDialogButton>()
 
             buttonArray.add(
-                StormDialogButton(
-                    "확인",
-                    object :
-                        StormDialogButton.OnClickListener {
-                        override fun onClick() {
-                            //Toast.makeText(context, "확인 눌렀음", Toast.LENGTH_SHORT).show()
-                            imageview_checkrules_uncheckcircle.visibility = View.INVISIBLE
-                            imageview_checkrules_checkcircle.visibility = View.VISIBLE
-                        }
-                    })
+                StormDialogButton("확인", false, object : StormDialogButton.OnClickListener {
+                    override fun onClick() {
+                        //Toast.makeText(context, "확인 눌렀음", Toast.LENGTH_SHORT).show()
+                        imageview_checkrules_uncheckcircle.visibility = View.INVISIBLE
+                        imageview_checkrules_checkcircle.visibility = View.VISIBLE
+                    }
+                })
             )
 
             getFragmentManager()?.let { it1 ->
-                StormDialogBuilder(
-                    R.drawable.m_brainstormingreminder_popup_lightning,
-                    "브레인스토밍 룰 리마인더"
-                )
+                StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, "브레인스토밍 룰 리마인더")
                     .setContentRes(R.layout.view_rule_reminder)
-                    .setButtonArray(buttonArray)
+                    .setHorizontalArray(buttonArray)
                     .build()
-                    .show(it1, StormDialog.TAG)
+                    .show(it1, "rulereminder")
             }
-
         }
-
-
 
     }
 

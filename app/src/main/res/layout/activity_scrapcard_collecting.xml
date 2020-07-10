@@ -88,7 +88,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:spanCount="2"
-                    tools:listitem="@layout/item_scrap_collect" />
+                    tools:listitem="@layout/item_heart_card" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
