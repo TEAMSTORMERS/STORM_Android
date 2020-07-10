@@ -83,7 +83,7 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
                 }
 
                 button.constraintlayout_dialog_button.setOnClickListener {
-                    stormDialogButton.listener.onClick()
+                    stormDialogButton.listener?.onClick()
                     dismiss()
                 }
 
@@ -107,7 +107,7 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
                 }
 
                 button.constraintlayout_dialog_button.setOnClickListener {
-                    stormDialogButton.listener.onClick()
+                    stormDialogButton.listener?.onClick()
                     dismiss()
                 }
 
