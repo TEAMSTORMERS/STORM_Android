@@ -127,10 +127,8 @@ fabric.properties
 
 !/gradle/wrapper/gradle-wrapper.jar
 
-<<<<<<< HEAD
+
 # goolge-services.json
 /app/google-services.json
-=======
 ### key
 keystores/
->>>>>>> e4f96767ae4e99e5ea4344acb16cb0c90d6f8054
