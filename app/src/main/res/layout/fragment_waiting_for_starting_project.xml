@@ -15,13 +15,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textview_waitingproject_title"
-        app:layout_constraintWidth_percent="0.75" />x
+        app:layout_constraintWidth_percent="0.75" />
 
     <TextView
         android:id="@+id/textview_waitingproject_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="프로젝틑 시작 대기"
+        android:text="프로젝트 시작 대기"
         android:textFontWeight="700"
         app:layout_constraintBottom_toTopOf="@+id/textview_waitingproject_describe"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,21 +60,36 @@
                 android:textColor="@color/storm_white"
                 android:textFontWeight="700"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageview_checkrules_checkcircle"
+                app:layout_constraintEnd_toStartOf="@+id/framelayout"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/imageview_checkrules_checkcircle"
+            <FrameLayout
+                android:id="@+id/framelayout"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:src="@drawable/h_projectwaiting_brainstorming_ok_selected"
                 app:layout_constraintBottom_toBottomOf="@id/textview_checkrules_title"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/textview_checkrules_title"
-                app:layout_constraintTop_toTopOf="@id/textview_checkrules_title" />
+                app:layout_constraintTop_toTopOf="@id/textview_checkrules_title">
+
+                <ImageView
+                    android:id="@+id/imageview_checkrules_checkcircle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/h_projectwaiting_brainstorming_ok_selected"
+                    android:visibility="gone"/>
+
+                <ImageView
+                    android:id="@+id/imageview_checkrules_uncheckcircle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/m_projectwaiting_brainstorming_ok_unselected"
+                    />
+
+            </FrameLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

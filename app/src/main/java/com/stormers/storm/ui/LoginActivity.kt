@@ -110,6 +110,7 @@ class LoginActivity : BaseActivity() {
             Log.i("Log", "session get current session")
             return
         }
+
         super.onActivityResult(requestCode, resultCode, data)
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
@@ -164,5 +165,6 @@ class LoginActivity : BaseActivity() {
         animationView.setAnimation("login_bg.json")
         animationView.repeatCount = INFINITE
         animationView.playAnimation()
+
     }
 }

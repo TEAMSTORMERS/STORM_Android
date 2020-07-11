@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/constraintlayout_roundcanvas_root"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageButton
+        android:id="@+id/imagebutton_change_draw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:foreground="@drawable/custom_ripple_oval"
+        android:padding="10dp"
+        android:src="@drawable/all_round_drawing_type_brush"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imagebutton_canvas_trash"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="@+id/cardview_roundcanvas_canvas"
+        app:layout_constraintTop_toTopOf="@+id/imagebutton_change_text"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/imagebutton_change_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:foreground="@drawable/custom_ripple_oval"
+        android:padding="10dp"
+        android:src="@drawable/all_round_drawing_type_type"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/imagebutton_canvas_trash"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imagebutton_change_draw"
+        app:layout_constraintTop_toTopOf="@+id/imagebutton_canvas_trash"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/imagebutton_canvas_trash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@null"
+        android:foreground="@drawable/custom_ripple_oval"
+        android:padding="10dp"
+        android:src="@drawable/all_round_type_trash"
+        app:layout_constraintStart_toEndOf="@id/imagebutton_change_draw"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/cardview_roundcanvas_canvas"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview_roundcanvas_canvas"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cardElevation="10dp"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagebutton_canvas_trash"
+        app:layout_constraintVertical_bias="0.13"
+        app:layout_constraintWidth_percent="0.86">
+
+    </androidx.cardview.widget.CardView>
+
+    <com.stormers.storm.customview.StormButton
+        android:id="@+id/stormbutton_roundcanvas_apply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:text="적용"
+        app:layout_constraintBottom_toBottomOf="@+id/cardview_roundcanvas_canvas"
+        app:layout_constraintEnd_toEndOf="@+id/cardview_roundcanvas_canvas"
+        app:layout_constraintStart_toStartOf="@+id/cardview_roundcanvas_canvas"
+        app:layout_constraintTop_toBottomOf="@+id/cardview_roundcanvas_canvas" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
