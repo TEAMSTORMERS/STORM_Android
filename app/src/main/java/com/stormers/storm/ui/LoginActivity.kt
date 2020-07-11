@@ -41,6 +41,10 @@ class LoginActivity : BaseActivity() {
         setContentView(R.layout.activity_login)
 
         //Todo: 카카오 로그인이랑 구글 로그인이 짬뽕 되어 있어서 유지보수가 어려우니 구분 지어 작성하거나 메서드 이름이라도 잘 바꿔보자 !
+
+        var hash_key = getKeyHash(this)
+        Log.i("KaKaoLogin",hash_key) // 확인
+
         val startIntent = {
             startActivity(Intent(this,MainActivity::class.java))
         }
@@ -63,10 +67,10 @@ class LoginActivity : BaseActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
 
         initView()
-        var hash_key = getKeyHash(this)
-        Log.i("KaKaoLogin",hash_key) // 확인
+
     }
-    // 키해시 구하기
+
+    // Key_hash 구하기
     fun getKeyHash(context: Context): String? {
         val packageInfo = getPackageInfo(context, PackageManager.GET_SIGNATURES) ?: return null
 
@@ -83,6 +87,14 @@ class LoginActivity : BaseActivity() {
         }
         return null
     }
+
+    //Kakao
+    @SuppressLint("MissingSuperCall")
+    override fun onDestroy() {
+        super.onDestroy()
+        Session.getCurrentSession().removeCallback(callback)
+    }
+
     //Firebase
     public override fun onStart() {
         super.onStart()
@@ -144,13 +156,6 @@ class LoginActivity : BaseActivity() {
     private fun signIn() {
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
-    }
-
-    //Kakao
-    @SuppressLint("MissingSuperCall")
-    override fun onDestroy() {
-        super.onDestroy()
-        Session.getCurrentSession().removeCallback(callback)
     }
 
     //Lottie 애니메이션 로그인뷰
