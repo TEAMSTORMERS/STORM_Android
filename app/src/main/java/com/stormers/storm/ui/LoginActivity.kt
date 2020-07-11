@@ -5,8 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Base64.NO_WRAP
-import android.util.Base64.encodeToString
+import android.util.Base64
 import android.util.Log
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable.INFINITE
@@ -22,10 +21,6 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.kakao.auth.AuthType
 import com.kakao.auth.Session
 
-
-import android.view.View
-import android.widget.Toast
-import com.kakao.auth.helper.Base64
 import com.kakao.util.helper.Utility.getPackageInfo
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
@@ -36,7 +31,7 @@ import java.security.NoSuchAlgorithmException
 
 class LoginActivity : BaseActivity() {
 
-    private var callback: SessionCallback = SessionCallback()
+    private lateinit var callback: SessionCallback
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
     private val RC_SIGN_IN = 99 //private const val TAG = "GoogleActivity"
@@ -47,11 +42,19 @@ class LoginActivity : BaseActivity() {
 
         //Todo: 카카오 로그인이랑 구글 로그인이 짬뽕 되어 있어서 유지보수가 어려우니 구분 지어 작성하거나 메서드 이름이라도 잘 바꿔보자 !
 
+        var hash_key = getKeyHash(this)
+        Log.i("KaKaoLogin",hash_key) // 확인
 
-    imagebutton_login_kakao.setOnClickListener{
-        Session.getCurrentSession().open(AuthType.KAKAO_LOGIN_ALL, this)
-        Session.getCurrentSession().addCallback(callback)
-    }
+        val startIntent = {
+            startActivity(Intent(this,MainActivity::class.java))
+        }
+
+        callback = SessionCallback(startIntent)
+        imagebutton_login_kakao.setOnClickListener{
+            Session.getCurrentSession().open(AuthType.KAKAO_LOGIN_ALL, this)
+            Log.d("KaKaoLogin","버튼 눌림")
+            Session.getCurrentSession().addCallback(callback)
+        }
         //Google Firebase 로그인
         imagebutton_login_google.setOnClickListener { signIn() }
 
@@ -67,6 +70,31 @@ class LoginActivity : BaseActivity() {
 
     }
 
+    // Key_hash 구하기
+    fun getKeyHash(context: Context): String? {
+        val packageInfo = getPackageInfo(context, PackageManager.GET_SIGNATURES) ?: return null
+
+        for (signature in packageInfo!!.signatures) {
+            try {
+                val md = MessageDigest.getInstance("SHA")
+                md.update(signature.toByteArray())
+
+                return Base64.encodeToString(md.digest(), Base64.NO_WRAP)
+            } catch (e: NoSuchAlgorithmException) {
+                Log.w("Log", "Unable to get MessageDigest. signature=$signature", e)
+            }
+
+        }
+        return null
+    }
+
+    //Kakao
+    @SuppressLint("MissingSuperCall")
+    override fun onDestroy() {
+        super.onDestroy()
+        Session.getCurrentSession().removeCallback(callback)
+    }
+
     //Firebase
     public override fun onStart() {
         super.onStart()
@@ -74,7 +102,6 @@ class LoginActivity : BaseActivity() {
         if (account !== null) { // 이미 로그인 되어있을시 바로 메인 액티비티로 이동
             toMainActivity(firebaseAuth.currentUser)
         }
-
     } //onStart End
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -83,6 +110,7 @@ class LoginActivity : BaseActivity() {
             Log.i("Log", "session get current session")
             return
         }
+
         super.onActivityResult(requestCode, resultCode, data)
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
@@ -131,13 +159,6 @@ class LoginActivity : BaseActivity() {
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
-    //Kakao
-    @SuppressLint("MissingSuperCall")
-    override fun onDestroy() {
-        super.onDestroy()
-        Session.getCurrentSession().removeCallback(callback)
-    }
-
     //Lottie 애니메이션 로그인뷰
     private fun initView() {
         val animationView = findViewById<LottieAnimationView>(R.id.lottieanimation_login)
@@ -146,8 +167,4 @@ class LoginActivity : BaseActivity() {
         animationView.playAnimation()
 
     }
-
-
-
-
 }
