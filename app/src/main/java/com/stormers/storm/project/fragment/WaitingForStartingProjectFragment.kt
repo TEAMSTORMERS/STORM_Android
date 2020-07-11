@@ -78,8 +78,6 @@ class WaitingForStartingProjectFragment : Fragment() {
 
     }
 
-
-
     private fun loadData(): MutableList<UserModel> {
         val data = mutableListOf<UserModel>()
 
