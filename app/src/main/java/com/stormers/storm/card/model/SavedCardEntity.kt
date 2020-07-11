@@ -12,9 +12,17 @@ data class SavedCardEntity (
     @ColumnInfo(name = "round_idx")
     var roundIdx: Int,
 
+    @ColumnInfo(name = "scraped")
+    var isScraped: Int,
+
     @ColumnInfo(name = "file_name")
     var fileName: String
 ) {
     @PrimaryKey(autoGenerate = true)
     var cardId: Int = 0
+
+    companion object {
+        const val TRUE = 1
+        const val FALSE = 0
+    }
 }

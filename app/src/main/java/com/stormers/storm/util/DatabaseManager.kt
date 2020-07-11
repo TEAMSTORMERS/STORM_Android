@@ -1,10 +1,10 @@
-package com.stormers.storm.database
+package com.stormers.storm.util
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.stormers.storm.database.dao.SavedCardDao
+import com.stormers.storm.card.dao.SavedCardDao
 import com.stormers.storm.card.model.SavedCardEntity
 
 @Database(entities = [SavedCardEntity::class], version = 1)
@@ -17,12 +17,17 @@ abstract class DatabaseManager : RoomDatabase() {
 
         fun getInstance(context: Context): DatabaseManager {
             return instance ?: synchronized(this) {
-                instance ?: buildDatabase(context)
+                instance
+                    ?: buildDatabase(
+                        context
+                    )
             }
         }
 
         private fun buildDatabase(context: Context): DatabaseManager {
-            return Room.databaseBuilder(context.applicationContext, DatabaseManager::class.java, DB_NAME)
+            return Room.databaseBuilder(context.applicationContext, DatabaseManager::class.java,
+                DB_NAME
+            )
                 .allowMainThreadQueries()
                 .build()
         }

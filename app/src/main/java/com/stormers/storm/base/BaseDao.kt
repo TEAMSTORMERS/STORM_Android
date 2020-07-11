@@ -1,4 +1,4 @@
-package com.stormers.storm.database.base
+package com.stormers.storm.base
 
 import androidx.room.Delete
 import androidx.room.Insert
