@@ -7,5 +7,10 @@
     <string name="rule_reminder">
         아이디어를 시각화하며 진행해요\n다듬어지지 않은 아이디어를 장려해요\n다른 사람의 아이디어를 더 발전시켜요\n주제에 집중하고 목표에 초점을 맞추어 토론해요\n한 번에 한 가지 주제로 대화를 해요\n판단은 보류해요\n아이디어의 질보다는 양을 추구해요
     </string>
+
     <string name="kakao_app_key">2c40dd2b9a95386f6c34a987bbdfc042</string>
+
+    <string name="notice_canvas_mode_change">모두 변경 시 현재 입력한\n카드 내용은 삭제됩니다.</string>
+    <string name="ask_canvas_mode_change"> 모드로 변경하시겠습니까?</string>
+
 </resources>

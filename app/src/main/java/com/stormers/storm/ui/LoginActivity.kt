@@ -74,6 +74,7 @@ class LoginActivity : BaseActivity() {
         if (account !== null) { // 이미 로그인 되어있을시 바로 메인 액티비티로 이동
             toMainActivity(firebaseAuth.currentUser)
         }
+
     } //onStart End
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -143,6 +144,7 @@ class LoginActivity : BaseActivity() {
         animationView.setAnimation("login_bg.json")
         animationView.repeatCount = INFINITE
         animationView.playAnimation()
+
     }
 
 

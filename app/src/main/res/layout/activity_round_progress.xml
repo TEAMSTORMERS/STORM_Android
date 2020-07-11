@@ -10,10 +10,10 @@
         android:id="@+id/imageView_background_red_radius"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.52"
         android:background="@drawable/background_red_radius"
         android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.52"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,46 +22,22 @@
         layout="@layout/view_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="10dp"
         android:layout_marginTop="49dp"
+        android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- TODO : Round Setting Fragment  -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout_round_ongoing"
+    <FrameLayout
+        android:id="@+id/framelayout_roundprogress_fragment"
+        android:name="com.stormers.storm.RoundSetting.AddCardFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="27dp"
         android:elevation="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/button_scrapcard_save_roundmeeting"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_round_goal">
-
-        <!-- TODO : button_scrapcard_save의 visibility 속성을 gone으로 주었습니다  -->
-        <Button
-            android:id="@+id/button_scrapcard_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="28dp"
-            android:background="@drawable/background_button_yellow_radius"
-            android:elevation="10dp"
-            android:fontFamily="@font/notosans_bold"
-            android:paddingHorizontal="35dp"
-            android:paddingVertical="5dp"
-            android:text="저장"
-            android:textColor="@color/storm_gray"
-            android:textSize="15dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toBottomOf="@+id/textView_round_goal" />
 
     <TextView
         android:id="@+id/textView_project_name"
@@ -72,8 +48,8 @@
         android:layout_marginTop="42dp"
         android:elevation="10dp"
         android:text="프로젝트 명"
-        android:textSize="13sp"
         android:textColor="@color/storm_white"
+        android:textSize="13sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include_roundprogress_toolbar" />
 
@@ -82,10 +58,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        android:elevation="10dp"
         android:text="라운드 목표"
         android:textColor="@color/storm_white"
         android:textSize="13sp"
-        android:elevation="10dp"
         app:layout_constraintStart_toStartOf="@+id/textView_project_name"
         app:layout_constraintTop_toBottomOf="@+id/textView_project_name" />
 
@@ -95,10 +71,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
-        android:text="ROUND 1"
-        android:textSize="13sp"
         android:elevation="10dp"
+        android:text="ROUND 1"
         android:textColor="@color/storm_white"
+        android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView_project_name" />
 
@@ -107,10 +83,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="총 00:00 남음"
-        android:textSize="13sp"
         android:elevation="10dp"
+        android:text="총 00:00 남음"
         android:textColor="@color/storm_white"
+        android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="@+id/textView_round"
         app:layout_constraintTop_toBottomOf="@+id/textView_round" />
 
@@ -123,27 +99,12 @@
         android:fontFamily="@font/notosans_bold"
         android:paddingHorizontal="35dp"
         android:paddingVertical="14dp"
-        android:visibility="gone"
         android:text="FINISH !"
         android:textColor="@color/storm_red"
         android:textSize="16dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <com.stormers.storm.customview.StormButton
-        android:id="@+id/button_apply"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="10dp"
-        android:layout_marginTop="242dp"
-        android:text="적용"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_background_red_radius"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
