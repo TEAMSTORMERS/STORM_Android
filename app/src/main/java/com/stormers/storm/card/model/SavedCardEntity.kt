@@ -15,8 +15,11 @@ data class SavedCardEntity (
     @ColumnInfo(name = "scraped")
     var isScraped: Int,
 
-    @ColumnInfo(name = "file_name")
-    var fileName: String
+    @ColumnInfo(name = "bitmap")
+    var bitmap: String,
+
+    @ColumnInfo(name = "memo")
+    var memo: String
 ) {
     @PrimaryKey(autoGenerate = true)
     var cardId: Int = 0
