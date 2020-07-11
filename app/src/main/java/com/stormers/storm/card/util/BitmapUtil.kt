@@ -4,11 +4,13 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Log
+import com.stormers.storm.database.DatabaseManager
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 import java.lang.StringBuilder
+import java.net.URL
 import java.util.*
 
 /**
@@ -25,8 +27,38 @@ class BitmapUtil(val context: Context) {
 
     private val TAG = this.javaClass.name
 
-    //비트맵 형태의 카드를 내부 저장소에 저장
-    fun scarpCard(bitmap: Bitmap) : Boolean {
+    //내부 저장소에 저장된 모든 카드를 불러옴
+    fun getAll() : List<Bitmap>? {
+        val file = File(context.filesDir.toString())
+        val files : Array<File>? = file.listFiles()
+
+        files?.let {
+
+            return List(files.size) { i ->
+                BitmapFactory.decodeFile(files[i].path)
+            }
+        }
+        return null
+    }
+
+    //파라미터로 넘겨진 파일 이름을 가진 비트맵을 가져옴
+    fun getAll(fileName: List<String>?) : List<Bitmap>? {
+
+        fileName?.let {
+            return List(fileName.size) { i ->
+                val path = StringBuilder()
+                path.append(context.filesDir)
+                    .append("/")
+                    .append(fileName[i])
+
+                BitmapFactory.decodeFile(path.toString())
+            }
+        }
+        return null
+    }
+
+    //비트맵을 내부 저장소에 저장
+    private fun saveBitmap(bitmap: Bitmap) : String? {
         val filename = fileNameGenerator()
 
         val file = File(context.filesDir, filename)
@@ -40,30 +72,26 @@ class BitmapUtil(val context: Context) {
 
             out.close()
 
-            return true
+            return filename
         } catch (e: FileNotFoundException) {
             Log.e(TAG, "FileNotFoundException : ${e.message}")
 
-            return false
+            return null
         } catch (e: IOException) {
             Log.e(TAG, "IOException : ${e.message}")
 
-            return false
+            return null
         }
     }
 
-    //내부 저장소에 저장된 모든 카드를 불러옴
-    fun getAllScrapedCardToBitmap() : List<Bitmap>? {
-        val file = File(context.filesDir.toString())
-        val files : Array<File>? = file.listFiles()
+    //url을 비트맵화 하여 내부 저장소에 저장
+    fun saveCard(url: String) : String? {
+        return saveBitmap(urlToBitmap(url))
+    }
 
-        files?.let {
-
-            return List(files.size) { i ->
-                BitmapFactory.decodeFile(files[i].path)
-            }
-        }
-        return null
+    //비트맵을 내부 저장소에 저장
+    fun saveCard(bitmap: Bitmap) : String? {
+        return saveBitmap(bitmap)
     }
 
     //파일 이름 생성 메서드
@@ -79,5 +107,12 @@ class BitmapUtil(val context: Context) {
             .append(calendar.get(Calendar.MILLISECOND))
 
         return fileName.toString()
+    }
+
+    //url을 Bitmap으로 변경
+    private fun urlToBitmap(url: String) : Bitmap {
+        val urls = URL(url)
+
+        return BitmapFactory.decodeStream(urls.openStream())
     }
 }

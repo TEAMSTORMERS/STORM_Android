@@ -1,4 +1,4 @@
-package com.stormers.storm.database.entity
+package com.stormers.storm.card.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

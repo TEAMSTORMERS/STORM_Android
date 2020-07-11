@@ -4,12 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.stormers.storm.database.dao.ScrapedCardDao
-import com.stormers.storm.database.entity.SavedCardEntity
+import com.stormers.storm.database.dao.SavedCardDao
+import com.stormers.storm.card.model.SavedCardEntity
 
 @Database(entities = [SavedCardEntity::class], version = 1)
 abstract class DatabaseManager : RoomDatabase() {
-    abstract fun scrapedCardDao() : ScrapedCardDao
+    abstract fun savedCardDao() : SavedCardDao
 
     companion object {
         private const val DB_NAME = "storm-db"
