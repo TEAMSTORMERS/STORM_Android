@@ -13,13 +13,15 @@ class AddProjectActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_project)
 
-        //뒤로 가기 버튼 설장
+        //뒤로 가기 버튼 설정
         setSupportActionBar(include_addproject_toolbar.toolbar)
 
         supportActionBar?.let {
             it.setDisplayShowTitleEnabled(false)
             it.setDisplayHomeAsUpEnabled(true)
             it.setHomeAsUpIndicator(R.drawable.host_a_1_btn_back)
+
+
         }
     }
 
@@ -44,4 +46,5 @@ class AddProjectActivity : BaseActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
 }

@@ -1,9 +1,12 @@
 package com.stormers.storm.ui
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
-<<<<<<< HEAD
+import android.util.Base64.NO_WRAP
+import android.util.Base64.encodeToString
 import android.util.Log
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable.INFINITE
@@ -19,13 +22,16 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.kakao.auth.AuthType
 import com.kakao.auth.Session
 
-=======
+
 import android.view.View
 import android.widget.Toast
->>>>>>> 3c7a4a1df888e103167bed274441a4cfc4f18cc7
+import com.kakao.auth.helper.Base64
+import com.kakao.util.helper.Utility.getPackageInfo
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_login.*
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 
 
 class LoginActivity : BaseActivity() {
@@ -42,10 +48,10 @@ class LoginActivity : BaseActivity() {
         //Todo: 카카오 로그인이랑 구글 로그인이 짬뽕 되어 있어서 유지보수가 어려우니 구분 지어 작성하거나 메서드 이름이라도 잘 바꿔보자 !
 
 
-
-            Session.getCurrentSession().open(AuthType.KAKAO_LOGIN_ALL, this)
-            Session.getCurrentSession().addCallback(callback)
-
+    imagebutton_login_kakao.setOnClickListener{
+        Session.getCurrentSession().open(AuthType.KAKAO_LOGIN_ALL, this)
+        Session.getCurrentSession().addCallback(callback)
+    }
         //Google Firebase 로그인
         imagebutton_login_google.setOnClickListener { signIn() }
 
@@ -60,22 +66,6 @@ class LoginActivity : BaseActivity() {
         initView()
 
     }
-
-    //Kakao
-    @SuppressLint("MissingSuperCall")
-    override fun onDestroy() {
-        super.onDestroy()
-        Session.getCurrentSession().removeCallback(callback)
-    }
-
-    //Lottie 애니메이션 로그인뷰
-    private fun initView() {
-        val animationView = findViewById<LottieAnimationView>(R.id.lottieanimation_login)
-        animationView.setAnimation("login_bg.json")
-        animationView.repeatCount = INFINITE
-        animationView.playAnimation()
-    }
-
 
     //Firebase
     public override fun onStart() {
@@ -107,9 +97,7 @@ class LoginActivity : BaseActivity() {
                 Log.w("LoginActivity", "Google sign in failed", e)
             }
         }
-<<<<<<< HEAD
     } // onActivityResult End
-
 
     private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
         Log.d("LoginActivity", "firebaseAuthWithGoogle:" + acct.id!!)
@@ -140,12 +128,24 @@ class LoginActivity : BaseActivity() {
     private fun signIn() {
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
-=======
-
-        stormbutton.setOnClickListener {
-            Toast.makeText(baseContext, "눌림", Toast.LENGTH_SHORT).show()
-        }
->>>>>>> 3c7a4a1df888e103167bed274441a4cfc4f18cc7
     }
+
+    //Kakao
+    @SuppressLint("MissingSuperCall")
+    override fun onDestroy() {
+        super.onDestroy()
+        Session.getCurrentSession().removeCallback(callback)
+    }
+
+    //Lottie 애니메이션 로그인뷰
+    private fun initView() {
+        val animationView = findViewById<LottieAnimationView>(R.id.lottieanimation_login)
+        animationView.setAnimation("login_bg.json")
+        animationView.repeatCount = INFINITE
+        animationView.playAnimation()
+    }
+
+
+
 
 }
