@@ -6,4 +6,8 @@ data class CardModel(
     val url: String,
     var isLiked: Boolean = false,
     val owner: UserModel?
+    /*
+    val roundCount : String,
+    val roundGoal : String,
+    val roundTime : String*/
 )

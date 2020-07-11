@@ -178,6 +178,7 @@
                 android:id="@+id/rv_scrap_card_part_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
                 android:clipToPadding="false"
                 android:orientation="horizontal"
                 android:paddingHorizontal="26dp"
@@ -185,14 +186,14 @@
                 android:scrollbarFadeDuration="0"
                 android:scrollbarStyle="insideInset"
                 android:scrollbarThumbHorizontal="@color/storm_white"
-                android:scrollbarTrackHorizontal="@color/scrollbar_track_gray"
+                android:scrollbarTrackHorizontal="@color/pale_salmon"
                 android:scrollbars="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toTopOf="@id/rv_round_part_detail"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_scrap_card"
-                tools:listitem="@layout/item_scrap_card" />
+                tools:listitem="@layout/item_heart_card" />
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -200,6 +201,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
+                android:paddingBottom="20dp"
                 android:layout_marginTop="29dp"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.stormers.storm.R
 import com.stormers.storm.card.adapter.CardAdapter
+import com.stormers.storm.card.adapter.NoHeartCardAdapter
 import com.stormers.storm.card.model.CardModel
 import com.stormers.storm.round.adapter.RoundListAdapter
 import com.stormers.storm.round.model.RoundDescriptionModel
@@ -14,25 +15,26 @@ import kotlinx.android.synthetic.main.activity_participated_project_detail.*
 
 class ParticipatedProjectDetailActivity : AppCompatActivity() {
 
-    lateinit var scrapCardAdapter: CardAdapter
+    lateinit var noHeartCardAdapter: NoHeartCardAdapter
     lateinit var roundListAdapterForViewPager: RoundListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_participated_project_detail)
 
-        scrapCardAdapter = CardAdapter()
-        rv_scrap_card_part_detail.adapter = scrapCardAdapter
+        noHeartCardAdapter = NoHeartCardAdapter()
+        rv_scrap_card_part_detail.adapter = noHeartCardAdapter
         rv_scrap_card_part_detail.addItemDecoration(MarginDecoration(this, 15, RecyclerView.HORIZONTAL))
-        scrapCardAdapter.addAll(loadCardDataOfRound())
+        rv_scrap_card_part_detail.addItemDecoration(MarginDecoration(this, 15, RecyclerView.VERTICAL))
+        noHeartCardAdapter.addAll(loadCardDataOfRound())
 
-        roundListAdapterForViewPager =
-            RoundListAdapter()
+        roundListAdapterForViewPager = RoundListAdapter()
         rv_round_part_detail.adapter = roundListAdapterForViewPager
         roundListAdapterForViewPager.addAll(loadRoundCountDatas())
     }
 
     private fun loadCardDataOfRound(): MutableList<CardModel> {
+        //FIXME : 더미데이터입니다
         val data = mutableListOf<CardModel>()
         val gyu = UserModel(
             "https://avatars2.githubusercontent.com/u/57310034?s=460&u=3b6de8b863bdc2b902bf6cfe080bc8d34e93c348&v=4",
@@ -47,40 +49,40 @@ class ParticipatedProjectDetailActivity : AppCompatActivity() {
             "희원"
         )
 
-
+        //FIXME : 더미데이터입니다
         data.apply {
             add(
                 CardModel(
                     "https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4",
-                    true,
+                    false,
                     gyu
                 )
             )
             add(
                 CardModel(
                     "https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4",
-                    true,
+                    false,
                     piece
                 )
             )
             add(
                 CardModel(
                     "https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4",
-                    true,
+                    false,
                     one
                 )
             )
             add(
                 CardModel(
                     "https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4",
-                    true,
+                    false,
                     gyu
                 )
             )
             add(
                 CardModel(
                     "https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4",
-                    true,
+                    false,
                     piece
                 )
             )
@@ -95,13 +97,13 @@ class ParticipatedProjectDetailActivity : AppCompatActivity() {
 
         datas.apply {
             add(
-                RoundDescriptionModel(null, "ROUND 1", "라운드 목표", "총 10분 소요")
+                RoundDescriptionModel("ROUND 1", null, "라운드 목표", "총 10분 소요")
             )
             add(
-                RoundDescriptionModel(null, "ROUND 2", "라운드 목표", "총 11분 소요")
+                RoundDescriptionModel("ROUND 2", null, "라운드 목표", "총 11분 소요")
             )
             add(
-                RoundDescriptionModel(null, "ROUND 3", "라운드 목표", "총 12분 소요")
+                RoundDescriptionModel("ROUND 3", null, "라운드 목표", "총 12분 소요")
             )
             return datas
         }
