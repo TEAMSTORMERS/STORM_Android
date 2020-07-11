@@ -87,7 +87,7 @@ class StormCard : CardView {
     }
 
     private fun setTypedArray(typedArray: TypedArray) {
-        showHeartButton(typedArray)
+        initHeartButton(typedArray)
 
         setDoubleTab(typedArray)
 
@@ -110,6 +110,44 @@ class StormCard : CardView {
     private fun setDoubleTab(typedArray: TypedArray) {
         val isTouchable = typedArray.getBoolean(R.styleable.StormCard_isTouchable, false)
 
+        doubleTab(isTouchable)
+    }
+
+    private fun initHeartButton(typedArray: TypedArray) {
+        val isShow = typedArray.getBoolean(R.styleable.StormCard_showHeartButton, false)
+
+        showHeartButton(isShow)
+    }
+
+    private fun switchHeartState() {
+        heartState = if (!heartState) {
+            imagebutton_customcard_heart.setImageResource(R.drawable.scrapcard_btn_heart_1)
+            true
+        } else {
+            imagebutton_customcard_heart.setImageResource(R.drawable.scrapview_heart)
+            false
+        }
+
+        //리스너 동작
+        listener?.onHeartStateChanged(heartState)
+    }
+
+    fun setImageUrl(url: String) {
+        Glide.with(context).load(url).into(this.imageview_customcard_background)
+    }
+
+    fun showHeartButton(isShow: Boolean) {
+        if (!isShow) {
+            imagebutton_customcard_heart.visibility = View.GONE
+        } else {
+            imagebutton_customcard_heart.visibility = View.VISIBLE
+            imagebutton_customcard_heart.setOnClickListener {
+                switchHeartState()
+            }
+        }
+    }
+
+    fun doubleTab(isTouchable: Boolean) {
         if (isTouchable) {
             this.setOnClickListener {
                 doubleClickFlag ++
@@ -131,35 +169,6 @@ class StormCard : CardView {
                 }
             }
         }
-    }
-
-    private fun showHeartButton(typedArray: TypedArray) {
-        val showHeartButton = typedArray.getBoolean(R.styleable.StormCard_showHeartButton, false)
-
-        if (!showHeartButton) {
-            imagebutton_customcard_heart.visibility = View.GONE
-        } else {
-            imagebutton_customcard_heart.setOnClickListener {
-                switchHeartState()
-            }
-        }
-    }
-
-    private fun switchHeartState() {
-        heartState = if (!heartState) {
-            imagebutton_customcard_heart.setImageResource(R.drawable.scrapcard_btn_heart_1)
-            true
-        } else {
-            imagebutton_customcard_heart.setImageResource(R.drawable.scrapview_heart)
-            false
-        }
-
-        //리스너 동작
-        listener?.onHeartStateChanged(heartState)
-    }
-
-    fun setImageUrl(url: String) {
-        Glide.with(context).load(url).into(this.imageview_customcard_background)
     }
 
     interface OnHeartStateChangedListener {
