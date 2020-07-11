@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/constraintlayout_login"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_bg_circle_white"
     tools:context=".ui.LoginActivity">
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieanimation_login"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageview_login_logo"
@@ -32,16 +43,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageview_login_logo" />
 
+
+
     <ImageButton
         android:id="@+id/imagebutton_login_kakao"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@null"
-        android:clickable="true"
-        android:focusable="true"
+        android:background="@drawable/login_btn_kakao"
         android:foreground="?android:selectableItemBackground"
         android:scaleType="fitCenter"
-        android:src="@drawable/login_btn_kakao"
         app:layout_constraintBottom_toTopOf="@id/imagebutton_login_google"
         app:layout_constraintDimensionRatio="1:0.16"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,6 +60,7 @@
         app:layout_constraintVertical_bias="0.84000003"
         app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintWidth_percent="0.73" />
+
 
     <ImageButton
         android:id="@+id/imagebutton_login_google"
