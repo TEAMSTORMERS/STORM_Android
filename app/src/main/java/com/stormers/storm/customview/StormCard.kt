@@ -2,6 +2,7 @@ package com.stormers.storm.customview
 
 import android.content.Context
 import android.content.res.TypedArray
+import android.graphics.Bitmap
 import android.os.Handler
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -160,6 +161,10 @@ class StormCard : CardView {
 
     fun setImageUrl(url: String) {
         Glide.with(context).load(url).into(this.imageview_customcard_background)
+    }
+
+    fun setBitmap(bitmap: Bitmap) {
+        imageview_customcard_background.setImageBitmap(bitmap)
     }
 
     interface OnHeartStateChangedListener {
