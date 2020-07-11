@@ -91,8 +91,6 @@ class AddProjectActivity : BaseActivity() {
         }
     }
 
-    fun changeFragment(f: Fragment, cleanStack: Boolean = false) {
 
-    }
 
  }
