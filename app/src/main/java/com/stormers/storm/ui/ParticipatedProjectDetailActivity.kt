@@ -32,7 +32,12 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
 
         }
 
-        noHeartCardAdapter = NoHeartCardAdapter()
+        //어댑터 생성할 때 자체적으로 만든 리스너를 파라미터로 넘겨주면 이게 콜백!
+        noHeartCardAdapter = NoHeartCardAdapter(object : OnRoundClickListener {
+            override fun onRoundClick(roundIdx: Int) {
+                //Todo: StartActivity 하면 되겠다 roundIdx는 인텐트로 넘길까?
+            }
+        })
         rv_scrap_card_part_detail.adapter = noHeartCardAdapter
         rv_scrap_card_part_detail.addItemDecoration(MarginDecoration(this, 15, RecyclerView.HORIZONTAL))
         rv_scrap_card_part_detail.addItemDecoration(MarginDecoration(this, 15, RecyclerView.VERTICAL))
@@ -43,6 +48,10 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         roundListAdapterForViewPager.addAll(loadRoundCountDatas())
     }
 
+    interface OnRoundClickListener {
+        //이제보니 이 액티비티에 들어왔을 때 부터 projectIdx는 정해져 있으니 roundIdx만 있으면 되겠네 ~
+        fun onRoundClick(roundIdx: Int)
+    }
 
 
     private fun loadCardDataOfRound(): MutableList<CardModel> {
