@@ -1,19 +1,22 @@
 package com.stormers.storm.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.stormers.storm.R
+import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.card.adapter.CardAdapter
 import com.stormers.storm.card.adapter.NoHeartCardAdapter
 import com.stormers.storm.card.model.CardModel
 import com.stormers.storm.round.adapter.RoundListAdapter
+import com.stormers.storm.round.fragment.RoundSettingWaitingMemberFragment
 import com.stormers.storm.round.model.RoundDescriptionModel
 import com.stormers.storm.user.UserModel
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_participated_project_detail.*
 
-class ParticipatedProjectDetailActivity : AppCompatActivity() {
+class ParticipatedProjectDetailActivity : BaseActivity() {
 
     lateinit var noHeartCardAdapter: NoHeartCardAdapter
     lateinit var roundListAdapterForViewPager: RoundListAdapter
@@ -21,6 +24,13 @@ class ParticipatedProjectDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_participated_project_detail)
+
+        constraint_part_project_detail.setOnClickListener {
+            //goToFragment(ScrapCardCollectingActivity::class.java, null)
+            val intent = Intent(this, ScrapCardCollectingActivity::class.java)
+            startActivity(intent)
+
+        }
 
         noHeartCardAdapter = NoHeartCardAdapter()
         rv_scrap_card_part_detail.adapter = noHeartCardAdapter
@@ -32,6 +42,8 @@ class ParticipatedProjectDetailActivity : AppCompatActivity() {
         rv_round_part_detail.adapter = roundListAdapterForViewPager
         roundListAdapterForViewPager.addAll(loadRoundCountDatas())
     }
+
+
 
     private fun loadCardDataOfRound(): MutableList<CardModel> {
         //FIXME : 더미데이터입니다

@@ -11,7 +11,7 @@ class NoHeartCardViewHolder(parent: ViewGroup) : BaseViewHolder<CardModel>(R.lay
     override fun bind(data: CardModel) {
         itemView.stormcard_itemheart.showHeartButton(false)
         itemView.stormcard_itemheart.setImageUrl(data.url)
-
+        
         itemView.stormcard_itemheart.heartState = data.isLiked
     }
 }
