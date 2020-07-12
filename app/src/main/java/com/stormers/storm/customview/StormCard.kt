@@ -176,6 +176,10 @@ class StormCard : CardView {
         imageview_customcard_background.setImageBitmap(bitmap)
     }
 
+    fun setText(text: String) {
+        textview_customcard_background.text = text
+    }
+
     interface OnHeartStateChangedListener {
         fun onHeartStateChanged(state: Boolean)
     }
