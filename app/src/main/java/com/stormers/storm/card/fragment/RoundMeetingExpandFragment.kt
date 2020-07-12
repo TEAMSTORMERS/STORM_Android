@@ -54,35 +54,40 @@ class RoundMeetingExpandFragment : Fragment() {
                 CardModel(
                     "https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4",
                     true,
-                    gyu
+                    gyu,
+                    null
                 )
             )
             add(
                 CardModel(
                     "https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4",
                     true,
-                    piece
+                    piece,
+                    null
                 )
             )
             add(
                 CardModel(
                     "https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4",
                     true,
-                    one
+                    one,
+                    null
                 )
             )
             add(
                 CardModel(
                     "https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4",
                     true,
-                    gyu
+                    gyu,
+                    null
                 )
             )
             add(
                 CardModel(
                     "https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4",
                     true,
-                    piece
+                    piece,
+                    null
                 )
             )
         }

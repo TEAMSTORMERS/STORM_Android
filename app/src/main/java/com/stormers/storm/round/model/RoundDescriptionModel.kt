@@ -6,5 +6,6 @@ class RoundDescriptionModel (
     val projectTitle : String?,
     val roundNo : String?,
     val roundGoal : String?,
-    val time : String?
+    val time : String?,
+    val roundIdx : Int?
 )

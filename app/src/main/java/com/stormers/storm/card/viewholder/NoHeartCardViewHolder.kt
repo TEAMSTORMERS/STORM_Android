@@ -20,9 +20,8 @@ class NoHeartCardViewHolder(parent: ViewGroup, val listener: ParticipatedProject
         listener?.let {
             itemView.setOnClickListener {
                 //Todo: CardModel을 개편해야겠다 ~ projectIdx, roundIdx를 포함하고 있어야겠어
-                //it.onRoundClick(data.roundIdx)
+                data.roundIdx?.let { it1 -> listener.onRoundClick(it1) }
             }
         }
-
     }
 }

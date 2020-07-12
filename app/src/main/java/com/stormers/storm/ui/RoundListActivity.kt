@@ -46,15 +46,15 @@ class RoundListActivity : AppCompatActivity() {
         val data = mutableListOf<CardModel>()
 
         data.apply {
-            add(CardModel("", false, null))
-            add(CardModel("", true, null))
-            add(CardModel("", false, null))
-            add(CardModel("", false, null))
-            add(CardModel("", true, null))
-            add(CardModel("", false, null))
-            add(CardModel("", true, null))
-            add(CardModel("", false, null))
-            add(CardModel("", false, null))
+            add(CardModel("", false, null, null))
+            add(CardModel("", true, null, null))
+            add(CardModel("", false, null, null))
+            add(CardModel("", false, null, null))
+            add(CardModel("", true, null, null))
+            add(CardModel("", false, null, null))
+            add(CardModel("", true, null, null))
+            add(CardModel("", false, null, null))
+            add(CardModel("", false, null, null))
         }
 
         return data
@@ -66,9 +66,9 @@ class RoundListActivity : AppCompatActivity() {
         val datas = mutableListOf<RoundDescriptionModel>()
 
         datas.apply {
-            add(RoundDescriptionModel(null, null, "베개와 유리병의 공통점은?", "11분 소요"))
-            add(RoundDescriptionModel(null, null, "Pillow 와 Glass 의 공통점은?", "11분 소요"))
-            add(RoundDescriptionModel(null, null, "평화와 희원이의 공통점은?", "11분 소요"))
+            add(RoundDescriptionModel(null, null, "베개와 유리병의 공통점은?", "11분 소요", null))
+            add(RoundDescriptionModel(null, null, "Pillow 와 Glass 의 공통점은?", "11분 소요", null))
+            add(RoundDescriptionModel(null, null, "평화와 희원이의 공통점은?", "11분 소요", null))
         }
 
         return datas

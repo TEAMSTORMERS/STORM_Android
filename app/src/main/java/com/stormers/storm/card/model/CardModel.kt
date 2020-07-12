@@ -5,5 +5,6 @@ import com.stormers.storm.user.UserModel
 data class CardModel(
     val url: String,
     var isLiked: Boolean = false,
-    val owner: UserModel?
+    val owner: UserModel?,
+    val roundIdx: Int?
 )

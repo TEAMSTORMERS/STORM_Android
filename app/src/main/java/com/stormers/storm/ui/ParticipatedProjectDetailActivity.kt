@@ -36,6 +36,9 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         noHeartCardAdapter = NoHeartCardAdapter(object : OnRoundClickListener {
             override fun onRoundClick(roundIdx: Int) {
                 //Todo: StartActivity 하면 되겠다 roundIdx는 인텐트로 넘길까?
+                val intent = Intent(this@ParticipatedProjectDetailActivity, RoundProgressActivity::class.java)
+                intent.putExtra("roundIdx", roundIdx)
+                startActivity(intent)
             }
         })
         rv_scrap_card_part_detail.adapter = noHeartCardAdapter
@@ -43,7 +46,14 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         rv_scrap_card_part_detail.addItemDecoration(MarginDecoration(this, 15, RecyclerView.VERTICAL))
         noHeartCardAdapter.addAll(loadCardDataOfRound())
 
-        roundListAdapterForViewPager = RoundListAdapter()
+        roundListAdapterForViewPager = RoundListAdapter(object : OnRoundClickListener {
+            override fun onRoundClick(roundIdx: Int) {
+                val intent = Intent(this@ParticipatedProjectDetailActivity, RoundListActivity::class.java)
+                intent.putExtra("roundIdx", roundIdx)
+                startActivity(intent)
+            }
+        })
+
         rv_round_part_detail.adapter = roundListAdapterForViewPager
         roundListAdapterForViewPager.addAll(loadRoundCountDatas())
     }
@@ -76,35 +86,40 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
                 CardModel(
                     "https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4",
                     false,
-                    gyu
+                    gyu,
+                1
                 )
             )
             add(
                 CardModel(
                     "https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4",
                     false,
-                    piece
+                    piece,
+                    2
                 )
             )
             add(
                 CardModel(
                     "https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4",
                     false,
-                    one
+                    one,
+                    3
                 )
             )
             add(
                 CardModel(
                     "https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4",
                     false,
-                    gyu
+                    gyu,
+                    1
                 )
             )
             add(
                 CardModel(
                     "https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4",
                     false,
-                    piece
+                    piece,
+                    2
                 )
             )
         }
@@ -118,13 +133,13 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
 
         datas.apply {
             add(
-                RoundDescriptionModel("ROUND 1", null, "라운드 목표", "총 10분 소요")
+                RoundDescriptionModel("ROUND 1", null, "라운드 목표", "총 10분 소요", null)
             )
             add(
-                RoundDescriptionModel("ROUND 2", null, "라운드 목표", "총 11분 소요")
+                RoundDescriptionModel("ROUND 2", null, "라운드 목표", "총 11분 소요", null)
             )
             add(
-                RoundDescriptionModel("ROUND 3", null, "라운드 목표", "총 12분 소요")
+                RoundDescriptionModel("ROUND 3", null, "라운드 목표", "총 12분 소요", null)
             )
             return datas
         }
