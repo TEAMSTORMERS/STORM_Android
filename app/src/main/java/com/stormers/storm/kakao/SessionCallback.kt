@@ -1,4 +1,4 @@
-package com.stormers.storm.ui
+package com.stormers.storm.kakao
 
 import android.content.Intent
 import android.util.Log
