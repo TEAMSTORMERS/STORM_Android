@@ -24,6 +24,7 @@ import com.kakao.auth.Session
 import com.kakao.util.helper.Utility.getPackageInfo
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
+import com.stormers.storm.kakao.SessionCallback
 import kotlinx.android.synthetic.main.activity_login.*
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException

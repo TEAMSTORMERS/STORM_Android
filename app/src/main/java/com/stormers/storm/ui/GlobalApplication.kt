@@ -3,7 +3,7 @@ package com.stormers.storm.ui
 import android.app.Application
 import com.kakao.auth.*
 import com.kakao.auth.KakaoSDK
-import okhttp3.internal.Internal.instance
+import com.stormers.storm.kakao.KakaoSDKAdapter
 
 
 //fixme: 여기에 문제가 있을까????
