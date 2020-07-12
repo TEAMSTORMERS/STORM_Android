@@ -6,6 +6,7 @@ import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.stormers.storm.R
+import com.stormers.storm.RoundSetting.AddCardFragment
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.canvas.fragment.CanvasDrawingFragment
 import kotlinx.android.synthetic.main.activity_round_progress.*
@@ -25,7 +26,7 @@ class RoundProgressActivity : BaseActivity() {
             it.setHomeAsUpIndicator(R.drawable.host_a_1_btn_back)
         }
 
-        goToFragment(CanvasDrawingFragment::class.java, null)
+        goToFragment(AddCardFragment::class.java, null)
     }
 
     override fun initFragmentId(): Int? {
