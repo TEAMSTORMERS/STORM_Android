@@ -23,8 +23,8 @@ class GlobalApplication : Application(){
     fun getGlobalApplicationContext():GlobalApplication{
         checkNotNull(instance){
             "this application does not inherit com.kakao.GlobalApplication"}
-            return instance!!
-        }
+        return instance!!
+    }
     companion object{
         var instance: GlobalApplication? = null
     }

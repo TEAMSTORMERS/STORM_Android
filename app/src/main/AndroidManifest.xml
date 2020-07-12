@@ -14,18 +14,21 @@
         <activity android:name=".ui.RoundMeetingExpandActivity"></activity>
         <activity
             android:name=".ui.LoginActivity"
-            android:theme="@style/loginTheme"></activity>
+            android:theme="@style/loginTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity
             android:name=".ui.MainActivity"
             android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".ui.ParticipatedProjectListActivity" />
         <activity android:name=".ui.ScrapCardCollectingActivity" />
         <activity android:name=".ui.AddProjectActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name=".ui.HostRoundWaitingActivity"/>
