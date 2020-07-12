@@ -15,8 +15,11 @@ data class SavedCardEntity (
     @ColumnInfo(name = "scraped")
     var isScraped: Int,
 
-    @ColumnInfo(name = "bitmap")
-    var bitmap: String,
+    @ColumnInfo(name = "type")
+    var cardType: Int,
+
+    @ColumnInfo(name = "content")
+    var content: String?,
 
     @ColumnInfo(name = "memo")
     var memo: String?
@@ -27,5 +30,8 @@ data class SavedCardEntity (
     companion object {
         const val TRUE = 1
         const val FALSE = 0
+
+        const val DRAWING = 0
+        const val TEXT = 1
     }
 }

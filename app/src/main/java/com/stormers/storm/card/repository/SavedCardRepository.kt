@@ -13,22 +13,20 @@ class SavedCardRepository(val context: Context) : BaseRepository<SavedCardEntity
 
     private val dao: SavedCardDao by lazy { DatabaseManager.getInstance(context).savedCardDao() }
 
-    fun getAllAsBitmap(projectIdx: Int): List<Bitmap>? {
-        return getBitmapArray(dao.getAll(projectIdx))
+    fun getAll(projectIdx: Int): List<SavedCardEntity>? {
+        return dao.getAll(projectIdx)
     }
 
-    fun getAllAsBitmap(projectIdx: Int, roundIdx: Int): List<Bitmap>? {
-        return getBitmapArray(dao.getAll(projectIdx, roundIdx))
+    fun getAll(projectIdx: Int, roundIdx: Int): List<SavedCardEntity>? {
+        return dao.getAll(projectIdx, roundIdx)
     }
 
-    fun getAllScarpedCardAsBitmap(projectIdx: Int): List<Bitmap>? {
-        return getBitmapArray(dao.getAllScrapedCard(projectIdx))
+    fun getAllScarpedCard(projectIdx: Int): List<SavedCardEntity>? {
+        return dao.getAllScrapedCard(projectIdx)
     }
 
-    fun getAllScrapedCardAsBitmap(projectIdx: Int, roundIdx: Int): List<Bitmap>? {
-        var arrays = dao.getAllScrapedCard(projectIdx, roundIdx)
-        val array = getBitmapArray(arrays)
-        return array
+    fun getAllScrapedCard(projectIdx: Int, roundIdx: Int): List<SavedCardEntity>? {
+        return dao.getAllScrapedCard(projectIdx, roundIdx)
     }
 
     public override fun insert(entity: SavedCardEntity) {
@@ -39,15 +37,5 @@ class SavedCardRepository(val context: Context) : BaseRepository<SavedCardEntity
     public override fun update(entity: SavedCardEntity) {
         super.update(entity)
         dao.update(entity)
-    }
-
-    private fun getBitmapArray(strArray: List<String>): List<Bitmap>? {
-        return List(strArray.size) { i ->
-            try {
-                BitmapConverter.stringToBitmap(strArray[i])!!
-            } catch (e: Exception) {
-                return null
-            }
-        }
     }
 }

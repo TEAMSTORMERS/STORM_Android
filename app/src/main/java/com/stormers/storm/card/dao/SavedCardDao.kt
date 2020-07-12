@@ -11,17 +11,17 @@ abstract class SavedCardDao : BaseDao<SavedCardEntity> {
     @Query("SELECT * FROM scraped_card_entity")
     abstract fun getAll(): List<SavedCardEntity>
 
-    @Query("SELECT bitmap FROM scraped_card_entity WHERE project_idx = :projectIdx")
-    abstract fun getAll(projectIdx: Int): List<String>
+    @Query("SELECT * FROM scraped_card_entity WHERE project_idx = :projectIdx")
+    abstract fun getAll(projectIdx: Int): List<SavedCardEntity>
 
-    @Query("SELECT bitmap FROM scraped_card_entity WHERE project_idx = :projectIdx AND round_idx = :roundIdx")
-    abstract fun getAll(projectIdx: Int, roundIdx: Int): List<String>
+    @Query("SELECT * FROM scraped_card_entity WHERE project_idx = :projectIdx AND round_idx = :roundIdx")
+    abstract fun getAll(projectIdx: Int, roundIdx: Int): List<SavedCardEntity>
 
-    @Query("SELECT bitmap FROM scraped_card_entity WHERE project_idx = :projectIdx AND scraped = ${SavedCardEntity.TRUE}")
-    abstract fun getAllScrapedCard(projectIdx: Int): List<String>
+    @Query("SELECT * FROM scraped_card_entity WHERE project_idx = :projectIdx AND scraped = ${SavedCardEntity.TRUE}")
+    abstract fun getAllScrapedCard(projectIdx: Int): List<SavedCardEntity>
 
-    @Query("SELECT bitmap FROM scraped_card_entity WHERE project_idx = :projectIdx AND round_idx = :roundIdx AND scraped = ${SavedCardEntity.TRUE}")
-    abstract fun getAllScrapedCard(projectIdx: Int, roundIdx: Int): List<String>
+    @Query("SELECT * FROM scraped_card_entity WHERE project_idx = :projectIdx AND round_idx = :roundIdx AND scraped = ${SavedCardEntity.TRUE}")
+    abstract fun getAllScrapedCard(projectIdx: Int, roundIdx: Int): List<SavedCardEntity>
 
     @Query("DELETE FROM scraped_card_entity")
     abstract fun deleteAll()
