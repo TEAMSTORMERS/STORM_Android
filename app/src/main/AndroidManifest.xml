@@ -25,22 +25,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".ui.AddProjectActivity" />
+        <activity android:name=".ui.HostRoundActivity"
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".ui.MainActivity"
-            android:windowSoftInputMode="adjustNothing" >
-
-
-        </activity>
+            android:windowSoftInputMode="adjustNothing"/>
+        <activity android:name=".ui.HostRoundWaitingActivity"/>
         <activity android:name=".ui.ParticipatedProjectListActivity" />
-        <activity android:name=".ui.ScrapCardCollectingActivity" />
-        <activity android:name=".ui.AddProjectActivity" />
-        <activity
-            android:name=".ui.HostRoundActivity"
-            android:windowSoftInputMode="adjustNothing" />
-        <activity android:name=".ui.RoundProgressActivity" />
-        <activity android:name=".ui.RoundListActivity" />
         <activity android:name=".ui.ParticipatedProjectDetailActivity" />
+        <activity android:name=".ui.RoundListActivity" />
+        <activity android:name=".ui.RoundMeetingExpandActivity" />
+        <activity android:name=".ui.RoundProgressActivity" />
+        <activity android:name=".ui.RoundSettingActivity"/>
+        <activity android:name=".ui.RoundStartActivity"/>
+        <activity android:name=".ui.ScrapCardCollectingActivity" />
     </application>
 
 </manifest>

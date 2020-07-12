@@ -19,9 +19,6 @@ import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.user.ParticipantAdapter
 import com.stormers.storm.user.UserModel
 import com.stormers.storm.util.MarginDecoration
-import kotlinx.android.synthetic.main.activity_host_round_setting.*
-import kotlinx.android.synthetic.main.fragment_host_round_setting.*
-import kotlinx.android.synthetic.main.fragment_round_setting_waiting_member.*
 import kotlinx.android.synthetic.main.fragment_waiting_for_starting_project.*
 import kotlinx.android.synthetic.main.fragment_waiting_for_starting_project.view.*
 import kotlinx.android.synthetic.main.layout_list_of_participant.view.*
@@ -46,8 +43,8 @@ class WaitingForStartingProjectFragment : Fragment() {
 
         participantAdapter.addAll(loadData())
 
-        //stormButton_start_host_round_setting이 비활성화 상태에서 활성 상태로 잘 바뀌는지 테스트하기 위한 코드입니다
-        //val stormbutton: StormButton? = activity?.findViewById(R.id.stormButton_start_host_round_setting)
+       // stormButton_start_host_round_setting이 비활성화 상태에서 활성 상태로 잘 바뀌는지 테스트하기 위한 코드입니다
+        val stormbutton: StormButton? = activity?.findViewById(R.id.stormButton_start_host_round_setting)
 
         cardview_waitingproject_checkrules.setOnClickListener {
             val buttonArray = ArrayList<StormDialogButton>()
@@ -60,9 +57,10 @@ class WaitingForStartingProjectFragment : Fragment() {
                         imageview_checkrules_checkcircle.visibility = View.VISIBLE
 
                         //stormButton_start_host_round_setting이 비활성화 상태에서 활성 상태로 잘 바뀌는지 테스트하기 위한 코드입니다
-                        /*if (stormbutton != null) {
+                        if (stormbutton != null) {
                             stormbutton.setActivation(true)
-                        }*/
+                        }
+
                     }
                 })
             )
@@ -77,9 +75,6 @@ class WaitingForStartingProjectFragment : Fragment() {
         }
 
     }
-
-
-
     private fun loadData(): MutableList<UserModel> {
         val data = mutableListOf<UserModel>()
 

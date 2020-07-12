@@ -1,6 +1,7 @@
-package com.stormers.storm.ui
+package com.stormers.storm.kakao
 
 import com.kakao.auth.*
+import com.stormers.storm.ui.GlobalApplication
 
 
 //fixme: 여기에 문제가 있을까????
