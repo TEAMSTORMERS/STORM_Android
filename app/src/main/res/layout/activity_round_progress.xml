@@ -13,7 +13,7 @@
         android:background="@drawable/background_red_radius"
         android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.52"
+        app:layout_constraintHeight_percent="0.61"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

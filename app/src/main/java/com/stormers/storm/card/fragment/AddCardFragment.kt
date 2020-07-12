@@ -32,14 +32,14 @@ class AddCardFragment : BaseFragment(R.layout.fragment_add_card) {
         if (savedCard != null && savedCard.isNotEmpty()) {
             addedSavedCardAdapter.addAll(savedCard)
             recyclerview_addcard_card.visibility = View.VISIBLE
-            ImageView_addcard_nocard.visibility = View.GONE
+            constraintlayout_addcard_nocard.visibility = View.GONE
 
         } else {
             recyclerview_addcard_card.visibility = View.GONE
-            ImageView_addcard_nocard.visibility = View.VISIBLE
+            constraintlayout_addcard_nocard.visibility = View.VISIBLE
         }
 
-        imagebutton_addcard_add.setOnClickListener {
+        cardview_addcard_add.setOnClickListener {
             goToFragment(CanvasDrawingFragment::class.java, null)
         }
     }
