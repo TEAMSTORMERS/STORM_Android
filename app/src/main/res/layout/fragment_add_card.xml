@@ -20,6 +20,7 @@
         app:layout_constraintWidth_percent="0.72">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="?android:selectableItemBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -28,6 +29,7 @@
                 android:id="@+id/imageview_addcard_plusbutton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:src="@drawable/all_round_btn_plus"
                 app:layout_constraintBottom_toTopOf="@id/textview_addcard_addcard"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
