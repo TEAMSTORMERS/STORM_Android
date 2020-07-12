@@ -26,7 +26,19 @@ class SavedCardRepository(val context: Context) : BaseRepository<SavedCardEntity
     }
 
     fun getAllScrapedCardAsBitmap(projectIdx: Int, roundIdx: Int): List<Bitmap>? {
-        return getBitmapArray(dao.getAllScrapedCard(projectIdx, roundIdx))
+        var arrays = dao.getAllScrapedCard(projectIdx, roundIdx)
+        val array = getBitmapArray(arrays)
+        return array
+    }
+
+    public override fun insert(entity: SavedCardEntity) {
+        super.insert(entity)
+        dao.insert(entity)
+    }
+
+    public override fun update(entity: SavedCardEntity) {
+        super.update(entity)
+        dao.update(entity)
     }
 
     private fun getBitmapArray(strArray: List<String>): List<Bitmap>? {

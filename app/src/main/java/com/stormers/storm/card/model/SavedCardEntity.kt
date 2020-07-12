@@ -19,7 +19,7 @@ data class SavedCardEntity (
     var bitmap: String,
 
     @ColumnInfo(name = "memo")
-    var memo: String
+    var memo: String?
 ) {
     @PrimaryKey(autoGenerate = true)
     var cardId: Int = 0
