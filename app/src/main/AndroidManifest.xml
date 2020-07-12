@@ -5,45 +5,39 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".ui.GlobalApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.RoundMeetingExpandActivity"></activity>
+
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="@string/kakao_app_key" />
+
         <activity
             android:name=".ui.LoginActivity"
             android:theme="@style/loginTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+
         <activity
             android:name=".ui.MainActivity"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustNothing" >
+
+
+        </activity>
         <activity android:name=".ui.ParticipatedProjectListActivity" />
         <activity android:name=".ui.ScrapCardCollectingActivity" />
-        <activity android:name=".ui.AddProjectActivity" >
-
-        </activity>
-
-        <activity android:name=".ui.HostRoundWaitingActivity"/>
-
+        <activity android:name=".ui.AddProjectActivity" />
         <activity
             android:name=".ui.HostRoundActivity"
-            android:windowSoftInputMode="adjustNothing">
-
-
-        </activity>
-        <activity
-            android:name=".ui.RoundSettingActivity"/>
-
-        <activity android:name=".ui.RoundStartActivity"/>
-
+            android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".ui.RoundProgressActivity" />
         <activity android:name=".ui.RoundListActivity" />
         <activity android:name=".ui.ParticipatedProjectDetailActivity" />
