@@ -13,11 +13,22 @@ class ParticipatedProjectViewHolder(parent: ViewGroup, private val listener: Par
     BaseViewHolder<ParticipatedProjectModel>(R.layout.item_participated_projects_list, parent) {
 
     override fun bind(data: ParticipatedProjectModel) {
+        initItemLayout(data)
+        initCardImage(data)
+    }
+
+    private fun initItemLayout(data: ParticipatedProjectModel) {
         itemView.name_of_project.text = data.projectName
 
         (itemView.cardview_project_forder.layoutParams).width = MetricsUtil.convertDpToPixel(162f, itemView.context).toInt()
         (itemView.cardview_project_forder.layoutParams).height = MetricsUtil.convertDpToPixel(174f, itemView.context).toInt()
 
+        itemView.setOnClickListener {
+            listener.onProjectClick(data.projectIdx)
+        }
+    }
+
+    private fun initCardImage(data: ParticipatedProjectModel) {
         when (data.projectCard.size) {
             0 -> return
             1 -> Glide.with(itemView).load(data.projectCard[0]).into(itemView.card1)
@@ -36,10 +47,6 @@ class ParticipatedProjectViewHolder(parent: ViewGroup, private val listener: Par
                 Glide.with(itemView).load(data.projectCard[2]).into(itemView.card3)
                 Glide.with(itemView).load(data.projectCard[3]).into(itemView.card4)
             }
-        }
-
-        itemView.setOnClickListener {
-            listener.onProjectClick(data.projectIdx)
         }
     }
 }
