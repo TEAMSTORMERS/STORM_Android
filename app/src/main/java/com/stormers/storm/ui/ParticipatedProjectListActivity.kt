@@ -1,5 +1,6 @@
 package com.stormers.storm.ui
 
+import android.content.Intent
 import android.os.Bundle
 import com.stormers.storm.R
 import com.stormers.storm.project.model.RecentProjectsModel
@@ -12,11 +13,19 @@ import java.util.*
 import java.util.Arrays.asList
 
 class ParticipatedProjectListActivity : BaseActivity() {
-    private val participatedProjectListAdapter : ParticipatedProjectListAdapter by lazy { ParticipatedProjectListAdapter() }
+    private lateinit var participatedProjectListAdapter : ParticipatedProjectListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_participated_project_list)
+
+        participatedProjectListAdapter = ParticipatedProjectListAdapter(object: OnProjectClickListener {
+            override fun onProjectClick(projectIdx: Int) {
+                val intent = Intent(this@ParticipatedProjectListActivity, ParticipatedProjectDetailActivity::class.java)
+                intent.putExtra("projectIdx", projectIdx)
+                startActivity(intent)
+            }
+        })
 
         recyclerview_participatedproject.run {
             adapter = participatedProjectListAdapter
@@ -27,7 +36,9 @@ class ParticipatedProjectListActivity : BaseActivity() {
         participatedProjectListAdapter.addAll(loadProjectsDatas())
     }
 
-
+    interface OnProjectClickListener {
+        fun onProjectClick(projectIdx: Int)
+    }
 
     //더미 데이터
     private fun loadProjectsDatas() : MutableList<ParticipatedProjectModel>{

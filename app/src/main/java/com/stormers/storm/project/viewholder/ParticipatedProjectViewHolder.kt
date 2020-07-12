@@ -5,10 +5,11 @@ import com.bumptech.glide.Glide
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseViewHolder
 import com.stormers.storm.project.model.ParticipatedProjectModel
+import com.stormers.storm.ui.ParticipatedProjectListActivity
 import com.stormers.storm.util.MetricsUtil
 import kotlinx.android.synthetic.main.item_participated_projects_list.view.*
 
-class ParticipatedProjectViewHolder(parent: ViewGroup) :
+class ParticipatedProjectViewHolder(parent: ViewGroup, private val listener: ParticipatedProjectListActivity.OnProjectClickListener) :
     BaseViewHolder<ParticipatedProjectModel>(R.layout.item_participated_projects_list, parent) {
 
     override fun bind(data: ParticipatedProjectModel) {
@@ -35,7 +36,10 @@ class ParticipatedProjectViewHolder(parent: ViewGroup) :
                 Glide.with(itemView).load(data.projectCard[2]).into(itemView.card3)
                 Glide.with(itemView).load(data.projectCard[3]).into(itemView.card4)
             }
+        }
 
+        itemView.setOnClickListener {
+            listener.onProjectClick(data.projectIdx)
         }
     }
 }
