@@ -34,7 +34,7 @@ class LoginActivity : BaseActivity() {
     private lateinit var callback: SessionCallback
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
-    private val RC_SIGN_IN = 99 //private const val TAG = "GoogleActivity"
+    private val RC_SIGN_IN = 9001 //private const val TAG = "GoogleActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,13 +50,13 @@ class LoginActivity : BaseActivity() {
         }
 
         callback = SessionCallback(startIntent)
+
         imagebutton_login_kakao.setOnClickListener{
             Session.getCurrentSession().open(AuthType.KAKAO_LOGIN_ALL, this)
             Log.d("KaKaoLogin","버튼 눌림")
             Session.getCurrentSession().addCallback(callback)
         }
-        //Google Firebase 로그인
-        imagebutton_login_google.setOnClickListener { signIn() }
+
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -65,6 +65,9 @@ class LoginActivity : BaseActivity() {
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
         firebaseAuth = FirebaseAuth.getInstance()
+
+        //Google Firebase 로그인
+        imagebutton_login_google.setOnClickListener { signIn() }
 
         initView()
 
@@ -133,7 +136,7 @@ class LoginActivity : BaseActivity() {
 
         //Google SignInAccount 객체에서 ID 토큰을 가져와서 Firebase Auth로 교환하고 Firebase에 인증
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
-        firebaseAuth.signInWithCredential(credential)
+        firebaseAuth!!.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Log.w("LoginActivity", "firebaseAuthWithGoogle 성공", task.exception)

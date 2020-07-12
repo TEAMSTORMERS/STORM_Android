@@ -11,5 +11,4 @@ class CardAdapter : BaseAdapter<CardModel>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<CardModel> {
         return CardViewHolder(parent)
     }
-
 }

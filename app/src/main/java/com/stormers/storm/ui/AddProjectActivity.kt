@@ -8,6 +8,7 @@ import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
+import com.stormers.storm.project.fragment.WaitingForStartingProjectFragment
 import kotlinx.android.synthetic.main.activity_add_project.*
 import kotlinx.android.synthetic.main.view_toolbar.view.*
 
@@ -57,6 +58,7 @@ class AddProjectActivity : BaseActivity() {
 
     fun start_project(){
 
+
         val buttonArray = ArrayList<StormDialogButton>()
 
         button_add_project.setOnClickListener {
@@ -64,8 +66,10 @@ class AddProjectActivity : BaseActivity() {
             buttonArray.add(
                 StormDialogButton("확인", true, object : StormDialogButton.OnClickListener {
                     override fun onClick() {
-                        val intent = Intent(this@AddProjectActivity,RoundSettingActivity::class.java)
+                        val intent = Intent(this@AddProjectActivity,HostRoundWaitingActivity::class.java)
                         startActivity(intent)
+
+
                     }
                 })
 
@@ -75,7 +79,7 @@ class AddProjectActivity : BaseActivity() {
                 .setContentRes(R.layout.view_participation_code)
                 .setButtonArray(buttonArray)
                 .build()
-                .show(supportFragmentManager, "rulereminder")
+                .show(supportFragmentManager, "create_participate_code")
         }
     }
  }
