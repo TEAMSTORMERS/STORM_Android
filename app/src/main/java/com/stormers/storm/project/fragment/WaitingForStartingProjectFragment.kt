@@ -19,9 +19,6 @@ import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.user.ParticipantAdapter
 import com.stormers.storm.user.UserModel
 import com.stormers.storm.util.MarginDecoration
-import kotlinx.android.synthetic.main.activity_host_round_setting.*
-import kotlinx.android.synthetic.main.fragment_host_round_setting.*
-import kotlinx.android.synthetic.main.fragment_round_setting_waiting_member.*
 import kotlinx.android.synthetic.main.fragment_waiting_for_starting_project.*
 import kotlinx.android.synthetic.main.fragment_waiting_for_starting_project.view.*
 import kotlinx.android.synthetic.main.layout_list_of_participant.view.*
@@ -77,7 +74,6 @@ class WaitingForStartingProjectFragment : Fragment() {
         }
 
     }
-
     private fun loadData(): MutableList<UserModel> {
         val data = mutableListOf<UserModel>()
 

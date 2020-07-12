@@ -2,21 +2,13 @@ package com.stormers.storm.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.Toast
-import androidx.fragment.app.Fragment
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
-import com.stormers.storm.customview.dialog.StormDialog
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
-import com.stormers.storm.round.fragment.HostRoundSettingFragment
 import kotlinx.android.synthetic.main.activity_add_project.*
-import kotlinx.android.synthetic.main.fragment_host_round_setting.*
-import kotlinx.android.synthetic.main.fragment_waiting_for_starting_project.*
 import kotlinx.android.synthetic.main.view_toolbar.view.*
 
 class AddProjectActivity : BaseActivity() {
@@ -69,15 +61,11 @@ class AddProjectActivity : BaseActivity() {
 
         button_add_project.setOnClickListener {
 
-            Log.d("버튼 눌림","버튼눌림")
-
             buttonArray.add(
                 StormDialogButton("확인", true, object : StormDialogButton.OnClickListener {
                     override fun onClick() {
-                        Toast.makeText(applicationContext, "확인 눌렀음", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(applicationContext,HostRoundActivity::class.java)
+                        val intent = Intent(this@AddProjectActivity,RoundSettingActivity::class.java)
                         startActivity(intent)
-
                     }
                 })
 
@@ -90,7 +78,4 @@ class AddProjectActivity : BaseActivity() {
                 .show(supportFragmentManager, "rulereminder")
         }
     }
-
-
-
  }
