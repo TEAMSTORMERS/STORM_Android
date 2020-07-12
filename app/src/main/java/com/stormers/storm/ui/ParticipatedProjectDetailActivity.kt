@@ -36,7 +36,7 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         noHeartCardAdapter = NoHeartCardAdapter(object : OnRoundClickListener {
             override fun onRoundClick(roundIdx: Int) {
                 //Todo: StartActivity 하면 되겠다 roundIdx는 인텐트로 넘길까?
-                val intent = Intent(this@ParticipatedProjectDetailActivity, RoundProgressActivity::class.java)
+                val intent = Intent(this@ParticipatedProjectDetailActivity, ScrapedCardDetailActivity::class.java)
                 intent.putExtra("roundIdx", roundIdx)
                 startActivity(intent)
             }
@@ -133,13 +133,13 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
 
         datas.apply {
             add(
-                RoundDescriptionModel("ROUND 1", null, "라운드 목표", "총 10분 소요", null)
+                RoundDescriptionModel("ROUND 1", null, "라운드 목표", "총 10분 소요", 1)
             )
             add(
-                RoundDescriptionModel("ROUND 2", null, "라운드 목표", "총 11분 소요", null)
+                RoundDescriptionModel("ROUND 2", null, "라운드 목표", "총 11분 소요", 2)
             )
             add(
-                RoundDescriptionModel("ROUND 3", null, "라운드 목표", "총 12분 소요", null)
+                RoundDescriptionModel("ROUND 3", null, "라운드 목표", "총 12분 소요", 3)
             )
             return datas
         }
