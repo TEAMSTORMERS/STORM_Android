@@ -44,6 +44,7 @@
                 android:textColor="@color/storm_gray"
                 android:letterSpacing="-0.03"
                 android:lineSpacingExtra="6sp"
+                android:textFontWeight="300"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

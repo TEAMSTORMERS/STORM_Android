@@ -6,8 +6,8 @@ import com.stormers.storm.base.BaseViewHolder
 import com.stormers.storm.card.model.SavedCardEntity
 import com.stormers.storm.card.viewholder.SavedCardViewHolder
 
-class SavedCardAdapter : BaseAdapter<SavedCardEntity>() {
+class SavedCardAdapter(private val showHeart: Boolean) : BaseAdapter<SavedCardEntity>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<SavedCardEntity> {
-        return SavedCardViewHolder(parent)
+        return SavedCardViewHolder(parent, showHeart)
     }
 }
