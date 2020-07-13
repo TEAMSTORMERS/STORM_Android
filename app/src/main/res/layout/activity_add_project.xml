@@ -101,7 +101,8 @@
             android:inputType="textMultiLine"
             android:paddingHorizontal="16dp"
             android:paddingVertical="11dp"
-            android:textSize="11sp"
+            android:textSize="13sp"
+            android:textColor="@color/storm_gray"
             app:layout_constraintDimensionRatio="w,1:2"
             app:layout_constraintEnd_toEndOf="@id/edittext_addproject_projectname"
             app:layout_constraintHorizontal_bias="1.0"
@@ -119,7 +120,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintlayout_back_card">
 
-        <Button
+        <com.stormers.storm.customview.StormButton
+            android:id="@+id/button_add_project"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/background_button_yellow_radius"

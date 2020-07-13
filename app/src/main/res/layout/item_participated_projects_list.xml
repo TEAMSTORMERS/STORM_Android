@@ -13,8 +13,8 @@
         android:layout_width="128dp"
         android:layout_height="140dp"
         app:cardCornerRadius="15dp"
-        app:cardElevation="10dp"
-        android:layout_marginHorizontal="5dp"
+        app:cardElevation="3dp"
+        app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toTopOf="@+id/name_of_project"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,8 +26,7 @@
             android:layout_height="match_parent"
             android:background="@color/storm_popup_line_gray"
             android:columnCount="2"
-            android:rowCount="2"
-            >
+            android:rowCount="2">
 
             <ImageView
                 android:id="@+id/card1"
@@ -35,7 +34,7 @@
                 android:layout_columnWeight="1"
                 android:layout_marginRight="0.5dp"
                 android:layout_marginBottom="0.5dp"
-                android:scaleType="fitXY" />
+                android:scaleType="centerCrop" />
 
             <ImageView
                 android:id="@+id/card2"
@@ -43,7 +42,7 @@
                 android:layout_columnWeight="1"
                 android:layout_marginLeft="0.5dp"
                 android:layout_marginBottom="0.5dp"
-                android:scaleType="fitXY" />
+                android:scaleType="centerCrop" />
 
             <ImageView
                 android:id="@+id/card3"
@@ -51,7 +50,7 @@
                 android:layout_columnWeight="1"
                 android:layout_marginTop="0.5dp"
                 android:layout_marginRight="0.5dp"
-                android:scaleType="fitXY" />
+                android:scaleType="centerCrop" />
 
             <ImageView
                 android:id="@+id/card4"
@@ -59,7 +58,7 @@
                 android:layout_columnWeight="1"
                 android:layout_marginTop="0.5dp"
                 android:layout_marginLeft="0.5dp"
-                android:scaleType="fitXY"/>
+                android:scaleType="centerCrop"/>
 
         </GridLayout>
 
@@ -69,18 +68,14 @@
         android:id="@+id/name_of_project"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/notosans_medium"
-        android:text="평화의 프로젝트"
+        android:text="프로젝트 제목"
         android:textSize="11sp"
-        android:layout_marginVertical="16dp"
-        android:textColor="@color/brownish_grey"
-        android:includeFontPadding="false"
+        android:textColor="@color/storm_gray"
+        android:lineSpacingExtra="6sp"
         app:layout_constraintEnd_toEndOf="@+id/cardview_project_forder"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/cardview_project_forder"
         app:layout_constraintTop_toBottomOf="@+id/cardview_project_forder"
         app:layout_constraintBottom_toBottomOf="parent"/>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

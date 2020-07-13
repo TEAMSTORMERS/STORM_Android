@@ -1,57 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageview_addcard_add"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview_addcard_add"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:elevation="10dp"
-        app:layout_constraintDimensionRatio="w,1.58:1"
-        android:src="@drawable/round1_card"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1: 0.63"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.060000002"
+        app:layout_constraintWidth_percent="0.72">
 
-    <ImageButton
-        android:id="@+id/imagebutton_addcard_add"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/round1_btn_addcard"
-        app:layout_constraintDimensionRatio="w,2:1"
-        android:elevation="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageview_addcard_add"
-        app:layout_constraintEnd_toEndOf="@+id/imageview_addcard_add"
-        app:layout_constraintStart_toStartOf="@+id/imageview_addcard_add"
-        app:layout_constraintTop_toTopOf="@+id/imageview_addcard_add" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="?android:selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/ImageView_addcard_nocard"
-        android:layout_width="0dp"
+            <!--Todo: src 추가하기-->
+            <ImageView
+                android:id="@+id/imageview_addcard_plusbutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/all_round_btn_plus"
+                app:layout_constraintBottom_toTopOf="@id/textview_addcard_addcard"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/textview_addcard_addcard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="탭하여 글/그림 추가"
+                android:layout_marginTop="4dp"
+                android:textSize="12sp"
+                android:textColor="@color/storm_gray"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="6sp"
+                android:textFontWeight="300"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imageview_addcard_plusbutton" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintlayout_addcard_nocard"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="136dp"
-        android:src="@drawable/round1_ic_addcard"
-        app:layout_constraintDimensionRatio="w,1:1"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageview_addcard_add" />
+        app:layout_constraintTop_toBottomOf="@+id/cardview_addcard_add"
+        app:layout_constraintVertical_bias="0.36">
+
+        <ImageView
+            android:id="@+id/imageview_addcard_nocard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/h_roundstart_popup_symbol"
+            app:layout_constraintBottom_toTopOf="@+id/textview_addcard_pleaseadd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textview_addcard_pleaseadd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="카드를 추가해주세요!"
+            android:textColor="@color/storm_gray"
+            android:textFontWeight="700"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageview_addcard_nocard" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_addcard_card"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="20dp"
         android:layout_marginTop="11dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageview_addcard_add"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardview_addcard_add"
         app:spanCount="2"
         tools:listitem="@layout/item_added_card" />
 

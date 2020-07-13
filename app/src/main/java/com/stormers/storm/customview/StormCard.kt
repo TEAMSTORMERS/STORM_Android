@@ -2,6 +2,7 @@ package com.stormers.storm.customview
 
 import android.content.Context
 import android.content.res.TypedArray
+import android.graphics.Bitmap
 import android.os.Handler
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -88,7 +89,7 @@ class StormCard : CardView {
 
     private fun setTypedArray(typedArray: TypedArray) {
         initHeartButton(typedArray)
-
+        
         setDoubleTab(typedArray)
 
         setElevation(typedArray)
@@ -132,10 +133,6 @@ class StormCard : CardView {
         listener?.onHeartStateChanged(heartState)
     }
 
-    fun setImageUrl(url: String) {
-        Glide.with(context).load(url).into(this.imageview_customcard_background)
-    }
-
     fun showHeartButton(isShow: Boolean) {
         if (!isShow) {
             imagebutton_customcard_heart.visibility = View.GONE
@@ -169,6 +166,18 @@ class StormCard : CardView {
                 }
             }
         }
+    }
+
+    fun setImageUrl(url: String) {
+        Glide.with(context).load(url).into(this.imageview_customcard_background)
+    }
+
+    fun setBitmap(bitmap: Bitmap) {
+        imageview_customcard_background.setImageBitmap(bitmap)
+    }
+
+    fun setText(text: String) {
+        textview_customcard_background.text = text
     }
 
     interface OnHeartStateChangedListener {

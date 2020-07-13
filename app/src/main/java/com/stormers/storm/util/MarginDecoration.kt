@@ -60,7 +60,7 @@ private constructor(private var context: Context) : RecyclerView.ItemDecoration(
         numOfColumns?.let {
             outRect.left = marginHorizontal!!
             outRect.bottom = marginVertical!!
-            if (position + 1 % numOfColumns!! == 0) {
+            if ((position + 1) % it == 0) {
                 outRect.right = marginHorizontal!!
             }
         }

@@ -2,6 +2,7 @@ package com.stormers.storm.customview
 
 import android.content.Context
 import android.content.res.TypedArray
+import android.text.Editable
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -29,6 +30,17 @@ class StormEditText : ConstraintLayout {
             getAttrs(attrs,defStyleAttr)
         }
     }
+
+    var text: Editable? = null
+    get() {
+        field = this.edittext_customedittext.text
+        return field
+    }
+    set(value) {
+        field = value
+        this.edittext_customedittext.text = field
+    }
+
 
     private fun init() {
         LayoutInflater.from(context).inflate(R.layout.view_edittext_custom, this, true)
