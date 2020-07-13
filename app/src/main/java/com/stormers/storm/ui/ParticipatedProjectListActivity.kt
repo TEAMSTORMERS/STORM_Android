@@ -20,7 +20,8 @@ class ParticipatedProjectListActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_participated_project_list)
 
-        participatedProjectListAdapter = ParticipatedProjectListAdapter(object: OnProjectClickListener {
+        participatedProjectListAdapter = ParticipatedProjectListAdapter(false, object:
+            ParticipatedProjectListAdapter.OnProjectClickListener {
             override fun onProjectClick(projectIdx: Int) {
                 val intent = Intent(this@ParticipatedProjectListActivity, ParticipatedProjectDetailActivity::class.java)
                 intent.putExtra("projectIdx", projectIdx)
@@ -35,10 +36,6 @@ class ParticipatedProjectListActivity : BaseActivity() {
         }
 
         participatedProjectListAdapter.addAll(loadProjectsDatas())
-    }
-
-    interface OnProjectClickListener {
-        fun onProjectClick(projectIdx: Int)
     }
 
     //더미 데이터

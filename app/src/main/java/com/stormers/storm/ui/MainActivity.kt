@@ -1,6 +1,5 @@
 package com.stormers.storm.ui
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -14,15 +13,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
-import com.stormers.storm.project.adapter.RecentProjectsAdapter
+import com.stormers.storm.project.adapter.ParticipatedProjectListAdapter
+import com.stormers.storm.project.model.ParticipatedProjectModel
 import com.stormers.storm.project.model.RecentProjectsModel
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlin.math.round
 
 class MainActivity : BaseActivity() {
 
-    lateinit var recentProjectsAdapter: RecentProjectsAdapter
+    /** 메인액티비티에서 보여주는 프로젝트 참가 목록이나, ParicipatedProjectListActivity에서
+    * 보여주는 프로젝트 참가 목록이나 동일한 데이터기 때문에 동일한 어댑터를 사용했어
+    **/
+    private lateinit var recentProjectsAdapter: ParticipatedProjectListAdapter
     val datas = mutableListOf<RecentProjectsModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,14 +71,21 @@ class MainActivity : BaseActivity() {
         }
 
 
-        // ParticipatedProjectAdapter
-        recentProjectsAdapter = RecentProjectsAdapter(object : OnRoundClickListener{
-            override fun onRoundClick(project_idx: Int) {
+        /**
+         * Adapter를 생성할 때 이 어댑터에게 요구하고 싶은 것들을 파라미터로 넘겨주면 돼
+         * ParticipatedProjectListAdapter.kt를 한 번 열어봐
+         */
+        recentProjectsAdapter = ParticipatedProjectListAdapter(true, object : ParticipatedProjectListAdapter.OnProjectClickListener {
+            override fun onProjectClick(projectIdx: Int) {
+                /**
+                 * 아래처럼 액티비티 전환을 해달라는 약속을 어댑터에게 전달해주는 거야. 이것이 콜백
+                 */
                 val intent  = Intent(this@MainActivity,ParticipatedProjectDetailActivity::class.java)
-                intent.putExtra("project_idx",project_idx)
+                intent.putExtra("project_idx", projectIdx)
                 startActivity(intent)
             }
         })
+
         recycler_participated_projects_list.adapter = recentProjectsAdapter
         recycler_participated_projects_list.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         recycler_participated_projects_list.addItemDecoration(MarginDecoration(baseContext,16,RecyclerView.HORIZONTAL))
@@ -104,69 +113,60 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    private fun loadProjectsDatas() : MutableList<RecentProjectsModel>{
+    //더미 데이터
+    private fun loadProjectsDatas() : MutableList<ParticipatedProjectModel>{
 
-        val datas = mutableListOf<RecentProjectsModel>()
+        val datas = mutableListOf<ParticipatedProjectModel>()
 
         datas.apply {
             add(
-                RecentProjectsModel(
-                    card1 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    card2 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    card3 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    card4 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    projectName = "평화의 브레인스토밍",
-                    project_idx = 1
+                ParticipatedProjectModel(0, "평화의 브레인 스토밍",
+                    listOf(
+                        "https://avatars2.githubusercontent.com/u/57310034?s=460&u=3b6de8b863bdc2b902bf6cfe080bc8d34e93c348&v=4",
+                        "https://avatars1.githubusercontent.com/u/56873136?s=400&v=4",
+                        "https://avatars2.githubusercontent.com/u/52772787?s=460&u=4a9f12ef174f88ec143b70f4fcaaa8f1b2d87b43&v=4",
+                        "https://avatars2.githubusercontent.com/u/57310034?s=460&u=3b6de8b863bdc2b902bf6cfe080bc8d34e93c348&v=4",
+                        "https://avatars1.githubusercontent.com/u/56873136?s=400&v=4")
                 )
             )
             add(
-                RecentProjectsModel(
-                    card1 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    card2 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    card3 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    card4 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    projectName = "희원이의 브레인스토밍",
-                    project_idx = 1
+                ParticipatedProjectModel(1, "성규의 브레인 스토밍",
+                    listOf(
+                        "https://avatars2.githubusercontent.com/u/57310034?s=460&u=3b6de8b863bdc2b902bf6cfe080bc8d34e93c348&v=4",
+                        "https://avatars1.githubusercontent.com/u/56873136?s=400&v=4",
+                        "https://avatars2.githubusercontent.com/u/52772787?s=460&u=4a9f12ef174f88ec143b70f4fcaaa8f1b2d87b43&v=4",
+                        "https://avatars2.githubusercontent.com/u/57310034?s=460&u=3b6de8b863bdc2b902bf6cfe080bc8d34e93c348&v=4",
+                        "https://avatars1.githubusercontent.com/u/56873136?s=400&v=4")
                 )
             )
             add(
-                RecentProjectsModel(
-                    card1 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    card2 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    card3 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    card4 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    projectName = "성규의 브레인스토밍",
-                    project_idx = 1
+                ParticipatedProjectModel(2, "희원이의 브레인 스토밍",
+                    listOf(
+                        "https://avatars2.githubusercontent.com/u/57310034?s=460&u=3b6de8b863bdc2b902bf6cfe080bc8d34e93c348&v=4",
+                        "https://avatars1.githubusercontent.com/u/56873136?s=400&v=4"
+                    )
                 )
             )
             add(
-                RecentProjectsModel(
-                    card1 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    card2 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    card3 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    card4 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    projectName = "성규의 브레인스토밍",
-                    project_idx = 1
+                ParticipatedProjectModel(3, "평화의 브레인 스토밍2",
+                    listOf(
+                        "https://avatars2.githubusercontent.com/u/57310034?s=460&u=3b6de8b863bdc2b902bf6cfe080bc8d34e93c348&v=4"
+                    )
                 )
             )
             add(
-                RecentProjectsModel(
-                    card1 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    card2 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    card3 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    card4 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    projectName = "성규의 브레인스토밍",
-                    project_idx = 1
+                ParticipatedProjectModel(4, "성규의 브레인 스토밍2",
+                    listOf()
                 )
             )
             add(
-                RecentProjectsModel(
-                    card1 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    card2 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    card3 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    card4 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    projectName = "성규의 브레인스토밍",
-                    project_idx = 1
+                ParticipatedProjectModel(5, "희원이의 브레인 스토밍3",
+                    listOf(
+                        "https://avatars2.githubusercontent.com/u/57310034?s=460&u=3b6de8b863bdc2b902bf6cfe080bc8d34e93c348&v=4",
+                        "https://avatars1.githubusercontent.com/u/56873136?s=400&v=4",
+                        "https://avatars2.githubusercontent.com/u/52772787?s=460&u=4a9f12ef174f88ec143b70f4fcaaa8f1b2d87b43&v=4",
+                        "https://avatars2.githubusercontent.com/u/57310034?s=460&u=3b6de8b863bdc2b902bf6cfe080bc8d34e93c348&v=4",
+                        "https://avatars1.githubusercontent.com/u/56873136?s=400&v=4")
                 )
             )
         }
@@ -204,10 +204,4 @@ class MainActivity : BaseActivity() {
         intent.putExtra("participatecode",edittext_input_participate_code.text.toString())
         startActivity(intent)
     }
-
-    interface OnRoundClickListener {
-        //이제보니 이 액티비티에 들어왔을 때 부터 projectIdx는 정해져 있으니 roundIdx만 있으면 되겠네 ~
-        fun onRoundClick(project_idx: Int)
-    }
-
 }
