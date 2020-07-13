@@ -1,8 +1,11 @@
 package com.stormers.storm.ui
 
+import android.gesture.GestureOverlayView.ORIENTATION_HORIZONTAL
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
+import androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL
 import com.stormers.storm.R
 import com.stormers.storm.card.adapter.CardAdapter
 import com.stormers.storm.card.model.CardModel
@@ -31,11 +34,13 @@ class RoundListActivity : AppCompatActivity() {
 
         roundListAdapterForViewPager.addAll(loadRoundDatas())
 
+        viewpager_roundcardlist_round.currentItem = intent.getIntExtra("roundIdx", 0) - 1
+
         recyclerView_roundcardlist_cardlist.run {
             adapter = cardAdapter
             //Fixme MarginDecoration 고쳐야겠다
             //Todo: 바깥쪽 여백도 줄 수 있도록 하기
-            addItemDecoration(MarginDecoration(this@RoundListActivity, 2, 20, 20))
+            //addItemDecoration(MarginDecoration(this@RoundListActivity, 2, 20, 20))
         }
 
         cardAdapter.addAll(loadCardListOfRound())
@@ -66,11 +71,16 @@ class RoundListActivity : AppCompatActivity() {
         val datas = mutableListOf<RoundDescriptionModel>()
 
         datas.apply {
-            add(RoundDescriptionModel(null, null, "베개와 유리병의 공통점은?", "11분 소요", null))
-            add(RoundDescriptionModel(null, null, "Pillow 와 Glass 의 공통점은?", "11분 소요", null))
-            add(RoundDescriptionModel(null, null, "평화와 희원이의 공통점은?", "11분 소요", null))
+            add(
+                RoundDescriptionModel("베개와 유리병", "ROUND 1", "베개와 유리병의 공통점은?", "총 10분 소요", 1)
+            )
+            add(
+                RoundDescriptionModel("베개와 유리병", "ROUND 2", "베개와 유리병의 차이점은?", "총 11분 소요", 2)
+            )
+            add(
+                RoundDescriptionModel("베개와 유리병", "ROUND 3", "베개...유리병...", "총 12분 소요", 3)
+            )
+            return datas
         }
-
-        return datas
     }
 }
