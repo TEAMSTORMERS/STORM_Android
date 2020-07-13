@@ -57,7 +57,9 @@ class LoginActivity : BaseActivity() {
             Session.getCurrentSession().addCallback(callback)
         }
         //Google Firebase 로그인
-        imagebutton_login_google.setOnClickListener { signIn() }
+        imagebutton_login_google.setOnClickListener {
+            signIn()
+            Log.d("GoogleLogIn","버튼 눌림")}
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -111,7 +113,6 @@ class LoginActivity : BaseActivity() {
             Log.i("Log", "session get current session")
             return
         }
-
         super.onActivityResult(requestCode, resultCode, data)
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
@@ -149,7 +150,7 @@ class LoginActivity : BaseActivity() {
 
     fun toMainActivity(user: FirebaseUser?) {
         if (user != null) { // MainActivity 로 이동
-            Log.d("toMainActivity","toMainActivity")
+
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
@@ -161,6 +162,8 @@ class LoginActivity : BaseActivity() {
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
+
+
     //Lottie 애니메이션 로그인뷰
     private fun initView() {
         val animationView = findViewById<LottieAnimationView>(R.id.lottieanimation_login)
@@ -169,4 +172,5 @@ class LoginActivity : BaseActivity() {
         animationView.playAnimation()
 
     }
+
 }
