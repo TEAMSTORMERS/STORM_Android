@@ -17,12 +17,18 @@ class RoundMeetingExpandActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_expandcard)
+
+        val projectIdx = intent.getIntExtra("projectIdx", 1)
+        val roundIdx = intent.getIntExtra("roundIdx", 1)
+
+        expandCardAdapter.addAll(savedCardRepository.getAll(projectIdx, roundIdx))
+        
         viewpager_fragment_card_expand.run {
             adapter = expandCardAdapter
             offscreenPageLimit = 3
             setPageTransformer(DepthPageTransformer())
+            currentItem = roundIdx
         }
 
-        expandCardAdapter.addAll(savedCardRepository.getAll(1, 1))
     }
 }
