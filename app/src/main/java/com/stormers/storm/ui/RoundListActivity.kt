@@ -1,14 +1,11 @@
 package com.stormers.storm.ui
 
-import android.gesture.GestureOverlayView.ORIENTATION_HORIZONTAL
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
-import androidx.viewpager2.widget.ViewPager2.ORIENTATION_HORIZONTAL
 import com.stormers.storm.R
-import com.stormers.storm.card.adapter.CardAdapter
-import com.stormers.storm.card.model.CardModel
+import com.stormers.storm.card.adapter.SavedCardAdapter
+import com.stormers.storm.card.repository.SavedCardRepository
 import com.stormers.storm.round.adapter.RoundListAdapterForViewPager
 import com.stormers.storm.round.model.RoundDescriptionModel
 import com.stormers.storm.util.MarginDecoration
@@ -18,7 +15,9 @@ class RoundListActivity : AppCompatActivity() {
 
     lateinit var roundListAdapterForViewPager: RoundListAdapterForViewPager
 
-    private val cardAdapter: CardAdapter by lazy { CardAdapter() }
+    private val cardAdapter: SavedCardAdapter by lazy { SavedCardAdapter(true) }
+
+    private val savedCardRepository : SavedCardRepository by lazy { SavedCardRepository(application) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,43 +25,34 @@ class RoundListActivity : AppCompatActivity() {
 
         roundListAdapterForViewPager = RoundListAdapterForViewPager()
 
+        roundListAdapterForViewPager.addAll(loadRoundDatas())
+
+        recyclerView_roundcardlist_cardlist.run {
+            adapter = cardAdapter
+            addItemDecoration(MarginDecoration(this@RoundListActivity, 2, 20, 20))
+        }
+
+        cardAdapter.addAll(savedCardRepository.getAll(1, 1))
+
         viewpager_roundcardlist_round.run {
             adapter = roundListAdapterForViewPager
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
             offscreenPageLimit = 3
+
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+
+                    val roundIdx = roundListAdapterForViewPager.getItem(position).roundIdx
+
+                    //Todo: projectIdx 도 인텐트로 받아오기
+                    val data = savedCardRepository.getAll(1, roundIdx)
+
+                    cardAdapter.clear()
+                    cardAdapter.addAll(data)
+                }
+            })
         }
-
-        roundListAdapterForViewPager.addAll(loadRoundDatas())
-
-        viewpager_roundcardlist_round.currentItem = intent.getIntExtra("roundIdx", 0) - 1
-
-        recyclerView_roundcardlist_cardlist.run {
-            adapter = cardAdapter
-            //Fixme MarginDecoration 고쳐야겠다
-            //Todo: 바깥쪽 여백도 줄 수 있도록 하기
-            //addItemDecoration(MarginDecoration(this@RoundListActivity, 2, 20, 20))
-        }
-
-        cardAdapter.addAll(loadCardListOfRound())
-    }
-
-    //Dummy
-    private fun loadCardListOfRound(): MutableList<CardModel> {
-        val data = mutableListOf<CardModel>()
-
-        data.apply {
-            add(CardModel("", false, null, null))
-            add(CardModel("", true, null, null))
-            add(CardModel("", false, null, null))
-            add(CardModel("", false, null, null))
-            add(CardModel("", true, null, null))
-            add(CardModel("", false, null, null))
-            add(CardModel("", true, null, null))
-            add(CardModel("", false, null, null))
-            add(CardModel("", false, null, null))
-        }
-
-        return data
     }
 
     //Dummy
@@ -71,16 +61,11 @@ class RoundListActivity : AppCompatActivity() {
         val datas = mutableListOf<RoundDescriptionModel>()
 
         datas.apply {
-            add(
-                RoundDescriptionModel("베개와 유리병", "ROUND 1", "베개와 유리병의 공통점은?", "총 10분 소요", 1)
-            )
-            add(
-                RoundDescriptionModel("베개와 유리병", "ROUND 2", "베개와 유리병의 차이점은?", "총 11분 소요", 2)
-            )
-            add(
-                RoundDescriptionModel("베개와 유리병", "ROUND 3", "베개...유리병...", "총 12분 소요", 3)
-            )
-            return datas
+            add(RoundDescriptionModel(null, null, "베개와 유리병의 공통점은?", "11분 소요", 0))
+            add(RoundDescriptionModel(null, null, "Pillow 와 Glass 의 공통점은?", "11분 소요", 1))
+            add(RoundDescriptionModel(null, null, "평화와 희원이의 공통점은?", "11분 소요", 2))
         }
+
+        return datas
     }
 }
