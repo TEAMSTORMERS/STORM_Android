@@ -11,6 +11,7 @@ import androidx.cardview.widget.CardView
 import com.bumptech.glide.Glide
 import com.stormers.storm.R
 import com.stormers.storm.util.MetricsUtil
+import kotlinx.android.synthetic.main.view_button_custom.view.*
 import kotlinx.android.synthetic.main.view_card_custom.view.*
 
 
@@ -178,6 +179,14 @@ class StormCard : CardView {
 
     fun setText(text: String) {
         textview_customcard_background.text = text
+    }
+
+    fun setOnClickListener() {
+
+    }
+
+    override fun setOnClickListener(l: OnClickListener?) {
+        this.cardview_customcard_root.setOnClickListener(l)
     }
 
     interface OnHeartStateChangedListener {
