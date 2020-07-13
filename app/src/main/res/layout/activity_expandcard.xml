@@ -44,29 +44,32 @@
         android:id="@+id/imagebutton_before_card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
         android:background="@drawable/all_roundmeeting_before"
         android:elevation="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/imagebutton_next_card"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/imagebutton_next_card" />
 
     <ImageButton
         android:id="@+id/imagebutton_next_card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/all_roundmeeting_next"
+        android:layout_marginEnd="40dp"
+        android:background="@null"
         android:elevation="10dp"
+        android:src="@drawable/all_roundmeeting_next"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/viewpager_fragment_card_expand"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.57" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewpager_fragment_card_expand"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:elevation="10dp"
-        android:paddingHorizontal="55dp"
+        android:clipChildren="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.46"
@@ -79,14 +82,12 @@
         android:id="@+id/edittext_scrarapview_memo"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="50dp"
+        android:layout_marginHorizontal="55dp"
         android:layout_marginTop="25dp"
-        android:background="@drawable/scrapview_memo"
         android:paddingTop="13dp"
         android:textSize="13sp"
         app:cardCornerRadius="15dp"
         app:cardElevation="7dp"
-        app:cardUseCompatPadding="true"
         app:layout_constraintDimensionRatio="1:0.52"
         app:layout_constraintEnd_toEndOf="@+id/viewpager_fragment_card_expand"
         app:layout_constraintStart_toStartOf="@+id/viewpager_fragment_card_expand"
@@ -97,6 +98,7 @@
             android:layout_height="match_parent"
             android:gravity="top|start"
             android:hint="Memo"
+            android:background="@null"
             android:lineSpacingExtra="7sp"
             android:paddingHorizontal="19dp"
             android:paddingVertical="13dp"
@@ -114,6 +116,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittext_scrarapview_memo"
-        app:layout_constraintVertical_bias="0.857" />
+        app:layout_constraintTop_toBottomOf="@+id/edittext_scrarapview_memo" />
 </androidx.constraintlayout.widget.ConstraintLayout>
