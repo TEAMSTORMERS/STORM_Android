@@ -149,6 +149,7 @@ class LoginActivity : BaseActivity() {
 
     fun toMainActivity(user: FirebaseUser?) {
         if (user != null) { // MainActivity 로 이동
+            Log.d("toMainActivity","toMainActivity")
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }

@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseViewHolder
 import com.stormers.storm.project.model.RecentProjectsModel
+import com.stormers.storm.ui.MainActivity
 
 class ProjectsViewHolder(parent: ViewGroup) : BaseViewHolder<RecentProjectsModel>(R.layout.item_participated_projects_list, parent) {
 

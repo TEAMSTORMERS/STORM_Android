@@ -1,8 +1,11 @@
 package com.stormers.storm.ui
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.View
+import android.view.*
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
@@ -15,6 +18,7 @@ import com.stormers.storm.project.adapter.RecentProjectsAdapter
 import com.stormers.storm.project.model.RecentProjectsModel
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.math.round
 
 class MainActivity : BaseActivity() {
 
@@ -66,8 +70,7 @@ class MainActivity : BaseActivity() {
 
 
         // ParticipatedProjectAdapter
-        recentProjectsAdapter =
-            RecentProjectsAdapter()
+        recentProjectsAdapter = RecentProjectsAdapter()
         recycler_participated_projects_list.adapter = recentProjectsAdapter
         recycler_participated_projects_list.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         recycler_participated_projects_list.addItemDecoration(MarginDecoration(baseContext,16,RecyclerView.HORIZONTAL))
@@ -75,12 +78,24 @@ class MainActivity : BaseActivity() {
 
 
         showProjectList()
-    }
 
+        moveToAddProject()
+
+
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_main, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+
+    fun moveToAddProject(){
+        iamgeview_storming_bacground.setOnClickListener {
+            val intent = Intent(this,AddProjectActivity::class.java)
+            startActivity(intent)
+
+        }
     }
 
     private fun loadProjectsDatas() : MutableList<RecentProjectsModel>{
@@ -155,4 +170,27 @@ class MainActivity : BaseActivity() {
             recycler_participated_projects_list.visibility = View.VISIBLE
         }
     }
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if (currentFocus != null) {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+        }
+        return super.dispatchTouchEvent(ev)
+    }
+
+
+    override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
+        return when (keyCode){
+            KeyEvent.KEYCODE_ENTER -> {
+                moveToHostRoundActivity()
+                true
+            } else -> super.onKeyUp(keyCode, event)
+        }
+    }
+    private fun moveToHostRoundActivity() {
+        val intent = Intent(this, HostRoundActivity::class.java)
+        intent.putExtra("participatecode",edittext_input_participate_code.text.toString())
+        startActivity(intent)
+    }
+
 }
