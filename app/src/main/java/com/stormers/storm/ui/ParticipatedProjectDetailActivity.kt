@@ -1,38 +1,71 @@
 package com.stormers.storm.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.stormers.storm.R
+import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.card.adapter.CardAdapter
+import com.stormers.storm.card.adapter.NoHeartCardAdapter
 import com.stormers.storm.card.model.CardModel
 import com.stormers.storm.round.adapter.RoundListAdapter
+import com.stormers.storm.round.fragment.RoundSettingWaitingMemberFragment
 import com.stormers.storm.round.model.RoundDescriptionModel
 import com.stormers.storm.user.UserModel
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_participated_project_detail.*
 
-class ParticipatedProjectDetailActivity : AppCompatActivity() {
+class ParticipatedProjectDetailActivity : BaseActivity() {
 
-    lateinit var scrapCardAdapter: CardAdapter
+    lateinit var noHeartCardAdapter: NoHeartCardAdapter
     lateinit var roundListAdapterForViewPager: RoundListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_participated_project_detail)
 
-        scrapCardAdapter = CardAdapter()
-        rv_scrap_card_part_detail.adapter = scrapCardAdapter
-        rv_scrap_card_part_detail.addItemDecoration(MarginDecoration(this, 15, RecyclerView.HORIZONTAL))
-        scrapCardAdapter.addAll(loadCardDataOfRound())
+        constraint_part_project_detail.setOnClickListener {
+            //goToFragment(ScrapCardCollectingActivity::class.java, null)
+            val intent = Intent(this, ScrapCardCollectingActivity::class.java)
+            startActivity(intent)
 
-        roundListAdapterForViewPager =
-            RoundListAdapter()
+        }
+
+        //어댑터 생성할 때 자체적으로 만든 리스너를 파라미터로 넘겨주면 이게 콜백!
+        noHeartCardAdapter = NoHeartCardAdapter(object : OnRoundClickListener {
+            override fun onRoundClick(roundIdx: Int) {
+                //Todo: StartActivity 하면 되겠다 roundIdx는 인텐트로 넘길까?
+                val intent = Intent(this@ParticipatedProjectDetailActivity, ScrapedCardDetailActivity::class.java)
+                intent.putExtra("roundIdx", roundIdx)
+                startActivity(intent)
+            }
+        })
+        rv_scrap_card_part_detail.adapter = noHeartCardAdapter
+        rv_scrap_card_part_detail.addItemDecoration(MarginDecoration(this, 15, RecyclerView.HORIZONTAL))
+        rv_scrap_card_part_detail.addItemDecoration(MarginDecoration(this, 15, RecyclerView.VERTICAL))
+        noHeartCardAdapter.addAll(loadCardDataOfRound())
+
+        roundListAdapterForViewPager = RoundListAdapter(object : OnRoundClickListener {
+            override fun onRoundClick(roundIdx: Int) {
+                val intent = Intent(this@ParticipatedProjectDetailActivity, RoundListActivity::class.java)
+                intent.putExtra("roundIdx", roundIdx)
+                startActivity(intent)
+            }
+        })
+
         rv_round_part_detail.adapter = roundListAdapterForViewPager
         roundListAdapterForViewPager.addAll(loadRoundCountDatas())
     }
 
+    interface OnRoundClickListener {
+        //이제보니 이 액티비티에 들어왔을 때 부터 projectIdx는 정해져 있으니 roundIdx만 있으면 되겠네 ~
+        fun onRoundClick(roundIdx: Int)
+    }
+
+
     private fun loadCardDataOfRound(): MutableList<CardModel> {
+        //FIXME : 더미데이터입니다
         val data = mutableListOf<CardModel>()
         val gyu = UserModel(
             "https://avatars2.githubusercontent.com/u/57310034?s=460&u=3b6de8b863bdc2b902bf6cfe080bc8d34e93c348&v=4",
@@ -47,41 +80,46 @@ class ParticipatedProjectDetailActivity : AppCompatActivity() {
             "희원"
         )
 
-
+        //FIXME : 더미데이터입니다
         data.apply {
             add(
                 CardModel(
                     "https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4",
-                    true,
-                    gyu
+                    false,
+                    gyu,
+                1
                 )
             )
             add(
                 CardModel(
                     "https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4",
-                    true,
-                    piece
+                    false,
+                    piece,
+                    2
                 )
             )
             add(
                 CardModel(
                     "https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4",
-                    true,
-                    one
+                    false,
+                    one,
+                    3
                 )
             )
             add(
                 CardModel(
                     "https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4",
-                    true,
-                    gyu
+                    false,
+                    gyu,
+                    1
                 )
             )
             add(
                 CardModel(
                     "https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4",
-                    true,
-                    piece
+                    false,
+                    piece,
+                    2
                 )
             )
         }
@@ -95,13 +133,13 @@ class ParticipatedProjectDetailActivity : AppCompatActivity() {
 
         datas.apply {
             add(
-                RoundDescriptionModel(null, "ROUND 1", "라운드 목표", "총 10분 소요")
+                RoundDescriptionModel("ROUND 1", null, "라운드 목표", "총 10분 소요", 1)
             )
             add(
-                RoundDescriptionModel(null, "ROUND 2", "라운드 목표", "총 11분 소요")
+                RoundDescriptionModel("ROUND 2", null, "라운드 목표", "총 11분 소요", 2)
             )
             add(
-                RoundDescriptionModel(null, "ROUND 3", "라운드 목표", "총 12분 소요")
+                RoundDescriptionModel("ROUND 3", null, "라운드 목표", "총 12분 소요", 3)
             )
             return datas
         }

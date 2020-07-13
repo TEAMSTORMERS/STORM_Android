@@ -6,7 +6,8 @@ import com.stormers.storm.user.UserModel
 class CardModel(
     val url: String,
     var isLiked: Boolean = false,
-    val owner: UserModel?
+    val owner: UserModel?,
+    val roundIdx: Int?
 ) {
 
     fun getImageID(context: Context): Int {

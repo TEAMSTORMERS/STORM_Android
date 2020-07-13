@@ -91,6 +91,22 @@
         app:layout_constraintTop_toBottomOf="@+id/textView_round" />
 
     <Button
+        android:id="@+id/button_save_round_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/background_button_yellow_radius"
+        android:backgroundTint="@color/storm_yellow"
+        android:elevation="10dp"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="13dp"
+        android:text="저장"
+        app:layout_constraintBottom_toBottomOf="@+id/framelayout_roundprogress_fragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="invisible"/>
+
+    <Button
         android:id="@+id/button_scrapcard_save_roundmeeting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

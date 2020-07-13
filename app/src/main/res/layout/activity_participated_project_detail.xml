@@ -152,32 +152,44 @@
                 app:layout_constraintStart_toStartOf="@+id/cardView_date_round_part_detail"
                 app:layout_constraintTop_toBottomOf="@+id/cardView_date_round_part_detail" />
 
-            <TextView
-                android:id="@+id/textView_more"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_part_project_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="더보기"
-                android:textColor="@color/storm_white"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView_scrap_card"
-                app:layout_constraintEnd_toStartOf="@+id/imageButton_more"
-                app:layout_constraintTop_toTopOf="@+id/textView_scrap_card" />
-
-            <ImageButton
-                android:id="@+id/imageButton_more"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_marginEnd="25dp"
-                android:background="@drawable/participatingprojectview_new_more"
-                app:layout_constraintBottom_toBottomOf="@+id/textView_more"
+                app:layout_constraintBottom_toBottomOf="@+id/textView_scrap_card"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView_more" />
+                app:layout_constraintTop_toTopOf="@+id/textView_scrap_card">
+
+                <TextView
+                    android:id="@+id/textView_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="더보기"
+                    android:textColor="@color/storm_white"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toStartOf="@+id/imageButton_more"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/imageButton_more"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/participatingprojectview_new_more"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView_more"
+                    app:layout_constraintStart_toEndOf="@+id/textView_more"
+                    app:layout_constraintTop_toTopOf="@+id/textView_more" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_scrap_card_part_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
                 android:clipToPadding="false"
                 android:orientation="horizontal"
                 android:paddingHorizontal="26dp"
@@ -185,14 +197,14 @@
                 android:scrollbarFadeDuration="0"
                 android:scrollbarStyle="insideInset"
                 android:scrollbarThumbHorizontal="@color/storm_white"
-                android:scrollbarTrackHorizontal="@color/scrollbar_track_gray"
+                android:scrollbarTrackHorizontal="@color/pale_salmon"
                 android:scrollbars="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toTopOf="@id/rv_round_part_detail"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_scrap_card"
-                tools:listitem="@layout/item_scrap_card" />
+                tools:listitem="@layout/item_heart_card" />
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -200,6 +212,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
+                android:paddingBottom="20dp"
                 android:layout_marginTop="29dp"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
