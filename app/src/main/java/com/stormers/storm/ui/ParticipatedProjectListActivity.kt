@@ -48,6 +48,7 @@ class ParticipatedProjectListActivity : BaseActivity() {
                     card4 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
                     projectName = "평화의 브레인스토밍",
                     project_idx = 1
+
                 )
             )
             add(
@@ -58,6 +59,7 @@ class ParticipatedProjectListActivity : BaseActivity() {
                     card4 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
                     projectName = "평화의 브레인스토밍",
                     project_idx = 1
+
                 )
             )
             add(

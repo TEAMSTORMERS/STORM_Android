@@ -70,7 +70,13 @@ class MainActivity : BaseActivity() {
 
 
         // ParticipatedProjectAdapter
-        recentProjectsAdapter = RecentProjectsAdapter()
+        recentProjectsAdapter = RecentProjectsAdapter(object : OnRoundClickListener{
+            override fun onRoundClick(project_idx: Int) {
+                val intent  = Intent(this@MainActivity,ParticipatedProjectDetailActivity::class.java)
+                intent.putExtra("project_idx",project_idx)
+                startActivity(intent)
+            }
+        })
         recycler_participated_projects_list.adapter = recentProjectsAdapter
         recycler_participated_projects_list.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         recycler_participated_projects_list.addItemDecoration(MarginDecoration(baseContext,16,RecyclerView.HORIZONTAL))
@@ -109,7 +115,8 @@ class MainActivity : BaseActivity() {
                     card2 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
                     card3 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
                     card4 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    projectName = "평화의 브레인스토밍"
+                    projectName = "평화의 브레인스토밍",
+                    project_idx = 1
                 )
             )
             add(
@@ -118,7 +125,8 @@ class MainActivity : BaseActivity() {
                     card2 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
                     card3 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
                     card4 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    projectName = "희원이의 브레인스토밍"
+                    projectName = "희원이의 브레인스토밍",
+                    project_idx = 1
                 )
             )
             add(
@@ -127,7 +135,8 @@ class MainActivity : BaseActivity() {
                     card2 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
                     card3 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
                     card4 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    projectName = "성규의 브레인스토밍"
+                    projectName = "성규의 브레인스토밍",
+                    project_idx = 1
                 )
             )
             add(
@@ -136,7 +145,8 @@ class MainActivity : BaseActivity() {
                     card2 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
                     card3 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
                     card4 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    projectName = "성규의 브레인스토밍"
+                    projectName = "성규의 브레인스토밍",
+                    project_idx = 1
                 )
             )
             add(
@@ -145,7 +155,8 @@ class MainActivity : BaseActivity() {
                     card2 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
                     card3 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
                     card4 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    projectName = "성규의 브레인스토밍"
+                    projectName = "성규의 브레인스토밍",
+                    project_idx = 1
                 )
             )
             add(
@@ -154,7 +165,8 @@ class MainActivity : BaseActivity() {
                     card2 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
                     card3 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
                     card4 = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRdXp-MREaa6k7N1cD1UjvDLnvmb_iGS6qioQ&usqp=CAU",
-                    projectName = "성규의 브레인스토밍"
+                    projectName = "성규의 브레인스토밍",
+                    project_idx = 1
                 )
             )
         }
@@ -191,6 +203,11 @@ class MainActivity : BaseActivity() {
         val intent = Intent(this, HostRoundActivity::class.java)
         intent.putExtra("participatecode",edittext_input_participate_code.text.toString())
         startActivity(intent)
+    }
+
+    interface OnRoundClickListener {
+        //이제보니 이 액티비티에 들어왔을 때 부터 projectIdx는 정해져 있으니 roundIdx만 있으면 되겠네 ~
+        fun onRoundClick(project_idx: Int)
     }
 
 }

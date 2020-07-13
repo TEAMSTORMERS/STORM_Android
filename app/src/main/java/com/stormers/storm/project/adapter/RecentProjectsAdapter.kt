@@ -7,10 +7,10 @@ import com.stormers.storm.project.model.RecentProjectsModel
 import com.stormers.storm.project.viewholder.ProjectsViewHolder
 import com.stormers.storm.ui.MainActivity
 
-class RecentProjectsAdapter () : BaseAdapter<RecentProjectsModel>() {
+class RecentProjectsAdapter (private val listener : MainActivity.OnRoundClickListener?) : BaseAdapter<RecentProjectsModel>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProjectsViewHolder {
-        return ProjectsViewHolder(parent)
+        return ProjectsViewHolder(parent,listener)
     }
 
 }
