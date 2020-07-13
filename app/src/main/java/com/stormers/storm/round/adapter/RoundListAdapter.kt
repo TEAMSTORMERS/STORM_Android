@@ -7,10 +7,14 @@ import com.stormers.storm.round.viewholder.RoundViewHolder
 import com.stormers.storm.round.model.RoundDescriptionModel
 import com.stormers.storm.ui.ParticipatedProjectDetailActivity
 
-class RoundListAdapter(private val listener: ParticipatedProjectDetailActivity.OnRoundClickListener?) : BaseAdapter<RoundDescriptionModel>() {
+class RoundListAdapter(private val listener: OnRoundClickListener?) : BaseAdapter<RoundDescriptionModel>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<RoundDescriptionModel> {
         return RoundViewHolder(parent, listener)
+    }
+
+    interface OnRoundClickListener {
+        fun onRoundClick(projectIdx: Int, roundIdx: Int)
     }
 }
 

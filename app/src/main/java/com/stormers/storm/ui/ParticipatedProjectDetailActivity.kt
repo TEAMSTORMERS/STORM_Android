@@ -48,13 +48,13 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
 
         scrapedCardAdapter.addAll(savedCardRepository.getAllScarpedCard(projectIdx))
 
-//        roundListAdapterForViewPager = RoundListAdapter(object : OnRoundClickListener {
-//            override fun onRoundClick(roundIdx: Int) {
-//                val intent = Intent(this@ParticipatedProjectDetailActivity, RoundListActivity::class.java)
-//                intent.putExtra("roundIdx", roundIdx)
-//                startActivity(intent)
-//            }
-//        })
+        roundListAdapterForViewPager = RoundListAdapter(object : RoundListAdapter.OnRoundClickListener {
+            override fun onRoundClick(projectIdx: Int, roundIdx: Int) {
+                val intent = Intent(this@ParticipatedProjectDetailActivity, RoundListActivity::class.java)
+                intent.putExtra("roundIdx", roundIdx)
+                startActivity(intent)
+            }
+        })
 
         rv_round_part_detail.adapter = roundListAdapterForViewPager
         roundListAdapterForViewPager.addAll(loadRoundCountDatas())
@@ -65,15 +65,11 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         val datas = mutableListOf<RoundDescriptionModel>()
 
         datas.apply {
-            add(
-                RoundDescriptionModel("ROUND 1", null, "라운드 목표", "총 10분 소요", 1)
-            )
-            add(
-                RoundDescriptionModel("ROUND 2", null, "라운드 목표", "총 11분 소요", 2)
-            )
-            add(
-                RoundDescriptionModel("ROUND 3", null, "라운드 목표", "총 12분 소요", 3)
-            )
+            datas.apply {
+                add(RoundDescriptionModel(null, null, "베개와 유리병의 공통점은?", "11분 소요", 0, projectIdx))
+                add(RoundDescriptionModel(null, null, "Pillow 와 Glass 의 공통점은?", "11분 소요", 1, projectIdx))
+                add(RoundDescriptionModel(null, null, "평화와 희원이의 공통점은?", "11분 소요", 2, projectIdx))
+            }
             return datas
         }
     }

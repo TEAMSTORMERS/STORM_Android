@@ -61,9 +61,9 @@ class RoundListActivity : AppCompatActivity() {
         val datas = mutableListOf<RoundDescriptionModel>()
 
         datas.apply {
-            add(RoundDescriptionModel(null, null, "베개와 유리병의 공통점은?", "11분 소요", 0))
-            add(RoundDescriptionModel(null, null, "Pillow 와 Glass 의 공통점은?", "11분 소요", 1))
-            add(RoundDescriptionModel(null, null, "평화와 희원이의 공통점은?", "11분 소요", 2))
+            add(RoundDescriptionModel(null, null, "베개와 유리병의 공통점은?", "11분 소요", 0, 1))
+            add(RoundDescriptionModel(null, null, "Pillow 와 Glass 의 공통점은?", "11분 소요", 1, 1))
+            add(RoundDescriptionModel(null, null, "평화와 희원이의 공통점은?", "11분 소요", 2, 1))
         }
 
         return datas
