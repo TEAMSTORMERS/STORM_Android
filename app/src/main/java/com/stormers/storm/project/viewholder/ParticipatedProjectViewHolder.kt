@@ -4,24 +4,30 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseViewHolder
+import com.stormers.storm.project.adapter.ParticipatedProjectListAdapter
 import com.stormers.storm.project.model.ParticipatedProjectModel
 import com.stormers.storm.ui.ParticipatedProjectListActivity
 import com.stormers.storm.util.MetricsUtil
 import kotlinx.android.synthetic.main.item_participated_projects_list.view.*
 
-class ParticipatedProjectViewHolder(parent: ViewGroup, private val listener: ParticipatedProjectListActivity.OnProjectClickListener) :
+class ParticipatedProjectViewHolder(parent: ViewGroup, private val isMain: Boolean, private val listener: ParticipatedProjectListAdapter.OnProjectClickListener) :
     BaseViewHolder<ParticipatedProjectModel>(R.layout.item_participated_projects_list, parent) {
 
     override fun bind(data: ParticipatedProjectModel) {
         initItemLayout(data)
+
         initCardImage(data)
     }
 
     private fun initItemLayout(data: ParticipatedProjectModel) {
         itemView.name_of_project.text = data.projectName
 
-        (itemView.cardview_project_forder.layoutParams).width = MetricsUtil.convertDpToPixel(162f, itemView.context).toInt()
-        (itemView.cardview_project_forder.layoutParams).height = MetricsUtil.convertDpToPixel(174f, itemView.context).toInt()
+        if (!isMain) {
+            (itemView.cardview_project_forder.layoutParams).width =
+                MetricsUtil.convertDpToPixel(162f, itemView.context).toInt()
+            (itemView.cardview_project_forder.layoutParams).height =
+                MetricsUtil.convertDpToPixel(174f, itemView.context).toInt()
+        }
 
         itemView.setOnClickListener {
             listener.onProjectClick(data.projectIdx)

@@ -24,8 +24,12 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
-        <activity android:name=".ui.AddProjectActivity" />
+        <activity android:name=".ui.AddProjectActivity" >
+
+
+        </activity>
         <activity android:name=".ui.HostRoundActivity"
             android:windowSoftInputMode="adjustNothing" />
         <activity
