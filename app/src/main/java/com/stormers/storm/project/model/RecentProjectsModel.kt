@@ -5,5 +5,6 @@ data class RecentProjectsModel(
     val card1 : String,
     val card2 : String,
     val card3 : String,
-    val card4 : String
+    val card4 : String,
+    val project_idx: Int
 )
