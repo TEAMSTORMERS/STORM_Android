@@ -15,7 +15,7 @@ class RoundListActivity : AppCompatActivity() {
 
     lateinit var roundListAdapterForViewPager: RoundListAdapterForViewPager
 
-    private val cardAdapter: SavedCardAdapter by lazy { SavedCardAdapter(true) }
+    private val cardAdapter: SavedCardAdapter by lazy { SavedCardAdapter(true, null) }
 
     private val savedCardRepository : SavedCardRepository by lazy { SavedCardRepository(application) }
 

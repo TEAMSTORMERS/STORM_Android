@@ -20,7 +20,7 @@ class AddCardFragment : BaseFragment(R.layout.fragment_add_card) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        addedSavedCardAdapter = SavedCardAdapter(false)
+        addedSavedCardAdapter = SavedCardAdapter(false, null)
         recyclerview_addcard_card.layoutManager = GridLayoutManager(context, 2)
         recyclerview_addcard_card.addItemDecoration(MarginDecoration(context!!, 2, 20, 20))
         recyclerview_addcard_card.adapter = addedSavedCardAdapter

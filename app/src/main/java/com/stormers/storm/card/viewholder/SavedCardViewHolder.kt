@@ -3,15 +3,25 @@ package com.stormers.storm.card.viewholder
 import android.view.ViewGroup
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseViewHolder
+import com.stormers.storm.card.adapter.SavedCardAdapter
 import com.stormers.storm.card.model.SavedCardEntity
 import com.stormers.storm.card.util.BitmapConverter
 import kotlinx.android.synthetic.main.item_heart_card.view.*
 
-class SavedCardViewHolder(parent: ViewGroup, private val showHeart: Boolean) : BaseViewHolder<SavedCardEntity>(R.layout.item_heart_card, parent) {
+class SavedCardViewHolder(parent: ViewGroup, private val showHeart: Boolean,
+                          private val listener: SavedCardAdapter.OnCardClickListener?)
+    : BaseViewHolder<SavedCardEntity>(R.layout.item_heart_card, parent) {
+
     override fun bind(data: SavedCardEntity) {
 
         if (!showHeart) {
             itemView.stormcard_itemheart.showHeartButton(false)
+        }
+
+        listener?.let {
+            itemView.setOnClickListener {
+                listener.onCardClick(data.projectIdx, data.roundIdx)
+            }
         }
 
         //카드 타입이 그림인 경우
