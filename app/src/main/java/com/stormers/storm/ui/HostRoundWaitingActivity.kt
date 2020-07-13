@@ -7,7 +7,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils.replace
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -69,6 +71,8 @@ class HostRoundWaitingActivity : BaseActivity() {
                             val handlerTask = object : Runnable {
                                 override fun run() {
                                     val intent = Intent(this@HostRoundWaitingActivity,RoundProgressActivity::class.java)
+                                    intent.putExtra("라운드 목표",textview_round_goal.text.toString())
+                                    intent.putExtra("라운드 소요 시간",edittext_round_time.text.toString())
                                     startActivity(intent)
                                 }
                             }
@@ -87,6 +91,15 @@ class HostRoundWaitingActivity : BaseActivity() {
     override fun initFragmentId(): Int? {
         return R.id.constraint_host_round
     }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if (currentFocus != null) {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+        }
+        return super.dispatchTouchEvent(ev)
+    }
+
 
 
 }
