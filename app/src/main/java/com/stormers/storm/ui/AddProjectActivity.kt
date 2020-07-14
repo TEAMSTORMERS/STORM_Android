@@ -109,6 +109,7 @@ class AddProjectActivity : BaseActivity() {
                                 if (response.body()!!.success) {
                                     dialog.show(supportFragmentManager, "create_participate_code")
 
+                                    Log.d("통신성공",response.body()!!.data.projectCode)
                                 }
                             }
                         }
