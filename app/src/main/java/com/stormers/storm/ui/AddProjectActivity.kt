@@ -52,6 +52,7 @@ class AddProjectActivity : BaseActivity() {
                 override fun onClick() {
                     val intent =
                         Intent(this@AddProjectActivity, HostRoundWaitingActivity::class.java)
+                    intent.putExtra("projectName",edittext_addproject_projectname.text.toString())
                     startActivity(intent)
                 }
             })
