@@ -34,10 +34,11 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         }
 
         scrapedCardAdapter = SavedCardAdapter(false, object: SavedCardAdapter.OnCardClickListener {
-            override fun onCardClick(projectIdx: Int, roundIdx: Int) {
+            override fun onCardClick(projectIdx: Int, roundIdx: Int, cardId: Int) {
                 val intent = Intent(this@ParticipatedProjectDetailActivity, ScrapedCardDetailActivity::class.java)
                 intent.putExtra("projectIdx", projectIdx)
                 intent.putExtra("roundIdx", roundIdx)
+                intent.putExtra("cardId", cardId)
                 startActivity(intent)
             }
         })
@@ -46,7 +47,7 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         rv_scrap_card_part_detail.addItemDecoration(MarginDecoration(this, 15, RecyclerView.HORIZONTAL))
         rv_scrap_card_part_detail.addItemDecoration(MarginDecoration(this, 15, RecyclerView.VERTICAL))
 
-        scrapedCardAdapter.addAll(savedCardRepository.getAllScarpedCard(projectIdx))
+        scrapedCardAdapter.addAll(savedCardRepository.getAllScrapedCard(projectIdx))
 
         roundListAdapterForViewPager = RoundListAdapter(object : RoundListAdapter.OnRoundClickListener {
             override fun onRoundClick(projectIdx: Int, roundIdx: Int) {
