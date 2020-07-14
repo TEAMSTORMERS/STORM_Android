@@ -15,7 +15,6 @@ import com.stormers.storm.round.fragment.RoundStartFragment
 import kotlinx.android.synthetic.main.activity_host_round_setting.*
 import kotlinx.android.synthetic.main.fragment_host_round_setting.*
 
-
 class RoundSettingActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

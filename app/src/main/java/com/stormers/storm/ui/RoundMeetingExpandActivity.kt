@@ -13,4 +13,5 @@ class RoundMeetingExpandActivity : BaseExpandCardActivity(false) {
     override fun onApplied(cardId: Int, memo: String?) {
         //Todo: 서버로 전송
     }
+
 }
