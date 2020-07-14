@@ -89,7 +89,7 @@ abstract class BaseExpandCardActivity(private val isScraped: Boolean): BaseActiv
 
     private fun initData(projectIdx: Int, roundIdx: Int, cardId: Int): List<SavedCardEntity>? {
         return  if (isScraped) {
-            savedCardRepository.getAllScrapedCard(projectIdx, roundIdx)
+            savedCardRepository.getAllScrapedCard(projectIdx)
         } else {
             savedCardRepository.getAll(projectIdx, roundIdx)
         }
