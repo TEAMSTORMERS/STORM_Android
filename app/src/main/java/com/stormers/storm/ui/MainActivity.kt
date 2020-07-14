@@ -3,6 +3,7 @@ package com.stormers.storm.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -14,13 +15,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.network.InterfaceAddProject
+import com.stormers.storm.network.InterfaceJoinProjectUsingCode
+import com.stormers.storm.network.ResponseJoinProjectUsingCode
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.project.adapter.ParticipatedProjectListAdapter
-import com.stormers.storm.project.model.AddProjectModel
-import com.stormers.storm.project.model.ParticipatedProjectModel
-import com.stormers.storm.project.model.RecentProjectsModel
+import com.stormers.storm.project.model.*
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_main.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : BaseActivity() {
 
@@ -191,8 +195,37 @@ class MainActivity : BaseActivity() {
 
     override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
         return when (keyCode){
+
             KeyEvent.KEYCODE_ENTER -> {
-                moveToHostRoundActivity()
+
+                RetrofitClient.create(InterfaceJoinProjectUsingCode::class.java).joinProjectUsingCode(JoinProjectUsingCodeModel(
+                    1,
+                    edittext_input_participate_code.text.toString()
+                )
+                ).enqueue(
+                    object : Callback<ResponseJoinProjectUsingCode>{
+                        override fun onFailure(
+                            call: Call<ResponseJoinProjectUsingCode>,
+                            t: Throwable
+                        ) {
+                            Log.e("통신실패","${t}")
+                        }
+
+                        override fun onResponse(
+                            call: Call<ResponseJoinProjectUsingCode>,
+                            response: Response<ResponseJoinProjectUsingCode>
+                        ) {
+                            if (response.isSuccessful){
+                                if (response.body()!!.success){
+                                    Log.d("통신성공",response.body()!!.data.projectIdx.toString())
+                                    moveToHostRoundActivity()
+                                }
+                            }
+
+                        }
+                    }
+                )
+
                 true
             } else -> super.onKeyUp(keyCode, event)
         }
