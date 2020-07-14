@@ -7,13 +7,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.stormers.storm.R
 import com.stormers.storm.card.adapter.CardAdapter
+import com.stormers.storm.card.adapter.SavedCardAdapter
 import com.stormers.storm.card.model.CardModel
+import com.stormers.storm.card.repository.SavedCardRepository
 import com.stormers.storm.user.UserModel
 import kotlinx.android.synthetic.main.fragment_roundmeeting.*
+import kotlin.math.round
 
 class RoundmeetingFragment : Fragment() {
 
-    lateinit var roundmeetingAdapter: CardAdapter
+    private val savedCardRepository : SavedCardRepository by lazy { SavedCardRepository(context!!) }
+    lateinit var roundmeetingAdapter: SavedCardAdapter
+    private val cardAdapter: SavedCardAdapter by lazy { SavedCardAdapter(true, null) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -24,12 +29,16 @@ class RoundmeetingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        roundmeetingAdapter = CardAdapter()
+        roundmeetingAdapter = SavedCardAdapter(true, null)
         RecyclerView_added_card_roundmeeting.adapter = roundmeetingAdapter
-        roundmeetingAdapter.addAll(loadCardDataOfRound())
+        val data = savedCardRepository.getAll(1, 1)
+        //cardAdapter.clear()
+        roundmeetingAdapter.addAll(data)
+        //savedCardRepository.getAll(1, 1)
+        //roundmeetingAdapter.addAll(loadCardDataOfRound())
     }
 
-    private fun loadCardDataOfRound(): MutableList<CardModel> {
+    /*private fun loadCardDataOfRound(): MutableList<CardModel> {
         val data = mutableListOf<CardModel>()
         val gyu = UserModel(
             "https://avatars2.githubusercontent.com/u/57310034?s=460&u=3b6de8b863bdc2b902bf6cfe080bc8d34e93c348&v=4",
@@ -89,6 +98,6 @@ class RoundmeetingFragment : Fragment() {
         }
 
         return data
-    }
+    }*/
 
 }

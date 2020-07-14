@@ -27,7 +27,8 @@ class RoundFinishActivity : BaseActivity() {
             buttonArray.add(
                 StormDialogButton("다음 ROUND 진행", true, object : StormDialogButton.OnClickListener {
                     override fun onClick() {
-                        Toast.makeText(applicationContext, "확인 눌렀음", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this@RoundFinishActivity, RoundSettingActivity::class.java)
+                        startActivity(intent)
 
                     }
                 })
