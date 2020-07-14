@@ -6,7 +6,7 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface InterfaceAddProject {
-    @POST
+    @POST("/project")
     fun addProject(@Body body:AddProjectModel) :Call<ResponseAddProject>
 
 }
