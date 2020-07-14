@@ -19,26 +19,9 @@ class HostRoundSettingFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
+        initDialogButton()
 
-        val button = StormDialogButton("입력", true, null)
-
-        button.pickerListener = object : StormDialogButton.OnPickerClickListener {
-            override fun onClick(minute: Int) {
-                val string = StringBuilder()
-                string.append(minute)
-                    .append(" 분")
-                textview_roundsetting_time.text = string.toString()
-            }
-        }
-        
-        buttonArray.add(button)
-
-        timePickerDialog = StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, "라운드 목표 시간을 선택해주세요")
-            .setContentRes(R.layout.view_timepicker)
-            .setButtonArray(buttonArray)
-            .isPicker(true)
-            .build()
-
+        initDialog()
 
         return inflater.inflate(R.layout.fragment_host_round_setting, container, false)
     }
@@ -49,6 +32,29 @@ class HostRoundSettingFragment : Fragment() {
         textview_roundsetting_time.setOnClickListener {
             timePickerDialog.show(fragmentManager!!, "timepicker")
         }
+    }
+
+    private fun initDialogButton() {
+        val button = StormDialogButton("입력", true, null)
+
+        button.pickerListener = object : StormDialogButton.OnPickerClickListener {
+            override fun onClick(minute: Int) {
+                val string = StringBuilder()
+                string.append(minute)
+                    .append(" 분")
+                textview_roundsetting_time.text = string.toString()
+            }
+        }
+
+        buttonArray.add(button)
+    }
+
+    private fun initDialog() {
+        timePickerDialog = StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, "라운드 목표 시간을 선택해주세요")
+            .setContentRes(R.layout.view_timepicker)
+            .setButtonArray(buttonArray)
+            .isPicker(true)
+            .build()
     }
 
 }
