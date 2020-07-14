@@ -125,15 +125,6 @@
             android:text="확인"
             android:elevation="10dp"
             android:layout_margin="20dp"
-            android:visibility="gone"
-            />
-        <com.stormers.storm.customview.StormButton
-            android:id="@+id/stormButton_start_host_round_setting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="시작"
-            android:elevation="10dp"
-            android:layout_margin="20dp"
             />
 
     </FrameLayout>
