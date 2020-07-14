@@ -217,7 +217,7 @@ class MainActivity : BaseActivity() {
                         ) {
                             if (response.isSuccessful){
                                 if (response.body()!!.success){
-                                    Log.v("통신성공",response.body()!!.data.projectIdx.toString())
+                                    Log.d("통신성공",response.body()!!.data.projectIdx.toString())
                                     moveToHostRoundActivity()
                                 }
                             }
