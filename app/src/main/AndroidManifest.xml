@@ -44,6 +44,7 @@
         <activity android:name=".ui.RoundSettingActivity"/>
         <activity android:name=".ui.RoundStartActivity"/>
         <activity android:name=".ui.ScrapCardCollectingActivity" />
+        <activity android:name=".ui.ScrapedCardDetailActivity"/>
     </application>
 
 </manifest>
