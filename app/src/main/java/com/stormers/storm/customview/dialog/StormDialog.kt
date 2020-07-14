@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.LinearLayout
+import android.widget.NumberPicker
 import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.DialogFragment
@@ -17,6 +18,9 @@ import kotlinx.android.synthetic.main.dialog_custom.view.*
 import kotlinx.android.synthetic.main.dialog_custom.view.imageview_dialog_symbol
 import kotlinx.android.synthetic.main.dialog_custom.view.textview_dialog_content
 import kotlinx.android.synthetic.main.item_dialog_buttons.view.*
+import kotlinx.android.synthetic.main.view_timepicker.*
+import kotlinx.android.synthetic.main.view_timepicker.view.*
+import kotlinx.android.synthetic.main.view_timepicker.view.numberpicker_minute
 
 /**
  * 커스텀 다이얼로그 생성 클래스
@@ -33,7 +37,8 @@ import kotlinx.android.synthetic.main.item_dialog_buttons.view.*
  */
 class StormDialog(@DrawableRes val imageRes: Int, private val title: String, private val contentText: String?, @LayoutRes val contentRes: Int?,
                   private val buttonArray: ArrayList<StormDialogButton>?,
-                  private val horizontalButtonArray: ArrayList<StormDialogButton>?) : DialogFragment() {
+                  private val horizontalButtonArray: ArrayList<StormDialogButton>?, private val isPicker: Boolean) : DialogFragment() {
+
 
     companion object {
         const val TAG = "storm_dialog"
@@ -70,6 +75,15 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
         contentRes?.let {
             view.textview_dialog_content.visibility = View.GONE
             view.linearlayout_dialog_content.addView(inflater.inflate(contentRes, container))
+
+            if (isPicker) {
+                view.numberpicker_minute.run {
+                    maxValue = 60
+                    minValue = 10
+                    wrapSelectorWheel = false
+                    descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+                }
+            }
         }
 
         //세로 버튼 적용
@@ -84,6 +98,7 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
 
                 button.constraintlayout_dialog_button.setOnClickListener {
                     stormDialogButton.listener?.onClick()
+                    stormDialogButton.pickerListener?.onClick(view.numberpicker_minute.value)
                     dismiss()
                 }
 
@@ -108,6 +123,7 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
 
                 button.constraintlayout_dialog_button.setOnClickListener {
                     stormDialogButton.listener?.onClick()
+                    stormDialogButton.pickerListener?.onClick(view.numberpicker_minute.value)
                     dismiss()
                 }
 
