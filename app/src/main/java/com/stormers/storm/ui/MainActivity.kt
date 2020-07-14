@@ -91,6 +91,9 @@ class MainActivity : BaseActivity() {
 
         moveToAddProject()
 
+        imageButton_show_all.setOnClickListener {
+            startActivity(Intent(this@MainActivity, ParticipatedProjectListActivity::class.java))
+        }
 
     }
 
