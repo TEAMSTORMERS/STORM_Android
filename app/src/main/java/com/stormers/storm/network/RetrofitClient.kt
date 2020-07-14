@@ -1,11 +1,13 @@
 package com.stormers.storm.network
 
+import com.stormers.storm.ui.LoginActivity
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 
 object RetrofitClient {
     //Todo: URL 채우기
-    private const val BASE_URL = ""
+    private const val BASE_URL = "http://52.78.113.197:3000"
 
     private fun getInstance() : Retrofit {
         return Retrofit.Builder()
@@ -17,4 +19,6 @@ object RetrofitClient {
     fun <T> create(service: Class<T>) : T {
         return getInstance().create(service)
     }
+
+
 }

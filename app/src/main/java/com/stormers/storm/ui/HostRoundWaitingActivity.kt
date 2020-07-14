@@ -76,6 +76,7 @@ class HostRoundWaitingActivity : BaseActivity() {
                                     startActivity(intent)
                                 }
                             }
+
                             handler.postDelayed(handlerTask, 5000)
 
 

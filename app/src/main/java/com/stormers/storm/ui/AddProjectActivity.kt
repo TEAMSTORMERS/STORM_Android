@@ -3,19 +3,30 @@ package com.stormers.storm.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
+import com.stormers.storm.customview.dialog.StormDialog
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
+import com.stormers.storm.network.InterfaceAddProject
+import com.stormers.storm.network.ResponseAddProject
+import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.project.fragment.WaitingForStartingProjectFragment
+import com.stormers.storm.project.model.AddProjectModel
 import kotlinx.android.synthetic.main.activity_add_project.*
 import kotlinx.android.synthetic.main.view_toolbar.view.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class AddProjectActivity : BaseActivity() {
+    private lateinit var dialog: StormDialog
+    private var buttonArray = ArrayList<StormDialogButton>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,13 +38,29 @@ class AddProjectActivity : BaseActivity() {
         start_project()
 
         //fixme: 뒤로가기 버튼 안먹는 것 같아요!!!
-      /*  supportActionBar?.let {
-            it.setDisplayShowTitleEnabled(false)
-            it.setDisplayHomeAsUpEnabled(true)
-            it.setHomeAsUpIndicator(R.drawable.host_a_1_btn_back)
+
+        /*  supportActionBar?.let {
+              it.setDisplayShowTitleEnabled(false)
+              it.setDisplayHomeAsUpEnabled(true)
+              it.setHomeAsUpIndicator(R.drawable.host_a_1_btn_back)
 
 
-        } */
+          } */
+
+        buttonArray.add(
+            StormDialogButton("확인", true, object : StormDialogButton.OnClickListener {
+                override fun onClick() {
+                    val intent =
+                        Intent(this@AddProjectActivity, HostRoundWaitingActivity::class.java)
+                    startActivity(intent)
+                }
+            })
+        )
+
+        dialog = StormDialogBuilder(StormDialogBuilder.STORM_LOGO, "참여코드 생성 완료!")
+            .setContentRes(R.layout.view_participation_code)
+            .setButtonArray(buttonArray)
+            .build()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -59,30 +86,34 @@ class AddProjectActivity : BaseActivity() {
     }
 
 
-    fun start_project(){
-
-
-        val buttonArray = ArrayList<StormDialogButton>()
+    fun start_project() {
 
         button_add_project.setOnClickListener {
+            RetrofitClient.create(InterfaceAddProject::class.java).addProject(
+                AddProjectModel(
+                    edittext_addproject_projectname.text.toString(),
+                    edittext_addproject_notice.text.toString(),
+                    1
+                )
+            ).enqueue(
+                    object : Callback<ResponseAddProject> {
+                        override fun onFailure(call: Call<ResponseAddProject>, t: Throwable) {
+                            Log.d("통신실패", "${t}")
+                        }
 
-            buttonArray.add(
-                StormDialogButton("확인", true, object : StormDialogButton.OnClickListener {
-                    override fun onClick() {
-                        val intent = Intent(this@AddProjectActivity,HostRoundWaitingActivity::class.java)
-                        startActivity(intent)
+                        override fun onResponse(
+                            call: Call<ResponseAddProject>,
+                            response: Response<ResponseAddProject>
+                        ) {
+                            if (response.isSuccessful) {
+                                if (response.body()!!.success) {
+                                    dialog.show(supportFragmentManager, "create_participate_code")
 
-
+                                }
+                            }
+                        }
                     }
-                })
-
-            )
-
-            StormDialogBuilder(StormDialogBuilder.STORM_LOGO, "참여코드 생성 완료!")
-                .setContentRes(R.layout.view_participation_code)
-                .setButtonArray(buttonArray)
-                .build()
-                .show(supportFragmentManager, "create_participate_code")
+                )
         }
     }
 
@@ -93,4 +124,5 @@ class AddProjectActivity : BaseActivity() {
         }
         return super.dispatchTouchEvent(ev)
     }
- }
+
+}
