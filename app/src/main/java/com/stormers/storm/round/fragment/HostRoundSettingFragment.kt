@@ -66,6 +66,8 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
     private fun initActivityButton() {
         activityButton = (activity as HostRoundWaitingActivity).stormButton_ok_host_round_setting
 
+        activityButton.setText("확인")
+
         activityButton.setOnClickListener {
             if (textview_round_goal.text.isNullOrBlank() || textview_roundsetting_time.text.isNullOrBlank()) {
                 Toast.makeText(context, "라운드 목표 혹은 라운드 소요시간을 입력해주세요", Toast.LENGTH_SHORT)
