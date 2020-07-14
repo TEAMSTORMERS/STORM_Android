@@ -78,14 +78,7 @@
                 app:layout_constraintTop_toTopOf="@id/textview_checkrules_title">
 
                 <ImageView
-                    android:id="@+id/imageview_checkrules_checkcircle"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/h_projectwaiting_brainstorming_ok_selected"
-                    android:visibility="gone"/>
-
-                <ImageView
-                    android:id="@+id/imageview_checkrules_uncheckcircle"
+                    android:id="@+id/imageview_waitingproject_checkcircle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/m_projectwaiting_brainstorming_ok_unselected"
