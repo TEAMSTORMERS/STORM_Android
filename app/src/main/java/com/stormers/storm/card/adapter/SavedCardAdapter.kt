@@ -12,6 +12,6 @@ class SavedCardAdapter(private val showHeart: Boolean, private val listener: OnC
     }
 
     interface OnCardClickListener {
-        fun onCardClick(projectIdx: Int, roundIdx: Int)
+        fun onCardClick(projectIdx: Int, roundIdx: Int, cardId: Int)
     }
 }

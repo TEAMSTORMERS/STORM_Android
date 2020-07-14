@@ -20,7 +20,7 @@ class SavedCardViewHolder(parent: ViewGroup, private val showHeart: Boolean,
 
         listener?.let {
             itemView.setOnClickListener {
-                listener.onCardClick(data.projectIdx, data.roundIdx)
+                listener.onCardClick(data.projectIdx, data.roundIdx, data.cardId)
             }
         }
 
