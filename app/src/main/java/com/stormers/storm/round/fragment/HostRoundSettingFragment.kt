@@ -5,29 +5,35 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.stormers.storm.R
+import com.stormers.storm.base.BaseFragment
+import com.stormers.storm.customview.StormButton
 import com.stormers.storm.customview.dialog.StormDialog
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
+import com.stormers.storm.ui.HostRoundWaitingActivity
+import com.stormers.storm.ui.RoundProgressActivity
+import kotlinx.android.synthetic.main.activity_host_round_setting.*
 import kotlinx.android.synthetic.main.fragment_host_round_setting.*
 import java.lang.StringBuilder
 
-class HostRoundSettingFragment : Fragment() {
+class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setting) {
 
     private lateinit var timePickerDialog: StormDialog
+
     private val buttonArray = ArrayList<StormDialogButton>()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    private lateinit var activityButton: StormButton
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initActivityButton()
 
         initDialogButton()
 
         initDialog()
-
-        return inflater.inflate(R.layout.fragment_host_round_setting, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         textview_roundsetting_time.setOnClickListener {
             timePickerDialog.show(fragmentManager!!, "timepicker")
@@ -57,4 +63,16 @@ class HostRoundSettingFragment : Fragment() {
             .build()
     }
 
+    private fun initActivityButton() {
+        activityButton = (activity as HostRoundWaitingActivity).stormButton_ok_host_round_setting
+
+        activityButton.setOnClickListener {
+            if (textview_round_goal.text.isNullOrBlank() || textview_roundsetting_time.text.isNullOrBlank()) {
+                Toast.makeText(context, "라운드 목표 혹은 라운드 소요시간을 입력해주세요", Toast.LENGTH_SHORT)
+                    .show()
+            } else {
+                goToFragment(RoundStartFragment::class.java, null)
+            }
+        }
+    }
 }
