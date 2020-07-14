@@ -5,7 +5,13 @@ data class StormDialogButton(
     val accentColor: Boolean,
     val listener: OnClickListener?
 ) {
+    var pickerListener: OnPickerClickListener? = null
+
     interface OnClickListener {
         fun onClick()
+    }
+
+    interface OnPickerClickListener {
+        fun onClick(minute: Int)
     }
 }
