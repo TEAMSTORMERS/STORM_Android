@@ -14,10 +14,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.network.InterfaceAddProject
+import com.stormers.storm.network.InterfaceJoinProjectUsingCode
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.project.adapter.ParticipatedProjectListAdapter
 import com.stormers.storm.project.model.AddProjectModel
 import com.stormers.storm.project.model.ParticipatedProjectModel
+import com.stormers.storm.project.model.ProjectDataModel
 import com.stormers.storm.project.model.RecentProjectsModel
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_main.*
@@ -192,6 +194,13 @@ class MainActivity : BaseActivity() {
     override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
         return when (keyCode){
             KeyEvent.KEYCODE_ENTER -> {
+
+                /* RetrofitClient.create(InterfaceJoinProjectUsingCode::class.java).joinProjectUsingCode(
+                    ProjectDataModel(
+                    )
+                ) */
+
+
                 moveToHostRoundActivity()
                 true
             } else -> super.onKeyUp(keyCode, event)
