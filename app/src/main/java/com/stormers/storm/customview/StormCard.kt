@@ -174,10 +174,14 @@ class StormCard : CardView {
     }
 
     fun setBitmap(bitmap: Bitmap) {
+        imageview_customcard_background.visibility = View.VISIBLE
+        textview_customcard_background.visibility = View.INVISIBLE
         imageview_customcard_background.setImageBitmap(bitmap)
     }
 
     fun setText(text: String) {
+        textview_customcard_background.visibility = View.VISIBLE
+        imageview_customcard_background.visibility = View.INVISIBLE
         textview_customcard_background.text = text
     }
 
