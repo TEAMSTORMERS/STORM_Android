@@ -11,7 +11,10 @@ import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
+import com.stormers.storm.network.InterfaceAddProject
+import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.project.fragment.WaitingForStartingProjectFragment
+import com.stormers.storm.project.model.AddProjectModel
 import kotlinx.android.synthetic.main.activity_add_project.*
 import kotlinx.android.synthetic.main.view_toolbar.view.*
 
@@ -66,6 +69,10 @@ class AddProjectActivity : BaseActivity() {
 
         button_add_project.setOnClickListener {
 
+
+
+
+
             buttonArray.add(
                 StormDialogButton("확인", true, object : StormDialogButton.OnClickListener {
                     override fun onClick() {
@@ -93,4 +100,5 @@ class AddProjectActivity : BaseActivity() {
         }
         return super.dispatchTouchEvent(ev)
     }
+ 
  }

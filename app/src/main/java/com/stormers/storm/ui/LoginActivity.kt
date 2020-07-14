@@ -20,7 +20,6 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.kakao.auth.AuthType
 import com.kakao.auth.Session
-
 import com.kakao.util.helper.Utility.getPackageInfo
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
@@ -150,7 +149,6 @@ class LoginActivity : BaseActivity() {
 
     fun toMainActivity(user: FirebaseUser?) {
         if (user != null) { // MainActivity 로 이동
-
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
@@ -161,8 +159,6 @@ class LoginActivity : BaseActivity() {
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
-
-
 
     //Lottie 애니메이션 로그인뷰
     private fun initView() {

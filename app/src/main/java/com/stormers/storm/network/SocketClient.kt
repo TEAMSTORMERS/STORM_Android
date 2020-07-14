@@ -13,7 +13,7 @@ object SocketClient {
     private val TAG = javaClass.name
 
     //Todo: URL 받으면 추가하기
-    private const val SERVER_URL = ""
+    private const val SERVER_URL = "http://52.78.113.197:3000"
 
     private var socket: Socket? = null
 

@@ -13,7 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
+import com.stormers.storm.network.InterfaceAddProject
+import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.project.adapter.ParticipatedProjectListAdapter
+import com.stormers.storm.project.model.AddProjectModel
 import com.stormers.storm.project.model.ParticipatedProjectModel
 import com.stormers.storm.project.model.RecentProjectsModel
 import com.stormers.storm.util.MarginDecoration
@@ -21,9 +24,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
-    /** 메인액티비티에서 보여주는 프로젝트 참가 목록이나, ParicipatedProjectListActivity에서
-    * 보여주는 프로젝트 참가 목록이나 동일한 데이터기 때문에 동일한 어댑터를 사용했어
-    **/
+
     private lateinit var recentProjectsAdapter: ParticipatedProjectListAdapter
     val datas = mutableListOf<RecentProjectsModel>()
 
@@ -71,15 +72,9 @@ class MainActivity : BaseActivity() {
         }
 
 
-        /**
-         * Adapter를 생성할 때 이 어댑터에게 요구하고 싶은 것들을 파라미터로 넘겨주면 돼
-         * ParticipatedProjectListAdapter.kt를 한 번 열어봐
-         */
+
         recentProjectsAdapter = ParticipatedProjectListAdapter(true, object : ParticipatedProjectListAdapter.OnProjectClickListener {
             override fun onProjectClick(projectIdx: Int) {
-                /**
-                 * 아래처럼 액티비티 전환을 해달라는 약속을 어댑터에게 전달해주는 거야. 이것이 콜백
-                 */
                 val intent  = Intent(this@MainActivity,ParticipatedProjectDetailActivity::class.java)
                 intent.putExtra("project_idx", projectIdx)
                 startActivity(intent)
@@ -204,4 +199,6 @@ class MainActivity : BaseActivity() {
         intent.putExtra("participatecode",edittext_input_participate_code.text.toString())
         startActivity(intent)
     }
+
+
 }
