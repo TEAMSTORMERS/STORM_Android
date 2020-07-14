@@ -42,7 +42,7 @@ class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_sig
             //방금 그린 그림을 DB에 저장
             //우선은 projectIdx = 1, roundIdx = 1으로 가정함
             savedCardRepository.insert(
-                SavedCardEntity(1, 1, SavedCardEntity.FALSE, SavedCardEntity.DRAWING,
+                SavedCardEntity(1, 1, SavedCardEntity.TRUE, SavedCardEntity.DRAWING,
                     BitmapConverter.bitmapToString(signaturepad.signatureBitmap), null
                 )
             )
