@@ -2,15 +2,23 @@ package com.stormers.storm.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.card.adapter.SavedCardAdapter
 import com.stormers.storm.card.repository.SavedCardRepository
+import com.stormers.storm.network.RetrofitClient
+import com.stormers.storm.project.network.ProjectInterface
+import com.stormers.storm.project.network.ResponseProjectData
 import com.stormers.storm.round.adapter.RoundListAdapter
 import com.stormers.storm.round.model.RoundDescriptionModel
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_participated_project_detail.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import kotlin.math.log
 
 class ParticipatedProjectDetailActivity : BaseActivity() {
 
@@ -21,12 +29,42 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
 
     private var projectIdx = -1
 
+    private lateinit var retrofitClient: ProjectInterface
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_participated_project_detail)
 
         //Todo: DefalultValue를 우선 1로 하였으나 어떤 걸로 할지 고민해보아야함
         projectIdx = Intent().getIntExtra("projectIdx", 1)
+
+        retrofitClient = RetrofitClient.create(ProjectInterface::class.java)
+
+        retrofitClient.responseProjectData(projectIdx.toString()).enqueue(object : Callback<ResponseProjectData> {
+            override fun onFailure(call: Call<ResponseProjectData>, t: Throwable) {
+                if (t.message != null){
+                    Log.d("test", t.message!!)
+                } else {
+                    Log.d("test", "oops")
+                }
+            }
+
+            override fun onResponse(
+                call: Call<ResponseProjectData>,
+                response: Response<ResponseProjectData>
+            ) {
+                if (response.isSuccessful) {
+                    if (response.body()!!.success) {
+                        Log.d("test", "받아온 프로젝트 이름 : ${response.body()!!.data?.project_name}")
+                    }
+                    else {
+                        Log.d("Test", "실패")
+                    }
+                } else {
+                    Log.d("test", "${response.message()} , ${response.errorBody()}")
+                }
+            }
+        })
 
         constraintlayout_participatedproject_seemore.setOnClickListener {
             val intent = Intent(this, ScrapCardCollectingActivity::class.java)
