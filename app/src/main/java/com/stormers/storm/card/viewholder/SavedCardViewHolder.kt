@@ -20,6 +20,8 @@ class SavedCardViewHolder(parent: ViewGroup, private val showHeart: Boolean,
 
         if (!showHeart) {
             itemView.stormcard_itemheart.showHeartButton(false)
+        } else {
+            itemView.stormcard_itemheart.heartState = data.isScraped == SavedCardEntity.TRUE
         }
 
         listener?.let {
