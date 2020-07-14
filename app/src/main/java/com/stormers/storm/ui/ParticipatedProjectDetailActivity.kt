@@ -28,7 +28,7 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         //Todo: DefalultValue를 우선 1로 하였으나 어떤 걸로 할지 고민해보아야함
         projectIdx = Intent().getIntExtra("projectIdx", 1)
 
-        constraint_part_project_detail.setOnClickListener {
+        constraintlayout_participatedproject_seemore.setOnClickListener {
             val intent = Intent(this, ScrapCardCollectingActivity::class.java)
             startActivity(intent)
         }
@@ -56,6 +56,10 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
                 startActivity(intent)
             }
         })
+
+        constraintlayout_participatedproject_seemore.setOnClickListener {
+            startActivity(Intent(this@ParticipatedProjectDetailActivity, ScrapedCardDetailActivity::class.java))
+        }
 
         rv_round_part_detail.adapter = roundListAdapterForViewPager
         roundListAdapterForViewPager.addAll(loadRoundCountDatas())
