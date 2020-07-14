@@ -43,9 +43,9 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         retrofitClient.responseProjectData(projectIdx.toString()).enqueue(object : Callback<ResponseProjectData> {
             override fun onFailure(call: Call<ResponseProjectData>, t: Throwable) {
                 if (t.message != null){
-                    Log.d("test", t.message!!)
+                    Log.d("PartProDetailActivity", t.message!!)
                 } else {
-                    Log.d("test", "oops")
+                    Log.d("PartProDetailActivity", "통신실패")
                 }
             }
 
@@ -55,13 +55,13 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
             ) {
                 if (response.isSuccessful) {
                     if (response.body()!!.success) {
-                        Log.d("test", "받아온 프로젝트 이름 : ${response.body()!!.data?.project_name}")
+                        Log.d("PartProDetailActivity", "받아온 프로젝트 이름 : ${response.body()!!.data?.project_name}")
                     }
                     else {
-                        Log.d("Test", "실패")
+                        Log.d("PartProDetailActivity", "통신실패")
                     }
                 } else {
-                    Log.d("test", "${response.message()} , ${response.errorBody()}")
+                    Log.d("PartProDetailActivity", "${response.message()} , ${response.errorBody()}")
                 }
             }
         })
