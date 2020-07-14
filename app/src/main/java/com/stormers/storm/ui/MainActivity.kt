@@ -198,10 +198,9 @@ class MainActivity : BaseActivity() {
         }
     }
     private fun moveToHostRoundActivity() {
-        val intent = Intent(this, HostRoundActivity::class.java)
+        //Todo: Member를 위한 브레인스토밍 룰 리마인더 액티비티로 가도록 하여야 함
+        val intent = Intent(this, HostRoundWaitingActivity::class.java)
         intent.putExtra("participatecode",edittext_input_participate_code.text.toString())
         startActivity(intent)
     }
-
-
 }

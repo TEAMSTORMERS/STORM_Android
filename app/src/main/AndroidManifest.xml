@@ -32,8 +32,6 @@
 
 
         </activity>
-        <activity android:name=".ui.HostRoundActivity"
-            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".ui.MainActivity"
             android:windowSoftInputMode="adjustNothing"/>
