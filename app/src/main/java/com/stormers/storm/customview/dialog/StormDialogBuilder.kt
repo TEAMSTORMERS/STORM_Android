@@ -31,6 +31,8 @@ class StormDialogBuilder(private var dialogImg: Int, private var title: String) 
 
     private var horizontalButton: ArrayList<StormDialogButton>? = null
 
+    private var isPicker: Boolean = false
+
     fun build() : StormDialog {
         val imageRes = when(dialogImg) {
 
@@ -47,7 +49,8 @@ class StormDialogBuilder(private var dialogImg: Int, private var title: String) 
             contentText,
             contentRes,
             buttonArray,
-            horizontalButton
+            horizontalButton,
+            isPicker
         )
     }
 
@@ -68,6 +71,11 @@ class StormDialogBuilder(private var dialogImg: Int, private var title: String) 
 
     fun setContentText(contentText: String) : StormDialogBuilder {
         this.contentText = contentText
+        return this
+    }
+
+    fun isPicker(isPicker: Boolean) : StormDialogBuilder {
+        this.isPicker = isPicker
         return this
     }
 }

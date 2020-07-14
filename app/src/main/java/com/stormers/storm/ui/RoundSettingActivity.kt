@@ -6,7 +6,6 @@ import android.os.Handler
 import android.view.View
 
 import android.widget.Toast
-
 import androidx.fragment.app.Fragment
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
