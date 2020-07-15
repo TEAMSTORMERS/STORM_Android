@@ -17,6 +17,8 @@ import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.network.BaseResponse
 import com.stormers.storm.network.InterfaceRoundSetting
 import com.stormers.storm.network.RetrofitClient
+import com.stormers.storm.project.network.InterfaceRoundCount
+import com.stormers.storm.round.model.ResponseRoundCountModel
 import com.stormers.storm.round.model.RoundSettingModel
 import com.stormers.storm.ui.HostRoundWaitingActivity
 import com.stormers.storm.ui.RoundProgressActivity
@@ -36,8 +38,16 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
 
     private lateinit var activityButton: StormButton
 
+    private var projectIdx = -1
+
+    private lateinit var retrofitClient: InterfaceRoundCount
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        projectIdx = (activity as HostRoundWaitingActivity).projectIdx
+
+        getRoundCount()
 
         initActivityButton()
 
@@ -114,5 +124,28 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
                 )
             }
         }
+    }
+
+    fun getRoundCount() {
+        retrofitClient = RetrofitClient.create(InterfaceRoundCount::class.java)
+
+        retrofitClient.responseRoundCount(projectIdx)
+            .enqueue(object : Callback<ResponseRoundCountModel> {
+                override fun onFailure(call: Call<ResponseRoundCountModel>, t: Throwable) {
+                    Log.d("RoundCount 통신실패", "${t}")
+                }
+
+                override fun onResponse(
+                    call: Call<ResponseRoundCountModel>,
+                    response: Response<ResponseRoundCountModel>
+                ) {
+                    if (response.isSuccessful) {
+                        if (response.body()!!.success) {
+                            Log.d("RoundCount 통신 성공", "성공")
+                            textview_roundnumber.setText("ROUND${response.body()!!.data.toString()}")
+                        }
+                    }
+                }
+            })
     }
 }
