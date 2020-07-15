@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.layout_list_of_participant.view.*
 
 class RoundStartFragment : BaseFragment(R.layout.fragment_round_start) {
 
+
     private val participantAdapter: ParticipantAdapter by lazy { ParticipantAdapter() }
 
     private lateinit var activityButton: StormButton
