@@ -91,6 +91,7 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
             override fun onRoundClick(projectIdx: Int, roundIdx: Int) {
                 val intent = Intent(this@ParticipatedProjectDetailActivity, RoundListActivity::class.java)
                 intent.putExtra("roundIdx", roundIdx)
+                intent.putExtra("projectIdx", projectIdx)
                 startActivity(intent)
             }
         })
@@ -100,10 +101,10 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         }
 
         rv_round_part_detail.adapter = roundListAdapterForViewPager
-        roundListAdapterForViewPager.addAll(loadRoundCountDatas())
+        //roundListAdapterForViewPager.addAll(loadRoundCountDatas())
     }
 
-    private fun loadRoundCountDatas() : MutableList<RoundDescriptionModel> {
+    /*private fun loadRoundCountDatas() : MutableList<RoundDescriptionModel> {
 
         val datas = mutableListOf<RoundDescriptionModel>()
 
@@ -115,5 +116,5 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
             }
             return datas
         }
-    }
+    }*/
 }
