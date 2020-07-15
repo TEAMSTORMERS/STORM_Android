@@ -1,6 +1,8 @@
 package com.stormers.storm.round.fragment
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,10 +14,18 @@ import com.stormers.storm.customview.StormButton
 import com.stormers.storm.customview.dialog.StormDialog
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
+import com.stormers.storm.network.BaseResponse
+import com.stormers.storm.network.InterfaceRoundSetting
+import com.stormers.storm.network.RetrofitClient
+import com.stormers.storm.round.model.RoundSettingModel
 import com.stormers.storm.ui.HostRoundWaitingActivity
 import com.stormers.storm.ui.RoundProgressActivity
 import kotlinx.android.synthetic.main.activity_host_round_setting.*
 import kotlinx.android.synthetic.main.fragment_host_round_setting.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
 import java.lang.StringBuilder
 
 class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setting) {
@@ -69,11 +79,39 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
         activityButton.setText("확인")
 
         activityButton.setOnClickListener {
+            Log.d("Round Setting","버튼눌림" )
             if (textview_round_goal.text.isNullOrBlank() || textview_roundsetting_time.text.isNullOrBlank()) {
                 Toast.makeText(context, "라운드 목표 혹은 라운드 소요시간을 입력해주세요", Toast.LENGTH_SHORT)
                     .show()
             } else {
-                goToFragment(RoundStartFragment::class.java, null)
+
+                RetrofitClient.create(InterfaceRoundSetting::class.java).roundSetting(
+                    RoundSettingModel(
+                        1,
+                        textview_round_goal.text.toString(),
+                        textview_roundsetting_time.text.toString().substring(0,2).toInt()
+
+                        //textview_roundsetting_time.text.toString().toInt()
+                    )
+                ).enqueue(
+                    object : Callback<BaseResponse>{
+                        override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
+                            Log.d("Round Setting 통신 실패", "${t}")
+                        }
+
+                        override fun onResponse(
+                            call: Call<BaseResponse>,
+                            response: Response<BaseResponse>
+                        ) {
+                            if(response.isSuccessful){
+                                if(response.body()!!.success){
+                                    Log.d("Round Setting 통신 성공",response.body()!!.message)
+                                    goToFragment(RoundStartFragment::class.java,null)
+                                }
+                            }
+                        }
+                    }
+                )
             }
         }
     }
