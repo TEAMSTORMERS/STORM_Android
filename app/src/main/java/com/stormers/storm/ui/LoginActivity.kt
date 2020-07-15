@@ -4,7 +4,11 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.os.AsyncTask
 import android.os.Bundle
+import android.os.Environment
 import android.util.Base64
 import android.util.Log
 import com.airbnb.lottie.LottieAnimationView
@@ -23,11 +27,18 @@ import com.kakao.auth.Session
 import com.kakao.util.helper.Utility.getPackageInfo
 import com.stormers.storm.R
 import com.stormers.storm.SignUp.InterfaceSignUp
+import com.stormers.storm.SignUp.ResponseSignUpModel
 import com.stormers.storm.SignUp.SignUpModel
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.kakao.SessionCallback
 import com.stormers.storm.network.RetrofitClient
 import kotlinx.android.synthetic.main.activity_login.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.File
+import java.io.FileOutputStream
+import java.net.URL
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
@@ -38,6 +49,7 @@ class LoginActivity : BaseActivity() {
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
     private val RC_SIGN_IN = 99 //private const val TAG = "GoogleActivity"
+    val user = FirebaseAuth.getInstance().currentUser
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -135,25 +147,37 @@ class LoginActivity : BaseActivity() {
     } // onActivityResult End
 
     private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
-
-        RetrofitClient.create(InterfaceSignUp::class.java).interfaceSignUp(
-            SignUpModel(
-                acct.idToken.toString(),
-
-            )
-        )
-
-
         Log.d("LoginActivity", "firebaseAuthWithGoogle:" + acct.id!!)
-
 
         //Google SignInAccount 객체에서 ID 토큰을 가져와서 Firebase Auth로 교환하고 Firebase에 인증
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
 
-
         firebaseAuth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    val user = FirebaseAuth.getInstance().currentUser
+                    val file = File(URL(user!!.photoUrl.toString()).toURI())
+
+                    RetrofitClient.create(InterfaceSignUp::class.java).interfaceSignUp(
+                        SignUpModel(
+                            user!!.displayName.toString(),
+                            acct.idToken.toString(),
+                            null,
+                            file
+                            )
+                    ).enqueue(object :Callback<ResponseSignUpModel>{
+                        override fun onFailure(call: Call<ResponseSignUpModel>, t: Throwable) {
+                            Log.d("SignUp Google","${t}")
+                        }
+
+                        override fun onResponse(
+                            call: Call<ResponseSignUpModel>,
+                            response: Response<ResponseSignUpModel>
+                        ) {
+                            Log.d("SignUp 통신성공","통신성공")
+                        }
+                    })
+
                     Log.w("LoginActivity", "firebaseAuthWithGoogle 성공", task.exception)
                     toMainActivity(firebaseAuth?.currentUser)
                 } else {
@@ -183,9 +207,5 @@ class LoginActivity : BaseActivity() {
         animationView.setAnimation("login_bg.json")
         animationView.repeatCount = INFINITE
         animationView.playAnimation()
-
-    }
-    private fun sendGoogleToken(){
-
     }
 }
