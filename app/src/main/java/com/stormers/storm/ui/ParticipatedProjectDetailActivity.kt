@@ -56,6 +56,16 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
                 if (response.isSuccessful) {
                     if (response.body()!!.success) {
                         Log.d("PartProDetailActivity", "받아온 프로젝트 이름 : ${response.body()!!.data?.project_name}")
+                        textview_projectcard_title.setText(response.body()!!.data?.project_name)
+                        textView_date_part_detail.setText(response.body()!!.data?.project_date)
+
+                        val roundCount = StringBuilder()
+                        roundCount.append("ROUND 총 ")
+                            .append(response.body()!!.data?.round_count.toString())
+                            .append("회")
+
+                        textView_round_count_part_detail.setText(roundCount)
+
                     }
                     else {
                         Log.d("PartProDetailActivity", "통신실패")
@@ -91,6 +101,7 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
             override fun onRoundClick(projectIdx: Int, roundIdx: Int) {
                 val intent = Intent(this@ParticipatedProjectDetailActivity, RoundListActivity::class.java)
                 intent.putExtra("roundIdx", roundIdx)
+                intent.putExtra("projectIdx", projectIdx)
                 startActivity(intent)
             }
         })
@@ -100,20 +111,6 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         }
 
         rv_round_part_detail.adapter = roundListAdapterForViewPager
-        roundListAdapterForViewPager.addAll(loadRoundCountDatas())
-    }
-
-    private fun loadRoundCountDatas() : MutableList<RoundDescriptionModel> {
-
-        val datas = mutableListOf<RoundDescriptionModel>()
-
-        datas.apply {
-            datas.apply {
-                add(RoundDescriptionModel(null, null, "베개와 유리병의 공통점은?", "11분 소요", 0, projectIdx))
-                add(RoundDescriptionModel(null, null, "Pillow 와 Glass 의 공통점은?", "11분 소요", 1, projectIdx))
-                add(RoundDescriptionModel(null, null, "평화와 희원이의 공통점은?", "11분 소요", 2, projectIdx))
-            }
-            return datas
-        }
+        //roundListAdapterForViewPager.addAll(loadRoundCountDatas())
     }
 }
