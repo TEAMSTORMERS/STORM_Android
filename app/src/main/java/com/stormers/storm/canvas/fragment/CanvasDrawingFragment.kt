@@ -78,10 +78,10 @@ class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_sig
                             afterResponse()
 
                         } else {
-                            Log.d("postCard", response.message())
+                            Log.d("post_card", "response.body().success : false // ${response.message()}")
                         }
                     } else {
-                        Log.d("text", response.message())
+                        Log.d("post_card", "response.isSuccessful : false // ${response.message()}")
                     }
                 }
             })
