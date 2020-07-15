@@ -57,7 +57,7 @@ class RoundListActivity : AppCompatActivity() {
                         for (i in response.body()!!.data.indices) {
                             Log.d("RoundListActivity", "받아온 라운드 정보 : ${response.body()!!.data[i]}")
                             }
-                        //roundListAdapterForViewPager.addAll(response.body()!!.data)
+                        roundListAdapterForViewPager.addAll(response.body()!!.data)
                     }
                     else {
                         Log.d("RoundListActivity", "통신실패")

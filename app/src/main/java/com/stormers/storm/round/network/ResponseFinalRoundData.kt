@@ -6,5 +6,5 @@ data class ResponseFinalRoundData (
     val status : Int,
     val success : Boolean,
     val message : String,
-    val data : List<FinalRoundData>
+    val data : List<RoundDescriptionModel>
 )
