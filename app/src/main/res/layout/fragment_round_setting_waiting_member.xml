@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_round_start"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".round.fragment.RoundStartFragment">
+    android:layout_height="match_parent">
 
 
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/include_roundstart_participant_member"
+        app:layout_constraintBottom_toTopOf="@+id/include_waitingproject_participant"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -23,7 +22,7 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="32dp"
             android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@+id/include_roundstart_participant_member"
+            app:layout_constraintBottom_toTopOf="@+id/include_waitingproject_participant"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -85,7 +84,7 @@
             android:id="@+id/constraint_round_waiting_member"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/include_roundstart_participant_member"
+            app:layout_constraintBottom_toTopOf="@+id/include_waitingproject_participant"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -159,7 +158,7 @@
     </FrameLayout>
 
     <include
-        android:id="@+id/include_roundstart_participant_member"
+        android:id="@+id/include_waitingproject_participant"
         layout="@layout/layout_list_of_participant"
         android:layout_width="0dp"
         android:layout_height="0dp"
