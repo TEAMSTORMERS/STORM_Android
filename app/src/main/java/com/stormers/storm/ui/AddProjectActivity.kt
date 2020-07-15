@@ -108,11 +108,13 @@ class AddProjectActivity : BaseActivity() {
                         ) {
                             if (response.isSuccessful) {
                                 if (response.body()!!.success) {
-                                    dialog.show(supportFragmentManager, "create_participate_code")
                                     val intent = Intent(this@AddProjectActivity,HostRoundWaitingActivity::class.java)
                                     intent.putExtra("projectIdx",response.body()!!.data.projectIdx)
                                     Log.d("통신성공",response.body()!!.data.projectCode)
+                                    dialog.show(supportFragmentManager, "create_participate_code")
                                 }
+                            } else {
+                                Log.d("AddProjectActivity", response.message())
                             }
                         }
                     }
