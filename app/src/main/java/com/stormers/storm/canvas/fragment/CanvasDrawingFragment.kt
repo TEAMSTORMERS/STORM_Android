@@ -1,13 +1,24 @@
 package com.stormers.storm.canvas.fragment
 
+import android.graphics.Bitmap
+import android.util.Log
 import android.widget.Toast
 import com.github.gcacace.signaturepad.views.SignaturePad
 import com.stormers.storm.R
 import com.stormers.storm.RoundSetting.AddCardFragment
 import com.stormers.storm.canvas.base.BaseCanvasFragment
+import com.stormers.storm.canvas.network.RequestCard
 import com.stormers.storm.card.model.SavedCardEntity
 import com.stormers.storm.card.util.BitmapConverter
+import com.stormers.storm.network.Response
+import com.stormers.storm.network.RetrofitClient
 import kotlinx.android.synthetic.main.view_signaturepad.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Callback
+
 
 class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_signaturepad) {
 
@@ -37,22 +48,61 @@ class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_sig
 
     override fun onApplied() {
         if (isDrew) {
-            //Todo: 서버로 전송 signaturepad.signatureBitmap
+            val bitmap = signaturepad.signatureBitmap
 
-            //방금 그린 그림을 DB에 저장
-            //우선은 projectIdx = 1, roundIdx = 1으로 가정함
-            savedCardRepository.insert(
-                SavedCardEntity(1, 1, SavedCardEntity.FALSE, SavedCardEntity.DRAWING,
-                    BitmapConverter.bitmapToString(signaturepad.signatureBitmap), null
-                )
-            )
+            val drawingFile = BitmapConverter.bitmapToFile(bitmap, context!!.cacheDir.toString())
 
-            signaturepad.clear()
-            Toast.makeText(context, "저장되었습니다.", Toast.LENGTH_SHORT).show()
+            val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), drawingFile!!)
 
-            goToFragment(AddCardFragment::class.java, null)
+            val uploadFile = MultipartBody.Part.createFormData("card_img", drawingFile.name, requestFile)
+
+            val userIdx = RequestBody.create(MediaType.parse("text/plain"), "1")
+
+            val projectIdx = RequestBody.create(MediaType.parse("text/plain"), "1")
+
+            val roundIdx = RequestBody.create(MediaType.parse("text/plain"), "1")
+
+            RetrofitClient.create(RequestCard::class.java).postCard(userIdx, projectIdx, roundIdx, uploadFile, null)
+                .enqueue(object: Callback<Response> {
+
+                override fun onFailure(call: Call<Response>, t: Throwable) {
+                    Log.d("postCard", t.message)
+                }
+
+                override fun onResponse(call: Call<Response>, response: retrofit2.Response<Response>) {
+                    if (response.isSuccessful) {
+                        if (response.body()!!.success) {
+
+                            saveCardIntoDB(bitmap)
+
+                            afterResponse()
+
+                        } else {
+                            Log.d("postCard", response.message())
+                        }
+                    } else {
+                        Log.d("text", response.message())
+                    }
+                }
+            })
+
+
         } else {
             Toast.makeText(context, "그림을 그려주세요!", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun afterResponse() {
+        signaturepad.clear()
+        Toast.makeText(context, "저장되었습니다.", Toast.LENGTH_SHORT).show()
+        goToFragment(AddCardFragment::class.java, null)
+    }
+
+    private fun saveCardIntoDB(bitmap: Bitmap) {
+        savedCardRepository.insert(
+            SavedCardEntity(1, 1, SavedCardEntity.FALSE, SavedCardEntity.DRAWING,
+                BitmapConverter.bitmapToString(bitmap), null
+            )
+        )
     }
 }
