@@ -79,17 +79,19 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
         activityButton.setText("확인")
 
         activityButton.setOnClickListener {
+            Log.d("Round Setting","버튼눌림" )
             if (textview_round_goal.text.isNullOrBlank() || textview_roundsetting_time.text.isNullOrBlank()) {
                 Toast.makeText(context, "라운드 목표 혹은 라운드 소요시간을 입력해주세요", Toast.LENGTH_SHORT)
                     .show()
             } else {
-                goToFragment(RoundStartFragment::class.java, null)
 
                 RetrofitClient.create(InterfaceRoundSetting::class.java).roundSetting(
                     RoundSettingModel(
                         1,
                         textview_round_goal.text.toString(),
-                        textview_roundsetting_time.text.toString().toInt()
+                        textview_roundsetting_time.text.toString().substring(0,2).toInt()
+
+                        //textview_roundsetting_time.text.toString().toInt()
                     )
                 ).enqueue(
                     object : Callback<BaseResponse>{
