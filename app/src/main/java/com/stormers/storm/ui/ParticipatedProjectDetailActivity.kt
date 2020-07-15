@@ -12,7 +12,10 @@ import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.project.network.ProjectInterface
 import com.stormers.storm.project.network.ResponseProjectData
 import com.stormers.storm.round.adapter.RoundListAdapter
+import com.stormers.storm.round.adapter.RoundListAdapterForViewPager
 import com.stormers.storm.round.model.RoundDescriptionModel
+import com.stormers.storm.round.network.FinalRoundInterface
+import com.stormers.storm.round.network.ResponseFinalRoundData
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_participated_project_detail.*
 import retrofit2.Call
@@ -29,6 +32,7 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
 
     private var projectIdx = -1
 
+    private lateinit var retrofitClient_roundInfo: FinalRoundInterface
     private lateinit var retrofitClient: ProjectInterface
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +43,36 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         projectIdx = Intent().getIntExtra("projectIdx", 1)
 
         retrofitClient = RetrofitClient.create(ProjectInterface::class.java)
+        retrofitClient_roundInfo = RetrofitClient.create(FinalRoundInterface::class.java)
+
+        retrofitClient_roundInfo.responseFinalRoundData(projectIdx.toString()).enqueue(object : Callback<ResponseFinalRoundData> {
+            override fun onFailure(call: Call<ResponseFinalRoundData>, t: Throwable) {
+                if (t.message != null){
+                    Log.d("PartProDetailRound", t.message!!)
+                } else {
+                    Log.d("PartProDetailRound", "통신실패")
+                }
+            }
+
+            override fun onResponse(
+                call: Call<ResponseFinalRoundData>,
+                response: Response<ResponseFinalRoundData>
+            ) {
+                if (response.isSuccessful) {
+                    if (response.body()!!.success) {
+                        for (i in response.body()!!.data.indices) {
+                            Log.d("PartProDetailRound", "받아온 라운드 정보 : ${response.body()!!.data[i]}")
+                        }
+                        roundListAdapterForViewPager.addAll(response.body()!!.data)
+                    }
+                    else {
+                        Log.d("PartProDetailRound", "통신실패")
+                    }
+                } else {
+                    Log.d("PartProDetailRound", "${response.message()} , ${response.errorBody()}")
+                }
+            }
+        })
 
         retrofitClient.responseProjectData(projectIdx.toString()).enqueue(object : Callback<ResponseProjectData> {
             override fun onFailure(call: Call<ResponseProjectData>, t: Throwable) {
@@ -84,7 +118,7 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         scrapedCardAdapter = SavedCardAdapter(false, object: SavedCardAdapter.OnCardClickListener {
             override fun onCardClick(projectIdx: Int, roundIdx: Int, cardId: Int) {
                 val intent = Intent(this@ParticipatedProjectDetailActivity, ScrapedCardDetailActivity::class.java)
-                intent.putExtra("projectIdx", projectIdx)
+                intent.putExtra("projectIdx", this@ParticipatedProjectDetailActivity.projectIdx)
                 intent.putExtra("roundIdx", roundIdx)
                 intent.putExtra("cardId", cardId)
                 startActivity(intent)
@@ -101,7 +135,7 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
             override fun onRoundClick(projectIdx: Int, roundIdx: Int) {
                 val intent = Intent(this@ParticipatedProjectDetailActivity, RoundListActivity::class.java)
                 intent.putExtra("roundIdx", roundIdx)
-                intent.putExtra("projectIdx", projectIdx)
+                intent.putExtra("projectIdx", this@ParticipatedProjectDetailActivity.projectIdx)
                 startActivity(intent)
             }
         })
