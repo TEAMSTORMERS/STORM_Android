@@ -88,6 +88,7 @@ class RoundListActivity : AppCompatActivity() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
 
+                    //Todo: roundIdx가 사용된 부분을 round_number를 이용할 수 있도록 변경해야 합니다 !
                     val roundIdx = roundListAdapterForViewPager.getItem(position).roundIdx
 
                     //Todo: projectIdx 도 인텐트로 받아오기
@@ -100,17 +101,4 @@ class RoundListActivity : AppCompatActivity() {
         }
     }
 
-    //Dummy
-    /*private fun loadRoundDatas() : MutableList<RoundDescriptionModel> {
-
-        val datas = mutableListOf<RoundDescriptionModel>()
-
-        datas.apply {
-            add(RoundDescriptionModel(null, null, "베개와 유리병의 공통점은?", "11분 소요", 0, 1))
-            add(RoundDescriptionModel(null, null, "Pillow 와 Glass 의 공통점은?", "11분 소요", 1, 1))
-            add(RoundDescriptionModel(null, null, "평화와 희원이의 공통점은?", "11분 소요", 2, 1))
-        }
-
-        return datas
-    }*/
 }
