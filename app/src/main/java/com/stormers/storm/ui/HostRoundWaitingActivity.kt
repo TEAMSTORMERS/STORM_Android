@@ -20,7 +20,7 @@ import retrofit2.Response
 
 class HostRoundWaitingActivity : BaseActivity() {
 
-    private var projectIdx = -1
+    var projectIdx = -1
 
     private lateinit var retrofitClient: InterfaceProjectInfo
 
@@ -31,7 +31,7 @@ class HostRoundWaitingActivity : BaseActivity() {
 
         goToFragment(WaitingForStartingProjectFragment::class.java, null)
 
-        projectIdx = intent.getIntExtra("projectIdx",-1)
+        projectIdx = intent.getIntExtra("projectIdx",1)
 
         retrofitClient = RetrofitClient.create(InterfaceProjectInfo::class.java)
 

@@ -2,6 +2,7 @@ package com.stormers.storm.project.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,11 @@ import com.stormers.storm.customview.StormButton
 import com.stormers.storm.customview.dialog.StormDialog
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
+import com.stormers.storm.network.InterfaceProjectInfo
+import com.stormers.storm.network.InterfaceProjectUser
+import com.stormers.storm.network.RetrofitClient
+import com.stormers.storm.project.model.ResponseProjectInfoModel
+import com.stormers.storm.project.model.ResponseProjectUserListModel
 import com.stormers.storm.round.fragment.HostRoundSettingFragment
 import com.stormers.storm.ui.HostRoundWaitingActivity
 import com.stormers.storm.user.ParticipantAdapter
@@ -26,6 +32,9 @@ import kotlinx.android.synthetic.main.activity_host_round_setting.*
 import kotlinx.android.synthetic.main.fragment_waiting_for_starting_project.*
 import kotlinx.android.synthetic.main.fragment_waiting_for_starting_project.view.*
 import kotlinx.android.synthetic.main.layout_list_of_participant.view.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class WaitingForStartingProjectFragment : BaseFragment(R.layout.fragment_waiting_for_starting_project) {
 
@@ -37,8 +46,17 @@ class WaitingForStartingProjectFragment : BaseFragment(R.layout.fragment_waiting
 
     private lateinit var dialog: StormDialog
 
+    private var projectIdx = -1
+
+    private lateinit var retrofitClient: InterfaceProjectUser
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
+
+        showProjectUserList()
+
+        projectIdx = (activity as HostRoundWaitingActivity).projectIdx
 
         activityButton = (activity as HostRoundWaitingActivity).stormButton_ok_host_round_setting
 
@@ -57,7 +75,6 @@ class WaitingForStartingProjectFragment : BaseFragment(R.layout.fragment_waiting
             adapter = participantAdapter
         }
 
-        participantAdapter.addAll(loadData())
 
         buttonArray.add(
             StormDialogButton("확인", false, object : StormDialogButton.OnClickListener {
@@ -102,5 +119,28 @@ class WaitingForStartingProjectFragment : BaseFragment(R.layout.fragment_waiting
         )
 
         return data
+    }
+
+    private fun showProjectUserList() {
+
+        retrofitClient = RetrofitClient.create(InterfaceProjectUser::class.java)
+
+        retrofitClient.getProjectUserList(projectIdx).enqueue(object : Callback<ResponseProjectUserListModel>{
+            override fun onFailure(call: Call<ResponseProjectUserListModel>, t: Throwable) {
+                Log.d("projectUser 통신실패","${t}")
+            }
+
+            override fun onResponse(
+                call: Call<ResponseProjectUserListModel>,
+                response: Response<ResponseProjectUserListModel>
+            ) {
+                if(response.isSuccessful)
+                    if(response.body()!!.success){
+                        Log.d("user list 통신성공","성공")
+                        participantAdapter.addAll(response.body()!!.data)
+                    }
+
+            }
+        })
     }
 }
