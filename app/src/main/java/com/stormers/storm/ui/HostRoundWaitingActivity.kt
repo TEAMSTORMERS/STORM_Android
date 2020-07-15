@@ -37,6 +37,7 @@ class HostRoundWaitingActivity : BaseActivity() {
 
         retrofitClient.responseProjectinfo(projectIdx).enqueue(object :  Callback<ResponseProjectInfoModel> {
             override fun onFailure(call: Call<ResponseProjectInfoModel>, t: Throwable) {
+                
                 Log.d("ProjectInfo 통신실패", "${t}")
             }
 
