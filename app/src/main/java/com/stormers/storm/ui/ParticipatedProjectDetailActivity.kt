@@ -103,18 +103,4 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         rv_round_part_detail.adapter = roundListAdapterForViewPager
         //roundListAdapterForViewPager.addAll(loadRoundCountDatas())
     }
-
-    /*private fun loadRoundCountDatas() : MutableList<RoundDescriptionModel> {
-
-        val datas = mutableListOf<RoundDescriptionModel>()
-
-        datas.apply {
-            datas.apply {
-                add(RoundDescriptionModel(null, null, "베개와 유리병의 공통점은?", "11분 소요", 0, projectIdx))
-                add(RoundDescriptionModel(null, null, "Pillow 와 Glass 의 공통점은?", "11분 소요", 1, projectIdx))
-                add(RoundDescriptionModel(null, null, "평화와 희원이의 공통점은?", "11분 소요", 2, projectIdx))
-            }
-            return datas
-        }
-    }*/
 }
