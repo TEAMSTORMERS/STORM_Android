@@ -110,6 +110,7 @@ class StormButton : CardView {
 
     fun setActivation(activation: Boolean) {
         this.activation = activation
+        this.cardview_custombutton_root.isEnabled = activation
 
         cardview_custombutton_root.run {
             if (activation) {
