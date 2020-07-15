@@ -1,6 +1,5 @@
 package com.stormers.storm.canvas.network
 
-import com.stormers.storm.card.model.RequestCardModel
 import com.stormers.storm.network.Response
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
