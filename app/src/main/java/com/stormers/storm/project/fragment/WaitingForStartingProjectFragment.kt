@@ -21,6 +21,7 @@ import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.network.InterfaceProjectInfo
 import com.stormers.storm.network.InterfaceProjectUser
 import com.stormers.storm.network.RetrofitClient
+import com.stormers.storm.project.base.BaseProjectWaitingActivity
 import com.stormers.storm.project.model.ResponseProjectInfoModel
 import com.stormers.storm.project.model.ResponseProjectUserListModel
 import com.stormers.storm.round.fragment.HostRoundSettingFragment
@@ -55,17 +56,21 @@ class WaitingForStartingProjectFragment : BaseFragment(R.layout.fragment_waiting
         super.onViewCreated(view, savedInstanceState)
 
 
-        projectIdx = (activity as HostRoundWaitingActivity).projectIdx
+        projectIdx = (activity as BaseProjectWaitingActivity).projectIdx
         showProjectUserList()
 
-        activityButton = (activity as HostRoundWaitingActivity).stormButton_ok_host_round_setting
+        activityButton = (activity as BaseProjectWaitingActivity).stormButton_ok_host_round_setting
 
         activityButton.run {
             setText("시작")
             setActivation(false)
 
             setOnClickListener {
-                goToFragment(HostRoundSettingFragment::class.java, null)
+                if ((activity as BaseProjectWaitingActivity).isHost) {
+                    goToFragment(HostRoundSettingFragment::class.java, null)
+                } else {
+                    //goToFragment(MemberRoundWaitingFragment::class.java, null)
+                }
             }
         }
 
