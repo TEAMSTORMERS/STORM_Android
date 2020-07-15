@@ -74,6 +74,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:18.0.0'
     implementation 'com.google.android.gms:play-services-auth:18.0.0'
 
+
     //Kakao 로그인 api
     implementation group: project.KAKAO_SDK_GROUP, name: 'usermgmt', version: project.KAKAO_SDK_VERSION
 

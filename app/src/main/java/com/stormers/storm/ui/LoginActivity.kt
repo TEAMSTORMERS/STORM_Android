@@ -22,8 +22,11 @@ import com.kakao.auth.AuthType
 import com.kakao.auth.Session
 import com.kakao.util.helper.Utility.getPackageInfo
 import com.stormers.storm.R
+import com.stormers.storm.SignUp.InterfaceSignUp
+import com.stormers.storm.SignUp.SignUpModel
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.kakao.SessionCallback
+import com.stormers.storm.network.RetrofitClient
 import kotlinx.android.synthetic.main.activity_login.*
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -36,11 +39,13 @@ class LoginActivity : BaseActivity() {
     private lateinit var googleSignInClient: GoogleSignInClient
     private val RC_SIGN_IN = 99 //private const val TAG = "GoogleActivity"
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
         //Todo: 카카오 로그인이랑 구글 로그인이 짬뽕 되어 있어서 유지보수가 어려우니 구분 지어 작성하거나 메서드 이름이라도 잘 바꿔보자 !
+
 
         var hash_key = getKeyHash(this)
         Log.i("KaKaoLogin",hash_key) // 확인
@@ -130,10 +135,22 @@ class LoginActivity : BaseActivity() {
     } // onActivityResult End
 
     private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
+
+        RetrofitClient.create(InterfaceSignUp::class.java).interfaceSignUp(
+            SignUpModel(
+                acct.idToken.toString(),
+
+            )
+        )
+
+
         Log.d("LoginActivity", "firebaseAuthWithGoogle:" + acct.id!!)
+
 
         //Google SignInAccount 객체에서 ID 토큰을 가져와서 Firebase Auth로 교환하고 Firebase에 인증
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
+
+
         firebaseAuth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -168,5 +185,7 @@ class LoginActivity : BaseActivity() {
         animationView.playAnimation()
 
     }
+    private fun sendGoogleToken(){
 
+    }
 }

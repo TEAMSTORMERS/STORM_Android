@@ -47,6 +47,7 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
 
         projectIdx = (activity as HostRoundWaitingActivity).projectIdx
 
+        //서버로부터 라운드 정보를 가져옴
         getRoundCount()
 
         initActivityButton()
