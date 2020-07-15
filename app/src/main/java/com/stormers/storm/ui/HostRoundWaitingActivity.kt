@@ -1,6 +1,7 @@
 package com.stormers.storm.ui
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
@@ -19,7 +20,7 @@ import retrofit2.Response
 
 class HostRoundWaitingActivity : BaseActivity() {
 
-    private var projectIdx = -1
+    var projectIdx = -1
 
     private lateinit var retrofitClient: InterfaceProjectInfo
 
@@ -29,6 +30,29 @@ class HostRoundWaitingActivity : BaseActivity() {
         setContentView(R.layout.activity_host_round_setting)
 
         goToFragment(WaitingForStartingProjectFragment::class.java, null)
+
+        projectIdx = intent.getIntExtra("projectIdx",1)
+
+        retrofitClient = RetrofitClient.create(InterfaceProjectInfo::class.java)
+
+        retrofitClient.responseProjectinfo(projectIdx).enqueue(object :  Callback<ResponseProjectInfoModel> {
+            override fun onFailure(call: Call<ResponseProjectInfoModel>, t: Throwable) {
+                
+                Log.d("ProjectInfo 통신실패", "${t}")
+            }
+
+            override fun onResponse(
+                call: Call<ResponseProjectInfoModel>,
+                response: Response<ResponseProjectInfoModel>
+            ) {
+                if (response.isSuccessful){
+                    if(response.body()!!.success){
+                        Log.d("ProjectName 통신성공","통신성공")
+                        textview_projectcard_title.setText( response.body()!!.data.projectName.toString())
+                    }
+                }
+            }
+        })
 
         /* Todo: AddProjectActivity에서 입력했던 projectName이 현재 액티비티의 textview_projectcard_title에 들어가도록
                 서버와 통신환경 구축*/

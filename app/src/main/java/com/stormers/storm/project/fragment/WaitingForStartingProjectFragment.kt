@@ -2,6 +2,7 @@ package com.stormers.storm.project.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,11 @@ import com.stormers.storm.customview.StormButton
 import com.stormers.storm.customview.dialog.StormDialog
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
+import com.stormers.storm.network.InterfaceProjectInfo
+import com.stormers.storm.network.InterfaceProjectUser
+import com.stormers.storm.network.RetrofitClient
+import com.stormers.storm.project.model.ResponseProjectInfoModel
+import com.stormers.storm.project.model.ResponseProjectUserListModel
 import com.stormers.storm.round.fragment.HostRoundSettingFragment
 import com.stormers.storm.ui.HostRoundWaitingActivity
 import com.stormers.storm.user.ParticipantAdapter
@@ -26,6 +32,9 @@ import kotlinx.android.synthetic.main.activity_host_round_setting.*
 import kotlinx.android.synthetic.main.fragment_waiting_for_starting_project.*
 import kotlinx.android.synthetic.main.fragment_waiting_for_starting_project.view.*
 import kotlinx.android.synthetic.main.layout_list_of_participant.view.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class WaitingForStartingProjectFragment : BaseFragment(R.layout.fragment_waiting_for_starting_project) {
 
@@ -37,8 +46,17 @@ class WaitingForStartingProjectFragment : BaseFragment(R.layout.fragment_waiting
 
     private lateinit var dialog: StormDialog
 
+    private var projectIdx = -1
+
+    private lateinit var retrofitClient: InterfaceProjectUser
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
+
+
+        projectIdx = (activity as HostRoundWaitingActivity).projectIdx
+        showProjectUserList()
 
         activityButton = (activity as HostRoundWaitingActivity).stormButton_ok_host_round_setting
 
@@ -57,7 +75,6 @@ class WaitingForStartingProjectFragment : BaseFragment(R.layout.fragment_waiting
             adapter = participantAdapter
         }
 
-        participantAdapter.addAll(loadData())
 
         buttonArray.add(
             StormDialogButton("확인", false, object : StormDialogButton.OnClickListener {
@@ -78,29 +95,27 @@ class WaitingForStartingProjectFragment : BaseFragment(R.layout.fragment_waiting
             fragmentManager?.let { it1 -> dialog.show(it1, "rule_reminder") }
         }
     }
-    private fun loadData(): MutableList<UserModel> {
-        val data = mutableListOf<UserModel>()
 
-        //Dummy data
-        data.add(
-            UserModel(
-                "https://www.notion.so/STORM-e0234061dd594af79f1035691830e698#8f611dc7d34b42f785d65cf7cc7a95bb",
-                "김성규"
-            )
-        )
-        data.add(
-            UserModel(
-                "https://www.notion.so/STORM-e0234061dd594af79f1035691830e698#0a957fd1e94d43739b018f87d3cadd2b",
-                "손평화"
-            )
-        )
-        data.add(
-            UserModel(
-                "https://www.notion.so/STORM-e0234061dd594af79f1035691830e698#56815b6b35c347109dc3bd3434bd6041",
-                "강희원"
-            )
-        )
+    private fun showProjectUserList() {
 
-        return data
+        retrofitClient = RetrofitClient.create(InterfaceProjectUser::class.java)
+
+        retrofitClient.getProjectUserList(projectIdx).enqueue(object : Callback<ResponseProjectUserListModel>{
+            override fun onFailure(call: Call<ResponseProjectUserListModel>, t: Throwable) {
+                Log.d("projectUser 통신실패","${t}")
+            }
+
+            override fun onResponse(
+                call: Call<ResponseProjectUserListModel>,
+                response: Response<ResponseProjectUserListModel>
+            ) {
+                if(response.isSuccessful)
+                    if(response.body()!!.success){
+                        Log.d("user list 통신성공","성공")
+                        participantAdapter.addAll(response.body()!!.data)
+                    }
+
+            }
+        })
     }
 }
