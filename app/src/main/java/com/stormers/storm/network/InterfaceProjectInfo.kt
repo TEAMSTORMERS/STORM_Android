@@ -6,6 +6,6 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface InterfaceProjectInfo {
-    @GET
-    fun responseProjectinfo(@Path("/project/:project_idx") ProjectIdx : String) :Call<ResponseProjectInfoModel>
+    @GET("/project/{project_idx}")
+    fun responseProjectinfo(@Path("project_idx") ProjectIdx : Int) :Call<ResponseProjectInfoModel>
 }
