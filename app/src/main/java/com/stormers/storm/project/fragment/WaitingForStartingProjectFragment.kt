@@ -54,9 +54,9 @@ class WaitingForStartingProjectFragment : BaseFragment(R.layout.fragment_waiting
 
         super.onViewCreated(view, savedInstanceState)
 
-        showProjectUserList()
 
         projectIdx = (activity as HostRoundWaitingActivity).projectIdx
+        showProjectUserList()
 
         activityButton = (activity as HostRoundWaitingActivity).stormButton_ok_host_round_setting
 
