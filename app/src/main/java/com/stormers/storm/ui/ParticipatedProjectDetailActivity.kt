@@ -56,6 +56,16 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
                 if (response.isSuccessful) {
                     if (response.body()!!.success) {
                         Log.d("PartProDetailActivity", "받아온 프로젝트 이름 : ${response.body()!!.data?.project_name}")
+                        textview_projectcard_title.setText(response.body()!!.data?.project_name)
+                        textView_date_part_detail.setText(response.body()!!.data?.project_date)
+
+                        val roundCount = StringBuilder()
+                        roundCount.append("ROUND 총 ")
+                            .append(response.body()!!.data?.round_count.toString())
+                            .append("회")
+
+                        textView_round_count_part_detail.setText(roundCount)
+
                     }
                     else {
                         Log.d("PartProDetailActivity", "통신실패")
