@@ -95,31 +95,6 @@ class WaitingForStartingProjectFragment : BaseFragment(R.layout.fragment_waiting
             fragmentManager?.let { it1 -> dialog.show(it1, "rule_reminder") }
         }
     }
-    private fun loadData(): MutableList<UserModel> {
-        val data = mutableListOf<UserModel>()
-
-        //Dummy data
-        data.add(
-            UserModel(
-                "https://www.notion.so/STORM-e0234061dd594af79f1035691830e698#8f611dc7d34b42f785d65cf7cc7a95bb",
-                "김성규"
-            )
-        )
-        data.add(
-            UserModel(
-                "https://www.notion.so/STORM-e0234061dd594af79f1035691830e698#0a957fd1e94d43739b018f87d3cadd2b",
-                "손평화"
-            )
-        )
-        data.add(
-            UserModel(
-                "https://www.notion.so/STORM-e0234061dd594af79f1035691830e698#56815b6b35c347109dc3bd3434bd6041",
-                "강희원"
-            )
-        )
-
-        return data
-    }
 
     private fun showProjectUserList() {
 
