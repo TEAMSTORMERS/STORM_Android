@@ -51,7 +51,7 @@ abstract class BaseCanvasFragment(private val mode: Int, @LayoutRes private val 
                 targetModeStr = "그림 "
                 targetFragment = CanvasDrawingFragment::class.java
 
-                imagebutton_change_text.alpha = 0.5f
+                imagebutton_change_draw.alpha = 0.5f
 
                 imagebutton_change_draw.setOnClickListener {
                     showChangeDialog()
