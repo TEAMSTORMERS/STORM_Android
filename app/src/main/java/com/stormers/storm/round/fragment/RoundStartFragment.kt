@@ -21,6 +21,7 @@ import com.stormers.storm.network.InterfaceRoundInfo
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.project.network.InterfaceRoundCount
 import com.stormers.storm.round.model.ResponseRoundInfoModel
+import com.stormers.storm.round.base.BaseWaitingFragment
 import com.stormers.storm.ui.HostRoundWaitingActivity
 import com.stormers.storm.ui.RoundProgressActivity
 import com.stormers.storm.util.MarginDecoration
@@ -34,11 +35,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+//Todo: ROUND정보 서버에서 받아오는 기능 수정해야함
 
-class RoundStartFragment : BaseFragment(R.layout.fragment_round_start) {
-
-
-    private val participantAdapter: ParticipantAdapter by lazy { ParticipantAdapter() }
+class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
 
     private lateinit var activityButton: StormButton
 
@@ -64,13 +63,13 @@ class RoundStartFragment : BaseFragment(R.layout.fragment_round_start) {
     }
 
     private fun initParticipant(view: View) {
-        view.include_roundstart_participant.recyclerview_participant.run {
+       /* view.include_roundstart_participant.recyclerview_participant.run {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             addItemDecoration(MarginDecoration(context, 15, RecyclerView.VERTICAL))
             adapter = participantAdapter
         }
 
-        participantAdapter.addAll(loadDatas())
+        participantAdapter.addAll(loadDatas()) */
     }
 
     private fun initActivityButton() {
@@ -86,31 +85,6 @@ class RoundStartFragment : BaseFragment(R.layout.fragment_round_start) {
 
             handler.postDelayed(handlerTask, 5000)
         }
-    }
-
-    fun loadDatas(): MutableList<UserModel> {
-        val datas = mutableListOf<UserModel>()
-
-        datas.add(
-            UserModel(
-                "https://www.notion.so/STORM-e0234061dd594af79f1035691830e698#8f611dc7d34b42f785d65cf7cc7a95bb",
-                "김성규"
-            )
-        )
-        datas.add(
-            UserModel(
-                "https://www.notion.so/STORM-e0234061dd594af79f1035691830e698#0a957fd1e94d43739b018f87d3cadd2b",
-                "손평화"
-            )
-        )
-        datas.add(
-            UserModel(
-                "https://www.notion.so/STORM-e0234061dd594af79f1035691830e698#56815b6b35c347109dc3bd3434bd6041",
-                "강희원"
-            )
-        )
-
-        return datas
     }
 
     fun getRoundInfo(){

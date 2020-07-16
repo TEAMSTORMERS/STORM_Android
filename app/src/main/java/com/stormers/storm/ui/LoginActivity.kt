@@ -30,9 +30,13 @@ import com.stormers.storm.SignUp.InterfaceSignUp
 import com.stormers.storm.SignUp.ResponseSignUpModel
 import com.stormers.storm.SignUp.SignUpModel
 import com.stormers.storm.base.BaseActivity
+import com.stormers.storm.card.util.BitmapConverter
 import com.stormers.storm.kakao.SessionCallback
 import com.stormers.storm.network.RetrofitClient
 import kotlinx.android.synthetic.main.activity_login.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -157,16 +161,22 @@ class LoginActivity : BaseActivity() {
                 if (task.isSuccessful) {
                     val user = FirebaseAuth.getInstance().currentUser
 
-                    urlToBitmap(user!!.photoUrl.toString())
+                    val userImgUrl = BitmapConverter.urlToBitmap(user!!.photoUrl.toString())
+
+                    val userImgBitmap = BitmapConverter.bitmapToFile(userImgUrl,this@LoginActivity!!.cacheDir.toString())
+
+                    val requestFile  = RequestBody.create(MediaType.parse("multipart/form-data"),userImgBitmap!!)
+
+                    val userUploadImage = MultipartBody.Part.createFormData("user_img",userImgBitmap.name,requestFile)
+
+                    val userName = RequestBody.create(MediaType.parse("text/plain"), user!!.displayName.toString())
+
+                    val userTokenGoogle = RequestBody.create(MediaType.parse("text/plain"), acct.idToken.toString())
+
 
                     RetrofitClient.create(InterfaceSignUp::class.java).interfaceSignUp(
-                        SignUpModel(
-                            user!!.displayName.toString(),
-                            acct.idToken.toString(),
-                            null,
-
-                            )
-                    ).enqueue(object :Callback<ResponseSignUpModel>{
+                        userName,userTokenGoogle,null,userUploadImage)
+                    .enqueue(object :Callback<ResponseSignUpModel>{
                         override fun onFailure(call: Call<ResponseSignUpModel>, t: Throwable) {
                             Log.d("SignUp Google","${t}")
                         }
@@ -176,11 +186,12 @@ class LoginActivity : BaseActivity() {
                             response: Response<ResponseSignUpModel>
                         ) {
                             Log.d("SignUp 통신성공","통신성공")
+
+                            Log.w("LoginActivity", "firebaseAuthWithGoogle 성공", task.exception)
+                            toMainActivity(firebaseAuth?.currentUser)
                         }
                     })
 
-                    Log.w("LoginActivity", "firebaseAuthWithGoogle 성공", task.exception)
-                    toMainActivity(firebaseAuth?.currentUser)
                 } else {
                     Log.w("LoginActivity", "firebaseAuthWithGoogle 실패", task.exception)
                     Snackbar.make(constraintlayout_login, "로그인에 실패하였습니다.", Snackbar.LENGTH_SHORT)
@@ -210,9 +221,4 @@ class LoginActivity : BaseActivity() {
         animationView.playAnimation()
     }
 
-    private fun urlToBitmap(url: String) : Bitmap {
-        val urls = URL(url)
-
-        return BitmapFactory.decodeStream(urls.openStream())
-    }
 }
