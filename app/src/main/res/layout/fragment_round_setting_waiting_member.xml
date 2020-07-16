@@ -115,20 +115,35 @@
                 app:lottie_rawRes="@raw/loading_animation"
                 app:lottie_loop="true" />
 
-            <TextView
-                android:id="@+id/textview_round_no_member"
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardview_roundwaiting_rulereminder"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginTop="22dp"
-                android:background="@drawable/h_roundstart_round"
-                android:gravity="center"
-                android:text="ROUND 1"
-                android:textColor="@color/storm_white"
-                android:textFontWeight="700"
-                android:textSize="14sp"
+                android:clickable="true"
+                android:foreground="?android:selectableItemBackground"
+                app:cardBackgroundColor="@color/storm_red"
+                app:cardCornerRadius="8dp"
+                app:layout_constraintDimensionRatio="1:0.24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textview_round_ready" />
+                app:layout_constraintTop_toBottomOf="@+id/textview_round_ready">
+
+
+                    <TextView
+                        android:id="@+id/textview_checkrules_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="브레인스토밍 룰 확인"
+                        android:textSize="11sp"
+                        android:layout_marginHorizontal="15dp"
+                        android:textColor="@color/storm_white"
+                        android:textFontWeight="700"
+                        android:layout_gravity="center" />
+
+
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/round_announce1"
@@ -140,7 +155,7 @@
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textview_round_no_member" />
+                app:layout_constraintTop_toBottomOf="@+id/cardview_roundwaiting_rulereminder" />
 
             <TextView
                 android:id="@+id/round_announce2"
