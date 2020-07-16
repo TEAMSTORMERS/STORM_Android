@@ -55,6 +55,12 @@ class RoundSettingActivity : BaseActivity() {
             putBoolean("newRound", true)
         })
 
+<<<<<<< HEAD
+=======
+        goToFragment(HostRoundSettingFragment::class.java, Bundle().apply {
+            putBoolean("newRound", true)
+        })
+>>>>>>> develop
     }
 
     override fun initFragmentId(): Int? {

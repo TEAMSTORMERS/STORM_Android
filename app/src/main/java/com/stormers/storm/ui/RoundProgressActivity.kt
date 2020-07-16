@@ -1,5 +1,6 @@
 package com.stormers.storm.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -10,6 +11,7 @@ import com.stormers.storm.RoundSetting.AddCardFragment
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.canvas.fragment.CanvasDrawingFragment
 import kotlinx.android.synthetic.main.activity_round_progress.*
+import kotlinx.android.synthetic.main.fragment_host_round_setting.*
 import kotlinx.android.synthetic.main.view_toolbar.view.*
 
 class RoundProgressActivity : BaseActivity() {
@@ -24,6 +26,11 @@ class RoundProgressActivity : BaseActivity() {
             it.setDisplayShowTitleEnabled(false)
             it.setDisplayHomeAsUpEnabled(true)
             it.setHomeAsUpIndicator(R.drawable.host_a_1_btn_back)
+        }
+
+        //Debug 용도로 라운드 목표를 터치하면 라운드가 종료되도록 함
+        this.textView_round_goal.setOnClickListener {
+            startActivity(Intent(this, RoundFinishActivity::class.java))
         }
 
         goToFragment(AddCardFragment::class.java, null)

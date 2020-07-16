@@ -11,12 +11,14 @@ import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
 import kotlinx.android.synthetic.main.activity_round_progress.*
 import kotlinx.android.synthetic.main.fragment_waiting_for_starting_project.*
+import java.lang.StringBuilder
 
 class RoundFinishActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_round_progress)
+
         goToFragment(RoundmeetingFragment::class.java, null)
 
         button_scrapcard_save_roundmeeting.visibility = View.VISIBLE
@@ -27,9 +29,7 @@ class RoundFinishActivity : BaseActivity() {
             buttonArray.add(
                 StormDialogButton("다음 ROUND 진행", true, object : StormDialogButton.OnClickListener {
                     override fun onClick() {
-                        val intent = Intent(this@RoundFinishActivity, RoundSettingActivity::class.java)
-                        startActivity(intent)
-
+                        startActivity(Intent(this@RoundFinishActivity, RoundSettingActivity::class.java))
                     }
                 })
             )
@@ -42,7 +42,12 @@ class RoundFinishActivity : BaseActivity() {
                 })
             )
 
-            StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, "ROUND 1 종료")
+            val round = StringBuilder()
+            round.append("ROUND ")
+                .append(preference.getRoundIdx())
+                .append(" 종료")
+
+            StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, round.toString())
                 .setButtonArray(buttonArray)
                 .build()
                 .show(supportFragmentManager, "roundfinish")

@@ -58,9 +58,9 @@ class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_sig
 
             val userIdx = RequestBody.create(MediaType.parse("text/plain"), "1")
 
-            val projectIdx = RequestBody.create(MediaType.parse("text/plain"), "1")
+            val projectIdx = RequestBody.create(MediaType.parse("text/plain"), preference.getProjectIdx().toString())
 
-            val roundIdx = RequestBody.create(MediaType.parse("text/plain"), "1")
+            val roundIdx = RequestBody.create(MediaType.parse("text/plain"), preference.getRoundIdx().toString())
 
             RetrofitClient.create(RequestCard::class.java).postCard(userIdx, projectIdx, roundIdx, uploadFile, null)
                 .enqueue(object: Callback<Response> {
@@ -100,7 +100,7 @@ class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_sig
 
     private fun saveCardIntoDB(bitmap: Bitmap) {
         savedCardRepository.insert(
-            SavedCardEntity(1, 1, SavedCardEntity.FALSE, SavedCardEntity.DRAWING,
+            SavedCardEntity(preference.getProjectIdx()!!, preference.getRoundIdx()!!, SavedCardEntity.FALSE, SavedCardEntity.DRAWING,
                 BitmapConverter.bitmapToString(bitmap), null
             )
         )
