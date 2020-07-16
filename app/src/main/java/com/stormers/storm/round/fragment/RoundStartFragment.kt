@@ -1,6 +1,7 @@
 package com.stormers.storm.round.fragment
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -42,15 +43,14 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
 
     private lateinit var dialog: StormDialog
 
-    private var projectIdx = -1
+
 
     private lateinit var retrofitClient: InterfaceRoundInfo
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        projectIdx = 1
+        var projectIdx = SharedPreferences.getProjectIdx()!!
 
         dialog = StormDialogBuilder(StormDialogBuilder.LOADING_LOGO, "5초 후 라운드가 시작합니다").build()
 
@@ -81,7 +81,6 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
             override fun onFailure(call: Call<ResponseRoundInfoModel>, t: Throwable) {
                 Log.d("RoundInfo 통신실패", "{$t}")
             }
-
             override fun onResponse(
                 call: Call<ResponseRoundInfoModel>,
                 response: Response<ResponseRoundInfoModel>
