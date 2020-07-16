@@ -37,8 +37,12 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
 
     private val projectIdx = preference.getProjectIdx()
 
+    private var isNewRound = false
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        isNewRound = arguments?.getBoolean("newRound")?: false
 
         getRoundCount()
 
@@ -77,16 +81,11 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
     }
 
     private fun initActivityButton() {
-        arguments?.let {
-            activityButton = if (it.getBoolean("newRound")) {
+            activityButton = if (isNewRound) {
                 (activity as RoundSettingActivity).stormButton_ok_host_round_setting
             } else {
                 (activity as HostRoundWaitingActivity).stormButton_ok_host_round_setting
             }
-        }?: run {
-            activityButton =
-                (activity as HostRoundWaitingActivity).stormButton_ok_host_round_setting
-        }
 
         activityButton.setText("확인")
 
@@ -114,7 +113,9 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
                                 if (response.isSuccessful) {
                                     if (response.body()!!.success) {
                                         Log.d("Round Setting 통신 성공", response.body()!!.message)
-                                        goToFragment(RoundStartFragment::class.java, null)
+                                        goToFragment(RoundStartFragment::class.java, Bundle().apply {
+                                            putBoolean("newRound", isNewRound)
+                                        })
                                     }
                                 }
                             }
