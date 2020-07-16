@@ -6,8 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
+import com.stormers.storm.ui.GlobalApplication
+import com.stormers.storm.util.SharedPreference
 
 abstract class BaseFragment(@LayoutRes private val layoutResId: Int) : Fragment() {
+
+    protected val preference: SharedPreference by lazy { GlobalApplication.prefs }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(layoutResId, container,false)

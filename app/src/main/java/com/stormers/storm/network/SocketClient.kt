@@ -6,6 +6,7 @@ import io.socket.client.Socket
 import io.socket.emitter.Emitter
 import org.json.JSONException
 import org.json.JSONObject
+import java.lang.reflect.Type
 import java.net.URISyntaxException
 
 
@@ -13,7 +14,7 @@ object SocketClient {
     private val TAG = javaClass.name
 
     //Todo: URL 받으면 추가하기
-    private const val SERVER_URL = "http://52.78.113.197:3000"
+    private const val SERVER_URL = "http://4cd4fd360e7c.ngrok.io"
 
     private var socket: Socket? = null
 
@@ -23,6 +24,9 @@ object SocketClient {
         }
 
         return socket
+    }
+    fun connection(){
+        socket?.connect()
     }
 
     private fun init(): Socket? {
@@ -47,7 +51,22 @@ object SocketClient {
         }
     }
 
-    fun sendEvent(event: String, data: JSONObject) : Boolean {
+    fun sendStringEvent(event: String, data: String) : Boolean {
+        return if (init() != null) {
+            try {
+                socket!!.emit(event, data)
+                true
+            } catch (e: JSONException) {
+                e.printStackTrace()
+                false
+            }
+        } else {
+            Log.d(TAG, "initial is failed")
+            false
+        }
+    }
+
+    fun sendIntEvent(event: String, data: Int) : Boolean {
         return if (init() != null) {
             try {
                 socket!!.emit(event, data)

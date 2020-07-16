@@ -5,8 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.os.*
+import android.os.AsyncTask
+import android.os.Build
+import android.os.Bundle
+import android.os.StrictMode
 import android.util.Base64
 import android.util.Log
 import com.airbnb.lottie.LottieAnimationView
@@ -26,11 +28,11 @@ import com.kakao.util.helper.Utility.getPackageInfo
 import com.stormers.storm.R
 import com.stormers.storm.SignUp.InterfaceSignUp
 import com.stormers.storm.SignUp.ResponseSignUpModel
-import com.stormers.storm.SignUp.SignUpModel
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.card.util.BitmapConverter
 import com.stormers.storm.kakao.SessionCallback
 import com.stormers.storm.network.RetrofitClient
+import com.stormers.storm.util.SharedPreference.Companion.USER_IDX
 import kotlinx.android.synthetic.main.activity_login.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -38,10 +40,6 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.File
-import java.io.FileOutputStream
-import java.lang.Exception
-import java.net.URL
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
@@ -58,6 +56,11 @@ class LoginActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        if (Build.VERSION.SDK_INT > 9) {
+            val policy: StrictMode.ThreadPolicy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+            StrictMode.setThreadPolicy(policy)
+        }
 
         //Todo: 카카오 로그인이랑 구글 로그인이 짬뽕 되어 있어서 유지보수가 어려우니 구분 지어 작성하거나 메서드 이름이라도 잘 바꿔보자 !
 
@@ -150,6 +153,10 @@ class LoginActivity : BaseActivity() {
         }
     } // onActivityResult End
 
+    companion object{
+        lateinit var userImgUrl: Bitmap
+
+    }
     private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
         Log.d("LoginActivity", "firebaseAuthWithGoogle:" + acct.id!!)
 
@@ -160,22 +167,11 @@ class LoginActivity : BaseActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = FirebaseAuth.getInstance().currentUser
-                    lateinit var userImgUrl: Bitmap
 
-                    val mHandelr = Handler(Looper.getMainLooper())
+                    Log.e("ttest in --- ", "${user!!.photoUrl}")
 
-
-                    Thread(
-                        Runnable {
-
-                            Log.e("Thread in --- ", "in")
-
-                            userImgUrl = BitmapConverter.urlToBitmap(user!!.photoUrl.toString())
-                            Log.e("try --- ", userImgUrl.toString())
-
-                        }
-
-                    ).start()
+                    var userImgUrl: Bitmap  = BitmapConverter.urlToBitmap(user!!.photoUrl.toString())
+                    //UrlTask().execute(user!!.photoUrl.toString())
 
 
                     val userImgBitmap = BitmapConverter.bitmapToFile(
@@ -183,13 +179,8 @@ class LoginActivity : BaseActivity() {
                         this@LoginActivity!!.cacheDir.toString()
                     )
 
-                    val requestFile =
-                        RequestBody.create(MediaType.parse("image/jpeg"), userImgBitmap!!)
-                    val userUploadImage = MultipartBody.Part.createFormData(
-                        "user_img",
-                        userImgBitmap.name,
-                        requestFile
-                    )
+                    val requestFile = RequestBody.create(MediaType.parse("image/jpeg"), userImgBitmap!!)
+                    val userUploadImage = MultipartBody.Part.createFormData("user_img", userImgBitmap.name, requestFile)
 
                     Log.e(
                         "file-----",
@@ -218,10 +209,17 @@ class LoginActivity : BaseActivity() {
                                 call: Call<ResponseSignUpModel>,
                                 response: Response<ResponseSignUpModel>
                             ) {
-                                Log.d("SignUp 통신성공", "통신성공")
+                                if(response.isSuccessful){
+                                    if(response.body()!!.success){
+                                        Log.d("SignUp 통신성공", "통신성공")
 
-                                Log.w("LoginActivity", "firebaseAuthWithGoogle 성공", task.exception)
-                                toMainActivity(firebaseAuth?.currentUser)
+                                        preference.setUserIdx(response.body()!!.data.toString().toInt())
+
+                                        Log.w("LoginActivity", "firebaseAuthWithGoogle 성공", task.exception)
+                                        toMainActivity(firebaseAuth?.currentUser)
+                                    }
+                                }
+
                             }
                         })
 
@@ -252,6 +250,31 @@ class LoginActivity : BaseActivity() {
         animationView.setAnimation("login_bg.json")
         animationView.repeatCount = INFINITE
         animationView.playAnimation()
+    }
+
+    inner class UrlTask : AsyncTask<String,Process,Bitmap>(){
+        override fun doInBackground(vararg userUrl: String): Bitmap {
+
+            Log.e("Thread in ", "in")
+            try {
+                Log.e("null success ?", "success")
+                BitmapConverter.urlToBitmap(userUrl[0]).toString()
+            }catch (e : Exception){
+                Log.e("null failed ?", e.toString())
+            }finally {
+                Log.e("null failed ?", "finally")
+
+            }
+
+            return BitmapConverter.urlToBitmap(userUrl[0])
+        }
+
+        override fun onPostExecute(result: Bitmap?) {
+            super.onPostExecute(result)
+
+            Log.e("result","test")
+            userImgUrl = result!!
+        }
     }
 
 }

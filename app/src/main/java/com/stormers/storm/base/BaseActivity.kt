@@ -4,10 +4,15 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.stormers.storm.R
+import com.stormers.storm.ui.GlobalApplication
+import com.stormers.storm.util.SharedPreference
 
 abstract class BaseActivity : AppCompatActivity() {
 
     private var fragmentId: Int? = null
+
+
+    protected val preference: SharedPreference by lazy { GlobalApplication.prefs }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

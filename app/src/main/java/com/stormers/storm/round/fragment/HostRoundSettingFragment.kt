@@ -13,16 +13,20 @@ import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.network.BaseResponse
 import com.stormers.storm.network.InterfaceRoundSetting
 import com.stormers.storm.network.RetrofitClient
+import com.stormers.storm.network.SocketClient
 import com.stormers.storm.project.network.InterfaceRoundCount
 import com.stormers.storm.round.model.ResponseRoundCountModel
 import com.stormers.storm.round.model.RoundSettingModel
 import com.stormers.storm.ui.HostRoundWaitingActivity
+import com.stormers.storm.ui.RoundSettingActivity
+import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_host_round_setting.*
 import kotlinx.android.synthetic.main.fragment_host_round_setting.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.lang.StringBuilder
+import java.net.Socket
 
 class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setting) {
 
@@ -34,12 +38,19 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
 
     private var projectIdx = -1
 
+    private var userIdx = -1
+
+    private var roundIdx = -1
+
     private lateinit var retrofitClient: InterfaceRoundCount
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        projectIdx = (activity as HostRoundWaitingActivity).projectIdx
+        projectIdx = preference.getProjectIdx()!!.toInt()
+        userIdx = preference.getUserIdx()!!.toInt()
+
+        // userIdx = (activity as RoundSettingActivity).userIdx
 
         //서버로부터 라운드 정보를 가져옴
         getRoundCount()
@@ -53,6 +64,7 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
         textview_roundsetting_time.setOnClickListener {
             timePickerDialog.show(fragmentManager!!, "timepicker")
         }
+
     }
 
     private fun initDialogButton() {
@@ -90,9 +102,13 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
                     .show()
             } else {
 
-                RetrofitClient.create(InterfaceRoundSetting::class.java).roundSetting(
+                sendRoundInfo()
+
+
+
+                 RetrofitClient.create(InterfaceRoundSetting::class.java).roundSetting(
                     RoundSettingModel(
-                        1,
+                        preference.getProjectIdx()!!,
                         textview_round_goal.text.toString(),
                         textview_roundsetting_time.text.toString().substring(0,2).toInt()
 
@@ -111,6 +127,7 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
                             if(response.isSuccessful){
                                 if(response.body()!!.success){
                                     Log.d("Round Setting 통신 성공",response.body()!!.message)
+                                    
                                     goToFragment(RoundStartFragment::class.java,null)
                                 }
                             }
@@ -142,5 +159,17 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
                     }
                 }
             })
+    }
+
+    fun sendRoundInfo(){
+
+        SocketClient.getInstance()
+        SocketClient.connection()
+    //    SocketClient.sendIntEvent("joinRoom", projectIdx)
+    //    SocketClient.sendIntEvent("joinRoom", textview_round_goal.text.toString().toInt())
+    //    SocketClient.sendIntEvent("joinRoom",  textview_roundsetting_time.text.toString().substring(0,2).toInt())
+
+        SocketClient.sendIntEvent("joinRoom", userIdx)
+        SocketClient.sendIntEvent("joinRoom",  roundIdx)
     }
 }

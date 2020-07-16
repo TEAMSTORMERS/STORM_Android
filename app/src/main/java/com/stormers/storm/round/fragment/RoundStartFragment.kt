@@ -19,12 +19,14 @@ import com.stormers.storm.customview.dialog.StormDialog
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.network.InterfaceRoundInfo
 import com.stormers.storm.network.RetrofitClient
+import com.stormers.storm.network.SocketClient
 import com.stormers.storm.project.network.InterfaceRoundCount
 import com.stormers.storm.round.model.ResponseRoundInfoModel
 import com.stormers.storm.round.base.BaseWaitingFragment
 import com.stormers.storm.ui.HostRoundWaitingActivity
 import com.stormers.storm.ui.RoundProgressActivity
 import com.stormers.storm.util.MarginDecoration
+import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_host_round_setting.*
 import kotlinx.android.synthetic.main.fragment_host_round_setting.*
 import kotlinx.android.synthetic.main.fragment_round_start.*
@@ -58,6 +60,8 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
         initActivityButton()
 
         initParticipant(view)
+
+        //sendRoundInfo()
 
         getRoundInfo()
     }
@@ -109,5 +113,26 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
                 }
             }
         })
+    }
+
+    fun sendRoundInfo(){
+
+        SocketClient.getInstance()
+        SocketClient.connection()
+
+        SocketClient.sendStringEvent("joinRoom", "roomCode")
+
+        SocketClient.responseEvent("roomState", Emitter.Listener{
+            Log.d("test", "test2")
+        })
+
+
+//        SocketClient.responseEvent("roundcomplete", Emitter.Listener {
+//            Log.d("이게 통신이다 임마", it.toString())
+//            Log.d("이게 통신이다 임마", it[0].toString())
+//        })
+
+
+        goToFragment(RoundStartFragment::class.java,null)
     }
 }
