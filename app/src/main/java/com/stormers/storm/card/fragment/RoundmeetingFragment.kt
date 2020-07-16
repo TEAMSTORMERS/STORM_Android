@@ -71,7 +71,7 @@ class RoundmeetingFragment : BaseFragment(R.layout.fragment_roundmeeting) {
             val localCard = if (card.card_txt != null) {
                 SavedCardEntity(projectIdx!!, roundIdx!!, SavedCardEntity.FALSE, SavedCardEntity.TEXT, card.card_txt, null)
             } else {
-                SavedCardEntity(projectIdx!!, roundIdx!!, SavedCardEntity.FALSE, SavedCardEntity.DRAWING, card.card_txt, null)
+                SavedCardEntity(projectIdx!!, roundIdx!!, SavedCardEntity.FALSE, SavedCardEntity.DRAWING, card.card_img, null)
             }
             savedCardRepository.insert(localCard)
         }

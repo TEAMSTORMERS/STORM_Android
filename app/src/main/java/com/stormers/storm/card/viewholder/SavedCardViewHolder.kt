@@ -1,6 +1,7 @@
 package com.stormers.storm.card.viewholder
 
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseViewHolder
 import com.stormers.storm.card.adapter.SavedCardAdapter
@@ -32,10 +33,15 @@ class SavedCardViewHolder(parent: ViewGroup, private val showHeart: Boolean,
 
         //카드 타입이 그림인 경우
         if (data.cardType == SavedCardEntity.DRAWING) {
-            val bitmap = BitmapConverter.stringToBitmap(data.content)
 
-            bitmap?.let {
-                itemView.stormcard_itemheart.setBitmap(it)
+            if (data.content?.substring(0, 5).equals("https")) {
+                itemView.stormcard_itemheart.setImageUrl(data.content!!)
+            } else {
+
+                val bitmap = BitmapConverter.stringToBitmap(data.content)
+                bitmap?.let {
+                    itemView.stormcard_itemheart.setBitmap(it)
+                }
             }
 
         //카드 타입이 텍스트인 경우
