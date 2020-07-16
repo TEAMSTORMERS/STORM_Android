@@ -13,7 +13,7 @@ import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.network.BaseResponse
 import com.stormers.storm.network.InterfaceRoundSetting
 import com.stormers.storm.network.RetrofitClient
-import com.stormers.storm.project.network.InterfaceRoundCount
+import com.stormers.storm.card.network.InterfaceRoundCount
 import com.stormers.storm.round.model.ResponseRoundCountModel
 import com.stormers.storm.round.model.RoundSettingModel
 import com.stormers.storm.ui.HostRoundWaitingActivity

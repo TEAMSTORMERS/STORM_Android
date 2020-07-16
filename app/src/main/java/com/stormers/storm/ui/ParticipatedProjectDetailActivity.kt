@@ -12,8 +12,6 @@ import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.project.network.ProjectInterface
 import com.stormers.storm.project.network.ResponseProjectData
 import com.stormers.storm.round.adapter.RoundListAdapter
-import com.stormers.storm.round.adapter.RoundListAdapterForViewPager
-import com.stormers.storm.round.model.RoundDescriptionModel
 import com.stormers.storm.round.network.FinalRoundInterface
 import com.stormers.storm.round.network.ResponseFinalRoundData
 import com.stormers.storm.util.MarginDecoration
@@ -21,7 +19,6 @@ import kotlinx.android.synthetic.main.activity_participated_project_detail.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlin.math.log
 
 class ParticipatedProjectDetailActivity : BaseActivity() {
 

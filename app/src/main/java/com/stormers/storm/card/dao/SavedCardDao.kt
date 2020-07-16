@@ -25,4 +25,7 @@ abstract class SavedCardDao : BaseDao<SavedCardEntity> {
 
     @Query("DELETE FROM scraped_card_entity")
     abstract fun deleteAll()
+
+    @Query("DELETE FROM scraped_card_entity WHERE project_idx = :projectIdx AND round_idx = :roundIdx")
+    abstract fun deleteAll(projectIdx: Int, roundIdx: Int)
 }

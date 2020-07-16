@@ -5,8 +5,8 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.stormers.storm.R
 import com.stormers.storm.network.RetrofitClient
-import com.stormers.storm.project.network.CardInterface
-import com.stormers.storm.project.network.ResponseCardData
+import com.stormers.storm.card.network.CardInterface
+import com.stormers.storm.card.network.ResponseCardData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

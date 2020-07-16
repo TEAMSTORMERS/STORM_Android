@@ -1,4 +1,4 @@
-package com.stormers.storm.project.network
+package com.stormers.storm.card.network
 
 import com.stormers.storm.round.model.ResponseRoundCountModel
 import retrofit2.Call
