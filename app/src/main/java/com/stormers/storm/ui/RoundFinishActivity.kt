@@ -41,6 +41,11 @@ class RoundFinishActivity : BaseActivity() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+
+    }
+
     private fun initDialogButton() {
         buttonArray.add(
             StormDialogButton("다음 ROUND 진행", true, object : StormDialogButton.OnClickListener {

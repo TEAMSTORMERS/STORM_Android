@@ -66,6 +66,11 @@ class RoundmeetingFragment : BaseFragment(R.layout.fragment_roundmeeting) {
         RecyclerView_added_card_roundmeeting.adapter = roundmeetingAdapter
     }
 
+    override fun onResume() {
+        super.onResume()
+        showCard()
+    }
+
     private fun saveCard(cardList: List<ResponseCardModel>) {
         for (card in cardList) {
             val localCard = if (card.card_txt != null) {
@@ -79,6 +84,9 @@ class RoundmeetingFragment : BaseFragment(R.layout.fragment_roundmeeting) {
 
     private fun showCard() {
         val data = savedCardRepository.getAll(projectIdx!!, roundIdx!!)
-        roundmeetingAdapter.addAll(data)
+        roundmeetingAdapter.run {
+            clear()
+            addAll(data)
+        }
     }
 }
