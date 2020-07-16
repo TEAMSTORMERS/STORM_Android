@@ -33,7 +33,6 @@
             android:name=".ui.MainActivity"
             android:windowSoftInputMode="adjustNothing"/>
         <activity android:name=".ui.MemberProjectWaitingActivity"/>
-        <activity android:name=".ui.HostRoundWaitingActivity"/>
         <activity android:name=".ui.ParticipatedProjectListActivity" />
         <activity android:name=".ui.ParticipatedProjectDetailActivity" />
         <activity android:name=".ui.RoundFinishActivity"/>

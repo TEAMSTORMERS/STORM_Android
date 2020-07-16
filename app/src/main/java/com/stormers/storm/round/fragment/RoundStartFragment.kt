@@ -13,7 +13,6 @@ import com.stormers.storm.network.InterfaceRoundInfo
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.round.base.BaseWaitingFragment
 import com.stormers.storm.round.model.ResponseRoundInfoModel
-import com.stormers.storm.ui.HostRoundWaitingActivity
 import com.stormers.storm.ui.RoundProgressActivity
 import com.stormers.storm.ui.RoundSettingActivity
 import kotlinx.android.synthetic.main.activity_round_setting.*

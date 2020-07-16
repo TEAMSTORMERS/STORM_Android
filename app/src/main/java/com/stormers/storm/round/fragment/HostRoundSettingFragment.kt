@@ -16,7 +16,6 @@ import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.card.network.InterfaceRoundCount
 import com.stormers.storm.round.model.ResponseRoundCountModel
 import com.stormers.storm.round.model.RoundSettingModel
-import com.stormers.storm.ui.HostRoundWaitingActivity
 import kotlinx.android.synthetic.main.activity_round_setting.*
 import com.stormers.storm.ui.RoundSettingActivity
 import kotlinx.android.synthetic.main.fragment_host_round_setting.*
