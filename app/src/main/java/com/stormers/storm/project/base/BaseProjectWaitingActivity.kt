@@ -18,39 +18,39 @@ import retrofit2.Response
 
 open class BaseProjectWaitingActivity(val isHost: Boolean) : BaseActivity() {
 
-    var projectIdx = -1
-
     protected lateinit var retrofitClient: InterfaceProjectInfo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_host_round_setting)
 
-        projectIdx = intent.getIntExtra("projectIdx",1)
-
         goToFragment(WaitingForStartingProjectFragment::class.java, null)
 
         retrofitClient = RetrofitClient.create(InterfaceProjectInfo::class.java)
 
-        retrofitClient.responseProjectinfo(projectIdx).enqueue(object :
-            Callback<ResponseProjectInfoModel> {
-            override fun onFailure(call: Call<ResponseProjectInfoModel>, t: Throwable) {
+        preference.getProjectIdx()?.let {
 
-                Log.d("ProjectInfo 통신실패", "${t}")
-            }
+            retrofitClient.responseProjectinfo(it).enqueue(object :
+                Callback<ResponseProjectInfoModel> {
+                override fun onFailure(call: Call<ResponseProjectInfoModel>, t: Throwable) {
 
-            override fun onResponse(
-                call: Call<ResponseProjectInfoModel>,
-                response: Response<ResponseProjectInfoModel>
-            ) {
-                if (response.isSuccessful){
-                    if(response.body()!!.success){
-                        Log.d("ProjectName 통신성공","통신성공")
-                        textview_projectcard_title.setText( response.body()!!.data.projectName.toString())
+                    Log.d("ProjectInfo 통신실패", "${t}")
+                }
+
+                override fun onResponse(
+                    call: Call<ResponseProjectInfoModel>,
+                    response: Response<ResponseProjectInfoModel>
+                ) {
+                    if (response.isSuccessful) {
+                        if (response.body()!!.success) {
+                            Log.d("ProjectName 통신성공", "통신성공")
+                            textview_projectcard_title.text = response.body()!!.data.projectName
+                        }
                     }
                 }
-            }
-        })
+            })
+
+        }
 
         /* Todo: AddProjectActivity에서 입력했던 projectName이 현재 액티비티의 textview_projectcard_title에 들어가도록
                 서버와 통신환경 구축*/

@@ -1,8 +1,6 @@
 package com.stormers.storm.ui
 
 import android.app.Application
-import android.content.SharedPreferences
-import com.kakao.auth.*
 import com.kakao.auth.KakaoSDK
 import com.stormers.storm.kakao.KakaoSDKAdapter
 import com.stormers.storm.util.SharedPreference

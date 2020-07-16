@@ -16,7 +16,6 @@ import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.network.InterfaceAddProject
 import com.stormers.storm.network.ResponseAddProject
 import com.stormers.storm.network.RetrofitClient
-import com.stormers.storm.project.fragment.WaitingForStartingProjectFragment
 import com.stormers.storm.project.model.AddProjectModel
 import kotlinx.android.synthetic.main.activity_add_project.*
 import kotlinx.android.synthetic.main.view_toolbar.view.*
@@ -25,9 +24,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class AddProjectActivity : BaseActivity() {
-    private lateinit var dialog: StormDialog
     private var buttonArray = ArrayList<StormDialogButton>()
-    private var projectIdx = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,8 +32,6 @@ class AddProjectActivity : BaseActivity() {
 
         //뒤로 가기 버튼 설정
         setSupportActionBar(include_addproject_toolbar.toolbar)
-
-        projectIdx = intent.getIntExtra("projectIdx",1)
 
         start_project()
 
@@ -53,18 +48,12 @@ class AddProjectActivity : BaseActivity() {
         buttonArray.add(
             StormDialogButton("확인", true, object : StormDialogButton.OnClickListener {
                 override fun onClick() {
-                    val intent =
-                        Intent(this@AddProjectActivity, HostRoundWaitingActivity::class.java)
-                    intent.putExtra("projectIdx",projectIdx)
-                    startActivity(intent)
+                    startActivity(Intent(this@AddProjectActivity, HostRoundWaitingActivity::class.java))
                 }
             })
         )
 
-        dialog = StormDialogBuilder(StormDialogBuilder.STORM_LOGO, "참여코드 생성 완료!")
-            .setContentRes(R.layout.view_participation_code)
-            .setButtonArray(buttonArray)
-            .build()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -112,10 +101,11 @@ class AddProjectActivity : BaseActivity() {
                             if (response.isSuccessful) {
                                 if (response.body()!!.success) {
                                     Log.d("통신성공",response.body()!!.data.projectCode)
-                                    dialog.show(supportFragmentManager, "create_participate_code")
-                                    projectIdx = response.body()!!.data.projectIdx
 
+                                    makeDialog(response.body()!!.data.projectCode)
+                                        .show(supportFragmentManager, "participate_code")
 
+                                    preference.setProjectIdx(response.body()!!.data.projectIdx)
                                 }
                             } else {
                                 Log.d("AddProjectActivity", response.message())
@@ -134,4 +124,11 @@ class AddProjectActivity : BaseActivity() {
         return super.dispatchTouchEvent(ev)
     }
 
+    private fun makeDialog(code: String) : StormDialog {
+        return StormDialogBuilder(StormDialogBuilder.STORM_LOGO, "참여코드 생성 완료!")
+            .setContentRes(R.layout.view_participation_code)
+            .setButtonArray(buttonArray)
+            .isCode(true, code)
+            .build()
+    }
 }

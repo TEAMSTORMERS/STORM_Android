@@ -25,6 +25,8 @@ import com.stormers.storm.round.model.ResponseRoundInfoModel
 import com.stormers.storm.round.base.BaseWaitingFragment
 import com.stormers.storm.ui.HostRoundWaitingActivity
 import com.stormers.storm.ui.RoundProgressActivity
+import com.stormers.storm.ui.RoundSettingActivity
+import com.stormers.storm.ui.RoundStartActivity
 import com.stormers.storm.util.MarginDecoration
 import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_host_round_setting.*
@@ -45,15 +47,18 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
 
     private lateinit var dialog: StormDialog
 
-    private var projectIdx = -1
-
     private lateinit var retrofitClient: InterfaceRoundInfo
 
+    private var isNewRound = false
+
+    private val projectIdx = preference.getProjectIdx()!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        projectIdx = (activity as HostRoundWaitingActivity).projectIdx
+
+
+        isNewRound = arguments?.getBoolean("newRound")?: false
 
         dialog = StormDialogBuilder(StormDialogBuilder.LOADING_LOGO, "5초 후 라운드가 시작합니다").build()
 
@@ -77,7 +82,12 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
     }
 
     private fun initActivityButton() {
-        activityButton = (activity as HostRoundWaitingActivity).stormButton_ok_host_round_setting
+
+        activityButton = if (isNewRound) {
+            (activity as RoundSettingActivity).stormButton_ok_host_round_setting
+        } else {
+            (activity as HostRoundWaitingActivity).stormButton_ok_host_round_setting
+        }
 
         activityButton.setOnClickListener {
             fragmentManager?.let { it1 -> dialog.show(it1, "round_start") }

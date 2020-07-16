@@ -10,8 +10,7 @@ import com.stormers.storm.util.SharedPreference
 abstract class BaseActivity : AppCompatActivity() {
 
     private var fragmentId: Int? = null
-
-
+    
     protected val preference: SharedPreference by lazy { GlobalApplication.prefs }
 
     override fun onCreate(savedInstanceState: Bundle?) {

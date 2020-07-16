@@ -1,5 +1,8 @@
 package com.stormers.storm.customview.dialog
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context.CLIPBOARD_SERVICE
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -9,8 +12,10 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.LinearLayout
 import android.widget.NumberPicker
+import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.DialogFragment
 import com.stormers.storm.R
 import com.stormers.storm.util.MetricsUtil
@@ -18,6 +23,7 @@ import kotlinx.android.synthetic.main.dialog_custom.view.*
 import kotlinx.android.synthetic.main.dialog_custom.view.imageview_dialog_symbol
 import kotlinx.android.synthetic.main.dialog_custom.view.textview_dialog_content
 import kotlinx.android.synthetic.main.item_dialog_buttons.view.*
+import kotlinx.android.synthetic.main.view_participation_code.view.*
 import kotlinx.android.synthetic.main.view_timepicker.*
 import kotlinx.android.synthetic.main.view_timepicker.view.*
 import kotlinx.android.synthetic.main.view_timepicker.view.numberpicker_minute
@@ -37,7 +43,7 @@ import kotlinx.android.synthetic.main.view_timepicker.view.numberpicker_minute
  */
 class StormDialog(@DrawableRes val imageRes: Int, private val title: String, private val contentText: String?, @LayoutRes val contentRes: Int?,
                   private val buttonArray: ArrayList<StormDialogButton>?,
-                  private val horizontalButtonArray: ArrayList<StormDialogButton>?, private val isPicker: Boolean) : DialogFragment() {
+                  private val horizontalButtonArray: ArrayList<StormDialogButton>?, private val isPicker: Boolean, private val isCode: Boolean, private val code: String?) : DialogFragment() {
 
 
     companion object {
@@ -82,6 +88,20 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
                     minValue = 10
                     wrapSelectorWheel = false
                     descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+                }
+            }
+
+            if (isCode) {
+                view.textview_dialog_code.text = code
+
+                view.button_dialog_copy.setOnClickListener {
+                    val clipboardManager = it.context.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+
+                    val clipData = ClipData.newPlainText("participate_code", code);
+
+                    clipboardManager.setPrimaryClip(clipData);
+
+                    Toast.makeText(view.context, "참여코드가 복사되었습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
         }

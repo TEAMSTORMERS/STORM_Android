@@ -18,8 +18,9 @@ class RoundSettingActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_host_round_setting)
 
-
-        goToFragment(HostRoundSettingFragment::class.java, null)
+        goToFragment(HostRoundSettingFragment::class.java, Bundle().apply {
+            putBoolean("newRound", true)
+        })
     }
 
     override fun initFragmentId(): Int? {

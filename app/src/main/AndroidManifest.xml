@@ -36,6 +36,7 @@
         <activity android:name=".ui.HostRoundWaitingActivity"/>
         <activity android:name=".ui.ParticipatedProjectListActivity" />
         <activity android:name=".ui.ParticipatedProjectDetailActivity" />
+        <activity android:name=".ui.RoundFinishActivity"/>
         <activity android:name=".ui.RoundListActivity" />
         <activity android:name=".ui.RoundMeetingExpandActivity" />
         <activity android:name=".ui.RoundProgressActivity" />

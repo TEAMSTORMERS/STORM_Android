@@ -38,6 +38,7 @@
             android:text="복사"
             android:textColor="@color/brownish_grey"
             android:textSize="9sp"
+            android:foreground="?android:selectableItemBackground"
             app:layout_constraintBottom_toBottomOf="@id/textview_dialog_code"
             app:layout_constraintDimensionRatio="2.2:1"
             app:layout_constraintEnd_toEndOf="parent"
