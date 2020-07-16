@@ -18,7 +18,6 @@ import com.stormers.storm.network.ResponseAddProject
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.project.model.AddProjectModel
 import kotlinx.android.synthetic.main.activity_add_project.*
-import kotlinx.android.synthetic.main.activity_host_round_setting.*
 import kotlinx.android.synthetic.main.view_toolbar.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -49,7 +48,7 @@ class AddProjectActivity : BaseActivity() {
         buttonArray.add(
             StormDialogButton("확인", true, object : StormDialogButton.OnClickListener {
                 override fun onClick() {
-                    startActivity(Intent(this@AddProjectActivity, HostRoundWaitingActivity::class.java))
+                    startActivity(Intent(this@AddProjectActivity, RoundSettingActivity::class.java))
                 }
             })
         )
@@ -107,7 +106,6 @@ class AddProjectActivity : BaseActivity() {
                                         .show(supportFragmentManager, "participate_code")
 
                                     preference.setProjectIdx(response.body()!!.data.projectIdx)
-                                    //Todo: 여기에서 setProjectName을 하는게 맞는지 정확히 모르겠습니다....
                                     preference.setProjectName(edittext_addproject_projectname.text.toString())
                                 }
                             } else {

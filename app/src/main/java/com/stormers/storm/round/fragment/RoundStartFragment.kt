@@ -31,15 +31,10 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
 
     private lateinit var dialog: StormDialog
 
-
     private lateinit var retrofitClient: InterfaceRoundInfo
-
-    private var isNewRound = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        isNewRound = arguments?.getBoolean("newRound")?: false
 
         dialog = StormDialogBuilder(StormDialogBuilder.LOADING_LOGO, "5초 후 라운드가 시작합니다").build()
 
@@ -57,11 +52,7 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
 
     private fun initActivityButton() {
 
-        activityButton = if (isNewRound) {
-            (activity as RoundSettingActivity).stormButton_ok_host_round_setting
-        } else {
-            (activity as HostRoundWaitingActivity).stormButton_ok_host_round_setting
-        }
+        activityButton = (activity as RoundSettingActivity).stormButton_ok_host_round_setting
 
         activityButton.setOnClickListener {
             fragmentManager?.let { it1 -> dialog.show(it1, "round_start") }

@@ -42,18 +42,18 @@ class RoundSettingActivity : BaseActivity() {
             roundExit()
         }
 
-        projectIdx = intent.getIntExtra("projectIdx", 1)
-        userIdx = intent.getIntExtra("roundIdx", 1)
-        roundIdx = intent.getIntExtra("roundIdx", 1)
+        projectIdx = preference.getProjectIdx()!!
+        userIdx = preference.getUserId()!!
+        roundIdx = preference.getRoundIdx()!!
+
+        textview_projectcard_title.text = preference.getProjectName()
 
         // val toolbar_exit : ImageButton
 
         // toolbar_exit = findViewById(R.id.toolbar_exit) as ImageButton
         retrofitClient = RetrofitClient.create(InterfaceRoundExit::class.java)
 
-        goToFragment(HostRoundSettingFragment::class.java, Bundle().apply {
-            putBoolean("newRound", true)
-        })
+        goToFragment(HostRoundSettingFragment::class.java, null)
 
     }
 
