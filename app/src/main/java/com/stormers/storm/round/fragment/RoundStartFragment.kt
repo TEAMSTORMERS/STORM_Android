@@ -44,23 +44,19 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
 
     private lateinit var dialog: StormDialog
 
-<<<<<<< HEAD
     private var isNewRound = false
-=======
+
     private var projectIdx = -1
 
     private lateinit var retrofitClient: InterfaceRoundInfo
 
->>>>>>> feature/round_info_backend
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-<<<<<<< HEAD
         isNewRound = arguments?.getBoolean("newRound")?: false
-=======
-        projectIdx = (activity as HostRoundWaitingActivity).projectIdx
->>>>>>> feature/round_info_backend
+
+        //projectIdx = (activity as HostRoundWaitingActivity).projectIdx
 
         dialog = StormDialogBuilder(StormDialogBuilder.LOADING_LOGO, "5초 후 라운드가 시작합니다").build()
 
