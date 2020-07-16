@@ -12,7 +12,9 @@ import com.stormers.storm.round.base.BaseWaitingFragment
 import com.stormers.storm.round.fragment.HostRoundSettingFragment
 import com.stormers.storm.round.fragment.MemberWaitingFragment
 import kotlinx.android.synthetic.main.activity_host_round_setting.*
+import kotlinx.android.synthetic.main.fragment_round_setting_waiting_member.view.*
 import kotlinx.android.synthetic.main.fragment_waiting_for_starting_project.*
+import java.lang.StringBuilder
 
 class WaitingForStartingProjectFragment : BaseWaitingFragment(R.layout.fragment_waiting_for_starting_project) {
 

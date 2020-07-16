@@ -24,8 +24,10 @@ import com.stormers.storm.ui.RoundStartActivity
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_host_round_setting.*
 import kotlinx.android.synthetic.main.fragment_host_round_setting.*
+import kotlinx.android.synthetic.main.fragment_round_setting_waiting_member.view.*
 import kotlinx.android.synthetic.main.fragment_round_start.view.*
 import kotlinx.android.synthetic.main.layout_list_of_participant.view.*
+import java.lang.StringBuilder
 
 
 class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
@@ -43,6 +45,14 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
         dialog = StormDialogBuilder(StormDialogBuilder.LOADING_LOGO, "5초 후 라운드가 시작합니다").build()
 
         initActivityButton()
+
+        preference
+
+        val round = StringBuilder()
+        round.append("ROUND ")
+            .append(preference.getRoundCount()!!)
+
+        view.textview_round_no.text = round.toString()
 
     }
 
