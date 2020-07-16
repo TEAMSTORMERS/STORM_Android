@@ -46,7 +46,6 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
     private lateinit var dialog: StormDialog
 
 
-    private var projectIdx = -1
     private lateinit var retrofitClient: InterfaceRoundInfo
 
     private var isNewRound = false
@@ -54,7 +53,6 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-       var projectIdx = 1
         isNewRound = arguments?.getBoolean("newRound")?: false
 
         dialog = StormDialogBuilder(StormDialogBuilder.LOADING_LOGO, "5초 후 라운드가 시작합니다").build()
@@ -87,7 +85,7 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
     fun getRoundInfo(){
         retrofitClient = RetrofitClient.create(InterfaceRoundInfo::class.java)
 
-        retrofitClient.responseRoundInfo(projectIdx).enqueue(object : Callback<ResponseRoundInfoModel>{
+        retrofitClient.responseRoundInfo(preference.getProjectIdx()!!).enqueue(object : Callback<ResponseRoundInfoModel>{
             override fun onFailure(call: Call<ResponseRoundInfoModel>, t: Throwable) {
                 Log.d("RoundInfo 통신실패", "{$t}")
             }
@@ -98,9 +96,9 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
                 if(response.isSuccessful){
                     if(response.body()!!.success){
                         Log.d("RoundInfo 통신성공","성공")
-                        textview_round_no.setText("ROUND${response.body()!!.data.roundNumber}")
-                        round_subject.setText(response.body()!!.data.roundPurpose)
-                        round_subject.setText("총 ${response.body()!!.data.roundTime}분 예정")
+                        textview_round_no.text = "ROUND ${response.body()!!.data.roundNumber}"
+                        round_subject.text = response.body()!!.data.roundPurpose
+                        round_time.text = "총 ${response.body()!!.data.roundTime}분 예정"
                     }
                 }
             }
