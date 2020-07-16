@@ -170,7 +170,7 @@ class StormCard : CardView {
     }
 
     fun setImageUrl(url: String) {
-        Glide.with(context).load(url).into(this.imageview_customcard_background)
+        Glide.with(context).load(url).into(imageview_customcard_background)
     }
 
     fun setBitmap(bitmap: Bitmap) {

@@ -1,6 +1,5 @@
 package com.stormers.storm.round.network
 
-import com.stormers.storm.project.network.ResponseProjectData
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

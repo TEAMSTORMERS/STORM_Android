@@ -1,6 +1,6 @@
-package com.stormers.storm.project.network
+package com.stormers.storm.card.model
 
-data class CardData (
+data class ResponseCardModel (
     val card_idx : Int,
     val card_img : String?,
     val card_txt : String?,

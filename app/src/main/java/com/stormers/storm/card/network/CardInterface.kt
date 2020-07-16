@@ -1,4 +1,4 @@
-package com.stormers.storm.project.network
+package com.stormers.storm.card.network
 
 import retrofit2.Call
 import retrofit2.http.GET

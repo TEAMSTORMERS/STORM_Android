@@ -8,9 +8,7 @@ import com.stormers.storm.R
 import com.stormers.storm.card.adapter.SavedCardAdapter
 import com.stormers.storm.card.repository.SavedCardRepository
 import com.stormers.storm.network.RetrofitClient
-import com.stormers.storm.project.network.ProjectInterface
 import com.stormers.storm.round.adapter.RoundListAdapterForViewPager
-import com.stormers.storm.round.model.RoundDescriptionModel
 import com.stormers.storm.round.network.FinalRoundInterface
 import com.stormers.storm.round.network.ResponseFinalRoundData
 import com.stormers.storm.util.MarginDecoration
