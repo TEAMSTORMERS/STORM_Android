@@ -33,6 +33,10 @@ class StormDialogBuilder(private var dialogImg: Int, private var title: String) 
 
     private var isPicker: Boolean = false
 
+    private var isCode: Boolean = false
+
+    private var code: String? = null
+
     fun build() : StormDialog {
         val imageRes = when(dialogImg) {
 
@@ -50,7 +54,9 @@ class StormDialogBuilder(private var dialogImg: Int, private var title: String) 
             contentRes,
             buttonArray,
             horizontalButton,
-            isPicker
+            isPicker,
+            isCode,
+            code
         )
     }
 
@@ -76,6 +82,12 @@ class StormDialogBuilder(private var dialogImg: Int, private var title: String) 
 
     fun isPicker(isPicker: Boolean) : StormDialogBuilder {
         this.isPicker = isPicker
+        return this
+    }
+
+    fun isCode(isCode: Boolean, code: String) : StormDialogBuilder {
+        this.isCode = isCode
+        this.code = code
         return this
     }
 }
