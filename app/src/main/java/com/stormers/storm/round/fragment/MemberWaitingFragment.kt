@@ -6,7 +6,7 @@ import com.stormers.storm.R
 import com.stormers.storm.customview.StormButton
 import com.stormers.storm.project.base.BaseProjectWaitingActivity
 import com.stormers.storm.round.base.BaseWaitingFragment
-import kotlinx.android.synthetic.main.activity_host_round_setting.*
+import kotlinx.android.synthetic.main.activity_round_setting.*
 
 
 class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_setting_waiting_member) {
