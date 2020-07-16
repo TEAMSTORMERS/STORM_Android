@@ -4,6 +4,7 @@ import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseViewHolder
 import com.stormers.storm.card.model.SavedCardEntity
@@ -27,7 +28,7 @@ class ExpandCardViewHolder(parent: ViewGroup) : BaseViewHolder<SavedCardEntity>(
         }
 
         if (data.cardType == SavedCardEntity.DRAWING) {
-            itemView.imageview_expandcard_content.setImageBitmap(BitmapConverter.stringToBitmap(data.content))
+            Glide.with(itemView).load(data.content).into(itemView.imageview_expandcard_content)
             itemView.textview_expandcard_content.visibility = View.INVISIBLE
         } else {
             itemView.textview_expandcard_content.text = data.content
