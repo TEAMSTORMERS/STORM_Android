@@ -44,7 +44,7 @@ class RoundFinishActivity : BaseActivity() {
 
             val round = StringBuilder()
             round.append("ROUND ")
-                .append(preference.getRoundIdx())
+                .append(preference.getRoundCount())
                 .append(" 종료")
 
             StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, round.toString())

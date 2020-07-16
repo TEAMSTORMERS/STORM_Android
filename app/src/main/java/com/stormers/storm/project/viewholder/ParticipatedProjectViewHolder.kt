@@ -37,21 +37,21 @@ class ParticipatedProjectViewHolder(parent: ViewGroup, private val isMain: Boole
     private fun initCardImage(data: ParticipatedProjectModel) {
         when (data.projectCard.size) {
             0 -> return
-            1 -> Glide.with(itemView).load(data.projectCard[0]).into(itemView.card1)
+            1 -> Glide.with(itemView).load(data.projectCard[0].card_img).into(itemView.card1)
             2 -> {
-                Glide.with(itemView).load(data.projectCard[0]).into(itemView.card1)
-                Glide.with(itemView).load(data.projectCard[1]).into(itemView.card2)
+                Glide.with(itemView).load(data.projectCard[0].card_img).into(itemView.card1)
+                Glide.with(itemView).load(data.projectCard[1].card_img).into(itemView.card2)
             }
             3 -> {
-                Glide.with(itemView).load(data.projectCard[0]).into(itemView.card1)
-                Glide.with(itemView).load(data.projectCard[1]).into(itemView.card2)
-                Glide.with(itemView).load(data.projectCard[2]).into(itemView.card3)
+                Glide.with(itemView).load(data.projectCard[0].card_img).into(itemView.card1)
+                Glide.with(itemView).load(data.projectCard[1].card_img).into(itemView.card2)
+                Glide.with(itemView).load(data.projectCard[2].card_img).into(itemView.card3)
             }
             else -> {
-                Glide.with(itemView).load(data.projectCard[0]).into(itemView.card1)
-                Glide.with(itemView).load(data.projectCard[1]).into(itemView.card2)
-                Glide.with(itemView).load(data.projectCard[2]).into(itemView.card3)
-                Glide.with(itemView).load(data.projectCard[3]).into(itemView.card4)
+                Glide.with(itemView).load(data.projectCard[0].card_img).into(itemView.card1)
+                Glide.with(itemView).load(data.projectCard[1].card_img).into(itemView.card2)
+                Glide.with(itemView).load(data.projectCard[2].card_img).into(itemView.card3)
+                Glide.with(itemView).load(data.projectCard[3].card_img).into(itemView.card4)
             }
         }
     }
