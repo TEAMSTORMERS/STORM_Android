@@ -113,6 +113,10 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
                                 if (response.isSuccessful) {
                                     if (response.body()!!.success) {
                                         Log.d("Round Setting 통신 성공", response.body()!!.message)
+
+                                        //RoundIdx 저장
+                                        preference.setRoundIdx(response.body()!!.data)
+
                                         goToFragment(RoundStartFragment::class.java, Bundle().apply {
                                             putBoolean("newRound", isNewRound)
                                         })
@@ -143,7 +147,9 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
                         if (response.isSuccessful) {
                             if (response.body()!!.success) {
                                 Log.d("RoundCount 통신 성공", "성공")
-                                preference.setRoundIdx(response.body()!!.data)
+
+                                preference.setRoundCount(response.body()!!.data)
+
                                 val round = StringBuilder()
                                 round.append("ROUND ")
                                     .append(response.body()!!.data)

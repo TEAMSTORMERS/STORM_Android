@@ -9,6 +9,7 @@ class SharedPreference(context: Context) {
         const val PROJECT_IDX = "projectIdx"
         const val ROUND_IDX = "roundIdx"
         const val USER_ID = "userId"
+        const val ROUND_COUNT = "roundCount"
     }
 
     private val prefs: SharedPreferences =
@@ -64,5 +65,13 @@ class SharedPreference(context: Context) {
 
     fun setUserId(userId: Int) {
         setInt(USER_ID, userId)
+    }
+
+    fun getRoundCount(): Int? {
+        return getInt(ROUND_COUNT)
+    }
+
+    fun setRoundCount(roundCount: Int) {
+        setInt(ROUND_COUNT, roundCount)
     }
 }
