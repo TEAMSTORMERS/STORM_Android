@@ -24,7 +24,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class AddProjectActivity : BaseActivity() {
-    private lateinit var dialog: StormDialog
     private var buttonArray = ArrayList<StormDialogButton>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,10 +53,7 @@ class AddProjectActivity : BaseActivity() {
             })
         )
 
-        dialog = StormDialogBuilder(StormDialogBuilder.STORM_LOGO, "참여코드 생성 완료!")
-            .setContentRes(R.layout.view_participation_code)
-            .setButtonArray(buttonArray)
-            .build()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -105,7 +101,9 @@ class AddProjectActivity : BaseActivity() {
                             if (response.isSuccessful) {
                                 if (response.body()!!.success) {
                                     Log.d("통신성공",response.body()!!.data.projectCode)
-                                    dialog.show(supportFragmentManager, "create_participate_code")
+
+                                    makeDialog(response.body()!!.data.projectCode)
+                                        .show(supportFragmentManager, "participate_code")
 
                                     preference.setProjectIdx(response.body()!!.data.projectIdx)
                                 }
@@ -126,4 +124,11 @@ class AddProjectActivity : BaseActivity() {
         return super.dispatchTouchEvent(ev)
     }
 
+    private fun makeDialog(code: String) : StormDialog {
+        return StormDialogBuilder(StormDialogBuilder.STORM_LOGO, "참여코드 생성 완료!")
+            .setContentRes(R.layout.view_participation_code)
+            .setButtonArray(buttonArray)
+            .isCode(true, code)
+            .build()
+    }
 }
