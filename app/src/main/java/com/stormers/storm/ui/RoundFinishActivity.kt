@@ -42,8 +42,6 @@ class RoundFinishActivity : BaseActivity() {
     }
 
     private fun initDialogButton() {
-        val buttonArray = ArrayList<StormDialogButton>()
-
         buttonArray.add(
             StormDialogButton("다음 ROUND 진행", true, object : StormDialogButton.OnClickListener {
                 override fun onClick() {
@@ -65,7 +63,7 @@ class RoundFinishActivity : BaseActivity() {
     private fun initDialog() {
         val round = StringBuilder()
         round.append("ROUND ")
-            .append(preference.getRoundIdx())
+            .append(preference.getRoundCount())
             .append(" 종료")
 
         dialog = StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, round.toString())
