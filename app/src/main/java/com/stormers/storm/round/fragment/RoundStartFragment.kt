@@ -46,6 +46,7 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
 
     private lateinit var retrofitClient: InterfaceRoundInfo
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -55,14 +56,25 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
 
         initActivityButton()
 
+        initParticipant(view)
+
         getRoundInfo()
+    }
+
+    private fun initParticipant(view: View) {
+        /* view.include_roundstart_participant.recyclerview_participant.run {
+             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+             addItemDecoration(MarginDecoration(context, 15, RecyclerView.VERTICAL))
+             adapter = participantAdapter
+         }
+
+         participantAdapter.addAll(loadDatas()) */
     }
 
     private fun initActivityButton() {
         activityButton = (activity as HostRoundWaitingActivity).stormButton_ok_host_round_setting
 
         activityButton.setOnClickListener {
-
             fragmentManager?.let { it1 -> dialog.show(it1, "round_start") }
 
             val handler = Handler()
@@ -77,8 +89,7 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
     fun getRoundInfo(){
         retrofitClient = RetrofitClient.create(InterfaceRoundInfo::class.java)
 
-        retrofitClient.responseRoundInfo(projectIdx).enqueue(object :
-            Callback<ResponseRoundInfoModel> {
+        retrofitClient.responseRoundInfo(projectIdx).enqueue(object : Callback<ResponseRoundInfoModel>{
             override fun onFailure(call: Call<ResponseRoundInfoModel>, t: Throwable) {
                 Log.d("RoundInfo 통신실패", "{$t}")
             }
