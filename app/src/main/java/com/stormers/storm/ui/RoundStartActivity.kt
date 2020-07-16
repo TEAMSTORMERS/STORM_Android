@@ -10,7 +10,7 @@ class RoundStartActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_host_round_setting)
+        setContentView(R.layout.activity_round_setting)
 
         goToFragment(RoundStartFragment::class.java, null)
 
