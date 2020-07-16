@@ -156,14 +156,15 @@ class LoginActivity : BaseActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = FirebaseAuth.getInstance().currentUser
-                    val file = File(URL(user!!.photoUrl.toString()).toURI())
+
+                    urlToBitmap(user!!.photoUrl.toString())
 
                     RetrofitClient.create(InterfaceSignUp::class.java).interfaceSignUp(
                         SignUpModel(
                             user!!.displayName.toString(),
                             acct.idToken.toString(),
                             null,
-                            file
+
                             )
                     ).enqueue(object :Callback<ResponseSignUpModel>{
                         override fun onFailure(call: Call<ResponseSignUpModel>, t: Throwable) {
@@ -207,5 +208,11 @@ class LoginActivity : BaseActivity() {
         animationView.setAnimation("login_bg.json")
         animationView.repeatCount = INFINITE
         animationView.playAnimation()
+    }
+
+    private fun urlToBitmap(url: String) : Bitmap {
+        val urls = URL(url)
+
+        return BitmapFactory.decodeStream(urls.openStream())
     }
 }
