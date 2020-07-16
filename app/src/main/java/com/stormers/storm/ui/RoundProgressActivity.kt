@@ -14,9 +14,17 @@ import kotlinx.android.synthetic.main.view_toolbar.view.*
 
 class RoundProgressActivity : BaseActivity() {
 
+    var projectIdx = -1
+
+    var roundIdx = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_round_progress)
+
+        projectIdx = intent.getIntExtra("projectIdx", -1)
+
+        roundIdx = intent.getIntExtra("roundIdx", -1)
 
         setSupportActionBar(include_roundprogress_toolbar.toolbar)
 

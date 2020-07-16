@@ -34,6 +34,8 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
 
     private var projectIdx = -1
 
+    private var roundIdx = -1
+
     private lateinit var retrofitClient: InterfaceRoundCount
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -110,7 +112,9 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
                             if(response.isSuccessful){
                                 if(response.body()!!.success){
                                     Log.d("Round Setting 통신 성공",response.body()!!.message)
-                                    goToFragment(RoundStartFragment::class.java,null)
+                                    goToFragment(RoundStartFragment::class.java,Bundle().apply {
+                                        putInt("roundIdx", roundIdx)
+                                    })
                                 }
                             }
                         }
@@ -136,6 +140,7 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
                     if (response.isSuccessful) {
                         if (response.body()!!.success) {
                             Log.d("RoundCount 통신 성공", "성공")
+                            roundIdx = response.body()!!.data
                             textview_roundnumber.setText("ROUND${response.body()!!.data.toString()}")
                         }
                     }

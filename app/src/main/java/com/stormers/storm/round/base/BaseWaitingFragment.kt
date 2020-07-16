@@ -21,7 +21,9 @@ import retrofit2.Response
 
 open class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(layoutRes) {
 
-    private var projectIdx = -1
+    protected var projectIdx = -1
+
+    protected var roundIdx = -1
 
     private val participantAdapter: ParticipantAdapter by lazy { ParticipantAdapter() }
 
