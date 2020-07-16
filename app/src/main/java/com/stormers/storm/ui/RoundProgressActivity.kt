@@ -54,8 +54,8 @@ class RoundProgressActivity : BaseActivity() {
             startActivity(Intent(this, RoundFinishActivity::class.java))
         }
 
-        projectIdx = intent.getIntExtra("projectIdx", 1)
-        roundIdx = intent.getIntExtra("roundIdx", 1)
+        projectIdx = preference.getProjectIdx()!!
+        roundIdx = preference.getRoundIdx()!!
 
         retrofitClient = RetrofitClient.create(InterfaceRoundInfo::class.java)
 
