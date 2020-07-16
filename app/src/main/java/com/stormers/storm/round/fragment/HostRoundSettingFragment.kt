@@ -17,6 +17,7 @@ import com.stormers.storm.project.network.InterfaceRoundCount
 import com.stormers.storm.round.model.ResponseRoundCountModel
 import com.stormers.storm.round.model.RoundSettingModel
 import com.stormers.storm.ui.HostRoundWaitingActivity
+import com.stormers.storm.ui.RoundSettingActivity
 import kotlinx.android.synthetic.main.activity_host_round_setting.*
 import kotlinx.android.synthetic.main.fragment_host_round_setting.*
 import retrofit2.Call
@@ -32,16 +33,16 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
 
     private lateinit var activityButton: StormButton
 
-    private var projectIdx = -1
-
-    private var roundIdx = -1
-
     private lateinit var retrofitClient: InterfaceRoundCount
+
+    private val projectIdx = preference.getProjectIdx()
+
+    private var isNewRound = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        projectIdx = (activity as HostRoundWaitingActivity).projectIdx
+        isNewRound = arguments?.getBoolean("newRound")?: false
 
         getRoundCount()
 
@@ -80,7 +81,11 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
     }
 
     private fun initActivityButton() {
-        activityButton = (activity as HostRoundWaitingActivity).stormButton_ok_host_round_setting
+            activityButton = if (isNewRound) {
+                (activity as RoundSettingActivity).stormButton_ok_host_round_setting
+            } else {
+                (activity as HostRoundWaitingActivity).stormButton_ok_host_round_setting
+            }
 
         activityButton.setText("확인")
 
@@ -91,35 +96,32 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
                     .show()
             } else {
 
-                RetrofitClient.create(InterfaceRoundSetting::class.java).roundSetting(
-                    RoundSettingModel(
-                        1,
-                        textview_round_goal.text.toString(),
-                        textview_roundsetting_time.text.toString().substring(0,2).toInt()
+                projectIdx?.let {
+                    RetrofitClient.create(InterfaceRoundSetting::class.java).roundSetting(
+                        RoundSettingModel(
+                            it,
+                            textview_round_goal.text.toString(),
+                            textview_roundsetting_time.text.toString().substring(0, 2).toInt()
+                        )
+                    ).enqueue(
+                        object : Callback<BaseResponse> {
+                            override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
+                                Log.d("Round Setting 통신 실패", "${t}")
+                            }
 
-                        //textview_roundsetting_time.text.toString().toInt()
-                    )
-                ).enqueue(
-                    object : Callback<BaseResponse>{
-                        override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
-                            Log.d("Round Setting 통신 실패", "${t}")
-                        }
-
-                        override fun onResponse(
-                            call: Call<BaseResponse>,
-                            response: Response<BaseResponse>
-                        ) {
-                            if(response.isSuccessful){
-                                if(response.body()!!.success){
-                                    Log.d("Round Setting 통신 성공",response.body()!!.message)
-                                    goToFragment(RoundStartFragment::class.java,Bundle().apply {
-                                        putInt("roundIdx", roundIdx)
-                                    })
+                            override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
+                                if (response.isSuccessful) {
+                                    if (response.body()!!.success) {
+                                        Log.d("Round Setting 통신 성공", response.body()!!.message)
+                                        goToFragment(RoundStartFragment::class.java, Bundle().apply {
+                                            putBoolean("newRound", isNewRound)
+                                        })
+                                    }
                                 }
                             }
                         }
-                    }
-                )
+                    )
+                }
             }
         }
     }
@@ -127,24 +129,29 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
     fun getRoundCount() {
         retrofitClient = RetrofitClient.create(InterfaceRoundCount::class.java)
 
-        retrofitClient.responseRoundCount(projectIdx)
-            .enqueue(object : Callback<ResponseRoundCountModel> {
-                override fun onFailure(call: Call<ResponseRoundCountModel>, t: Throwable) {
-                    Log.d("RoundCount 통신실패", "${t}")
-                }
+        projectIdx?.let {
+            retrofitClient.responseRoundCount(it)
+                .enqueue(object : Callback<ResponseRoundCountModel> {
+                    override fun onFailure(call: Call<ResponseRoundCountModel>, t: Throwable) {
+                        Log.d("RoundCount 통신실패", "${t}")
+                    }
 
-                override fun onResponse(
-                    call: Call<ResponseRoundCountModel>,
-                    response: Response<ResponseRoundCountModel>
-                ) {
-                    if (response.isSuccessful) {
-                        if (response.body()!!.success) {
-                            Log.d("RoundCount 통신 성공", "성공")
-                            roundIdx = response.body()!!.data
-                            textview_roundnumber.setText("ROUND${response.body()!!.data.toString()}")
+                    override fun onResponse(
+                        call: Call<ResponseRoundCountModel>,
+                        response: Response<ResponseRoundCountModel>
+                    ) {
+                        if (response.isSuccessful) {
+                            if (response.body()!!.success) {
+                                Log.d("RoundCount 통신 성공", "성공")
+                                preference.setRoundIdx(response.body()!!.data)
+                                val round = StringBuilder()
+                                round.append("ROUND ")
+                                    .append(response.body()!!.data)
+                                textview_roundnumber.text = round.toString()
+                            }
                         }
                     }
-                }
-            })
+                })
+        }
     }
 }

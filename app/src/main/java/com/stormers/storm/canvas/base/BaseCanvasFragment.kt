@@ -29,17 +29,10 @@ abstract class BaseCanvasFragment(private val mode: Int, @LayoutRes private val 
 
     protected val savedCardRepository: SavedCardRepository by lazy { SavedCardRepository(context!!) }
 
-    protected var projectIdx = -1
-
-    protected var roundIdx = -1
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         LayoutInflater.from(context).inflate(canvasLayout, cardview_roundcanvas_canvas)
-
-        projectIdx = (activity as RoundProgressActivity).projectIdx
-        roundIdx = (activity as RoundProgressActivity).roundIdx
 
         initCanvas()
 

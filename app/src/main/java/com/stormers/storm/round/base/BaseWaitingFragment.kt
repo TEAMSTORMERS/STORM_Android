@@ -21,18 +21,12 @@ import retrofit2.Response
 
 open class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(layoutRes) {
 
-    protected var projectIdx = -1
-
-    protected var roundIdx = -1
-
     private val participantAdapter: ParticipantAdapter by lazy { ParticipantAdapter() }
 
     private lateinit var retrofitClient: InterfaceProjectUser
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        projectIdx = (activity as BaseProjectWaitingActivity).projectIdx
 
         view.include_waitingproject_participant.recyclerview_participant.run {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
@@ -47,23 +41,25 @@ open class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(layoutR
 
         retrofitClient = RetrofitClient.create(InterfaceProjectUser::class.java)
 
-        retrofitClient.getProjectUserList(projectIdx).enqueue(object :
-            Callback<ResponseProjectUserListModel> {
-            override fun onFailure(call: Call<ResponseProjectUserListModel>, t: Throwable) {
-                Log.d("projectUser 통신실패","${t}")
-            }
+        preference.getProjectIdx()?.let {
+            retrofitClient.getProjectUserList(it).enqueue(object :
+                Callback<ResponseProjectUserListModel> {
+                override fun onFailure(call: Call<ResponseProjectUserListModel>, t: Throwable) {
+                    Log.d("projectUser 통신실패","${t}")
+                }
 
-            override fun onResponse(
-                call: Call<ResponseProjectUserListModel>,
-                response: Response<ResponseProjectUserListModel>
-            ) {
-                if(response.isSuccessful)
-                    if(response.body()!!.success){
-                        Log.d("user list 통신성공","성공")
-                        participantAdapter.addAll(response.body()!!.data)
-                    }
+                override fun onResponse(
+                    call: Call<ResponseProjectUserListModel>,
+                    response: Response<ResponseProjectUserListModel>
+                ) {
+                    if(response.isSuccessful)
+                        if(response.body()!!.success){
+                            Log.d("user list 통신성공","성공")
+                            participantAdapter.addAll(response.body()!!.data)
+                        }
 
-            }
-        })
+                }
+            })
+        }
     }
 }
