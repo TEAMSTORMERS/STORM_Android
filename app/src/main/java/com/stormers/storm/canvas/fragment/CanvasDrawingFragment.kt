@@ -100,7 +100,7 @@ class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_sig
 
     private fun saveCardIntoDB(bitmap: Bitmap) {
         savedCardRepository.insert(
-            SavedCardEntity(1, 1, SavedCardEntity.FALSE, SavedCardEntity.DRAWING,
+            SavedCardEntity(projectIdx, roundIdx, SavedCardEntity.FALSE, SavedCardEntity.DRAWING,
                 BitmapConverter.bitmapToString(bitmap), null
             )
         )
