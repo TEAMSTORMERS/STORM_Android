@@ -1,9 +1,9 @@
 package com.stormers.storm.ui
 
 import android.app.Application
-import com.kakao.auth.*
 import com.kakao.auth.KakaoSDK
 import com.stormers.storm.kakao.KakaoSDKAdapter
+import com.stormers.storm.util.SharedPreference
 
 
 //fixme: 여기에 문제가 있을까????
@@ -13,6 +13,7 @@ class GlobalApplication : Application(){
 
         instance = this
         KakaoSDK.init(KakaoSDKAdapter())
+        prefs = SharedPreference(applicationContext)
     }
 
     override fun onTerminate() {
@@ -27,5 +28,7 @@ class GlobalApplication : Application(){
     }
     companion object{
         var instance: GlobalApplication? = null
+
+        lateinit var prefs: SharedPreference
     }
 }

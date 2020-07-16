@@ -1,10 +1,14 @@
 package com.stormers.storm.base
 
 import androidx.recyclerview.widget.RecyclerView
+import com.stormers.storm.ui.GlobalApplication
+import com.stormers.storm.util.SharedPreference
 
 abstract class BaseAdapter<T> : RecyclerView.Adapter<BaseViewHolder<T>>() {
 
     private var items: MutableList<T> = mutableListOf()
+
+    protected val preference: SharedPreference by lazy { GlobalApplication.prefs }
 
     override fun onBindViewHolder(holder: BaseViewHolder<T>, position: Int) {
         holder.bind(items[position])
