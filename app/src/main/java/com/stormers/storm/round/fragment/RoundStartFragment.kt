@@ -56,19 +56,7 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
 
         initActivityButton()
 
-        initParticipant(view)
-
         getRoundInfo()
-    }
-
-    private fun initParticipant(view: View) {
-        /* view.include_roundstart_participant.recyclerview_participant.run {
-             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-             addItemDecoration(MarginDecoration(context, 15, RecyclerView.VERTICAL))
-             adapter = participantAdapter
-         }
-
-         participantAdapter.addAll(loadDatas()) */
     }
 
     private fun initActivityButton() {
