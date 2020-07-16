@@ -34,8 +34,6 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        roundIdx = arguments?.getInt("roundIdx")?: -1
-
         dialog = StormDialogBuilder(StormDialogBuilder.LOADING_LOGO, "5초 후 라운드가 시작합니다").build()
 
         initActivityButton()
@@ -50,10 +48,7 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
 
             val handler = Handler()
             val handlerTask = Runnable {
-                val intent = Intent(activity, RoundProgressActivity::class.java)
-                intent.putExtra("projectIdx", projectIdx)
-                intent.putExtra("roundIdx", roundIdx)
-                startActivity(intent)
+                startActivity(Intent(activity, RoundProgressActivity::class.java))
             }
 
             handler.postDelayed(handlerTask, 5000)

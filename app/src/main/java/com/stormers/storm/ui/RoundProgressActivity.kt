@@ -16,17 +16,9 @@ import kotlinx.android.synthetic.main.view_toolbar.view.*
 
 class RoundProgressActivity : BaseActivity() {
 
-    var projectIdx = -1
-
-    var roundIdx = -1
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_round_progress)
-
-        projectIdx = intent.getIntExtra("projectIdx", -1)
-
-        roundIdx = intent.getIntExtra("roundIdx", -1)
 
         setSupportActionBar(include_roundprogress_toolbar.toolbar)
 
@@ -38,10 +30,7 @@ class RoundProgressActivity : BaseActivity() {
 
         //Debug 용도로 라운드 목표를 터치하면 라운드가 종료되도록 함
         this.textView_round_goal.setOnClickListener {
-            val intent = Intent(this, RoundFinishActivity::class.java)
-            intent.putExtra("projectIdx", projectIdx)
-            intent.putExtra("roundIdx", roundIdx)
-            startActivity(intent)
+            startActivity(Intent(this, RoundFinishActivity::class.java))
         }
 
         goToFragment(AddCardFragment::class.java, null)

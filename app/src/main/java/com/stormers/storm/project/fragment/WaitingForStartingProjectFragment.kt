@@ -34,9 +34,7 @@ class WaitingForStartingProjectFragment : BaseWaitingFragment(R.layout.fragment_
 
             setOnClickListener {
                 if ((activity as BaseProjectWaitingActivity).isHost) {
-                    goToFragment(HostRoundSettingFragment::class.java, Bundle().apply {
-                        putInt("projectIdx", projectIdx)
-                    })
+                    goToFragment(HostRoundSettingFragment::class.java, null)
                 } else {
                     goToFragment(MemberWaitingFragment::class.java, null)
                 }

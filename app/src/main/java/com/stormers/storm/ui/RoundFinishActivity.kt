@@ -15,17 +15,9 @@ import java.lang.StringBuilder
 
 class RoundFinishActivity : BaseActivity() {
 
-    var projectIdx = -1
-
-    var roundIdx = -1
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_round_progress)
-
-        projectIdx = intent.getIntExtra("projectIdx", -1)
-
-        roundIdx = intent.getIntExtra("roundIdx", -1)
 
         goToFragment(RoundmeetingFragment::class.java, null)
 
@@ -37,10 +29,7 @@ class RoundFinishActivity : BaseActivity() {
             buttonArray.add(
                 StormDialogButton("다음 ROUND 진행", true, object : StormDialogButton.OnClickListener {
                     override fun onClick() {
-                        val intent = Intent(this@RoundFinishActivity, RoundSettingActivity::class.java)
-                        intent.putExtra("projectIdx", projectIdx)
-                        intent.putExtra("roundIdx", roundIdx)
-                        startActivity(intent)
+                        startActivity(Intent(this@RoundFinishActivity, RoundSettingActivity::class.java))
                     }
                 })
             )
@@ -55,7 +44,7 @@ class RoundFinishActivity : BaseActivity() {
 
             val round = StringBuilder()
             round.append("ROUND ")
-                .append(roundIdx)
+                .append(preference.getRoundIdx())
                 .append(" 종료")
 
             StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, round.toString())
