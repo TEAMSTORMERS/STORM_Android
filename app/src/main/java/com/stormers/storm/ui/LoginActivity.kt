@@ -6,9 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.os.AsyncTask
-import android.os.Bundle
-import android.os.Environment
+import android.os.*
 import android.util.Base64
 import android.util.Log
 import com.airbnb.lottie.LottieAnimationView
@@ -42,6 +40,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
 import java.io.FileOutputStream
+import java.lang.Exception
 import java.net.URL
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -64,22 +63,23 @@ class LoginActivity : BaseActivity() {
 
 
         var hash_key = getKeyHash(this)
-        Log.i("KaKaoLogin",hash_key) // 확인
+        Log.i("KaKaoLogin", hash_key) // 확인
 
         val startIntent = {
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
         }
 
         callback = SessionCallback(startIntent)
-        imagebutton_login_kakao.setOnClickListener{
+        imagebutton_login_kakao.setOnClickListener {
             Session.getCurrentSession().open(AuthType.KAKAO_LOGIN_ALL, this)
-            Log.d("KaKaoLogin","버튼 눌림")
+            Log.d("KaKaoLogin", "버튼 눌림")
             Session.getCurrentSession().addCallback(callback)
         }
         //Google Firebase 로그인
         imagebutton_login_google.setOnClickListener {
             signIn()
-            Log.d("GoogleLogIn","버튼 눌림")}
+            Log.d("GoogleLogIn", "버튼 눌림")
+        }
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -160,37 +160,70 @@ class LoginActivity : BaseActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val user = FirebaseAuth.getInstance().currentUser
+                    lateinit var userImgUrl: Bitmap
 
-                    val userImgUrl = BitmapConverter.urlToBitmap(user!!.photoUrl.toString())
+                    val mHandelr = Handler(Looper.getMainLooper())
 
-                    val userImgBitmap = BitmapConverter.bitmapToFile(userImgUrl,this@LoginActivity!!.cacheDir.toString())
 
-                    val requestFile  = RequestBody.create(MediaType.parse("multipart/form-data"),userImgBitmap!!)
+                    Thread(
+                        Runnable {
 
-                    val userUploadImage = MultipartBody.Part.createFormData("user_img",userImgBitmap.name,requestFile)
+                            Log.e("Thread in --- ", "in")
 
-                    val userName = RequestBody.create(MediaType.parse("text/plain"), user!!.displayName.toString())
+                            userImgUrl = BitmapConverter.urlToBitmap(user!!.photoUrl.toString())
+                            Log.e("try --- ", userImgUrl.toString())
 
-                    val userTokenGoogle = RequestBody.create(MediaType.parse("text/plain"), acct.idToken.toString())
+                        }
+
+                    ).start()
+
+
+                    val userImgBitmap = BitmapConverter.bitmapToFile(
+                        userImgUrl,
+                        this@LoginActivity!!.cacheDir.toString()
+                    )
+
+                    val requestFile =
+                        RequestBody.create(MediaType.parse("image/jpeg"), userImgBitmap!!)
+                    val userUploadImage = MultipartBody.Part.createFormData(
+                        "user_img",
+                        userImgBitmap.name,
+                        requestFile
+                    )
+
+                    Log.e(
+                        "file-----",
+                        "userImgBitmap - ${userImgBitmap}, requestFile - ${requestFile}"
+                    )
+
+
+                    val userName = RequestBody.create(
+                        MediaType.parse("text/plain"),
+                        user!!.displayName.toString()
+                    )
+
+                    val userTokenGoogle =
+                        RequestBody.create(MediaType.parse("text/plain"), acct.idToken.toString())
 
 
                     RetrofitClient.create(InterfaceSignUp::class.java).interfaceSignUp(
-                        userName,userTokenGoogle,null,userUploadImage)
-                    .enqueue(object :Callback<ResponseSignUpModel>{
-                        override fun onFailure(call: Call<ResponseSignUpModel>, t: Throwable) {
-                            Log.d("SignUp Google","${t}")
-                        }
+                        userName, userTokenGoogle, null, userUploadImage
+                    )
+                        .enqueue(object : Callback<ResponseSignUpModel> {
+                            override fun onFailure(call: Call<ResponseSignUpModel>, t: Throwable) {
+                                Log.d("SignUp Google", "${t}")
+                            }
 
-                        override fun onResponse(
-                            call: Call<ResponseSignUpModel>,
-                            response: Response<ResponseSignUpModel>
-                        ) {
-                            Log.d("SignUp 통신성공","통신성공")
+                            override fun onResponse(
+                                call: Call<ResponseSignUpModel>,
+                                response: Response<ResponseSignUpModel>
+                            ) {
+                                Log.d("SignUp 통신성공", "통신성공")
 
-                            Log.w("LoginActivity", "firebaseAuthWithGoogle 성공", task.exception)
-                            toMainActivity(firebaseAuth?.currentUser)
-                        }
-                    })
+                                Log.w("LoginActivity", "firebaseAuthWithGoogle 성공", task.exception)
+                                toMainActivity(firebaseAuth?.currentUser)
+                            }
+                        })
 
                 } else {
                     Log.w("LoginActivity", "firebaseAuthWithGoogle 실패", task.exception)
