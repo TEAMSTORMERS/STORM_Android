@@ -58,9 +58,9 @@ class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_sig
 
             val userIdx = RequestBody.create(MediaType.parse("text/plain"), "1")
 
-            val projectIdx = RequestBody.create(MediaType.parse("text/plain"), "1")
+            val projectIdx = RequestBody.create(MediaType.parse("text/plain"), projectIdx.toString())
 
-            val roundIdx = RequestBody.create(MediaType.parse("text/plain"), "1")
+            val roundIdx = RequestBody.create(MediaType.parse("text/plain"), roundIdx.toString())
 
             RetrofitClient.create(RequestCard::class.java).postCard(userIdx, projectIdx, roundIdx, uploadFile, null)
                 .enqueue(object: Callback<Response> {
