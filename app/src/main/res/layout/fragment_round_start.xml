@@ -71,14 +71,14 @@
         android:layout_marginTop="11dp"
         android:text="시작 버튼을 누를 시, ROUND가 시작됩니다."
         android:textColor="@color/storm_red"
-        app:layout_constraintBottom_toTopOf="@id/include_roundstart_participant"
+        app:layout_constraintBottom_toTopOf="@id/include_waitingproject_participant"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/round_time" />
 
 
     <include
-        android:id="@+id/include_roundstart_participant"
+        android:id="@+id/include_waitingproject_participant"
         layout="@layout/layout_list_of_participant"
         android:layout_width="0dp"
         android:layout_height="0dp"
