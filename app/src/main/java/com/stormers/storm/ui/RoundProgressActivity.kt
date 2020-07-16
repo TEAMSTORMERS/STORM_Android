@@ -35,6 +35,8 @@ class RoundProgressActivity : BaseActivity() {
     private var projectIdx = -1
     private var roundIdx = -1
 
+    val projectName = preference.getProjectName()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_round_progress)
@@ -81,6 +83,7 @@ class RoundProgressActivity : BaseActivity() {
                         val roundTime : Long = ((response.body()!!.data.roundTime) * 1000 * 60).toLong()
                         countDown(roundTime)
 
+                        textView_project_name.setText(projectName)
                         textView_round_goal.setText(response.body()!!.data.roundPurpose)
                         textView_round.setText(roundNumber)
                     }
