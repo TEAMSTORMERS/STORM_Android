@@ -103,7 +103,7 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
 
                 RetrofitClient.create(InterfaceRoundSetting::class.java).roundSetting(
                     RoundSettingModel(
-                        1,
+                        projectIdx,
                         textview_round_goal.text.toString(),
                         textview_roundsetting_time.text.toString().substring(0,2).toInt()
 
