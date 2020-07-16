@@ -10,12 +10,23 @@ import kotlinx.android.synthetic.main.fragment_host_round_setting.*
 
 class RoundSettingActivity : BaseActivity() {
 
+    var projectIdx = -1
+
+    var roundIdx = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_host_round_setting)
 
-        goToFragment(HostRoundSettingFragment::class.java, null)
+        projectIdx = intent.getIntExtra("projectIdx", -1)
+        roundIdx = intent.getIntExtra("roundIdx", -1)
+
+        goToFragment(HostRoundSettingFragment::class.java, Bundle().apply {
+            putBoolean("newRound", true)
+            putInt("projectIdx", projectIdx)
+            putInt("roundIdx", roundIdx)
+        })
     }
 
     override fun initFragmentId(): Int? {

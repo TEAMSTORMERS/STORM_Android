@@ -17,6 +17,7 @@ import com.stormers.storm.project.network.InterfaceRoundCount
 import com.stormers.storm.round.model.ResponseRoundCountModel
 import com.stormers.storm.round.model.RoundSettingModel
 import com.stormers.storm.ui.HostRoundWaitingActivity
+import com.stormers.storm.ui.RoundSettingActivity
 import kotlinx.android.synthetic.main.activity_host_round_setting.*
 import kotlinx.android.synthetic.main.fragment_host_round_setting.*
 import retrofit2.Call
@@ -41,7 +42,7 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        projectIdx = (activity as HostRoundWaitingActivity).projectIdx
+        projectIdx = arguments?.getInt("projectIdx") ?: -1
 
         getRoundCount()
 
@@ -80,7 +81,16 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
     }
 
     private fun initActivityButton() {
-        activityButton = (activity as HostRoundWaitingActivity).stormButton_ok_host_round_setting
+        arguments?.let {
+            activityButton = if (it.getBoolean("newRound")) {
+                (activity as RoundSettingActivity).stormButton_ok_host_round_setting
+            } else {
+                (activity as HostRoundWaitingActivity).stormButton_ok_host_round_setting
+            }
+        }?: run {
+            activityButton =
+                (activity as HostRoundWaitingActivity).stormButton_ok_host_round_setting
+        }
 
         activityButton.setText("확인")
 
@@ -141,7 +151,10 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
                         if (response.body()!!.success) {
                             Log.d("RoundCount 통신 성공", "성공")
                             roundIdx = response.body()!!.data
-                            textview_roundnumber.setText("ROUND${response.body()!!.data.toString()}")
+                            val round = StringBuilder()
+                            round.append("ROUND ")
+                                .append(response.body()!!.data)
+                            textview_roundnumber.text = round.toString()
                         }
                     }
                 }
