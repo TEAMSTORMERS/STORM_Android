@@ -9,13 +9,15 @@ class SharedPreference(context: Context) {
         const val PROJECT_IDX = "projectIdx"
         const val ROUND_IDX = "roundIdx"
         const val USER_ID = "userId"
+        const val PROJECT_NAME = "projectName"
         const val ROUND_COUNT = "roundCount"
+
     }
 
     private val prefs: SharedPreferences =
         context.getSharedPreferences("prefs_name", Context.MODE_PRIVATE)
 
-    private fun getString(key: String) : String? {
+    private fun getString(key: String): String? {
         val str = prefs.getString(key, "null")
 
         return if (str.equals("null")) {
@@ -29,7 +31,7 @@ class SharedPreference(context: Context) {
         prefs.edit().putString(key, value).apply()
     }
 
-    private fun getInt(key: String) : Int? {
+    private fun getInt(key: String): Int? {
         val int = prefs.getInt(key, -1)
 
         return if (int == -1) {
@@ -67,6 +69,14 @@ class SharedPreference(context: Context) {
         setInt(USER_ID, userId)
     }
 
+    fun setProjectName(projectName: String) {
+        setString(PROJECT_NAME, projectName)
+    }
+
+    fun getProjectName(): String? {
+        return getString(PROJECT_NAME)
+    }
+
     fun getRoundCount(): Int? {
         return getInt(ROUND_COUNT)
     }
@@ -75,3 +85,4 @@ class SharedPreference(context: Context) {
         setInt(ROUND_COUNT, roundCount)
     }
 }
+
