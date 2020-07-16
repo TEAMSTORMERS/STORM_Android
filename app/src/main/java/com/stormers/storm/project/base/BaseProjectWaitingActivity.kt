@@ -11,7 +11,7 @@ import com.stormers.storm.network.InterfaceProjectInfo
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.project.fragment.WaitingForStartingProjectFragment
 import com.stormers.storm.project.model.ResponseProjectInfoModel
-import kotlinx.android.synthetic.main.activity_host_round_setting.*
+import kotlinx.android.synthetic.main.activity_round_setting.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,7 +24,7 @@ open class BaseProjectWaitingActivity(val isHost: Boolean) : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_host_round_setting)
+        setContentView(R.layout.activity_round_setting)
 
         projectIdx = intent.getIntExtra("projectIdx",1)
 

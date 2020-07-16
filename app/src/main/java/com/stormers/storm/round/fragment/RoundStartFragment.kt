@@ -24,7 +24,7 @@ import com.stormers.storm.round.model.ResponseRoundInfoModel
 import com.stormers.storm.ui.HostRoundWaitingActivity
 import com.stormers.storm.ui.RoundProgressActivity
 import com.stormers.storm.util.MarginDecoration
-import kotlinx.android.synthetic.main.activity_host_round_setting.*
+import kotlinx.android.synthetic.main.activity_round_setting.*
 import kotlinx.android.synthetic.main.fragment_host_round_setting.*
 import kotlinx.android.synthetic.main.fragment_round_start.*
 import kotlinx.android.synthetic.main.fragment_round_start.view.*
@@ -50,7 +50,7 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        projectIdx = (activity as HostRoundWaitingActivity).projectIdx
+        projectIdx = 1
 
         dialog = StormDialogBuilder(StormDialogBuilder.LOADING_LOGO, "5초 후 라운드가 시작합니다").build()
 

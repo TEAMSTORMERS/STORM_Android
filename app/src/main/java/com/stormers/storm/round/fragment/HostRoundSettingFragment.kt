@@ -17,7 +17,7 @@ import com.stormers.storm.project.network.InterfaceRoundCount
 import com.stormers.storm.round.model.ResponseRoundCountModel
 import com.stormers.storm.round.model.RoundSettingModel
 import com.stormers.storm.ui.HostRoundWaitingActivity
-import kotlinx.android.synthetic.main.activity_host_round_setting.*
+import kotlinx.android.synthetic.main.activity_round_setting.*
 import kotlinx.android.synthetic.main.fragment_host_round_setting.*
 import retrofit2.Call
 import retrofit2.Callback
