@@ -14,13 +14,14 @@ import com.stormers.storm.network.BaseResponse
 import com.stormers.storm.network.InterfaceRoundSetting
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.network.SocketClient
-import com.stormers.storm.project.network.InterfaceRoundCount
+
+import com.stormers.storm.card.network.InterfaceRoundCount
 import com.stormers.storm.round.model.ResponseRoundCountModel
 import com.stormers.storm.round.model.RoundSettingModel
 import com.stormers.storm.ui.HostRoundWaitingActivity
+import kotlinx.android.synthetic.main.activity_round_setting.*
 import com.stormers.storm.ui.RoundSettingActivity
 import io.socket.emitter.Emitter
-import kotlinx.android.synthetic.main.activity_host_round_setting.*
 import kotlinx.android.synthetic.main.fragment_host_round_setting.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -122,6 +123,10 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
                                 if (response.isSuccessful) {
                                     if (response.body()!!.success) {
                                         Log.d("Round Setting 통신 성공", response.body()!!.message)
+
+                                        //RoundIdx 저장
+                                        preference.setRoundIdx(response.body()!!.data)
+
                                         goToFragment(RoundStartFragment::class.java, Bundle().apply {
                                             putBoolean("newRound", isNewRound)
                                         })
@@ -152,7 +157,9 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
                         if (response.isSuccessful) {
                             if (response.body()!!.success) {
                                 Log.d("RoundCount 통신 성공", "성공")
-                                preference.setRoundIdx(response.body()!!.data)
+
+                                preference.setRoundCount(response.body()!!.data)
+
                                 val round = StringBuilder()
                                 round.append("ROUND ")
                                     .append(response.body()!!.data)

@@ -1,6 +1,7 @@
 package com.stormers.storm.round.base
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.viewpager2.widget.ViewPager2
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
@@ -40,6 +41,8 @@ abstract class BaseExpandCardActivity(private val isScraped: Boolean): BaseActiv
             val updatedCard = expandCardAdapter.getItem(currentPage)
             updatedCard.memo = edittext_expandcard_memo.text.toString()
             savedCardRepository.update(updatedCard)
+
+            Toast.makeText(application, "메모가 저장되었습니다.", Toast.LENGTH_SHORT).show()
 
             onApplied(updatedCard.cardId, updatedCard.memo)
         }

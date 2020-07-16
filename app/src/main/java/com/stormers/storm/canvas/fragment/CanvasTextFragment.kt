@@ -26,9 +26,9 @@ class CanvasTextFragment : BaseCanvasFragment(TEXT_MODE, R.layout.view_addcard_e
 
             val userIdx = RequestBody.create(MediaType.parse("text/plain"), "1")
 
-            val projectIdx = RequestBody.create(MediaType.parse("text/plain"), "1")
+            val projectIdx = RequestBody.create(MediaType.parse("text/plain"), preference.getProjectIdx().toString())
 
-            val roundIdx = RequestBody.create(MediaType.parse("text/plain"), "1")
+            val roundIdx = RequestBody.create(MediaType.parse("text/plain"), preference.getRoundIdx().toString())
 
             val cardText = RequestBody.create(MediaType.parse("text/plain"), edittext_addcard.text.toString())
 
@@ -42,7 +42,7 @@ class CanvasTextFragment : BaseCanvasFragment(TEXT_MODE, R.layout.view_addcard_e
                     override fun onResponse(call: Call<Response>, response: retrofit2.Response<Response>) {
                         if (response.isSuccessful) {
                             if (response.body()!!.success) {
-                                savedCardRepository.insert(SavedCardEntity(1, 1,SavedCardEntity.FALSE,SavedCardEntity.TEXT,
+                                savedCardRepository.insert(SavedCardEntity(preference.getProjectIdx()!!, preference.getRoundIdx()!!,SavedCardEntity.FALSE,SavedCardEntity.TEXT,
                                     edittext_addcard.text.toString(), null))
 
                                 Toast.makeText(context, "저장되었습니다.", Toast.LENGTH_SHORT).show()

@@ -14,12 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
-import com.stormers.storm.network.InterfaceAddProject
 import com.stormers.storm.network.InterfaceJoinProjectUsingCode
 import com.stormers.storm.network.ResponseJoinProjectUsingCode
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.project.adapter.ParticipatedProjectListAdapter
 import com.stormers.storm.project.model.*
+import com.stormers.storm.project.network.ProjectInterface
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
@@ -46,12 +46,7 @@ class MainActivity : BaseActivity() {
         ab.setDisplayShowTitleEnabled(false)
 
         val drawerToggle: ActionBarDrawerToggle = object : ActionBarDrawerToggle(
-            this,
-            drawerlayout_main,
-            mainview_toolbar,
-            R.string.drawer_open,
-            R.string.drawer_close
-        ){
+            this, drawerlayout_main, mainview_toolbar, R.string.drawer_open, R.string.drawer_close) {
             override fun onDrawerClosed(view: View){
                 super.onDrawerClosed(view)
             }
@@ -75,8 +70,6 @@ class MainActivity : BaseActivity() {
             true
         }
 
-
-
         recentProjectsAdapter = ParticipatedProjectListAdapter(true, object : ParticipatedProjectListAdapter.OnProjectClickListener {
             override fun onProjectClick(projectIdx: Int) {
                 val intent  = Intent(this@MainActivity,ParticipatedProjectDetailActivity::class.java)
@@ -88,10 +81,8 @@ class MainActivity : BaseActivity() {
         recycler_participated_projects_list.adapter = recentProjectsAdapter
         recycler_participated_projects_list.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         recycler_participated_projects_list.addItemDecoration(MarginDecoration(baseContext,16,RecyclerView.HORIZONTAL))
-        recentProjectsAdapter.addAll(loadProjectsDatas())
 
-
-        showProjectList()
+        loadProjectsDatas()
 
         moveToAddProject()
 
@@ -115,70 +106,31 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    //더미 데이터
-    private fun loadProjectsDatas() : MutableList<ParticipatedProjectModel>{
+    private fun loadProjectsDatas() {
+        //Todo: 로그인 이후 userId를 입력하여야 함
+        preference.setUserId(1)
 
-        val datas = mutableListOf<ParticipatedProjectModel>()
+        RetrofitClient.create(ProjectInterface::class.java).requestParticipatedProject(preference.getUserId()!!)
+            .enqueue(object: Callback<ResponseParticipatedProject> {
+                override fun onFailure(call: Call<ResponseParticipatedProject>, t: Throwable) {
+                    Log.d("requestParticipatedPj", "fail : ${t.message}")
+                }
 
-        datas.apply {
-            add(
-                ParticipatedProjectModel(0, "평화의 브레인 스토밍",
-                    listOf(
-                        "https://avatars2.githubusercontent.com/u/57310034?s=460&u=3b6de8b863bdc2b902bf6cfe080bc8d34e93c348&v=4",
-                        "https://avatars1.githubusercontent.com/u/56873136?s=400&v=4",
-                        "https://avatars2.githubusercontent.com/u/52772787?s=460&u=4a9f12ef174f88ec143b70f4fcaaa8f1b2d87b43&v=4",
-                        "https://avatars2.githubusercontent.com/u/57310034?s=460&u=3b6de8b863bdc2b902bf6cfe080bc8d34e93c348&v=4",
-                        "https://avatars1.githubusercontent.com/u/56873136?s=400&v=4")
-                )
-            )
-            add(
-                ParticipatedProjectModel(1, "성규의 브레인 스토밍",
-                    listOf(
-                        "https://avatars2.githubusercontent.com/u/57310034?s=460&u=3b6de8b863bdc2b902bf6cfe080bc8d34e93c348&v=4",
-                        "https://avatars1.githubusercontent.com/u/56873136?s=400&v=4",
-                        "https://avatars2.githubusercontent.com/u/52772787?s=460&u=4a9f12ef174f88ec143b70f4fcaaa8f1b2d87b43&v=4",
-                        "https://avatars2.githubusercontent.com/u/57310034?s=460&u=3b6de8b863bdc2b902bf6cfe080bc8d34e93c348&v=4",
-                        "https://avatars1.githubusercontent.com/u/56873136?s=400&v=4")
-                )
-            )
-            add(
-                ParticipatedProjectModel(2, "희원이의 브레인 스토밍",
-                    listOf(
-                        "https://avatars2.githubusercontent.com/u/57310034?s=460&u=3b6de8b863bdc2b902bf6cfe080bc8d34e93c348&v=4",
-                        "https://avatars1.githubusercontent.com/u/56873136?s=400&v=4"
-                    )
-                )
-            )
-            add(
-                ParticipatedProjectModel(3, "평화의 브레인 스토밍2",
-                    listOf(
-                        "https://avatars2.githubusercontent.com/u/57310034?s=460&u=3b6de8b863bdc2b902bf6cfe080bc8d34e93c348&v=4"
-                    )
-                )
-            )
-            add(
-                ParticipatedProjectModel(4, "성규의 브레인 스토밍2",
-                    listOf()
-                )
-            )
-            add(
-                ParticipatedProjectModel(5, "희원이의 브레인 스토밍3",
-                    listOf(
-                        "https://avatars2.githubusercontent.com/u/57310034?s=460&u=3b6de8b863bdc2b902bf6cfe080bc8d34e93c348&v=4",
-                        "https://avatars1.githubusercontent.com/u/56873136?s=400&v=4",
-                        "https://avatars2.githubusercontent.com/u/52772787?s=460&u=4a9f12ef174f88ec143b70f4fcaaa8f1b2d87b43&v=4",
-                        "https://avatars2.githubusercontent.com/u/57310034?s=460&u=3b6de8b863bdc2b902bf6cfe080bc8d34e93c348&v=4",
-                        "https://avatars1.githubusercontent.com/u/56873136?s=400&v=4")
-                )
-            )
-        }
+                override fun onResponse(call: Call<ResponseParticipatedProject>, response: Response<ResponseParticipatedProject>) {
+                    if (response.isSuccessful) {
+                        if (response.body()!!.success) {
+                            val data = response.body()!!.data
 
-        return datas
+                            showProjectList(data)
+                        }
+                    }
+                }
+            })
     }
 
-    private fun showProjectList(){
-        if(loadProjectsDatas().isNotEmpty()){
-            recentProjectsAdapter.addAll(loadProjectsDatas())
+    private fun showProjectList(data: List<ParticipatedProjectModel>) {
+        if(data.isNotEmpty()){
+            recentProjectsAdapter.addAll(data)
             imageview_mainview_symbol.visibility = View.GONE
             textview_info_project_list.visibility = View.GONE
             recycler_participated_projects_list.visibility = View.VISIBLE

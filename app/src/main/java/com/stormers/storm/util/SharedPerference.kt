@@ -94,3 +94,4 @@ class SharedPreference(context: Context) {
         return getInt(USER_IDX)
     }
 }
+

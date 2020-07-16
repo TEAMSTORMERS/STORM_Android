@@ -1,4 +1,4 @@
-package com.stormers.storm.project.network
+package com.stormers.storm.project.model
 
 data class ProjectData (
     val project_name : String,

@@ -13,11 +13,15 @@ import com.stormers.storm.project.base.BaseProjectWaitingActivity
 import com.stormers.storm.project.model.ResponseProjectUserListModel
 import com.stormers.storm.user.ParticipantAdapter
 import com.stormers.storm.util.MarginDecoration
+import kotlinx.android.synthetic.main.fragment_round_setting_waiting_member.view.*
+import kotlinx.android.synthetic.main.fragment_round_start.view.*
 import kotlinx.android.synthetic.main.fragment_waiting_for_starting_project.view.*
+import kotlinx.android.synthetic.main.fragment_waiting_for_starting_project.view.include_waitingproject_participant
 import kotlinx.android.synthetic.main.layout_list_of_participant.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.StringBuilder
 
 open class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(layoutRes) {
 

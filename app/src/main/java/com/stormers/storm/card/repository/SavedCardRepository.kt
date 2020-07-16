@@ -29,6 +29,10 @@ class SavedCardRepository(val context: Context) : BaseRepository<SavedCardEntity
         return dao.getAllScrapedCard(projectIdx, roundIdx)
     }
 
+    fun delete(projectIdx: Int, roundIdx: Int) {
+        dao.deleteAll(projectIdx, roundIdx)
+    }
+
     public override fun insert(entity: SavedCardEntity) {
         super.insert(entity)
         dao.insert(entity)
