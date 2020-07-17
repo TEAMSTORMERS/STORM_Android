@@ -1,7 +1,7 @@
 
 # ⚡️🌪STORM Android🌪⚡️
 
-
+<img src = "https://user-images.githubusercontent.com/55133871/87793056-b0277880-c87f-11ea-9f5a-62bcb3054a31.gif" width = "100%">
 ![KakaoTalk_20200717_211627341](https://user-images.githubusercontent.com/56873136/87791082-a7817300-c87c-11ea-919b-9d77ccdaf75e.png)
 
 
