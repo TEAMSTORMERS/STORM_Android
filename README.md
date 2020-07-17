@@ -1,3 +1,4 @@
+
 # ⚡️🌪STORM Android🌪⚡️
 
 
@@ -7,7 +8,7 @@
 
 
 
-# (A-1항목) ConstraintLayout을 이용한 xml🔗
+## (A-1항목) ConstraintLayout을 이용한 xml🔗
 
 
 **1️⃣ constraintLayout의 다양한 속성 활용**
@@ -99,10 +100,10 @@
 
 	**➡️ item_card_detail.xml**
 
-# (A-2항목) Kotlin collection의 확장함수 사용 / Custom 확장함수 사용📝
+## (A-2항목) Kotlin collection의 확장함수 사용 / Custom 확장함수 사용📝
 
 
-# (A-3항목) Library & Purpose📖
+## (A-3항목) Library & Purpose📖
 
 **Glide 이미지 로딩 라이브러리**
 
@@ -143,10 +144,13 @@
     implementation "androidx.room:room-runtime:2.2.5"
 
 			
-# (A-3항목) Project Structure📐 
+
+## (A-3항목) Project Structure📐
+
+ 
 
 
-# (A-3항목) Core Function & How to build💻
+(A-3항목) Core Function & How to build💻
 
 **🚪로그인 Kakao api, Google api 사용**
 
@@ -161,7 +165,7 @@
 ## **🎥Animation 적용**
 
 **1️⃣ Lottie Animation**
-  **: 스플래쉬, 로그인, 라운드 대기중 로딩**
+  **: 스플래쉬, 로그인, 라운드 대기 중 로딩**
 
     private fun initView() {  
         val animationView = findViewById<LottieAnimationView>(R.id.lottieanimation_login)  
@@ -171,3 +175,6 @@
     }
 
 **📢Notification**
+
+
+
