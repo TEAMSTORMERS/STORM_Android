@@ -173,6 +173,22 @@
         animationView.repeatCount = INFINITE  
       animationView.playAnimation()  
     }
+    
+**라운드 대기 애니메이션**
+
+    <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottieAnimationView"
+                android:layout_width="45dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_round_ready"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textview_round_ready"
+                app:layout_constraintTop_toTopOf="@+id/textview_round_ready"
+                app:lottie_autoPlay="true"
+                app:lottie_rawRes="@raw/loading_animation"
+                app:lottie_loop="true" />
+
 
 **📢Notification**
 
