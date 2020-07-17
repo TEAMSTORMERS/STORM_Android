@@ -119,7 +119,7 @@ class   HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_set
                                         preference.setRoundIdx(response.body()!!.data)
 
                                         //라운드 입장
-                                        enterRound()
+                                        enterRound(response.body()!!.data)
                                     }
                                 }
                             }
@@ -157,8 +157,8 @@ class   HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_set
                 })
         }
     }
-    fun enterRound(){
-        RetrofitClient.create(InterfaceRoundEnter::class.java).interfaceRoundEnter((RoundEnterModel(userIdx!!, roundIdx!!)))
+    fun enterRound(roundIdx: Int){
+        RetrofitClient.create(InterfaceRoundEnter::class.java).interfaceRoundEnter((RoundEnterModel(userIdx!!, roundIdx)))
             .enqueue(object  : Callback<BaseResponse> {
 
             override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
@@ -168,26 +168,25 @@ class   HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_set
             override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
                 Log.d("라운드 참여 성공", "라운드 참여 성공 했다고")
 
-                sendRoundInfo()
-
-                goToFragment(RoundStartFragment::class.java, null)
+                //소켓으로 방에 참가하기
+                joinRoundRoom()
             }
         })
     }
 
-    fun sendRoundInfo(){
+    fun joinRoundRoom(){
 
         SocketClient.getInstance()
         SocketClient.connection()
-    //    SocketClient.sendIntEvent("joinRoom", projectIdx)
-    //    SocketClient.sendIntEvent("joinRoom", textview_round_goal.text.toString().toInt())
-    //    SocketClient.sendIntEvent("joinRoom",  textview_roundsetting_time.text.toString().substring(0,2).toInt())
 
         SocketClient.sendEvent("joinRoom", "roomCode")
         SocketClient.sendEvent("roundSetting",  "roomCode")
 
-        SocketClient.responseEvent("roundcomplete", Emitter.Listener {
-            Log.d("소켓 성공", it.toString())
+        SocketClient.responseEvent("roundComplete", Emitter.Listener {
+            Log.d("SocketJoinRoom", "Success.")
+
+            //방에 들어갔으면 프래그먼트 전환
+            goToFragment(RoundStartFragment::class.java, null)
         })
     }
 }

@@ -29,10 +29,14 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
 
         dialog = StormDialogBuilder(StormDialogBuilder.LOADING_LOGO, "5초 후 라운드가 시작합니다").build()
 
-        initActivityButton()
-
         //라운드 정보 받아오기
         getRoundInfo()
+
+        showRoundUserLIst(preference.getRoundIdx()!!)
+    }
+
+    override fun afterGettingRoundInfo(roundIdx: Int) {
+        initActivityButton()
     }
 
     private fun initActivityButton() {

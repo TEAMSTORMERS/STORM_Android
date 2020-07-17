@@ -60,4 +60,8 @@ class WaitingForStartingProjectFragment : BaseWaitingFragment(R.layout.fragment_
             fragmentManager?.let { it1 -> dialog.show(it1, "rule_reminder") }
         }
     }
+
+    override fun afterGettingRoundInfo(roundIdx: Int) {
+        TODO("Not yet implemented")
+    }
 }

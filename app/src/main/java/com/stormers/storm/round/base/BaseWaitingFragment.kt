@@ -19,9 +19,8 @@ import com.stormers.storm.round.model.ResponseRoundInfoModel
 import com.stormers.storm.round.network.InterfaceRoundUser
 import com.stormers.storm.user.ParticipantAdapter
 import com.stormers.storm.util.MarginDecoration
-import kotlinx.android.synthetic.main.fragment_round_start.*
-import kotlinx.android.synthetic.main.fragment_round_start.view.*
-import kotlinx.android.synthetic.main.fragment_waiting_for_starting_project.view.include_waitingproject_participant
+import kotlinx.android.synthetic.main.fragment_round_setting_waiting_member.*
+import kotlinx.android.synthetic.main.fragment_round_setting_waiting_member.view.*
 import kotlinx.android.synthetic.main.layout_list_of_participant.view.*
 import retrofit2.Call
 import retrofit2.Callback

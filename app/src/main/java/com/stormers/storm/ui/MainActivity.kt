@@ -112,7 +112,7 @@ class MainActivity : BaseActivity() {
 
     private fun loadProjectsDatas() {
 
-        RetrofitClient.create(ProjectInterface::class.java).requestParticipatedProject(preference.getUserId()!!)
+        RetrofitClient.create(ProjectInterface::class.java).requestParticipatedProject(preference.getUserIdx()!!)
             .enqueue(object: Callback<ResponseParticipatedProject> {
                 override fun onFailure(call: Call<ResponseParticipatedProject>, t: Throwable) {
                     Log.d("requestParticipatedPj", "fail : ${t.message}")
@@ -152,26 +152,20 @@ class MainActivity : BaseActivity() {
 
             KeyEvent.KEYCODE_ENTER -> {
 
-                RetrofitClient.create(InterfaceJoinProjectUsingCode::class.java).joinProjectUsingCode(JoinProjectUsingCodeModel(
-                    1,
-                    edittext_input_participate_code.text.toString()
-                )
-                ).enqueue(
-                    object : Callback<ResponseJoinProjectUsingCode>{
-                        override fun onFailure(
-                            call: Call<ResponseJoinProjectUsingCode>,
-                            t: Throwable
-                        ) {
-                            Log.e("통신실패","${t}")
+                RetrofitClient.create(InterfaceJoinProjectUsingCode::class.java)
+                    .joinProjectUsingCode(JoinProjectUsingCodeModel(preference.getUserIdx()!!, edittext_input_participate_code.text.toString()))
+                    .enqueue(object : Callback<ResponseJoinProjectUsingCode> {
+
+                        override fun onFailure(call: Call<ResponseJoinProjectUsingCode>, t: Throwable) {
+                            Log.e("enterProject","failed : $t")
+                            Log.e("enterProject","userIdx : ${preference.getUserIdx()!!}, code: ${edittext_input_participate_code.text}")
                         }
 
-                        override fun onResponse(
-                            call: Call<ResponseJoinProjectUsingCode>,
-                            response: Response<ResponseJoinProjectUsingCode>
-                        ) {
+                        override fun onResponse(call: Call<ResponseJoinProjectUsingCode>, response: Response<ResponseJoinProjectUsingCode>) {
                             if (response.isSuccessful){
                                 if (response.body()!!.success){
-                                    Log.d("통신성공",response.body()!!.data.projectIdx.toString())
+                                    Log.d("enterProject", "projectIdx : ${response.body()!!.data.projectIdx}}")
+                                    preference.setProjectIdx(response.body()!!.data.projectIdx)
                                     moveToHostRoundActivity()
                                 }
                             }

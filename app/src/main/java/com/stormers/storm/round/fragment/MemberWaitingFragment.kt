@@ -37,6 +37,9 @@ class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_settin
             visibility = View.GONE
         }
 
+        //[socket] 라운드 설정이 마쳐지는지 확인
+        waitingRoundSetting()
+
         //Todo: 소켓으로 라운드 설정이 마쳐지는지 확인
         //Todo: 라운드 설정이 마쳐지면 GET 라운드 정보 (roundIdx, roundPurpose, roundTime 등) //getRoundInfo() done
         //Todo: 라운드 정보를 사용하여 POST 라운드 참여 done
@@ -64,6 +67,19 @@ class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_settin
             Log.d("소켓 성공", it.toString())
 
             //showUserList()
+        })
+    }
+
+    fun waitingRoundSetting() {
+        SocketClient.getInstance()
+        SocketClient.connection()
+
+        SocketClient.sendEvent("joinRoom", "roomCode")
+        SocketClient.responseEvent("roundComplete", Emitter.Listener {
+            Log.d("socketText", "호스트 측에서 라운드 설정을 완료하였습니다.")
+
+            //라운드 정보 불러오기
+            getRoundInfo()
         })
     }
 
