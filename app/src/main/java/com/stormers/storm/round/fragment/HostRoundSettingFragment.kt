@@ -110,14 +110,18 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
                             override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
                                 if (response.isSuccessful) {
                                     if (response.body()!!.success) {
-                                        Log.d("Round Setting 통신 성공", response.body()!!.message)
+                                        Log.d("Round Setting 통신 성공", response.body()!!.data.toString())
 
                                         //RoundIdx 저장
                                         preference.setRoundIdx(response.body()!!.data)
 
                                         //라운드 입장
                                         enterRound(response.body()!!.data)
+                                    } else {
+                                        Log.d("Round Setting 통신 실패", response.body()!!.message)
                                     }
+                                } else {
+                                    Log.d("Round Setting 통신 실패", response.body()!!.message)
                                 }
                             }
                         }
@@ -140,7 +144,7 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
                     override fun onResponse(call: Call<ResponseRoundCountModel>, response: Response<ResponseRoundCountModel>) {
                         if (response.isSuccessful) {
                             if (response.body()!!.success) {
-                                Log.d("RoundCount 통신 성공", "성공")
+                                Log.d("RoundCount 통신 성공", response.body()!!.data.toString())
 
                                 preference.setRoundCount(response.body()!!.data)
 
@@ -148,7 +152,11 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
                                 round.append("ROUND ")
                                     .append(response.body()!!.data)
                                 textview_roundnumber.text = round.toString()
+                            } else {
+                                Log.d("RoundCount 통신 실패", response.message())
                             }
+                        } else {
+                            Log.d("RoundCount 통신 실패", response.message())
                         }
                     }
                 })
