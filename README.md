@@ -1,10 +1,12 @@
 # ⚡️🌪STORM Android🌪⚡️
 
 ![서비스소개](https://user-images.githubusercontent.com/55133871/86811476-ec591d00-c0b8-11ea-971e-c78793429ae7.png)
+![87787230-3fc82980-c876-11ea-978f-476016adc7c2](https://user-images.githubusercontent.com/52772787/87789381-e95cea00-c879-11ea-8a43-0d83a5e9dca3.png)
+
 
 <br>
 
-**실시간 브레인스토밍 협업 플랫폼 - STORM**
+## 실시간 브레인스토밍 협업 플랫폼 - STORM 🌪⚡️
 
 STORM은 효율적인 아이디어 회의를 돕는 온라인 툴이자 브레인스토밍을 함께하는 서비스입니다.
 
@@ -21,8 +23,8 @@ STORM은 효율적인 아이디어 회의를 돕는 온라인 툴이자 브레�
 <br><br>
 
 
+## [Library & Purpose📖]([https://github.com/TEAMSTORMERS/STORM_Android/wiki/Library-&-Purpose%F0%9F%93%96](https://github.com/TEAMSTORMERS/STORM_Android/wiki/Library-&-Purpose%F0%9F%93%96))
 
-[Library & Purpose📖](https://github.com/TEAMSTORMERS/STORM_Android/wiki/Library-&-Purpose%F0%9F%93%96)
 ## [ConstraintLayout을 이용한 xml🔗](https://github.com/TEAMSTORMERS/STORM_Android/wiki/(A-1%ED%95%AD%EB%AA%A9)-ConstraintLayout%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-xml%F0%9F%94%97)
 
 ## [Kotlin collection의 확장함수/ Custom 확장함수🌐](https://github.com/TEAMSTORMERS/STORM_Android/wiki/Kotlin%ED%99%95%EC%9E%A5%ED%95%A8%EC%88%98-%EC%82%AC%EC%9A%A9)
