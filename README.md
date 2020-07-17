@@ -168,7 +168,132 @@
 
 **🚪로그인 Kakao api, Google api 사용**
 
- <br><br>
+ **firebaseAuth, googleSignInClient, user, RC_SIGN_IN 객체를 전역으로 선언**
+
+    private lateinit var firebaseAuth: FirebaseAuth  
+    private lateinit var googleSignInClient: GoogleSignInClient  
+    private val RC_SIGN_IN = 99 //private const val TAG = "GoogleActivity"  
+    val user = FirebaseAuth.getInstance().currentUser**
+
+**GoogleSignInOption객체를 구성할 때 requestIdToken을 호출
+로그인 버튼을 눌렀을 때 signIn 함수 실행되고 구글 계정 인증 Activity가 실행**
+
+    imagebutton_login_google.setOnClickListener {  
+      signIn()  
+        Log.d("GoogleLogIn", "버튼 눌림")  
+    }  
+      
+    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)  
+        .requestIdToken(getString(R.string.default_web_client_id))  
+        .requestEmail()  
+        .build()
+    
+    
+    private fun signIn() {  
+        val signInIntent = googleSignInClient.signInIntent  
+      startActivityForResult(signInIntent, RC_SIGN_IN)  
+    }
+
+**로그인이 정상적으로 수행되고 requestCode가 RC_SIGN_IN이면 firebaseWithGoogle함수 호출**
+
+	if (requestCode == RC_SIGN_IN) {  
+    val task = GoogleSignIn.getSignedInAccountFromIntent(data)  
+    try {  
+		  val account = task.getResult(ApiException::class.java)  
+	      firebaseAuthWithGoogle(account!!)  
+		  } catch (e: ApiException) {  
+			  Log.w("LoginActivity", "Google sign in failed", e)  
+      }  
+	}
+
+**GoogleSignInAccount객체에서 IdToken을 가져와  FirebaseAuth로 교환하고 인증**
+
+**➡️ 성공적으로 수행되면 RetrofitClient를 통해서 서버로 userName, userTokenGoogle, userUploadUser 송신**
+
+	private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {  
+	    Log.d("LoginActivity", "firebaseAuthWithGoogle:" + acct.id!!)  
+  
+	  val credential = GoogleAuthProvider.getCredential(acct.idToken, null)  
+  
+    firebaseAuth.signInWithCredential(credential)  
+        .addOnCompleteListener(this) { task ->  
+	  if (task.isSuccessful) {  
+                val user = FirebaseAuth.getInstance().currentUser  
+  
+  
+     RetrofitClient.create(InterfaceSignUp::class.java).interfaceSignUp(  
+                    userName, userTokenGoogle, null, userUploadImage  
+                )  
+                    .enqueue(object : Callback<ResponseSignUpModel> {  
+                        override fun onFailure(call: Call<ResponseSignUpModel>, t: Throwable) {  
+                            Log.d("SignUp Google", "${t}")  
+                        }  
+  
+                        override fun onResponse(  
+                            call: Call<ResponseSignUpModel>,  
+	  response: Response<ResponseSignUpModel>  
+                        ) {  
+                            if(response.isSuccessful){  
+                                if(response.body()!!.success){  
+                                    Log.d("SignUp 통신성공", "통신성공")  
+  
+                                    preference.setUserIdx(response.body()!!.data.toString().toInt())  
+  
+                                    Log.w("LoginActivity", "firebaseAuthWithGoogle 성공", task.exception)  
+                                    toMainActivity(firebaseAuth?.currentUser)  
+                                }  
+                            }  
+  
+                        }  
+                    })  
+  
+            } else {  
+                Log.w("LoginActivity", "firebaseAuthWithGoogle 실패", task.exception)  
+                Snackbar.make(constraintlayout_login, "로그인에 실패하였습니다.", Snackbar.LENGTH_SHORT)  
+                    .show()  
+            }  
+        }  
+	}
+	
+	fun toMainActivity(user: FirebaseUser?) {  
+	    if (user != null) { // MainActivity 로 이동  
+	  startActivity(Intent(this, MainActivity::class.java))  
+	        finish()  
+	    }  
+	}
+
+ **Kakao api**
+
+ **- Application을 상속하는 GlobalAppication.kt**
+ **- KakaoAdapter를 상속하는 KakaoSDKAdapter**
+ **- SessionCallback.kt를 별도로 생성**
+ 
+**<SessionCallback.kt>**
+**SessionCallback.kt에서 로그인 세션이 성공했을 때와 실패했을 때의 행동을 정의**
+
+    override fun onSessionOpenFailed(exception: KakaoException?) {  
+        Log.e("KaKaoLogin","Session Call back :: onSessionOpenFailed ${exception?.message}")  
+    }  
+    override fun onSessionOpened() {  
+      
+        UserManagement.getInstance().me(object : MeV2ResponseCallback() {  
+      
+            override fun onFailure(erroResult: ErrorResult?) {  
+                Log.i("KaKaoLogin", "Session Call back:: on failed ${erroResult?.errorMessage}")  
+            }  
+      
+            override fun onSessionClosed(errorResult: ErrorResult?) {  
+                Log.i("KaKaoLogin", "Session Call back:: on Closed ${errorResult?.errorMessage}")  
+            }  
+      
+            override fun onSuccess(result: MeV2Response?) {  
+                Log.d("KaKaoLogin","성공했습니다.")  
+                startInetnt()  
+                checkNotNull(result) { "session response null" }  
+      }  
+        })  
+    }
+
 
 **🎨Drawing기능 구현**
 
