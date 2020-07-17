@@ -172,7 +172,7 @@
 
 **🎨Drawing기능 구현**
 
-**CanvasDrawingFragment.kt**
+CanvasDrawingFragment.kt
 
     private var isDrew = false
     
@@ -197,7 +197,7 @@
         signaturepad.clear()
     }
     
-📌 OnSignedListener를 view에 설정
+**📌 OnSignedListener를 view에 설정**
   - onStartSigning() : pad를 터치했을 때 isDrew의 값이 true로 변경
   - onClear() : pad에 그려진 내용을 지울 때 이벤트 발생
   - onTrached() : pad에 그려진 그림을 전체 삭제
@@ -206,9 +206,9 @@
 
 **💾Drawing 파일처리 및 저장**
 
-✔️ 그린 그림을 DB에 저장
+**✔️ 그린 그림을 DB에 저장**
 
-**CanvasDrawingFragment.kt**
+CanvasDrawingFragment.kt
 
     private fun saveCardIntoDB(bitmap: Bitmap) {
         savedCardRepository.insert(
@@ -220,9 +220,9 @@
     
 <br>
 
-✔️ 비트맵을 문자열로 변환하여 DB에 저장
+**✔️ 비트맵을 문자열로 변환하여 DB에 저장**
 
-**BitmapConverter.kt**
+BitmapConverter.kt
 
     object BitmapConverter {
 
