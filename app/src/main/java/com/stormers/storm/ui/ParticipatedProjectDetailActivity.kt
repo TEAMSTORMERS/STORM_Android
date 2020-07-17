@@ -37,8 +37,7 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_participated_project_detail)
 
-        //Todo: DefalultValue를 우선 1로 하였으나 어떤 걸로 할지 고민해보아야함
-        projectIdx = Intent().getIntExtra("projectIdx", 1)
+        projectIdx = intent.getIntExtra("projectIdx", -1)
 
         retrofitClient = RetrofitClient.create(ProjectInterface::class.java)
         retrofitClient_roundInfo = RetrofitClient.create(FinalRoundInterface::class.java)
