@@ -6,7 +6,7 @@
 
 <br>
 
-**실시간 브레인스토밍 협업 플랫폼 - STORM**
+## 실시간 브레인스토밍 협업 플랫폼 - STORM 🌪⚡️
 
 
 STORM은 효율적인 아이디어 회의를 돕는 온라인 툴이자 브레인스토밍을 함께하는 서비스입니다.
@@ -19,12 +19,13 @@ STORM은 효율적인 아이디어 회의를 돕는 온라인 툴이자 브레�
 
 좋은 아이디어 카드들은 따로 스크랩해 모아볼 수 있습니다.
 
+<br><br>
 
 **개발 기간 : 2020-06-30~2020-07-18**
 
 **Android Developer : 김성규, 손평화, 강희원**
 
-
+<br>
 
 ## [Library & Purpose📖](https://github.com/TEAMSTORMERS/STORM_Android/wiki/Library-&-Purpose%F0%9F%93%96)
 
