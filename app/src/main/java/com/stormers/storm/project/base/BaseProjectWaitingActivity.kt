@@ -7,10 +7,9 @@ import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
-import com.stormers.storm.network.InterfaceProjectInfo
+import com.stormers.storm.project.network.RequestProject
 import com.stormers.storm.network.RetrofitClient
-import com.stormers.storm.project.fragment.WaitingForStartingProjectFragment
-import com.stormers.storm.project.model.ResponseProjectInfoModel
+import com.stormers.storm.project.network.response.ResponseProjectInfoModel
 import com.stormers.storm.round.fragment.MemberWaitingFragment
 import kotlinx.android.synthetic.main.activity_round_setting.*
 import retrofit2.Call
@@ -19,7 +18,7 @@ import retrofit2.Response
 
 open class BaseProjectWaitingActivity : BaseActivity() {
 
-    private lateinit var retrofitClient: InterfaceProjectInfo
+    private lateinit var retrofitClient: RequestProject
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +26,7 @@ open class BaseProjectWaitingActivity : BaseActivity() {
 
         goToFragment(MemberWaitingFragment::class.java, null)
 
-        retrofitClient = RetrofitClient.create(InterfaceProjectInfo::class.java)
+        retrofitClient = RetrofitClient.create(RequestProject::class.java)
 
         preference.getProjectIdx()?.let {
 
@@ -38,14 +37,12 @@ open class BaseProjectWaitingActivity : BaseActivity() {
                     Log.d("ProjectInfo 통신실패", "${t}")
                 }
 
-                override fun onResponse(
-                    call: Call<ResponseProjectInfoModel>,
-                    response: Response<ResponseProjectInfoModel>
-                ) {
+                override fun onResponse(call: Call<ResponseProjectInfoModel>, response: Response<ResponseProjectInfoModel>) {
                     if (response.isSuccessful) {
                         if (response.body()!!.success) {
                             Log.d("getProjectName", "Success. ${response.body()!!.data.projectName}")
                             textview_projectcard_title.text = response.body()!!.data.projectName
+
                             preference.setProjectName(response.body()!!.data.projectName)
                             //Todo: 라운드 참여
                         }

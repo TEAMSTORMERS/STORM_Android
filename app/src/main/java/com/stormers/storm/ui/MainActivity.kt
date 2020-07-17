@@ -14,12 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
-import com.stormers.storm.network.InterfaceJoinProjectUsingCode
-import com.stormers.storm.network.ResponseJoinProjectUsingCode
+import com.stormers.storm.project.network.RequestProject
+import com.stormers.storm.project.network.response.ResponseJoinProjectUsingCode
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.project.adapter.ParticipatedProjectListAdapter
 import com.stormers.storm.project.model.*
-import com.stormers.storm.project.network.ProjectInterface
+import com.stormers.storm.project.network.response.ResponseParticipatedProject
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
@@ -27,14 +27,18 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : BaseActivity() {
-
-
     private lateinit var recentProjectsAdapter: ParticipatedProjectListAdapter
     val datas = mutableListOf<RecentProjectsModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        preference.setProjectCode(null)
+        preference.setProjectIdx(null)
+        preference.setRoundIdx(null)
+        preference.setRoundCount(null)
+        preference.setProjectName(null)
 
         val mainview_toolbar = findViewById(R.id.include_main_toolbar) as Toolbar
 
@@ -73,7 +77,7 @@ class MainActivity : BaseActivity() {
         recentProjectsAdapter = ParticipatedProjectListAdapter(true, object : ParticipatedProjectListAdapter.OnProjectClickListener {
             override fun onProjectClick(projectIdx: Int) {
                 val intent  = Intent(this@MainActivity,ParticipatedProjectDetailActivity::class.java)
-                intent.putExtra("project_idx", projectIdx)
+                intent.putExtra("projectIdx", projectIdx)
                 startActivity(intent)
             }
         })
@@ -108,7 +112,7 @@ class MainActivity : BaseActivity() {
 
     private fun loadProjectsDatas() {
 
-        RetrofitClient.create(ProjectInterface::class.java).requestParticipatedProject(preference.getUserIdx()!!)
+        RetrofitClient.create(RequestProject::class.java).requestParticipatedProject(preference.getUserIdx()!!)
             .enqueue(object: Callback<ResponseParticipatedProject> {
                 override fun onFailure(call: Call<ResponseParticipatedProject>, t: Throwable) {
                     Log.d("requestParticipatedPj", "fail : ${t.message}")
@@ -148,7 +152,7 @@ class MainActivity : BaseActivity() {
 
             KeyEvent.KEYCODE_ENTER -> {
 
-                RetrofitClient.create(InterfaceJoinProjectUsingCode::class.java)
+                RetrofitClient.create(RequestProject::class.java)
                     .joinProjectUsingCode(JoinProjectUsingCodeModel(preference.getUserIdx()!!, edittext_input_participate_code.text.toString()))
                     .enqueue(object : Callback<ResponseJoinProjectUsingCode> {
 
@@ -161,7 +165,10 @@ class MainActivity : BaseActivity() {
                             if (response.isSuccessful){
                                 if (response.body()!!.success){
                                     Log.d("enterProject", "projectIdx : ${response.body()!!.data.projectIdx}}")
+
                                     preference.setProjectIdx(response.body()!!.data.projectIdx)
+                                    preference.setProjectCode(edittext_input_participate_code.text.toString())
+
                                     moveToHostRoundActivity()
                                 }
                             }

@@ -9,7 +9,6 @@ import com.stormers.storm.R
 import com.stormers.storm.customview.StormButton
 import com.stormers.storm.customview.dialog.StormDialog
 import com.stormers.storm.customview.dialog.StormDialogBuilder
-import com.stormers.storm.network.InterfaceRoundInfo
 import com.stormers.storm.network.SocketClient
 import com.stormers.storm.round.base.BaseWaitingFragment
 import com.stormers.storm.ui.RoundProgressActivity
@@ -22,19 +21,17 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
 
     private lateinit var activityButton: StormButton
 
-    private lateinit var dialog: StormDialog
-
-    private lateinit var retrofitClient: InterfaceRoundInfo
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        dialog = StormDialogBuilder(StormDialogBuilder.LOADING_LOGO, "5초 후 라운드가 시작합니다").build()
+
 
         //라운드 정보 받아오기
         getRoundInfo()
 
         showRoundUserLIst(preference.getRoundIdx()!!)
+
+        refreshParticipantSocket()
     }
 
     override fun afterGettingRoundInfo(roundIdx: Int) {
@@ -46,18 +43,21 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
         activityButton = (activity as RoundSettingActivity).stormButton_ok_host_round_setting
 
         activityButton.setOnClickListener {
-            fragmentManager?.let { it1 -> dialog.show(it1, "round_start") }
 
-            val handler = Handler()
-            val handlerTask = Runnable {
-                startActivity(Intent(activity, RoundProgressActivity::class.java))
-            }
+            startRoundSocket()
 
-            handler.postDelayed(handlerTask, 5000)
+            startRound()
         }
     }
 
-    fun refreshParticipantSocket() {
+    private fun startRoundSocket() {
+        SocketClient.getInstance()
+        SocketClient.connection()
+
+        SocketClient.sendEvent("roundStartHost", preference.getProjectCode()!!)
+    }
+
+    private fun refreshParticipantSocket() {
         SocketClient.getInstance()
         SocketClient.connection()
 

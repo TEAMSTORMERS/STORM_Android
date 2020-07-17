@@ -30,7 +30,7 @@ class RoundViewHolder (parent: ViewGroup, val listener: RoundListAdapter.OnRound
 
         listener?.let {
             itemView.setOnClickListener {
-                listener.onRoundClick(data.projectIdx, data.roundNo)
+                listener.onRoundClick(data.projectIdx, data.roundIdx, data.roundNo)
             }
         }
     }

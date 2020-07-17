@@ -14,7 +14,7 @@ class RoundListAdapter(private val listener: OnRoundClickListener?) : BaseAdapte
     }
 
     interface OnRoundClickListener {
-        fun onRoundClick(projectIdx: Int, roundIdx: Int)
+        fun onRoundClick(projectIdx: Int, roundIdx: Int, roundNo: Int)
     }
 }
 

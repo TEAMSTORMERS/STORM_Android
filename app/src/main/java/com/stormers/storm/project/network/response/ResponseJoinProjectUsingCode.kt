@@ -1,4 +1,4 @@
-package com.stormers.storm.network
+package com.stormers.storm.project.network.response
 
 import com.stormers.storm.project.model.ProjectDataModel
 import com.stormers.storm.project.model.ProjectIndexModel

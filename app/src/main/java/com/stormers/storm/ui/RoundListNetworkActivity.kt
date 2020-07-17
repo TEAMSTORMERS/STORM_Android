@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.stormers.storm.R
 import com.stormers.storm.network.RetrofitClient
-import com.stormers.storm.card.network.CardInterface
+import com.stormers.storm.card.network.RequestCard
 import com.stormers.storm.card.network.ResponseCardData
 import retrofit2.Call
 import retrofit2.Callback
@@ -14,7 +14,7 @@ import retrofit2.Response
 //Todo: [GET] 카드 상세보기 부분 서버 통신을 위해 새로 만든 activity 입니다.
 class RoundListNetworkActivity : AppCompatActivity() {
 
-    private lateinit var retrofitClient: CardInterface
+    private lateinit var retrofitClient: RequestCard
 
     //private var projectIdx = -1
 
@@ -28,7 +28,7 @@ class RoundListNetworkActivity : AppCompatActivity() {
         val card_idx = 4
         //val cardId = intent.getIntExtra("cardId", 0)
 
-        retrofitClient = RetrofitClient.create(CardInterface::class.java)
+        retrofitClient = RetrofitClient.create(RequestCard::class.java)
 
         retrofitClient.responseCardData(user_idx, card_idx).enqueue(object :
             Callback<ResponseCardData> {

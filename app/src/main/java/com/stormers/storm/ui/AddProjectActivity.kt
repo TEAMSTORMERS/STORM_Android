@@ -13,8 +13,8 @@ import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.customview.dialog.StormDialog
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
-import com.stormers.storm.network.InterfaceAddProject
-import com.stormers.storm.network.ResponseAddProject
+import com.stormers.storm.project.network.RequestProject
+import com.stormers.storm.project.network.response.ResponseAddProject
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.project.model.AddProjectModel
 import kotlinx.android.synthetic.main.activity_add_project.*
@@ -29,6 +29,8 @@ class AddProjectActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_project)
+
+        preference.setProjectCode(null)
 
         //뒤로 가기 버튼 설정
         setSupportActionBar(include_addproject_toolbar.toolbar)
@@ -82,7 +84,7 @@ class AddProjectActivity : BaseActivity() {
     fun start_project() {
 
         button_add_project.setOnClickListener {
-            RetrofitClient.create(InterfaceAddProject::class.java)
+            RetrofitClient.create(RequestProject::class.java)
                 .addProject(AddProjectModel(edittext_addproject_projectname.text.toString(),
                     edittext_addproject_notice.text.toString(), preference.getUserIdx()!!))
 
@@ -100,8 +102,10 @@ class AddProjectActivity : BaseActivity() {
                                     makeDialog(response.body()!!.data.projectCode)
                                         .show(supportFragmentManager, "participate_code")
 
+                                    //프로젝트에 관한 데이터를 preference에 저장
                                     preference.setProjectIdx(response.body()!!.data.projectIdx)
                                     preference.setProjectName(edittext_addproject_projectname.text.toString())
+                                    preference.setProjectCode(response.body()!!.data.projectCode)
                                 }
                             } else {
                                 Log.d("AddProjectActivity", response.message())
