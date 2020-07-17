@@ -12,26 +12,23 @@ import com.stormers.storm.customview.dialog.StormDialog
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.network.InterfaceProjectUser
+import com.stormers.storm.network.InterfaceRoundInfo
 import com.stormers.storm.network.RetrofitClient
-import com.stormers.storm.project.base.BaseProjectWaitingActivity
 import com.stormers.storm.project.model.ResponseProjectUserListModel
+import com.stormers.storm.round.model.ResponseRoundInfoModel
 import com.stormers.storm.round.network.InterfaceRoundUser
 import com.stormers.storm.user.ParticipantAdapter
 import com.stormers.storm.util.MarginDecoration
-import kotlinx.android.synthetic.main.fragment_round_setting_waiting_member.view.*
+import kotlinx.android.synthetic.main.fragment_round_start.*
 import kotlinx.android.synthetic.main.fragment_round_start.view.*
-import kotlinx.android.synthetic.main.fragment_waiting_for_starting_project.*
-import kotlinx.android.synthetic.main.fragment_waiting_for_starting_project.view.*
-import kotlinx.android.synthetic.main.fragment_waiting_for_starting_project.view.imageview_waitingproject_checkcircle
 import kotlinx.android.synthetic.main.fragment_waiting_for_starting_project.view.include_waitingproject_participant
 import kotlinx.android.synthetic.main.layout_list_of_participant.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.lang.StringBuilder
-import kotlinx.android.synthetic.main.fragment_round_setting_waiting_member.view.cardview_roundwaiting_rulereminder as cardview_roundwaiting_rulereminder1
 
-open class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(layoutRes) {
+abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(layoutRes) {
 
     private val participantAdapter: ParticipantAdapter by lazy { ParticipantAdapter() }
 
@@ -107,4 +104,36 @@ open class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(layoutR
             }
         })
     }
+
+    protected fun getRoundInfo(){
+
+        RetrofitClient.create(InterfaceRoundInfo::class.java).responseRoundInfo(preference.getProjectIdx()!!).enqueue(object : Callback<ResponseRoundInfoModel>{
+            override fun onFailure(call: Call<ResponseRoundInfoModel>, t: Throwable) {
+                Log.d("RoundInfo 통신실패", "{$t}")
+            }
+            override fun onResponse(call: Call<ResponseRoundInfoModel>, response: Response<ResponseRoundInfoModel>) {
+
+                if(response.isSuccessful){
+
+                    if(response.body()!!.success){
+                        Log.d("RoundInfo 통신성공","성공")
+
+                        val time = StringBuilder()
+                        time.append("총 ")
+                            .append(response.body()!!.data.roundTime)
+                            .append("분 예정")
+
+                        round_time.text = time.toString()
+                        round_subject.text = response.body()!!.data.roundPurpose
+
+                        preference.setRoundIdx(response.body()!!.data.roundIdx)
+
+                        afterGettingRoundInfo(response.body()!!.data.roundIdx)
+                    }
+                }
+            }
+        })
+    }
+
+    abstract fun afterGettingRoundInfo(roundIdx: Int)
 }

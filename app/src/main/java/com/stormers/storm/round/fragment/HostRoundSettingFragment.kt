@@ -29,7 +29,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.lang.StringBuilder
 
-class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setting) {
+class   HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setting) {
 
     private lateinit var timePickerDialog: StormDialog
 

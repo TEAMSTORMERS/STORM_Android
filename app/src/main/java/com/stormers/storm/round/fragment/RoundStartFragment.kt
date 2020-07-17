@@ -10,17 +10,10 @@ import com.stormers.storm.customview.StormButton
 import com.stormers.storm.customview.dialog.StormDialog
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.network.InterfaceRoundInfo
-import com.stormers.storm.network.RetrofitClient
-import com.stormers.storm.round.model.ResponseRoundInfoModel
 import com.stormers.storm.round.base.BaseWaitingFragment
 import com.stormers.storm.ui.RoundProgressActivity
 import com.stormers.storm.ui.RoundSettingActivity
 import kotlinx.android.synthetic.main.activity_round_setting.*
-import kotlinx.android.synthetic.main.fragment_round_start.*
-import java.lang.StringBuilder
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
@@ -38,6 +31,7 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
 
         initActivityButton()
 
+        //라운드 정보 받아오기
         getRoundInfo()
     }
 
@@ -57,33 +51,6 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
         }
     }
 
-    fun getRoundInfo(){
-        retrofitClient = RetrofitClient.create(InterfaceRoundInfo::class.java)
 
-        retrofitClient.responseRoundInfo(preference.getProjectIdx()!!).enqueue(object : Callback<ResponseRoundInfoModel>{
-            override fun onFailure(call: Call<ResponseRoundInfoModel>, t: Throwable) {
-                Log.d("RoundInfo 통신실패", "{$t}")
-            }
-            override fun onResponse(
-                call: Call<ResponseRoundInfoModel>,
-                response: Response<ResponseRoundInfoModel>
-            ) {
-                if(response.isSuccessful){
-                    if(response.body()!!.success){
-                        Log.d("RoundInfo 통신성공","성공")
-
-                        val time = StringBuilder()
-                        time.append("총 ")
-                            .append(response.body()!!.data.roundTime)
-                            .append("분 예정")
-
-                        round_time.text = time.toString()
-                        round_subject.text = response.body()!!.data.roundPurpose
-
-                    }
-                }
-            }
-        })
-    }
 
 }
