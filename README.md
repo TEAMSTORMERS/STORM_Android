@@ -2,17 +2,23 @@
 
 ![서비스소개](https://user-images.githubusercontent.com/55133871/86811476-ec591d00-c0b8-11ea-971e-c78793429ae7.png)
 
+<br>
+
 **실시간 브레인스토밍 협업 플랫폼 - STORM**
 
 STORM은 효율적인 아이디어 회의를 돕는 온라인 툴이자 브레인스토밍을 함께하는 서비스입니다.
+
 라운드마다 목표와 제한 시간을 설정해 각자 아이디어를 고민해보고,
+
 각 라운드 후에는 팀원들이 함께 의견을 나눌 수 있습니다.
+
 프로젝트가 끝난 뒤에는 최종 정리를 통해 라운드 및 카드 목록을 한눈에 볼 수 있으며,
+
 좋은 아이디어 카드들은 따로 스크랩해 모아볼 수 있습니다.
 
-
+<br>
 개발 기간 : 2020-06-30~2020-07-18
-
+<br><br>
 
 ## [Library & Purpose📖]([https://github.com/TEAMSTORMERS/STORM_Android/wiki/Library-&-Purpose%F0%9F%93%96](https://github.com/TEAMSTORMERS/STORM_Android/wiki/Library-&-Purpose%F0%9F%93%96))
 
