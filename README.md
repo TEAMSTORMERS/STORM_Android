@@ -262,7 +262,7 @@
 	    }  
 	}
 
- **Kakao api**
+ **📌 Kakao api**
 
  **- Application을 상속하는 GlobalAppication.kt**
  **- KakaoAdapter를 상속하는 KakaoSDKAdapter**
