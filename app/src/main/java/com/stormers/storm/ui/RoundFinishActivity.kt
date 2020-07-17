@@ -78,6 +78,7 @@ class RoundFinishActivity : BaseActivity() {
         SocketClient.sendEvent("nextRound", preference.getProjectCode()!!)
 
         startActivity(Intent(this@RoundFinishActivity, RoundSettingActivity::class.java))
+        finish()
     }
 
     private fun finishRound() {
@@ -89,6 +90,7 @@ class RoundFinishActivity : BaseActivity() {
     private fun waitNextRound() {
         SocketClient.responseEvent("memberNextRound", Emitter.Listener {
             startActivity(Intent(this@RoundFinishActivity, MemberRoundWaitingActivity::class.java))
+            finish()
         })
 
         SocketClient.responseEvent("memberFinishProject", Emitter.Listener {
@@ -101,6 +103,7 @@ class RoundFinishActivity : BaseActivity() {
         intent.putExtra("projectIdx", preference.getProjectIdx())
 
         startActivity(intent)
+        finish()
     }
 
     private fun initDialog() {

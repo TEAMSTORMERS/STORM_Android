@@ -45,6 +45,7 @@ class RoundProgressActivity : BaseActivity() {
         //Debug 용도로 라운드 목표를 터치하면 라운드가 종료되도록 함
         this.textView_round_goal.setOnClickListener {
             startActivity(Intent(this, RoundFinishActivity::class.java))
+            finish()
         }
 
         projectIdx = preference.getProjectIdx()!!
@@ -136,7 +137,8 @@ class RoundProgressActivity : BaseActivity() {
             }
 
             override fun onFinish() {
-                goToFragment(RoundmeetingFragment::class.java, null)
+                startActivity(Intent(this@RoundProgressActivity, RoundFinishActivity::class.java))
+                finish()
             }
         }
         countDownTimer.start()
