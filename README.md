@@ -13,7 +13,6 @@
 
 **1️⃣ constraintLayout의 다양한 속성 활용**
 
-<br>
 
 ✅ Fragment에 들어갈 뷰들은 위아래가 잘라먹힐 가능성이 있어 모두 chain으로 묶은 뒤 bias 값을 조정하였음
 
@@ -74,11 +73,10 @@
           app:layout_constraintStart_toStartOf="parent"  
           app:layout_constraintTop_toTopOf="parent" />
 
-<br><br>
+<br>
 
 **2️⃣ 제약조건의 연관성**
 
-<br>
 
 ✅ 화면의 크기의 변화가 있어도 겹쳐지지 말아야할 뷰들은 서로 제약 조건을 갖도록 하였음
 
@@ -86,7 +84,7 @@
 
 ✅ 제약 조건을 주지 않아도 위치가 결정되는 경우가 있었지만 각 뷰의 상대적 위치를 확실하게 하기 위해 가까운 뷰와 제약 조건을 가짐
 
-<br><br>
+<br>
 
 **3️⃣ match_parent, wrap_content, match_constraint의 사용**
 
@@ -103,8 +101,6 @@
 	➡️ view_card_custom.xml
 
 	➡️ view_botton_custom.xml
-	
-<br>
 
  - [ ] **ViewPager2의 아이템 레이아웃 (최상위 레이아웃의 가로세로가 match_parent가 아니면 예외가 발생하여 FrameLayout으로 해결)**
 
