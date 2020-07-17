@@ -1,3 +1,4 @@
+
 # ⚡️🌪STORM Android🌪⚡️
 
 
@@ -98,6 +99,7 @@
 	**➡️ item_round_info_card.xml**
 
 	**➡️ item_card_detail.xml**
+
 ## (A-2항목) Kotlin collection의 확장함수 사용 / Custom 확장함수 사용📝
 
 
@@ -116,13 +118,43 @@
 
     implementation ('io.socket:socket.io-client:1.0.0') { exclude group: 'org.json', module: 'json' }
 
+**서버통신을 위한 Retrofit 라이브러리**
+
+    implementation 'com.google.code.gson:gson:2.8.6'  
+    implementation 'com.squareup.retrofit2:retrofit:2.7.1'  
+    implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
+
+**Firebase SDK Google 로그인 연동**
+
+    implementation 'com.google.firebase:firebase-analytics:17.2.2'  
+    implementation 'com.google.firebase:firebase-auth:18.0.0'  
+    implementation 'com.google.android.gms:play-services-auth:18.0.0'
+
+
+**Kakao  SDK로그인 연동**
+
+    implementation group: project.KAKAO_SDK_GROUP, name: 'usermgmt', version: project.KAKAO_SDK_VERSION
+
+**Splash, 라운드 대기중 로딩 화면 구현을 위한 Lottie 라이브러리**
+
+    implementation 'com.airbnb.android:lottie:3.4.1'
+
+**내부 Database 구축을위한 Room 라이브러리**
+
+    implementation "androidx.room:room-runtime:2.2.5"
+
 			
-## (A-3항목) Project Structure📐 
+
+## (A-3항목) Project Structure📐
+
+ 
 
 
-## (A-3항목) Core Function & How to build💻 
+(A-3항목) Core Function & How to build💻
 
-**🚪로그인 Kakao api, Google api 사용** 
+**🚪로그인 Kakao api, Google api 사용**
+
+ 
 
 **🎨Drawing기능 구현**
 
@@ -130,6 +162,19 @@
 
 **📶socket 통신**
 
-**🎥Animation 적용**
+## **🎥Animation 적용**
+
+**1️⃣ Lottie Animation**
+  **: 스플래쉬, 로그인, 라운드 대기 중 로딩**
+
+    private fun initView() {  
+        val animationView = findViewById<LottieAnimationView>(R.id.lottieanimation_login)  
+        animationView.setAnimation("login_bg.json")  
+        animationView.repeatCount = INFINITE  
+      animationView.playAnimation()  
+    }
 
 **📢Notification**
+
+
+

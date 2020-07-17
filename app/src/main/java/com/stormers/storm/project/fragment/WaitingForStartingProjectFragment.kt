@@ -32,13 +32,13 @@ class WaitingForStartingProjectFragment : BaseWaitingFragment(R.layout.fragment_
             setText("시작")
             setActivation(false)
 
-            setOnClickListener {
-                if ((activity as BaseProjectWaitingActivity).isHost) {
-                    goToFragment(HostRoundSettingFragment::class.java, null)
-                } else {
-                    goToFragment(MemberWaitingFragment::class.java, null)
-                }
-            }
+//            setOnClickListener {
+//                if ((activity as BaseProjectWaitingActivity).isHost) {
+//                    goToFragment(HostRoundSettingFragment::class.java, null)
+//                } else {
+//                    goToFragment(MemberWaitingFragment::class.java, null)
+//                }
+//            }
         }
 
         buttonArray.add(

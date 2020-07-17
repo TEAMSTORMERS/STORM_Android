@@ -20,7 +20,6 @@ import com.stormers.storm.round.model.ResponseRoundCountModel
 import com.stormers.storm.round.model.RoundEnterModel
 import com.stormers.storm.round.model.RoundSettingModel
 import com.stormers.storm.round.network.InterfaceRoundEnter
-import com.stormers.storm.ui.HostRoundWaitingActivity
 import kotlinx.android.synthetic.main.activity_round_setting.*
 import com.stormers.storm.ui.RoundSettingActivity
 import io.socket.emitter.Emitter
@@ -29,7 +28,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.lang.StringBuilder
-import java.net.Socket
 
 class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setting) {
 
@@ -47,13 +45,8 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
 
     private val roundIdx = preference.getRoundIdx()
 
-    private var isNewRound = false
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-        isNewRound = arguments?.getBoolean("newRound")?: false
 
         //서버로부터 라운드 정보를 가져옴
         getRoundCount()
@@ -94,11 +87,7 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
     }
 
     private fun initActivityButton() {
-            activityButton = if (isNewRound) {
-                (activity as RoundSettingActivity).stormButton_ok_host_round_setting
-            } else {
-                (activity as HostRoundWaitingActivity).stormButton_ok_host_round_setting
-            }
+        activityButton = (activity as RoundSettingActivity).stormButton_ok_host_round_setting
 
         activityButton.setText("확인")
 
@@ -129,6 +118,7 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
                                         //RoundIdx 저장
                                         preference.setRoundIdx(response.body()!!.data)
 
+                                        //라운드 입장
                                         enterRound()
                                     }
                                 }
@@ -150,10 +140,7 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
                         Log.d("RoundCount 통신실패", "${t}")
                     }
 
-                    override fun onResponse(
-                        call: Call<ResponseRoundCountModel>,
-                        response: Response<ResponseRoundCountModel>
-                    ) {
+                    override fun onResponse(call: Call<ResponseRoundCountModel>, response: Response<ResponseRoundCountModel>) {
                         if (response.isSuccessful) {
                             if (response.body()!!.success) {
                                 Log.d("RoundCount 통신 성공", "성공")
@@ -164,8 +151,6 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
                                 round.append("ROUND ")
                                     .append(response.body()!!.data)
                                 textview_roundnumber.text = round.toString()
-
-
                             }
                         }
                     }
@@ -173,30 +158,19 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
         }
     }
     fun enterRound(){
-        RetrofitClient.create(InterfaceRoundEnter::class.java).interfaceRoundEnter((
-                RoundEnterModel(
-                    userIdx!!,
-                    roundIdx!!
-                )
-                )).enqueue(object  : Callback<BaseResponse>{
-            override fun onFailure(
-                call: Call<BaseResponse>,
-                t: Throwable
-            ) {
+        RetrofitClient.create(InterfaceRoundEnter::class.java).interfaceRoundEnter((RoundEnterModel(userIdx!!, roundIdx!!)))
+            .enqueue(object  : Callback<BaseResponse> {
+
+            override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
                 Log.d("라운드 참여 통신 실패", "${t}")
             }
 
-            override fun onResponse(
-                call: Call<BaseResponse>,
-                response: Response<BaseResponse>
-            ) {
+            override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
                 Log.d("라운드 참여 성공", "라운드 참여 성공 했다고")
 
                 sendRoundInfo()
 
-                goToFragment(RoundStartFragment::class.java, Bundle().apply {
-                    putBoolean("newRound", isNewRound)
-                })
+                goToFragment(RoundStartFragment::class.java, null)
             }
         })
     }
