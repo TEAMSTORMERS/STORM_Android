@@ -9,8 +9,8 @@ import com.stormers.storm.card.adapter.SavedCardAdapter
 import com.stormers.storm.card.repository.SavedCardRepository
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.round.adapter.RoundListAdapterForViewPager
-import com.stormers.storm.round.network.FinalRoundInterface
-import com.stormers.storm.round.network.ResponseFinalRoundData
+import com.stormers.storm.round.network.RequestRound
+import com.stormers.storm.round.network.response.ResponseFinalRoundData
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_project_cardlist.*
 import retrofit2.Call
@@ -30,7 +30,7 @@ class RoundListActivity : AppCompatActivity() {
 
     private var roundNo = -1
 
-    private lateinit var retrofitClient: FinalRoundInterface
+    private lateinit var retrofitClient: RequestRound
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +41,7 @@ class RoundListActivity : AppCompatActivity() {
 
         roundListAdapterForViewPager = RoundListAdapterForViewPager()
 
-        retrofitClient = RetrofitClient.create(FinalRoundInterface::class.java)
+        retrofitClient = RetrofitClient.create(RequestRound::class.java)
 
         retrofitClient.responseFinalRoundData(projectIdx).enqueue(object : Callback<ResponseFinalRoundData> {
             override fun onFailure(call: Call<ResponseFinalRoundData>, t: Throwable) {

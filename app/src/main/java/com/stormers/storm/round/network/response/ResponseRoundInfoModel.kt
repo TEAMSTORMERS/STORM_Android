@@ -1,4 +1,6 @@
-package com.stormers.storm.round.model
+package com.stormers.storm.round.network.response
+
+import com.stormers.storm.round.model.RoundInfoModel
 
 data class ResponseRoundInfoModel(
     val status : String,

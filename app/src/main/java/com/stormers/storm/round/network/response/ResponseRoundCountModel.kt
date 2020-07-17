@@ -1,4 +1,4 @@
-package com.stormers.storm.round.model
+package com.stormers.storm.round.network.response
 
 data class ResponseRoundCountModel(
     val status : Int,

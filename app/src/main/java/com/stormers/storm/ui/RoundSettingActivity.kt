@@ -9,9 +9,9 @@ import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 
 import com.stormers.storm.network.BaseResponse
+import com.stormers.storm.network.RequestRound
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.round.fragment.HostRoundSettingFragment
-import com.stormers.storm.round.network.InterfaceRoundExit
 import kotlinx.android.synthetic.main.activity_round_setting.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,7 +22,7 @@ class  RoundSettingActivity : BaseActivity() {
     private var projectIdx = preference.getProjectIdx()
     private var userIdx = preference.getUserIdx()
 
-    private lateinit var retrofitClient: InterfaceRoundExit
+    private lateinit var retrofitClient: RequestRound
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -50,7 +50,7 @@ class  RoundSettingActivity : BaseActivity() {
         // val toolbar_exit : ImageButton
 
         // toolbar_exit = findViewById(R.id.toolbar_exit) as ImageButton
-        retrofitClient = RetrofitClient.create(InterfaceRoundExit::class.java)
+        retrofitClient = RetrofitClient.create(RequestRound::class.java)
 
         goToFragment(HostRoundSettingFragment::class.java, null)
 

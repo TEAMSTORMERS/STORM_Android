@@ -10,11 +10,11 @@ import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.card.adapter.SavedCardAdapter
 import com.stormers.storm.card.repository.SavedCardRepository
 import com.stormers.storm.network.RetrofitClient
-import com.stormers.storm.project.network.ProjectInterface
-import com.stormers.storm.project.network.ResponseProjectData
+import com.stormers.storm.project.network.RequestProject
+import com.stormers.storm.project.network.response.ResponseProjectData
 import com.stormers.storm.round.adapter.RoundListAdapter
-import com.stormers.storm.round.network.FinalRoundInterface
-import com.stormers.storm.round.network.ResponseFinalRoundData
+import com.stormers.storm.round.network.RequestRound
+import com.stormers.storm.round.network.response.ResponseFinalRoundData
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_participated_project_detail.*
 import retrofit2.Call
@@ -30,8 +30,8 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
 
     private var projectIdx = -1
 
-    private lateinit var retrofitClient_roundInfo: FinalRoundInterface
-    private lateinit var retrofitClient: ProjectInterface
+    private lateinit var retrofitClient_roundInfo: RequestRound
+    private lateinit var retrofitClient: RequestProject
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,8 +39,8 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
 
         projectIdx = intent.getIntExtra("projectIdx", -1)
 
-        retrofitClient = RetrofitClient.create(ProjectInterface::class.java)
-        retrofitClient_roundInfo = RetrofitClient.create(FinalRoundInterface::class.java)
+        retrofitClient = RetrofitClient.create(RequestProject::class.java)
+        retrofitClient_roundInfo = RetrofitClient.create(RequestRound::class.java)
 
         retrofitClient_roundInfo.responseFinalRoundData(projectIdx).enqueue(object : Callback<ResponseFinalRoundData> {
             override fun onFailure(call: Call<ResponseFinalRoundData>, t: Throwable) {

@@ -1,4 +1,6 @@
-package com.stormers.storm.project.model
+package com.stormers.storm.project.network.response
+
+import com.stormers.storm.project.model.ProjectInfoModel
 
 data class ResponseProjectInfoModel(
     val status : Int,

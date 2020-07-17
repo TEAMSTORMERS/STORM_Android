@@ -6,21 +6,14 @@ import android.os.CountDownTimer
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import com.stormers.storm.R
 import com.stormers.storm.RoundSetting.AddCardFragment
 import com.stormers.storm.base.BaseActivity
-import com.stormers.storm.canvas.fragment.CanvasDrawingFragment
 import com.stormers.storm.card.fragment.RoundmeetingFragment
-import com.stormers.storm.network.InterfaceRoundInfo
+import com.stormers.storm.network.RequestRound
 import com.stormers.storm.network.RetrofitClient
-import com.stormers.storm.round.model.ResponseRoundInfoModel
-import com.stormers.storm.round.network.FinalRoundInterface
-import com.stormers.storm.round.network.ResponseFinalRoundData
-import kotlinx.android.synthetic.main.activity_project_cardlist.*
+import com.stormers.storm.round.network.response.ResponseRoundInfoModel
 import kotlinx.android.synthetic.main.activity_round_progress.*
-import kotlinx.android.synthetic.main.fragment_host_round_setting.*
 import kotlinx.android.synthetic.main.view_toolbar.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -30,7 +23,7 @@ import java.util.concurrent.TimeUnit
 
 class RoundProgressActivity : BaseActivity() {
 
-    private lateinit var retrofitClient: InterfaceRoundInfo
+    private lateinit var retrofitClient: RequestRound
 
     private var projectIdx = -1
     private var roundIdx = -1
@@ -57,7 +50,7 @@ class RoundProgressActivity : BaseActivity() {
         projectIdx = preference.getProjectIdx()!!
         roundIdx = preference.getRoundIdx()!!
 
-        retrofitClient = RetrofitClient.create(InterfaceRoundInfo::class.java)
+        retrofitClient = RetrofitClient.create(RequestRound::class.java)
 
         retrofitClient.responseRoundInfo(projectIdx).enqueue(object :
             Callback<ResponseRoundInfoModel> {
