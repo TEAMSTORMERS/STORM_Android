@@ -29,8 +29,8 @@
 
 **ex) fragment_host_round_setting.xm (chain속성)**
 
-  
-	 <ImageView  
+~~~kotlin  
+<ImageView  
 	  android:id="@+id/imageview_symbol"  
 	  android:layout_width="0dp"  
 	  android:layout_height="0dp"  
@@ -56,7 +56,7 @@
 	  app:layout_constraintBottom_toTopOf="@+id/textview_round_goal"  
 	  app:layout_constraintStart_toStartOf="parent"  
 	  app:layout_constraintTop_toBottomOf="@+id/imageview_symbol" />
-
+~~~
 <br>
 
 **ex) activity_main.xml (constraintHeight_percent)**
