@@ -10,6 +10,8 @@ import com.stormers.storm.card.fragment.RoundmeetingFragment
 import com.stormers.storm.customview.dialog.StormDialog
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
+import com.stormers.storm.network.SocketClient
+import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_round_progress.*
 import kotlinx.android.synthetic.main.fragment_waiting_for_starting_project.*
 import java.lang.StringBuilder
@@ -24,21 +26,29 @@ class RoundFinishActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_round_progress)
 
+        SocketClient.getInstance()
+        SocketClient.connection()
+
+        button_scrapcard_save_roundmeeting.visibility = View.VISIBLE
+
         goToFragment(RoundmeetingFragment::class.java, null)
 
         initDialogButton()
 
         initDialog()
 
-        //if (userIdx = "host") {
+        if (preference.isHost()) {
 
             button_scrapcard_save_roundmeeting.visibility = View.VISIBLE
 
             button_scrapcard_save_roundmeeting.setOnClickListener {
                 dialog.show(supportFragmentManager, "roundfinish")
-         //   }
-        }
+            }
+        } else {
+            button_scrapcard_save_roundmeeting.visibility = View.GONE
 
+            waitNextRound()
+        }
     }
 
     override fun onResume() {
@@ -50,19 +60,47 @@ class RoundFinishActivity : BaseActivity() {
         buttonArray.add(
             StormDialogButton("다음 ROUND 진행", true, object : StormDialogButton.OnClickListener {
                 override fun onClick() {
-                    startActivity(Intent(this@RoundFinishActivity, RoundSettingActivity::class.java))
+                    startNextRound()
                 }
             })
         )
         buttonArray.add(
             StormDialogButton("프로젝트 종료 후 최종 정리", true, object : StormDialogButton.OnClickListener {
                 override fun onClick() {
-                    val intent = Intent(this@RoundFinishActivity, ParticipatedProjectDetailActivity::class.java)
-                    startActivity(intent)
+                    finishRound()
                 }
             })
         )
 
+    }
+
+    private fun startNextRound() {
+        SocketClient.sendEvent("nextRound", preference.getProjectCode()!!)
+
+        startActivity(Intent(this@RoundFinishActivity, RoundSettingActivity::class.java))
+    }
+
+    private fun finishRound() {
+        SocketClient.sendEvent("finishProject", preference.getProjectCode()!!)
+
+        startDetailActivity()
+    }
+
+    private fun waitNextRound() {
+        SocketClient.responseEvent("memberNextRound", Emitter.Listener {
+            startActivity(Intent(this@RoundFinishActivity, MemberRoundWaitingActivity::class.java))
+        })
+
+        SocketClient.responseEvent("memberFinishProject", Emitter.Listener {
+            startDetailActivity()
+        })
+    }
+
+    private fun startDetailActivity () {
+        val intent = Intent(this@RoundFinishActivity, ParticipatedProjectDetailActivity::class.java)
+        intent.putExtra("projectIdx", preference.getProjectIdx())
+
+        startActivity(intent)
     }
 
     private fun initDialog() {
