@@ -32,7 +32,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-//Todo: ROUND정보 서버에서 받아오는 기능 수정해야함
 
 class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
 
@@ -44,7 +43,6 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
 
     private var isNewRound = false
 
-    private val projectIdx = preference.getProjectIdx()!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -124,24 +122,4 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
         })
     }
 
-    fun sendRoundInfo(){
-
-        SocketClient.getInstance()
-        SocketClient.connection()
-
-        SocketClient.sendStringEvent("joinRoom", "roomCode")
-
-        SocketClient.responseEvent("roomState", Emitter.Listener{
-            Log.d("test", "test2")
-        })
-
-
-//        SocketClient.responseEvent("roundcomplete", Emitter.Listener {
-//            Log.d("이게 통신이다 임마", it.toString())
-//            Log.d("이게 통신이다 임마", it[0].toString())
-//        })
-
-
-        goToFragment(RoundStartFragment::class.java,null)
-    }
 }

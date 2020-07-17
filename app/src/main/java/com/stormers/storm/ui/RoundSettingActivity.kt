@@ -19,15 +19,13 @@ import retrofit2.Response
 
 class RoundSettingActivity : BaseActivity() {
 
-    private var projectIdx = -1
-    private var userIdx = -1
-    private var roundIdx = -1
+    private var projectIdx = preference.getProjectIdx()
+    private var userIdx = preference.getUserIdx()
+    private var roundIdx = preference.getRoundIdx()
 
     private lateinit var retrofitClient: InterfaceRoundExit
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        var userIdx : Int
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_round_setting)
@@ -66,7 +64,7 @@ class RoundSettingActivity : BaseActivity() {
 
     fun roundExit() {
 
-        retrofitClient.roundExit(userIdx, roundIdx).enqueue(object : Callback<BaseResponse> {
+        retrofitClient.roundExit(userIdx!!, roundIdx!!).enqueue(object : Callback<BaseResponse> {
             override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
                 Log.d("통신실패", "${t}")
             }

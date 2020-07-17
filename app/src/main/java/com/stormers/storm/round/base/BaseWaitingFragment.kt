@@ -11,6 +11,7 @@ import com.stormers.storm.network.InterfaceProjectUser
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.project.base.BaseProjectWaitingActivity
 import com.stormers.storm.project.model.ResponseProjectUserListModel
+import com.stormers.storm.round.network.InterfaceRoundUser
 import com.stormers.storm.user.ParticipantAdapter
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.fragment_round_setting_waiting_member.view.*
@@ -28,6 +29,8 @@ open class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(layoutR
     private val participantAdapter: ParticipantAdapter by lazy { ParticipantAdapter() }
 
     private lateinit var retrofitClient: InterfaceProjectUser
+
+    private lateinit var retrofitList: InterfaceRoundUser
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -66,4 +69,24 @@ open class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(layoutR
             })
         }
     }
+
+    private fun showRoundUserLIst() {
+         retrofitList = RetrofitClient.create(InterfaceRoundUser::class.java)
+
+        preference.getRoundIdx()?.let {
+            retrofitList.showRoundUser(it).enqueue(object : Callback<ResponseProjectUserListModel> {
+                override fun onFailure(call: Call<ResponseProjectUserListModel>, t: Throwable) {
+                    Log.d("라운드 유저 리스트 ", "${t}")
+                }
+
+                override fun onResponse(
+                    call: Call<ResponseProjectUserListModel>,
+                    response: Response<ResponseProjectUserListModel>
+                ) {
+                    participantAdapter.addAll(response.body()!!.data)
+                }
+            })
+        }
+    }
+
 }

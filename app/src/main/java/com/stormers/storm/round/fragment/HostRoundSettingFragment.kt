@@ -17,7 +17,9 @@ import com.stormers.storm.network.SocketClient
 
 import com.stormers.storm.card.network.InterfaceRoundCount
 import com.stormers.storm.round.model.ResponseRoundCountModel
+import com.stormers.storm.round.model.RoundEnterModel
 import com.stormers.storm.round.model.RoundSettingModel
+import com.stormers.storm.round.network.InterfaceRoundEnter
 import com.stormers.storm.ui.HostRoundWaitingActivity
 import kotlinx.android.synthetic.main.activity_round_setting.*
 import com.stormers.storm.ui.RoundSettingActivity
@@ -127,9 +129,7 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
                                         //RoundIdx 저장
                                         preference.setRoundIdx(response.body()!!.data)
 
-                                        goToFragment(RoundStartFragment::class.java, Bundle().apply {
-                                            putBoolean("newRound", isNewRound)
-                                        })
+                                        enterRound()
                                     }
                                 }
                             }
@@ -164,11 +164,41 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
                                 round.append("ROUND ")
                                     .append(response.body()!!.data)
                                 textview_roundnumber.text = round.toString()
+
+
                             }
                         }
                     }
                 })
         }
+    }
+    fun enterRound(){
+        RetrofitClient.create(InterfaceRoundEnter::class.java).interfaceRoundEnter((
+                RoundEnterModel(
+                    userIdx!!,
+                    roundIdx!!
+                )
+                )).enqueue(object  : Callback<BaseResponse>{
+            override fun onFailure(
+                call: Call<BaseResponse>,
+                t: Throwable
+            ) {
+                Log.d("라운드 참여 통신 실패", "${t}")
+            }
+
+            override fun onResponse(
+                call: Call<BaseResponse>,
+                response: Response<BaseResponse>
+            ) {
+                Log.d("라운드 참여 성공", "라운드 참여 성공 했다고")
+
+                sendRoundInfo()
+
+                goToFragment(RoundStartFragment::class.java, Bundle().apply {
+                    putBoolean("newRound", isNewRound)
+                })
+            }
+        })
     }
 
     fun sendRoundInfo(){
@@ -179,7 +209,11 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
     //    SocketClient.sendIntEvent("joinRoom", textview_round_goal.text.toString().toInt())
     //    SocketClient.sendIntEvent("joinRoom",  textview_roundsetting_time.text.toString().substring(0,2).toInt())
 
-        SocketClient.sendIntEvent("joinRoom", userIdx!!)
-        SocketClient.sendIntEvent("joinRoom",  roundIdx!!)
+        SocketClient.sendStringEvent("joinRoom", "roomCode")
+        SocketClient.sendStringEvent("roundSetting",  "roomCode")
+
+        SocketClient.responseEvent("roundcomplete", Emitter.Listener {
+            Log.d("소켓 성공", it.toString())
+        })
     }
 }

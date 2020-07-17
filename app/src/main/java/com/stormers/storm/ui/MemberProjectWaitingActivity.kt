@@ -8,5 +8,8 @@ class MemberProjectWaitingActivity : BaseProjectWaitingActivity(false) {
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
+
+
+
     }
 }
