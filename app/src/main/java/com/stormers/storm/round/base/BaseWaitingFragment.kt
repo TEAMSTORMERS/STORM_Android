@@ -110,6 +110,7 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
                 Log.d("라운드 유저 리스트 ", "${t}")
             }
             override fun onResponse(call: Call<ResponseProjectUserListModel>, response: Response<ResponseProjectUserListModel>) {
+                participantAdapter.clear()
                 participantAdapter.addAll(response.body()!!.data)
             }
         })
