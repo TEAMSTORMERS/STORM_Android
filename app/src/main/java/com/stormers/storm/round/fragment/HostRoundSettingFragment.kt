@@ -10,12 +10,9 @@ import com.stormers.storm.customview.StormButton
 import com.stormers.storm.customview.dialog.StormDialog
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
-import com.stormers.storm.network.BaseResponse
-import com.stormers.storm.network.InterfaceRoundSetting
-import com.stormers.storm.network.RetrofitClient
-import com.stormers.storm.network.SocketClient
 
 import com.stormers.storm.card.network.InterfaceRoundCount
+import com.stormers.storm.network.*
 import com.stormers.storm.round.model.ResponseRoundCountModel
 import com.stormers.storm.round.model.RoundEnterModel
 import com.stormers.storm.round.model.RoundSettingModel
@@ -160,17 +157,27 @@ class   HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_set
     }
     fun enterRound(roundIdx: Int){
         RetrofitClient.create(InterfaceRoundEnter::class.java).interfaceRoundEnter((RoundEnterModel(userIdx!!, roundIdx)))
-            .enqueue(object  : Callback<BaseResponse> {
+            .enqueue(object  : Callback<SimpleResponse> {
 
-            override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
-                Log.d("라운드 참여 통신 실패", "${t}")
+            override fun onFailure(call: Call<SimpleResponse>, t: Throwable) {
+                Log.d("enterRound", "failed : ${t.message}")
+                Log.d("enterRound", "userIdx: $userIdx")
+                Log.d("enterRound", "projectIdx: ${preference.getProjectIdx()}")
+                Log.d("enterRound", "roundIdx: $roundIdx")
             }
 
-            override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
-                Log.d("라운드 참여 성공", "라운드 참여 성공 했다고")
+            override fun onResponse(call: Call<SimpleResponse>, response: Response<SimpleResponse>) {
+                Log.d("enterRound", "${response.message() } $response" )
+                Log.d("enterRound", "userIdx: $userIdx")
+                Log.d("enterRound", "projectIdx: ${preference.getProjectIdx()}")
+                Log.d("enterRound", "roundIdx: $roundIdx")
 
-                //소켓으로 방에 참가하기
-                joinRoundRoom()
+                if (response.isSuccessful) {
+                    if (response.body()!!.success) {
+                        //소켓으로 방에 참가하기
+                        joinRoundRoom()
+                    }
+                }
             }
         })
     }

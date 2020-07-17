@@ -36,10 +36,6 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //디버깅용
-        preference.setUserIdx(1)
-
-
         val mainview_toolbar = findViewById(R.id.include_main_toolbar) as Toolbar
 
         setSupportActionBar(mainview_toolbar)
