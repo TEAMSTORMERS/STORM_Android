@@ -17,11 +17,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RoundSettingActivity : BaseActivity() {
+class  RoundSettingActivity : BaseActivity() {
 
     private var projectIdx = preference.getProjectIdx()
     private var userIdx = preference.getUserIdx()
-    private var roundIdx = preference.getRoundIdx()
 
     private lateinit var retrofitClient: InterfaceRoundExit
 
@@ -34,27 +33,26 @@ class RoundSettingActivity : BaseActivity() {
 
         textview_projectcard_title.setOnClickListener {
             Log.d("버튼 눌림", "눌림")
-            roundExit()
+            //roundExit()
         }
 
 
         toolbar_exit.setOnClickListener {
             Log.d("버튼 눌림", "눌림")
-            roundExit()
+            //roundExit()
         }
 
-        projectIdx = intent.getIntExtra("projectIdx", 1)
-        userIdx = intent.getIntExtra("roundIdx", 1)
-        roundIdx = intent.getIntExtra("roundIdx", 1)
+        projectIdx = preference.getProjectIdx()!!
+        userIdx = preference.getUserIdx()!!
+
+        textview_projectcard_title.text = preference.getProjectName()
 
         // val toolbar_exit : ImageButton
 
         // toolbar_exit = findViewById(R.id.toolbar_exit) as ImageButton
         retrofitClient = RetrofitClient.create(InterfaceRoundExit::class.java)
 
-        goToFragment(HostRoundSettingFragment::class.java, Bundle().apply {
-            putBoolean("newRound", true)
-        })
+        goToFragment(HostRoundSettingFragment::class.java, null)
 
     }
 
@@ -62,23 +60,23 @@ class RoundSettingActivity : BaseActivity() {
         return R.id.constraint_host_round
     }
 
-    fun roundExit() {
-
-        retrofitClient.roundExit(userIdx!!, roundIdx!!).enqueue(object : Callback<BaseResponse> {
-            override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
-                Log.d("통신실패", "${t}")
-            }
-
-            override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
-                if (response.isSuccessful)
-                    if (response.body()!!.success) {
-                        Log.d("라운드 나가기 통신 성공", "성공")
-                        val intent = Intent(this@RoundSettingActivity, MainActivity::class.java)
-                        startActivity(intent)
-                    }
-            }
-        })
-    }
+//    fun roundExit() {
+//
+//        retrofitClient.roundExit(userIdx!!, roundIdx!!).enqueue(object : Callback<BaseResponse> {
+//            override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
+//                Log.d("통신실패", "${t}")
+//            }
+//
+//            override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
+//                if (response.isSuccessful)
+//                    if (response.body()!!.success) {
+//                        Log.d("라운드 나가기 통신 성공", "성공")
+//                        val intent = Intent(this@RoundSettingActivity, MainActivity::class.java)
+//                        startActivity(intent)
+//                    }
+//            }
+//        })
+//    }
 
 
 }

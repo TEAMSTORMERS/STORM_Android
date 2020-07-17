@@ -32,13 +32,13 @@ class WaitingForStartingProjectFragment : BaseWaitingFragment(R.layout.fragment_
             setText("시작")
             setActivation(false)
 
-            setOnClickListener {
-                if ((activity as BaseProjectWaitingActivity).isHost) {
-                    goToFragment(HostRoundSettingFragment::class.java, null)
-                } else {
-                    goToFragment(MemberWaitingFragment::class.java, null)
-                }
-            }
+//            setOnClickListener {
+//                if ((activity as BaseProjectWaitingActivity).isHost) {
+//                    goToFragment(HostRoundSettingFragment::class.java, null)
+//                } else {
+//                    goToFragment(MemberWaitingFragment::class.java, null)
+//                }
+//            }
         }
 
         buttonArray.add(
@@ -59,5 +59,9 @@ class WaitingForStartingProjectFragment : BaseWaitingFragment(R.layout.fragment_
         cardview_waitingproject_checkrules.setOnClickListener {
             fragmentManager?.let { it1 -> dialog.show(it1, "rule_reminder") }
         }
+    }
+
+    override fun afterGettingRoundInfo(roundIdx: Int) {
+        TODO("Not yet implemented")
     }
 }

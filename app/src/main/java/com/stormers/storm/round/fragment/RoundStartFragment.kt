@@ -10,27 +10,10 @@ import com.stormers.storm.customview.StormButton
 import com.stormers.storm.customview.dialog.StormDialog
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.network.InterfaceRoundInfo
-import com.stormers.storm.network.RetrofitClient
-import com.stormers.storm.network.SocketClient
-import com.stormers.storm.round.model.ResponseRoundInfoModel
 import com.stormers.storm.round.base.BaseWaitingFragment
-import com.stormers.storm.ui.HostRoundWaitingActivity
 import com.stormers.storm.ui.RoundProgressActivity
 import com.stormers.storm.ui.RoundSettingActivity
-import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_round_setting.*
-import kotlinx.android.synthetic.main.fragment_host_round_setting.*
-import kotlinx.android.synthetic.main.fragment_round_start.*
-import kotlinx.android.synthetic.main.fragment_round_start.view.*
-import kotlinx.android.synthetic.main.fragment_round_start.view.textview_round_no
-import kotlinx.android.synthetic.main.layout_list_of_participant.view.*
-import kotlinx.android.synthetic.main.activity_round_setting.*
-import kotlinx.android.synthetic.main.fragment_round_start.*
-import kotlinx.android.synthetic.main.fragment_round_start.view.textview_round_no
-import java.lang.StringBuilder
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
@@ -41,45 +24,24 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
 
     private lateinit var retrofitClient: InterfaceRoundInfo
 
-    private var isNewRound = false
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
-        isNewRound = arguments?.getBoolean("newRound")?: false
-
         dialog = StormDialogBuilder(StormDialogBuilder.LOADING_LOGO, "5초 후 라운드가 시작합니다").build()
 
-        initActivityButton()
-
-        initParticipant(view)
-
-        //sendRoundInfo()
-
+        //라운드 정보 받아오기
         getRoundInfo()
+
+        showRoundUserLIst(preference.getRoundIdx()!!)
     }
 
-    private fun initParticipant(view: View) {
-
-        val round = StringBuilder()
-        round.append("ROUND ")
-            .append(preference.getRoundCount()!!)
-
-        view.textview_round_no.text = round.toString()
-
-        getRoundInfo()
+    override fun afterGettingRoundInfo(roundIdx: Int) {
+        initActivityButton()
     }
 
     private fun initActivityButton() {
 
-        activityButton = if (isNewRound) {
-            (activity as RoundSettingActivity).stormButton_ok_host_round_setting
-        } else {
-            (activity as HostRoundWaitingActivity).stormButton_ok_host_round_setting
-        }
+        activityButton = (activity as RoundSettingActivity).stormButton_ok_host_round_setting
 
         activityButton.setOnClickListener {
             fragmentManager?.let { it1 -> dialog.show(it1, "round_start") }
@@ -93,33 +55,6 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
         }
     }
 
-    fun getRoundInfo(){
-        retrofitClient = RetrofitClient.create(InterfaceRoundInfo::class.java)
 
-        retrofitClient.responseRoundInfo(preference.getProjectIdx()!!).enqueue(object : Callback<ResponseRoundInfoModel>{
-            override fun onFailure(call: Call<ResponseRoundInfoModel>, t: Throwable) {
-                Log.d("RoundInfo 통신실패", "{$t}")
-            }
-            override fun onResponse(
-                call: Call<ResponseRoundInfoModel>,
-                response: Response<ResponseRoundInfoModel>
-            ) {
-                if(response.isSuccessful){
-                    if(response.body()!!.success){
-                        Log.d("RoundInfo 통신성공","성공")
-
-                        val time = StringBuilder()
-                        time.append("총 ")
-                            .append(response.body()!!.data.roundTime)
-                            .append("분 예정")
-
-                        round_time.text = time.toString()
-                        round_subject.text = response.body()!!.data.roundPurpose
-
-                    }
-                }
-            }
-        })
-    }
 
 }

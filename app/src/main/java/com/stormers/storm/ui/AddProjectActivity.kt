@@ -48,7 +48,7 @@ class AddProjectActivity : BaseActivity() {
         buttonArray.add(
             StormDialogButton("확인", true, object : StormDialogButton.OnClickListener {
                 override fun onClick() {
-                    startActivity(Intent(this@AddProjectActivity, HostRoundWaitingActivity::class.java))
+                    startActivity(Intent(this@AddProjectActivity, RoundSettingActivity::class.java))
                 }
             })
         )
@@ -82,31 +82,25 @@ class AddProjectActivity : BaseActivity() {
     fun start_project() {
 
         button_add_project.setOnClickListener {
-            RetrofitClient.create(InterfaceAddProject::class.java).addProject(
-                AddProjectModel(
-                    edittext_addproject_projectname.text.toString(),
-                    edittext_addproject_notice.text.toString(),
-                    1
-                )
-            ).enqueue(
-                    object : Callback<ResponseAddProject> {
+            RetrofitClient.create(InterfaceAddProject::class.java)
+                .addProject(AddProjectModel(edittext_addproject_projectname.text.toString(),
+                    edittext_addproject_notice.text.toString(), preference.getUserIdx()!!))
+
+                .enqueue(object : Callback<ResponseAddProject> {
                         override fun onFailure(call: Call<ResponseAddProject>, t: Throwable) {
                             Log.d("통신실패", "${t}")
                         }
 
-                        override fun onResponse(
-                            call: Call<ResponseAddProject>,
-                            response: Response<ResponseAddProject>
-                        ) {
+                        override fun onResponse(call: Call<ResponseAddProject>, response: Response<ResponseAddProject>) {
                             if (response.isSuccessful) {
                                 if (response.body()!!.success) {
-                                    Log.d("통신성공",response.body()!!.data.projectCode)
+                                    Log.d("AddProject", "참가 코드 : ${response.body()!!.data.projectCode}")
+                                    Log.d("AddProject", "projectIdx : ${response.body()!!.data.projectIdx}")
 
                                     makeDialog(response.body()!!.data.projectCode)
                                         .show(supportFragmentManager, "participate_code")
 
                                     preference.setProjectIdx(response.body()!!.data.projectIdx)
-                                    //Todo: 여기에서 setProjectName을 하는게 맞는지 정확히 모르겠습니다....
                                     preference.setProjectName(edittext_addproject_projectname.text.toString())
                                 }
                             } else {
