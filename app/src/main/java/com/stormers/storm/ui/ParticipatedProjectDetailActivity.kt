@@ -122,15 +122,7 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         rv_scrap_card_part_detail.addItemDecoration(MarginDecoration(this, 15, RecyclerView.VERTICAL))
 
 
-        val data = savedCardRepository.getAllScrapedCard(projectIdx)
 
-        if (data.isNotEmpty()) {
-            scrapedCardAdapter.addAll(savedCardRepository.getAllScrapedCard(projectIdx))
-            textview_noscraped.visibility = View.GONE
-
-        } else {
-            textview_noscraped.visibility = View.VISIBLE
-        }
 
         roundListAdapterForViewPager = RoundListAdapter(object : RoundListAdapter.OnRoundClickListener {
             override fun onRoundClick(projectIdx: Int, roundIdx: Int, roundNo: Int) {
@@ -143,5 +135,20 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         })
 
         rv_round_part_detail.adapter = roundListAdapterForViewPager
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val data = savedCardRepository.getAllScrapedCard(projectIdx)
+
+        if (data.isNotEmpty()) {
+            scrapedCardAdapter.clear()
+            scrapedCardAdapter.addAll(savedCardRepository.getAllScrapedCard(projectIdx))
+            textview_noscraped.visibility = View.GONE
+
+        } else {
+            textview_noscraped.visibility = View.VISIBLE
+        }
     }
 }

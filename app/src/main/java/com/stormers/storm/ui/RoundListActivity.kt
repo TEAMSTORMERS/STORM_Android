@@ -1,5 +1,6 @@
 package com.stormers.storm.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +23,7 @@ class RoundListActivity : AppCompatActivity() {
     private var roundIdx = -1
     lateinit var roundListAdapterForViewPager: RoundListAdapterForViewPager
 
-    private val cardAdapter: SavedCardAdapter by lazy { SavedCardAdapter(true, null) }
+    private lateinit var cardAdapter: SavedCardAdapter
 
     private val savedCardRepository : SavedCardRepository by lazy { SavedCardRepository(application) }
 
@@ -40,6 +41,17 @@ class RoundListActivity : AppCompatActivity() {
         roundNo = intent.getIntExtra("roundNo", 1)
 
         roundListAdapterForViewPager = RoundListAdapterForViewPager()
+
+        cardAdapter = SavedCardAdapter(true, object : SavedCardAdapter.OnCardClickListener {
+            override fun onCardClick(projectIdx: Int, roundIdx: Int, cardId: Int) {
+                val intent = Intent(this@RoundListActivity, RoundMeetingExpandActivity::class.java)
+                intent.putExtra("projectIdx", projectIdx)
+                intent.putExtra("roundIdx", roundIdx)
+                intent.putExtra("cardId", cardId)
+
+                startActivity(intent)
+            }
+        })
 
         retrofitClient = RetrofitClient.create(RequestRound::class.java)
 
@@ -96,8 +108,12 @@ class RoundListActivity : AppCompatActivity() {
                 }
             })
         }
-
-        cardAdapter.addAll(savedCardRepository.getAll(projectIdx, roundIdx))
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        cardAdapter.clear()
+        cardAdapter.addAll(savedCardRepository.getAll(projectIdx, roundIdx))
+    }
 }
