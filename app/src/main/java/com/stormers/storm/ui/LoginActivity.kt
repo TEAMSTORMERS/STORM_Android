@@ -211,7 +211,7 @@ class LoginActivity : BaseActivity() {
                             ) {
                                 if(response.isSuccessful){
                                     if(response.body()!!.success){
-                                        Log.d("SignUp 통신성공", "통신성공")
+                                        Log.d("SignUp 통신성공", response.body()!!.data.toString())
 
                                         preference.setUserIdx(response.body()!!.data.toString().toInt())
 
