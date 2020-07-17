@@ -61,7 +61,6 @@ class RoundListActivity : AppCompatActivity() {
 
                         roundListAdapterForViewPager.addAll(response.body()!!.data)
                         Log.d("roundIdx" , roundIdx.toString())
-                        viewpager_roundcardlist_round.currentItem = roundIdx
                     }
                     else {
                         Log.d("RoundListActivity", "통신실패")
@@ -88,12 +87,9 @@ class RoundListActivity : AppCompatActivity() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
 
-                    //Todo: roundIdx가 사용된 부분을 round_number를 이용할 수 있도록 변경해야 합니다 !
                     val roundIdx = roundListAdapterForViewPager.getItem(position).roundIdx
 
-                    //Todo: projectIdx 도 인텐트로 받아오기
                     val data = savedCardRepository.getAll(projectIdx, roundIdx)
-
 
                     cardAdapter.clear()
                     cardAdapter.addAll(data)
