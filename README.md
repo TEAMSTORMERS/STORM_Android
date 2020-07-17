@@ -157,9 +157,11 @@
 
 **🚪로그인 Kakao api, Google api 사용**
 
- 
+ <br><br>
 
 **🎨Drawing기능 구현**
+
+**CanvasDrawingFragment.kt**
 
     private var isDrew = false
     
@@ -184,13 +186,68 @@
         signaturepad.clear()
     }
     
-✔️ OnSignedListener를 view에 설정
+📌 OnSignedListener를 view에 설정
   - onStartSigning() : pad를 터치했을 때 isDrew의 값이 true로 변경
   - onClear() : pad에 그려진 내용을 지울 때 이벤트 발생
   - onTrached() : pad에 그려진 그림을 전체 삭제
 
+<br><br>
 
 **💾Drawing 파일처리 및 저장**
+
+✔️ 그린 그림을 DB에 저장
+
+**CanvasDrawingFragment.kt**
+
+    private fun saveCardIntoDB(bitmap: Bitmap) {
+        savedCardRepository.insert(
+            SavedCardEntity(preference.getProjectIdx()!!, preference.getRoundIdx()!!, SavedCardEntity.FALSE, SavedCardEntity.DRAWING,
+                BitmapConverter.bitmapToString(bitmap), null
+            )
+        )
+    }
+    
+<br>
+
+✔️ 비트맵을 문자열로 변환하여 DB에 저장
+
+**BitmapConverter.kt**
+
+    object BitmapConverter {
+
+        private const val TAG = "BitmapConverter"
+        private const val QUALITY = 70
+
+        // String -> Bitmap
+        fun stringToBitmap(encodedString: String?): Bitmap? {
+            return try {
+                val encodeByte: ByteArray = Base64.decode(encodedString, Base64.DEFAULT)
+                BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.size)
+
+            } catch (e: Exception) {
+                Log.e(TAG, e.message.toString())
+                null
+            }
+        }
+
+        //Bitmap -> String
+        fun bitmapToString(bitmap: Bitmap): String {
+            val baos = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.PNG, QUALITY, baos)
+
+            val bytes: ByteArray = baos.toByteArray()
+            return Base64.encodeToString(bytes, Base64.DEFAULT)
+        }
+
+        //Bitmap -> ByteArray
+        fun bitmapToByteArray(bitmap: Bitmap): ByteArray {
+            val baos = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, QUALITY, baos)
+            return baos.toByteArray()
+        }
+    } 
+
+<br><br>
 
 **📶socket 통신**
 
