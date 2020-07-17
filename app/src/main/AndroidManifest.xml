@@ -7,11 +7,11 @@
     <application
         android:name=".ui.GlobalApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/storm_app_icon"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:usesCleartextTraffic="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/storm_app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
@@ -38,7 +38,8 @@
         <activity android:name=".ui.RoundFinishActivity"/>
         <activity android:name=".ui.RoundListActivity" />
         <activity android:name=".ui.RoundMeetingExpandActivity" />
-        <activity android:name=".ui.RoundProgressActivity" />
+        <activity android:name=".ui.RoundProgressActivity"
+            android:windowSoftInputMode="adjustNothing"/>
         <activity android:name=".ui.RoundSettingActivity"/>
         <activity android:name=".ui.RoundStartActivity"/>
         <activity android:name=".ui.ScrapCardCollectingActivity" />
