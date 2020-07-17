@@ -17,70 +17,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraint_round_all_set_member"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="32dp"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@+id/include_waitingproject_participant"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/textview_round_all_set"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="29dp"
-                android:text="ROUND 준비 완료"
-                android:textColor="@color/storm_gray"
-                android:textFontWeight="700"
-                android:textSize="15sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textview_round_no_all_set_member"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
-                android:background="@drawable/h_roundstart_round"
-                android:gravity="center"
-                android:text="ROUND 1"
-                android:textColor="@color/storm_white"
-                android:textFontWeight="700"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textview_round_all_set" />
-
-            <TextView
-                android:id="@+id/round_goal_all_set"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="ROUND 목표"
-                android:textColor="@color/storm_gray"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textview_round_no_all_set_member" />
-
-            <TextView
-                android:id="@+id/round_time_all_set"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="총 10분 예정"
-                android:textColor="@color/storm_gray"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/round_goal_all_set" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint_round_waiting_member"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -89,31 +25,46 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/textview_round_ready"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/linearlayout_readystate"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="29dp"
-                android:text="ROUND 준비중"
-                android:textColor="@color/storm_gray"
-                android:textFontWeight="700"
-                android:textSize="15sp"
-                app:layout_constraintEnd_toStartOf="@id/lottieAnimationView"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/lottieAnimationView"
-                android:layout_width="45dp"
-                android:layout_height="15dp"
-                android:layout_marginStart="10dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textview_round_ready"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textview_round_ready"
-                app:layout_constraintTop_toTopOf="@+id/textview_round_ready"
-                app:lottie_autoPlay="true"
-                app:lottie_rawRes="@raw/loading_animation"
-                app:lottie_loop="true" />
+                app:layout_constraintBottom_toTopOf="@id/cardview_roundwaiting_rulereminder">
+
+                <TextView
+                    android:id="@+id/textview_round_ready"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ROUND 준비중"
+                    android:textColor="@color/storm_gray"
+                    android:textFontWeight="700"
+                    android:textSize="15sp"/>
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lottieAnimationView"
+                    android:layout_width="45dp"
+                    android:layout_height="15dp"
+                    android:layout_marginStart="10dp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_rawRes="@raw/loading_animation"
+                    app:lottie_loop="true" />
+
+                <TextView
+                    android:id="@+id/textview_readydone"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/storm_gray"
+                    android:textFontWeight="700"
+                    android:textSize="15sp"
+                    android:text="ROUND 준비 완료"
+                    android:gravity="center"/>
+
+            </LinearLayout>
 
 
             <androidx.cardview.widget.CardView
@@ -128,7 +79,7 @@
                 app:layout_constraintDimensionRatio="1:0.24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textview_round_ready">
+                app:layout_constraintTop_toBottomOf="@+id/linearlayout_readystate">
 
 
                     <TextView
@@ -146,7 +97,7 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/round_announce1"
+                android:id="@+id/round_subject"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -158,7 +109,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/cardview_roundwaiting_rulereminder" />
 
             <TextView
-                android:id="@+id/round_announce2"
+                android:id="@+id/round_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ROUND 정보를 확인할 수 있습니다."
@@ -166,7 +117,7 @@
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/round_announce1" />
+                app:layout_constraintTop_toBottomOf="@+id/round_subject" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

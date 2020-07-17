@@ -44,7 +44,7 @@ open class BaseProjectWaitingActivity : BaseActivity() {
                 ) {
                     if (response.isSuccessful) {
                         if (response.body()!!.success) {
-                            Log.d("ProjectName 통신성공", "통신성공")
+                            Log.d("getProjectName", "Success. ${response.body()!!.data.projectName}")
                             textview_projectcard_title.text = response.body()!!.data.projectName
                             preference.setProjectName(response.body()!!.data.projectName)
                             //Todo: 라운드 참여

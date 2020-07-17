@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import android.util.Base64
 import android.util.Log
 import java.io.*
+import java.net.URL
 import java.util.*
 
 
@@ -81,5 +82,11 @@ object BitmapConverter {
             .append(".JPEG")
 
         return fileName.toString()
+    }
+
+    fun urlToBitmap(url: String) : Bitmap {
+        val urls = URL(url)
+
+        return BitmapFactory.decodeStream(urls.openStream())
     }
 }

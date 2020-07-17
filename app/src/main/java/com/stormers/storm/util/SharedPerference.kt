@@ -11,6 +11,7 @@ class SharedPreference(context: Context) {
         const val USER_ID = "userId"
         const val PROJECT_NAME = "projectName"
         const val ROUND_COUNT = "roundCount"
+        const val USER_IDX = "user_idx"
 
     }
 
@@ -83,6 +84,14 @@ class SharedPreference(context: Context) {
 
     fun setRoundCount(roundCount: Int) {
         setInt(ROUND_COUNT, roundCount)
+    }
+
+    fun setUserIdx(userIdx:Int)  {
+      setInt(USER_IDX, userIdx)
+    }
+
+    fun getUserIdx(): Int? {
+        return getInt(USER_IDX)
     }
 }
 
