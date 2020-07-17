@@ -88,13 +88,13 @@ class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_sig
 
 
         } else {
-            Toast.makeText(context, "그림을 그려주세요!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "카드가 비어있습니다.", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun afterResponse() {
         signaturepad.clear()
-        Toast.makeText(context, "저장되었습니다.", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "카드가 추가되었습니다.", Toast.LENGTH_SHORT).show()
         goToFragment(AddCardFragment::class.java, null)
     }
 

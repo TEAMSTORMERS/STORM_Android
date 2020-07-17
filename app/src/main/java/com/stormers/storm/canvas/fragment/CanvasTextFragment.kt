@@ -45,7 +45,7 @@ class CanvasTextFragment : BaseCanvasFragment(TEXT_MODE, R.layout.view_addcard_e
                                 savedCardRepository.insert(SavedCardEntity(preference.getProjectIdx()!!, preference.getRoundIdx()!!,SavedCardEntity.FALSE,SavedCardEntity.TEXT,
                                     edittext_addcard.text.toString(), null))
 
-                                Toast.makeText(context, "저장되었습니다.", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, "카드가 추가되었습니다", Toast.LENGTH_SHORT).show()
 
                                 goToFragment(AddCardFragment::class.java, null)
 
@@ -58,7 +58,7 @@ class CanvasTextFragment : BaseCanvasFragment(TEXT_MODE, R.layout.view_addcard_e
                     }
                 })
         } else {
-            Toast.makeText(context, "카드가 비어있습니다!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "카드가 비어있습니다", Toast.LENGTH_SHORT).show()
         }
     }
 }
