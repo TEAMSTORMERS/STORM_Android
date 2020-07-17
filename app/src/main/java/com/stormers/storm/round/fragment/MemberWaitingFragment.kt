@@ -7,15 +7,13 @@ import android.widget.TextView
 import com.airbnb.lottie.LottieAnimationView
 import com.stormers.storm.R
 import com.stormers.storm.customview.StormButton
-import com.stormers.storm.network.BaseResponse
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.network.SimpleResponse
 import com.stormers.storm.network.SocketClient
 import com.stormers.storm.project.base.BaseProjectWaitingActivity
 import com.stormers.storm.round.base.BaseWaitingFragment
 import com.stormers.storm.round.model.RoundEnterModel
-import com.stormers.storm.round.network.InterfaceRoundEnter
-import com.stormers.storm.round.network.InterfaceRoundUser
+import com.stormers.storm.round.network.RequestRound
 import com.stormers.storm.user.ParticipantAdapter
 import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_round_setting.*
@@ -27,7 +25,7 @@ import retrofit2.Response
 class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_setting_waiting_member) {
 
     private lateinit var activityButton: StormButton
-    private lateinit var retrofitClient : InterfaceRoundUser
+    private lateinit var retrofitClient : RequestRound
 
     private lateinit var recentRoundUserAdapter: ParticipantAdapter
 
@@ -92,7 +90,7 @@ class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_settin
 
     //라운드 참여
     private fun enterRound(roundIdx: Int){
-        RetrofitClient.create(InterfaceRoundEnter::class.java).interfaceRoundEnter((RoundEnterModel(preference.getUserIdx()!!, roundIdx)))
+        RetrofitClient.create(RequestRound::class.java).interfaceRoundEnter((RoundEnterModel(preference.getUserIdx()!!, roundIdx)))
             .enqueue(object  : Callback<SimpleResponse> {
 
                 override fun onFailure(call: Call<SimpleResponse>, t: Throwable) {

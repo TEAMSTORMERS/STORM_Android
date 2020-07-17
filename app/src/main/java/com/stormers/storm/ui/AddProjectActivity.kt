@@ -13,8 +13,8 @@ import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.customview.dialog.StormDialog
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
-import com.stormers.storm.network.InterfaceAddProject
-import com.stormers.storm.network.ResponseAddProject
+import com.stormers.storm.project.network.RequestProject
+import com.stormers.storm.project.network.response.ResponseAddProject
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.project.model.AddProjectModel
 import kotlinx.android.synthetic.main.activity_add_project.*
@@ -82,7 +82,7 @@ class AddProjectActivity : BaseActivity() {
     fun start_project() {
 
         button_add_project.setOnClickListener {
-            RetrofitClient.create(InterfaceAddProject::class.java)
+            RetrofitClient.create(RequestProject::class.java)
                 .addProject(AddProjectModel(edittext_addproject_projectname.text.toString(),
                     edittext_addproject_notice.text.toString(), preference.getUserIdx()!!))
 

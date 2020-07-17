@@ -1,4 +1,4 @@
-package com.stormers.storm.round.network
+package com.stormers.storm.round.model
 
 
 data class FinalRoundData (

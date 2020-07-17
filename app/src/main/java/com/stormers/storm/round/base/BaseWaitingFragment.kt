@@ -12,15 +12,13 @@ import com.stormers.storm.base.BaseFragment
 import com.stormers.storm.customview.dialog.StormDialog
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
-import com.stormers.storm.network.InterfaceProjectUser
-import com.stormers.storm.network.InterfaceRoundInfo
+import com.stormers.storm.project.network.RequestProject
 import com.stormers.storm.network.RetrofitClient
-import com.stormers.storm.project.model.ResponseProjectUserListModel
-import com.stormers.storm.round.model.ResponseRoundInfoModel
-import com.stormers.storm.round.network.InterfaceRoundUser
+import com.stormers.storm.project.network.response.ResponseProjectUserListModel
+import com.stormers.storm.round.network.RequestRound
+import com.stormers.storm.round.network.response.ResponseRoundInfoModel
 import com.stormers.storm.user.ParticipantAdapter
 import com.stormers.storm.util.MarginDecoration
-import kotlinx.android.synthetic.main.fragment_round_setting_waiting_member.*
 import kotlinx.android.synthetic.main.fragment_round_setting_waiting_member.view.*
 import kotlinx.android.synthetic.main.layout_list_of_participant.view.*
 import retrofit2.Call
@@ -36,9 +34,9 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
 
     private lateinit var dialog: StormDialog
 
-    private lateinit var retrofitClient: InterfaceProjectUser
+    private lateinit var retrofitClient: RequestProject
 
-    private lateinit var retrofitList: InterfaceRoundUser
+    private lateinit var retrofitList: com.stormers.storm.round.network.RequestRound
 
     private lateinit var roundTime : TextView
 
@@ -77,7 +75,7 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
     //안쓸 것 같음
     private fun showProjectUserList() {
 
-        retrofitClient = RetrofitClient.create(InterfaceProjectUser::class.java)
+        retrofitClient = RetrofitClient.create(RequestProject::class.java)
 
         preference.getProjectIdx()?.let {
             retrofitClient.getProjectUserList(it).enqueue(object :
@@ -103,7 +101,7 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
 
     protected fun showRoundUserLIst(roundIdx: Int) {
 
-        RetrofitClient.create(InterfaceRoundUser::class.java).showRoundUser(roundIdx)
+        RetrofitClient.create(RequestRound::class.java).showRoundUser(roundIdx)
             .enqueue(object : Callback<ResponseProjectUserListModel> {
 
             override fun onFailure(call: Call<ResponseProjectUserListModel>, t: Throwable) {
@@ -118,7 +116,7 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
 
     protected fun getRoundInfo(){
 
-        RetrofitClient.create(InterfaceRoundInfo::class.java).responseRoundInfo(preference.getProjectIdx()!!).enqueue(object : Callback<ResponseRoundInfoModel>{
+        RetrofitClient.create(RequestRound::class.java).responseRoundInfo(preference.getProjectIdx()!!).enqueue(object : Callback<ResponseRoundInfoModel>{
             override fun onFailure(call: Call<ResponseRoundInfoModel>, t: Throwable) {
                 Log.d("RoundInfo 통신실패", "{$t}")
             }

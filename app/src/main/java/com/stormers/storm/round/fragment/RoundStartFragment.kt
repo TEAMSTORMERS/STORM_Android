@@ -9,9 +9,9 @@ import com.stormers.storm.R
 import com.stormers.storm.customview.StormButton
 import com.stormers.storm.customview.dialog.StormDialog
 import com.stormers.storm.customview.dialog.StormDialogBuilder
-import com.stormers.storm.network.InterfaceRoundInfo
 import com.stormers.storm.network.SocketClient
 import com.stormers.storm.round.base.BaseWaitingFragment
+import com.stormers.storm.round.network.RequestRound
 import com.stormers.storm.ui.RoundProgressActivity
 import com.stormers.storm.ui.RoundSettingActivity
 import io.socket.emitter.Emitter
@@ -24,7 +24,7 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
 
     private lateinit var dialog: StormDialog
 
-    private lateinit var retrofitClient: InterfaceRoundInfo
+    private lateinit var retrofitClient: RequestRound
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

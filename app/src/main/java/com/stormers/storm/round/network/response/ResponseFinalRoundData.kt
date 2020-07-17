@@ -1,4 +1,4 @@
-package com.stormers.storm.round.network
+package com.stormers.storm.round.network.response
 
 import com.stormers.storm.round.model.RoundDescriptionModel
 
