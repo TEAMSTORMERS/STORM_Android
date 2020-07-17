@@ -132,9 +132,8 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
     protected fun startRound() {
         val handler = Handler(Looper.getMainLooper())
         val handlerTask = Runnable {
-            activity?.runOnUiThread {
-                startActivity(Intent(activity, RoundProgressActivity::class.java))
-            }
+            startActivity(Intent(activity, RoundProgressActivity::class.java))
+            activity?.finish()
         }
 
         handler.postDelayed(handlerTask, START_DELAY)
