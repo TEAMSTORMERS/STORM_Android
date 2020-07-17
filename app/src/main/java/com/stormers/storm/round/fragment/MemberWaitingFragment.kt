@@ -9,6 +9,7 @@ import com.stormers.storm.R
 import com.stormers.storm.customview.StormButton
 import com.stormers.storm.network.BaseResponse
 import com.stormers.storm.network.RetrofitClient
+import com.stormers.storm.network.SimpleResponse
 import com.stormers.storm.network.SocketClient
 import com.stormers.storm.project.base.BaseProjectWaitingActivity
 import com.stormers.storm.round.base.BaseWaitingFragment
@@ -92,13 +93,13 @@ class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_settin
     //라운드 참여
     private fun enterRound(roundIdx: Int){
         RetrofitClient.create(InterfaceRoundEnter::class.java).interfaceRoundEnter((RoundEnterModel(preference.getUserIdx()!!, roundIdx)))
-            .enqueue(object  : Callback<BaseResponse> {
+            .enqueue(object  : Callback<SimpleResponse> {
 
-                override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
+                override fun onFailure(call: Call<SimpleResponse>, t: Throwable) {
                     Log.d("라운드 참여 통신 실패", "${t}")
                 }
 
-                override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
+                override fun onResponse(call: Call<SimpleResponse>, response: Response<SimpleResponse>) {
                     Log.d("멤버 라운드 참여 성공", "user : ${preference.getUserIdx()}, round : $roundIdx")
 
                     //라운드의 유저 정보 띄우기
