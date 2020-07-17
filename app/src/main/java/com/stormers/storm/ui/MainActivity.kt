@@ -36,6 +36,10 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //디버깅용
+        preference.setUserIdx(1)
+
+
         val mainview_toolbar = findViewById(R.id.include_main_toolbar) as Toolbar
 
         setSupportActionBar(mainview_toolbar)
@@ -107,8 +111,6 @@ class MainActivity : BaseActivity() {
     }
 
     private fun loadProjectsDatas() {
-        //Todo: 로그인 이후 userId를 입력하여야 함
-        preference.setUserId(1)
 
         RetrofitClient.create(ProjectInterface::class.java).requestParticipatedProject(preference.getUserId()!!)
             .enqueue(object: Callback<ResponseParticipatedProject> {
@@ -183,7 +185,7 @@ class MainActivity : BaseActivity() {
         }
     }
     private fun moveToHostRoundActivity() {
-        val intent = Intent(this, MemberProjectWaitingActivity::class.java)
+        val intent = Intent(this, MemberRoundWaitingActivity::class.java)
         startActivity(intent)
     }
 }

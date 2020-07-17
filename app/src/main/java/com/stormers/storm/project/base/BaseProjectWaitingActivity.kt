@@ -47,7 +47,7 @@ open class BaseProjectWaitingActivity : BaseActivity() {
                             Log.d("ProjectName 통신성공", "통신성공")
                             textview_projectcard_title.text = response.body()!!.data.projectName
                             preference.setProjectName(response.body()!!.data.projectName)
-                            //Todo: 라운드 참여
+                            //Todo: 라운드 참여 
                         }
                     }
                 }

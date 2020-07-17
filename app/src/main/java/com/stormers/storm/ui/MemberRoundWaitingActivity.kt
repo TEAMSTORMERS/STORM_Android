@@ -6,7 +6,7 @@ import com.stormers.storm.R
 import com.stormers.storm.project.base.BaseProjectWaitingActivity
 import com.stormers.storm.round.fragment.MemberWaitingFragment
 
-class MemberProjectWaitingActivity : BaseProjectWaitingActivity() {
+class MemberRoundWaitingActivity : BaseProjectWaitingActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)

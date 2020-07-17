@@ -17,7 +17,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RoundSettingActivity : BaseActivity() {
+class  RoundSettingActivity : BaseActivity() {
 
     private var projectIdx = preference.getProjectIdx()
     private var userIdx = preference.getUserIdx()

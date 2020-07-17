@@ -43,12 +43,14 @@ class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_settin
 
         activityButton.run {
             visibility = View.GONE
-
-            getUserList()
-
         }
 
-        //Todo: 소켓통신으로 호스트가 준비 완료하면 라운드 시작해야함 ~~
+        //Todo: 소켓으로 라운드 설정이 마쳐지는지 확인
+        //Todo: 라운드 설정이 마쳐지면 GET 라운드 정보 (roundIdx, roundPurpose, roundTime 등)
+        //Todo: 라운드 정보를 사용하여 POST 라운드 참여
+        //Todo: 참가한 사용자 목록 GET
+        //Todo: 소켓으로 라운드가 시작되는지 확인
+        //Todo: 라운드가 시작되면 RoundProgressActivity로 전환
 
     }
 

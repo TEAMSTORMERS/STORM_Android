@@ -56,8 +56,6 @@ open class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(layoutR
             dialog.show(fragmentManager!!, "rule_reminder")
         }
 
-        showProjectUserList()
-
         buttonArray.add(
             StormDialogButton("확인", false, null)
         )
@@ -68,6 +66,7 @@ open class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(layoutR
             .build()
     }
 
+    //안쓸 것 같음
     private fun showProjectUserList() {
 
         retrofitClient = RetrofitClient.create(InterfaceProjectUser::class.java)
@@ -94,23 +93,18 @@ open class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(layoutR
         }
     }
 
-    private fun showRoundUserLIst() {
-         retrofitList = RetrofitClient.create(InterfaceRoundUser::class.java)
+    protected fun showRoundUserLIst(roundIdx: Int) {
 
-        preference.getRoundIdx()?.let {
-            retrofitList.showRoundUser(it).enqueue(object : Callback<ResponseProjectUserListModel> {
-                override fun onFailure(call: Call<ResponseProjectUserListModel>, t: Throwable) {
-                    Log.d("라운드 유저 리스트 ", "${t}")
-                }
+        RetrofitClient.create(InterfaceRoundUser::class.java).showRoundUser(roundIdx)
+            .enqueue(object : Callback<ResponseProjectUserListModel> {
 
-                override fun onResponse(
-                    call: Call<ResponseProjectUserListModel>,
-                    response: Response<ResponseProjectUserListModel>
-                ) {
-                    participantAdapter.addAll(response.body()!!.data)
-                }
-            })
-        }
+            override fun onFailure(call: Call<ResponseProjectUserListModel>, t: Throwable) {
+                Log.d("라운드 유저 리스트 ", "${t}")
+            }
+
+            override fun onResponse(call: Call<ResponseProjectUserListModel>, response: Response<ResponseProjectUserListModel>) {
+                participantAdapter.addAll(response.body()!!.data)
+            }
+        })
     }
-
 }
