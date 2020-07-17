@@ -391,7 +391,7 @@ BitmapConverter.kt
 
 **📶socket 통신**
 
-## **🎥Animation 적용**
+**🎥Animation 적용**
 
 **1️⃣ Lottie Animation**
   **: 스플래쉬, 로그인, 라운드 대기 중 로딩**
