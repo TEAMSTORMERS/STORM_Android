@@ -73,7 +73,7 @@ class MainActivity : BaseActivity() {
         recentProjectsAdapter = ParticipatedProjectListAdapter(true, object : ParticipatedProjectListAdapter.OnProjectClickListener {
             override fun onProjectClick(projectIdx: Int) {
                 val intent  = Intent(this@MainActivity,ParticipatedProjectDetailActivity::class.java)
-                intent.putExtra("project_idx", projectIdx)
+                intent.putExtra("projectIdx", projectIdx)
                 startActivity(intent)
             }
         })

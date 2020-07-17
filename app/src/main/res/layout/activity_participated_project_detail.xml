@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/storm_red">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -13,8 +14,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintlayout_part_detail"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/storm_red">
+            android:layout_height="match_parent">
 
             <ImageButton
                 android:id="@+id/imagebutton_storm_logo_part_detail"
@@ -61,8 +61,8 @@
                 app:cardCornerRadius="25dp"
                 app:cardElevation="10dp"
                 app:layout_constraintBottom_toTopOf="@id/textView_scrap_card"
+                app:layout_constraintDimensionRatio="1:0.70"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_percent="0.17"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imagebutton_storm_logo_part_detail"
                 app:layout_constraintVertical_bias="0.3"
@@ -76,13 +76,15 @@
                         android:id="@+id/textView_date_part_detail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="135dp"
                         android:text="2020/00/00"
                         android:textColor="@color/storm_gray"
                         android:textSize="13sp"
+                        app:layout_constraintBottom_toTopOf="@id/textView_round_count_part_detail"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.76"
+                        app:layout_constraintVertical_chainStyle="packed" />
 
                     <TextView
                         android:id="@+id/textView_round_count_part_detail"
@@ -92,6 +94,7 @@
                         android:text="ROUND 총 4회"
                         android:textColor="@color/storm_gray"
                         android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/textView_date_part_detail"
                         app:layout_constraintStart_toStartOf="@+id/textView_date_part_detail"
                         app:layout_constraintTop_toBottomOf="@+id/textView_date_part_detail" />
@@ -190,10 +193,10 @@
                 android:id="@+id/rv_scrap_card_part_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
                 android:clipToPadding="false"
                 android:orientation="horizontal"
                 android:paddingHorizontal="26dp"
+                android:paddingTop="10dp"
                 android:scrollbarAlwaysDrawHorizontalTrack="true"
                 android:scrollbarFadeDuration="0"
                 android:scrollbarStyle="insideInset"
@@ -206,6 +209,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_scrap_card"
                 tools:listitem="@layout/item_heart_card" />
+
+
+            <TextView
+                android:id="@+id/textview_noscraped"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="스크랩한 카드가 없습니다 !"
+                android:textSize="15sp"
+                android:textColor="@color/storm_white"
+                android:visibility="gone"
+                android:layout_marginVertical="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/rv_scrap_card_part_detail"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_scrap_card" />
 
 
             <androidx.recyclerview.widget.RecyclerView

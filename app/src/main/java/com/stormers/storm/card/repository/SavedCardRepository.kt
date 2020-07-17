@@ -21,7 +21,7 @@ class SavedCardRepository(val context: Context) : BaseRepository<SavedCardEntity
         return dao.getAll(projectIdx, roundIdx)
     }
 
-    fun getAllScrapedCard(projectIdx: Int): List<SavedCardEntity>? {
+    fun getAllScrapedCard(projectIdx: Int): List<SavedCardEntity> {
         return dao.getAllScrapedCard(projectIdx)
     }
 

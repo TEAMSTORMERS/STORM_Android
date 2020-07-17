@@ -27,6 +27,9 @@ class RoundListActivity : AppCompatActivity() {
     private val savedCardRepository : SavedCardRepository by lazy { SavedCardRepository(application) }
 
     private var projectIdx = -1
+
+    private var roundNo = -1
+
     private lateinit var retrofitClient: FinalRoundInterface
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,14 +37,13 @@ class RoundListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_project_cardlist)
         projectIdx = intent.getIntExtra("projectIdx", 1)
         roundIdx = intent.getIntExtra("roundIdx", 1)
+        roundNo = intent.getIntExtra("roundNo", 1)
 
         roundListAdapterForViewPager = RoundListAdapterForViewPager()
 
         retrofitClient = RetrofitClient.create(FinalRoundInterface::class.java)
 
-
-
-        retrofitClient.responseFinalRoundData(projectIdx.toString()).enqueue(object : Callback<ResponseFinalRoundData> {
+        retrofitClient.responseFinalRoundData(projectIdx).enqueue(object : Callback<ResponseFinalRoundData> {
             override fun onFailure(call: Call<ResponseFinalRoundData>, t: Throwable) {
                 if (t.message != null){
                     Log.d("RoundListActivity", t.message!!)
@@ -50,18 +52,15 @@ class RoundListActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onResponse(
-                call: Call<ResponseFinalRoundData>,
-                response: Response<ResponseFinalRoundData>
-            ) {
+            override fun onResponse(call: Call<ResponseFinalRoundData>, response: Response<ResponseFinalRoundData>) {
                 if (response.isSuccessful) {
                     if (response.body()!!.success) {
                         for (i in response.body()!!.data.indices) {
                             Log.d("RoundListActivity", "받아온 라운드 정보 : ${response.body()!!.data[i]}")
-                            }
+                        }
+
                         roundListAdapterForViewPager.addAll(response.body()!!.data)
                         Log.d("roundIdx" , roundIdx.toString())
-                        viewpager_roundcardlist_round.currentItem = roundIdx
                     }
                     else {
                         Log.d("RoundListActivity", "통신실패")
@@ -83,17 +82,14 @@ class RoundListActivity : AppCompatActivity() {
             adapter = roundListAdapterForViewPager
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
             offscreenPageLimit = 3
-            //currentItem = 5
+            currentItem = roundNo - 1
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
 
-                    //Todo: roundIdx가 사용된 부분을 round_number를 이용할 수 있도록 변경해야 합니다 !
                     val roundIdx = roundListAdapterForViewPager.getItem(position).roundIdx
 
-                    //Todo: projectIdx 도 인텐트로 받아오기
-                    val data = savedCardRepository.getAll(1, roundIdx)
-
+                    val data = savedCardRepository.getAll(projectIdx, roundIdx)
 
                     cardAdapter.clear()
                     cardAdapter.addAll(data)
@@ -101,11 +97,7 @@ class RoundListActivity : AppCompatActivity() {
             })
         }
 
-
-
-        cardAdapter.addAll(savedCardRepository.getAll(1, 1))
-
-
+        cardAdapter.addAll(savedCardRepository.getAll(projectIdx, roundIdx))
     }
 
 }

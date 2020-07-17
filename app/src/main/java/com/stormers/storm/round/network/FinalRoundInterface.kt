@@ -6,5 +6,5 @@ import retrofit2.http.Path
 
 interface FinalRoundInterface {
     @GET("round/roundFinalInfo/{project_idx}")
-    fun responseFinalRoundData(@Path("project_idx") projectIdx : String) : Call<ResponseFinalRoundData>
+    fun responseFinalRoundData(@Path("project_idx") projectIdx: Int) : Call<ResponseFinalRoundData>
 }

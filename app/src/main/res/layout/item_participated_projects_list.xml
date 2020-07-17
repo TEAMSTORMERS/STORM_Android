@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/item_participated_list"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_participated_list"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview_project_forder"
@@ -20,47 +19,138 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <GridLayout
+        <LinearLayout
             android:id="@+id/item_project_folder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/storm_popup_line_gray"
-            android:columnCount="2"
-            android:rowCount="2">
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/card1"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_marginRight="0.5dp"
-                android:layout_marginBottom="0.5dp"
-                android:scaleType="centerCrop" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
 
-            <ImageView
-                android:id="@+id/card2"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_marginLeft="0.5dp"
-                android:layout_marginBottom="0.5dp"
-                android:scaleType="centerCrop" />
+                <FrameLayout
+                    android:id="@+id/frame_card1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="0.5dp"
+                    android:layout_marginBottom="0.5dp"
+                    android:layout_weight="1"
+                    android:scaleType="fitCenter">
 
-            <ImageView
-                android:id="@+id/card3"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_marginTop="0.5dp"
-                android:layout_marginRight="0.5dp"
-                android:scaleType="centerCrop" />
+                    <ImageView
+                        android:id="@+id/card_img1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/storm_white"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/h_roundstart_popup_symbol" />
 
-            <ImageView
-                android:id="@+id/card4"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_marginTop="0.5dp"
-                android:layout_marginLeft="0.5dp"
-                android:scaleType="centerCrop"/>
+                    <TextView
+                        android:id="@+id/card_txt1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:background="@color/storm_white"
+                        android:padding="5dp"
+                        android:textSize="12sp" />
 
-        </GridLayout>
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/card2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="0.5dp"
+                    android:layout_marginBottom="0.5dp"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/card_img2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/storm_white"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/h_roundstart_popup_symbol" />
+
+                    <TextView
+                        android:id="@+id/card_txt2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:background="@color/storm_white"
+                        android:padding="5dp" />
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:id="@+id/card3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginStart="0.5dp"
+                    android:layout_marginBottom="0.5dp">
+
+                    <ImageView
+                        android:id="@+id/card_img3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/storm_white"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/h_roundstart_popup_symbol" />
+
+                    <TextView
+                        android:id="@+id/card_txt3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:background="@color/storm_white"
+                        android:padding="5dp" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/card4"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginStart="0.5dp"
+                    android:layout_marginBottom="0.5dp">
+
+                    <ImageView
+                        android:id="@+id/card_img4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/storm_white"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/h_roundstart_popup_symbol" />
+
+                    <TextView
+                        android:id="@+id/card_txt4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:background="@color/storm_white"
+                        android:padding="5dp" />
+                </FrameLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
@@ -68,14 +158,14 @@
         android:id="@+id/name_of_project"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="프로젝트 제목"
-        android:textSize="11sp"
-        android:textColor="@color/storm_gray"
         android:lineSpacingExtra="6sp"
+        android:text="프로젝트 제목"
+        android:textColor="@color/storm_gray"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/cardview_project_forder"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/cardview_project_forder"
-        app:layout_constraintTop_toBottomOf="@+id/cardview_project_forder"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/cardview_project_forder" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
