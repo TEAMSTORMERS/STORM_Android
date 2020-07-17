@@ -88,8 +88,6 @@
 
 **3️⃣ match_parent, wrap_content, match_constraint의 사용**
 
-<br>
-
 - GridRecyclerView의 item으로 들어갈 layout들은 해당 속성을 사용하기 어려워 길이 값을 하드코딩하였음
 
 - 그 외에는 해당 속성을 모두 사용하였음
