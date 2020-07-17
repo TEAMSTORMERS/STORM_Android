@@ -58,7 +58,7 @@ class CanvasTextFragment : BaseCanvasFragment(TEXT_MODE, R.layout.view_addcard_e
                     }
                 })
         } else {
-            Toast.makeText(context, "카드가 비어있습니다", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "카드를 입력해주세요", Toast.LENGTH_SHORT).show()
         }
     }
 }
