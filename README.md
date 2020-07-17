@@ -60,10 +60,10 @@
 <br><br>
 
 
-## [(A-1항목) ConstraintLayout을 이용한 xml🔗](([https://github.com/TEAMSTORMERS/STORM_Android/wiki/(A-1%ED%95%AD%EB%AA%A9))
+## [(A-1항목) ConstraintLayout을 이용한 xml](([https://github.com/TEAMSTORMERS/STORM_Android/wiki/(A-1%ED%95%AD%EB%AA%A9))
 
-## [(A-2항목) Kotlin collection의 확장함수 사용 / Custom 확장함수 사용📝]([https://github.com/TEAMSTORMERS/STORM_Android/wiki/Kotlin%ED%99%95%EC%9E%A5%ED%95%A8%EC%88%98-%EC%82%AC%EC%9A%A9])
+## [(A-2항목) Kotlin collection의 확장함수 사용 / Custom 확장함수 사용]([https://github.com/TEAMSTORMERS/STORM_Android/wiki/Kotlin%ED%99%95%EC%9E%A5%ED%95%A8%EC%88%98-%EC%82%AC%EC%9A%A9])
 
-## [(A-3항목) Project Structure📐]([https://github.com/TEAMSTORMERS/STORM_Android/wiki/(A-3%ED%95%AD%EB%AA%A9)-Project-Structure%F0%9F%93%90]
+## [(A-3항목) Project Structure]([https://github.com/TEAMSTORMERS/STORM_Android/wiki/(A-3%ED%95%AD%EB%AA%A9)-Project-Structure%F0%9F%93%90]
 
-## [(A-3항목) Core Function & How to build💻]([https://github.com/TEAMSTORMERS/STORM_Android/wiki/(A-3%ED%95%AD%EB%AA%A9)
+## [(A-3항목) Core Function & How to build]([https://github.com/TEAMSTORMERS/STORM_Android/wiki/(A-3%ED%95%AD%EB%AA%A9)
