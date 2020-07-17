@@ -1,4 +1,5 @@
 
+
 # ⚡️🌪STORM Android🌪⚡️
 
 
@@ -13,7 +14,6 @@
 
 **1️⃣ constraintLayout의 다양한 속성 활용**
 
-<br>
 
 ✅ Fragment에 들어갈 뷰들은 위아래가 잘라먹힐 가능성이 있어 모두 chain으로 묶은 뒤 bias 값을 조정하였음
 
@@ -76,8 +76,6 @@
 
 **2️⃣ 제약조건의 연관성**
 
-<br>
-
 ✅ 화면의 크기의 변화가 있어도 겹쳐지지 말아야할 뷰들은 서로 제약 조건을 갖도록 하였음
 
 ✅ 뷰의 위치는 부모보다는 최대한 가까운 뷰에게 제약조건을 걸고 여백을 통해 지정하였음
@@ -110,7 +108,26 @@
 
 <br><br>
 
-## (A-2항목) Kotlin collection의 확장함수 사용 / Custom 확장함수 사용📝
+## (A-2항목) Kotlin collection의 확장함수 사용 / Custom 확장함수 사용📝'
+
+**1️⃣ Custom 확장함수**
+
+  **ExtFunctionSubstring.kt**
+
+    fun String.substringForMinute() : Int = this.substring(0,2).toInt()
+**- 라운드 설정단계에서 소요시간을 서버에 Int값으로 전달해주기 위해 뒤에 숫자만 빼내어 int값으로 바꿔주는 확장함수**
+    
+**RoundSettingFragment.kt**
+
+    import com.stormers.storm.util.substringForMinute
+    
+    textview_roundsetting_time.text.toString().substringForMinute()
+
+**- 확장함수를 import해준 뒤 사용하였다.**
+
+**2️⃣ Collection확장함수**
+
+
 
 
 ## (A-3항목) Library & Purpose📖
@@ -262,7 +279,7 @@
 	    }  
 	}
 
- **📌 Kakao api**
+ **Kakao api**
 
  **- Application을 상속하는 GlobalAppication.kt**
  **- KakaoAdapter를 상속하는 KakaoSDKAdapter**
