@@ -142,7 +142,10 @@
 **내부 Database 구축을위한 Room 라이브러리**
 
     implementation "androidx.room:room-runtime:2.2.5"
+    
+**drawing 관련 라이브러리**
 
+    implementation 'com.github.gcacace:signature-pad:1.3.1'
 			
 
 ## (A-3항목) Project Structure📐
@@ -158,6 +161,35 @@
 
 **🎨Drawing기능 구현**
 
+    private var isDrew = false
+    
+    override fun initCanvas() {
+        signaturepad.setOnSignedListener(object : SignaturePad.OnSignedListener {
+            override fun onStartSigning() {
+                isDrew = true
+            }
+
+            override fun onClear() {
+                isDrew = false
+            }
+
+            override fun onSigned() {
+                //Doing nothing. prevent error.
+                signaturepad
+            }
+        })
+    }
+
+    override fun onTrashed() {
+        signaturepad.clear()
+    }
+    
+* OnSignedListener를 view에 설정함
+  - onStartSigning() : pad를 터치했을 때 isDrew의 값이 true로 변경됨
+  - onClear() : pad에 그려진 내용을 지울 때 이벤트 발생함
+  - onTrached() : pad에 그려진 그림을 전체 삭제함
+
+
 **💾Drawing 파일처리 및 저장**
 
 **📶socket 통신**
@@ -166,6 +198,8 @@
 
 **1️⃣ Lottie Animation**
   **: 스플래쉬, 로그인, 라운드 대기 중 로딩**
+  
+**로그인 애니메이션**
 
     private fun initView() {  
         val animationView = findViewById<LottieAnimationView>(R.id.lottieanimation_login)  
@@ -174,7 +208,7 @@
       animationView.playAnimation()  
     }
     
-**라운드 대기 애니메이션**
+**라운드 대기 중 로딩 애니메이션**
 
     <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lottieAnimationView"
@@ -189,6 +223,7 @@
                 app:lottie_rawRes="@raw/loading_animation"
                 app:lottie_loop="true" />
 
+**스플래쉬 애니메이션**
 
 **📢Notification**
 
