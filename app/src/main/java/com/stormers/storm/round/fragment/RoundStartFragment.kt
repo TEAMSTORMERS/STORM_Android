@@ -10,9 +10,11 @@ import com.stormers.storm.customview.StormButton
 import com.stormers.storm.customview.dialog.StormDialog
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.network.InterfaceRoundInfo
+import com.stormers.storm.network.SocketClient
 import com.stormers.storm.round.base.BaseWaitingFragment
 import com.stormers.storm.ui.RoundProgressActivity
 import com.stormers.storm.ui.RoundSettingActivity
+import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_round_setting.*
 
 
@@ -55,6 +57,14 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
         }
     }
 
+    fun refreshParticipantSocket() {
+        SocketClient.getInstance()
+        SocketClient.connection()
 
+        SocketClient.responseEvent("roundComplete", Emitter.Listener {
+            Log.d("refresh_socket", "참가자가 들어왔습니다.")
+            showRoundUserLIst(preference.getRoundIdx()!!)
+        })
+    }
 
 }
