@@ -1,9 +1,7 @@
 
 # ⚡️🌪STORM Android🌪⚡️
 
-
-![KakaoTalk_20200717_211627341](https://user-images.githubusercontent.com/56873136/87791082-a7817300-c87c-11ea-919b-9d77ccdaf75e.png)
-
+<img src = "https://user-images.githubusercontent.com/55133871/87793056-b0277880-c87f-11ea-9f5a-62bcb3054a31.gif" width = "100%">
 
 ## 실시간 브레인스토밍 협업 플랫폼 - STORM 🌪⚡️
 
@@ -18,11 +16,18 @@
 >
 > 좋은 아이디어 카드들은 따로 스크랩해 모아볼 수 있습니다.
 
-<br><br>
-
 **개발 기간 : 2020-06-30~2020-07-18**
 
 **Android Developer : 김성규, 손평화, 강희원**
+
+
+<br><br>
+
+
+<img src = "https://user-images.githubusercontent.com/56873136/87791082-a7817300-c87c-11ea-919b-9d77ccdaf75e.png" width = "70%">
+
+
+
 
 <br>
 

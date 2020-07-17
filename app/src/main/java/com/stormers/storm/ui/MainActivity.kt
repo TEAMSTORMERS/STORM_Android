@@ -39,6 +39,7 @@ class MainActivity : BaseActivity() {
         preference.setRoundIdx(null)
         preference.setRoundCount(null)
         preference.setProjectName(null)
+        preference.setHost(false)
 
         val mainview_toolbar = findViewById(R.id.include_main_toolbar) as Toolbar
 

@@ -9,7 +9,14 @@ import androidx.fragment.app.Fragment
 import com.stormers.storm.ui.GlobalApplication
 import com.stormers.storm.util.SharedPreference
 
-abstract class BaseFragment(@LayoutRes private val layoutResId: Int) : Fragment() {
+abstract class BaseFragment() : Fragment() {
+
+    constructor(@LayoutRes layoutResId: Int) : this() {
+        this.layoutResId = layoutResId
+    }
+
+    @LayoutRes
+    private var layoutResId: Int = -1
 
     protected val preference: SharedPreference by lazy { GlobalApplication.prefs }
 

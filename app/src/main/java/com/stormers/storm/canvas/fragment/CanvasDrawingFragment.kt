@@ -56,7 +56,7 @@ class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_sig
 
             val uploadFile = MultipartBody.Part.createFormData("card_img", drawingFile.name, requestFile)
 
-            val userIdx = RequestBody.create(MediaType.parse("text/plain"), "1")
+            val userIdx = RequestBody.create(MediaType.parse("text/plain"), preference.getUserIdx().toString())
 
             val projectIdx = RequestBody.create(MediaType.parse("text/plain"), preference.getProjectIdx().toString())
 

@@ -22,6 +22,8 @@ class  RoundSettingActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_round_setting)
 
+        preference.setHost(true)
+
         Log.d("test", "test2")
 
         textview_projectcard_title.setOnClickListener {

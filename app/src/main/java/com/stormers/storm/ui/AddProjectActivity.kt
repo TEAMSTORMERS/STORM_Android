@@ -51,6 +51,7 @@ class AddProjectActivity : BaseActivity() {
             StormDialogButton("확인", true, object : StormDialogButton.OnClickListener {
                 override fun onClick() {
                     startActivity(Intent(this@AddProjectActivity, RoundSettingActivity::class.java))
+                    finish()
                 }
             })
         )

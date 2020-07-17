@@ -24,7 +24,7 @@ class CanvasTextFragment : BaseCanvasFragment(TEXT_MODE, R.layout.view_addcard_e
     override fun onApplied() {
         if (!edittext_addcard.text.isNullOrBlank()) {
 
-            val userIdx = RequestBody.create(MediaType.parse("text/plain"), "1")
+            val userIdx = RequestBody.create(MediaType.parse("text/plain"), preference.getUserIdx().toString())
 
             val projectIdx = RequestBody.create(MediaType.parse("text/plain"), preference.getProjectIdx().toString())
 
