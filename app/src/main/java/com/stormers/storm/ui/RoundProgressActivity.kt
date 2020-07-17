@@ -10,8 +10,8 @@ import com.stormers.storm.R
 import com.stormers.storm.RoundSetting.AddCardFragment
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.card.fragment.RoundmeetingFragment
-import com.stormers.storm.network.RequestRound
 import com.stormers.storm.network.RetrofitClient
+import com.stormers.storm.round.network.RequestRound
 import com.stormers.storm.round.network.response.ResponseRoundInfoModel
 import kotlinx.android.synthetic.main.activity_round_progress.*
 import kotlinx.android.synthetic.main.view_toolbar.view.*

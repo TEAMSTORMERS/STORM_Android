@@ -1,21 +1,14 @@
 package com.stormers.storm.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.ImageButton
-import android.widget.ImageView
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 
-import com.stormers.storm.network.BaseResponse
-import com.stormers.storm.network.RequestRound
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.round.fragment.HostRoundSettingFragment
+import com.stormers.storm.round.network.RequestRound
 import kotlinx.android.synthetic.main.activity_round_setting.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class  RoundSettingActivity : BaseActivity() {
 

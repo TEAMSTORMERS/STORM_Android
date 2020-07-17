@@ -6,6 +6,8 @@ import com.stormers.storm.project.network.response.ResponseProjectUserListModel
 import com.stormers.storm.round.network.response.ResponseFinalRoundData
 import com.stormers.storm.round.network.response.ResponseRoundCountModel
 import com.stormers.storm.round.model.RoundEnterModel
+import com.stormers.storm.round.model.RoundSettingModel
+import com.stormers.storm.round.network.response.ResponseRoundInfoModel
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -26,4 +28,13 @@ interface RequestRound {
 
     @GET("round/roundFinalInfo/{project_idx}")
     fun responseFinalRoundData(@Path("project_idx") projectIdx: Int) : Call<ResponseFinalRoundData>
+
+    @POST("round/setting")
+    fun roundSetting(@Body body: RoundSettingModel) : Call<BaseResponse>
+
+    @GET("round/info/{project_idx}")
+    fun responseRoundInfo(@Path("project_idx") projectIdx :Int) :Call<ResponseRoundInfoModel>
+
+    @GET("/round/count/{project_idx}")
+    fun getRoundCount(@Path ("project_idx")projectIdx : String) : Call<ResponseRoundCountModel>
 }
