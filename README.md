@@ -61,7 +61,8 @@
 
 **ex) activity_main.xml (constraintHeight_percent)**
           
-         <ImageView  
+~~~kotlin 
+<ImageView  
           android:id="@+id/imageView_background_red_radius"  
           android:layout_width="match_parent"  
           android:layout_height="0dp"  
@@ -72,7 +73,7 @@
           app:layout_constraintHorizontal_bias="0.0"  
           app:layout_constraintStart_toStartOf="parent"  
           app:layout_constraintTop_toTopOf="parent" />
-
+~~~
 <br>
 
 **2️⃣ 제약조건의 연관성**
@@ -164,7 +165,7 @@
  
 
 
-(A-3항목) Core Function & How to build💻
+## (A-3항목) Core Function & How to build💻
 
 **🚪로그인 Kakao api, Google api 사용**
 
@@ -295,7 +296,7 @@
     }
 
 
-**🎨Drawing기능 구현**
+**🎨Drawing 기능 구현**
 
 CanvasDrawingFragment.kt
 
