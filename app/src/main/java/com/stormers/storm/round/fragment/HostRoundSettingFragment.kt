@@ -26,7 +26,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.lang.StringBuilder
 
-class   HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setting) {
+class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setting) {
 
     private lateinit var timePickerDialog: StormDialog
 
@@ -127,7 +127,7 @@ class   HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_set
         }
     }
 
-    fun getRoundCount() {
+    private fun getRoundCount() {
         retrofitClient = RetrofitClient.create(RequestRound::class.java)
 
         projectIdx?.let {
@@ -154,6 +154,7 @@ class   HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_set
                 })
         }
     }
+
     fun enterRound(roundIdx: Int){
         RetrofitClient.create(RequestRound::class.java).interfaceRoundEnter((RoundEnterModel(userIdx!!, roundIdx)))
             .enqueue(object  : Callback<SimpleResponse> {
@@ -186,8 +187,8 @@ class   HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_set
         SocketClient.getInstance()
         SocketClient.connection()
 
-        SocketClient.sendEvent("joinRoom", "roomCode")
-        SocketClient.sendEvent("roundSetting",  "roomCode")
+        SocketClient.sendEvent("joinRoom", preference.getProjectCode()!!)
+        SocketClient.sendEvent("roundSetting",  preference.getProjectCode()!!)
 
         SocketClient.responseEvent("roundComplete", Emitter.Listener {
             Log.d("SocketJoinRoom", "Success.")

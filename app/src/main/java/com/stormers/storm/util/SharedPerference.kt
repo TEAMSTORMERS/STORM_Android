@@ -8,11 +8,10 @@ class SharedPreference(context: Context) {
     companion object {
         const val PROJECT_IDX = "projectIdx"
         const val ROUND_IDX = "roundIdx"
-        const val USER_ID = "userId"
         const val PROJECT_NAME = "projectName"
         const val ROUND_COUNT = "roundCount"
         const val USER_IDX = "user_idx"
-
+        const val PROJECT_CODE = "project_code"
     }
 
     private val prefs: SharedPreferences =
@@ -28,7 +27,7 @@ class SharedPreference(context: Context) {
         }
     }
 
-    private fun setString(key: String, value: String) {
+    private fun setString(key: String, value: String?) {
         prefs.edit().putString(key, value).apply()
     }
 
@@ -42,15 +41,19 @@ class SharedPreference(context: Context) {
         }
     }
 
-    private fun setInt(key: String, value: Int) {
-        prefs.edit().putInt(key, value).apply()
+    private fun setInt(key: String, value: Int?) {
+        if (value == null) {
+            prefs.edit().putInt(key, -1).apply()
+        } else {
+            prefs.edit().putInt(key, value).apply()
+        }
     }
 
     fun getProjectIdx(): Int? {
         return getInt(PROJECT_IDX)
     }
 
-    fun setProjectIdx(projectIdx: Int) {
+    fun setProjectIdx(projectIdx: Int?) {
         setInt(PROJECT_IDX, projectIdx)
     }
 
@@ -58,19 +61,11 @@ class SharedPreference(context: Context) {
         return getInt(ROUND_IDX)
     }
 
-    fun setRoundIdx(roundIdx: Int) {
+    fun setRoundIdx(roundIdx: Int?) {
         setInt(ROUND_IDX, roundIdx)
     }
 
-    fun getUserId(): Int? {
-        return getInt(USER_ID)
-    }
-
-    fun setUserId(userId: Int) {
-        setInt(USER_ID, userId)
-    }
-
-    fun setProjectName(projectName: String) {
+    fun setProjectName(projectName: String?) {
         setString(PROJECT_NAME, projectName)
     }
 
@@ -82,7 +77,7 @@ class SharedPreference(context: Context) {
         return getInt(ROUND_COUNT)
     }
 
-    fun setRoundCount(roundCount: Int) {
+    fun setRoundCount(roundCount: Int?) {
         setInt(ROUND_COUNT, roundCount)
     }
 
@@ -92,6 +87,14 @@ class SharedPreference(context: Context) {
 
     fun getUserIdx(): Int? {
         return getInt(USER_IDX)
+    }
+
+    fun setProjectCode(code: String?)  {
+        setString(PROJECT_CODE, code)
+    }
+
+    fun getProjectCode(): String? {
+        return getString(PROJECT_CODE)
     }
 }
 

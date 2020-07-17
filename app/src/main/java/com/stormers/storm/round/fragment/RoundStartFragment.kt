@@ -11,7 +11,6 @@ import com.stormers.storm.customview.dialog.StormDialog
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.network.SocketClient
 import com.stormers.storm.round.base.BaseWaitingFragment
-import com.stormers.storm.round.network.RequestRound
 import com.stormers.storm.ui.RoundProgressActivity
 import com.stormers.storm.ui.RoundSettingActivity
 import io.socket.emitter.Emitter
@@ -24,8 +23,6 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
 
     private lateinit var dialog: StormDialog
 
-    private lateinit var retrofitClient: RequestRound
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -35,6 +32,8 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
         getRoundInfo()
 
         showRoundUserLIst(preference.getRoundIdx()!!)
+
+        refreshParticipantSocket()
     }
 
     override fun afterGettingRoundInfo(roundIdx: Int) {
@@ -57,7 +56,7 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
         }
     }
 
-    fun refreshParticipantSocket() {
+    private fun refreshParticipantSocket() {
         SocketClient.getInstance()
         SocketClient.connection()
 
