@@ -43,7 +43,7 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         retrofitClient = RetrofitClient.create(ProjectInterface::class.java)
         retrofitClient_roundInfo = RetrofitClient.create(FinalRoundInterface::class.java)
 
-        retrofitClient_roundInfo.responseFinalRoundData(projectIdx.toString()).enqueue(object : Callback<ResponseFinalRoundData> {
+        retrofitClient_roundInfo.responseFinalRoundData(projectIdx).enqueue(object : Callback<ResponseFinalRoundData> {
             override fun onFailure(call: Call<ResponseFinalRoundData>, t: Throwable) {
                 if (t.message != null){
                     Log.d("PartProDetailRound", t.message!!)
@@ -137,7 +137,7 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
             override fun onRoundClick(projectIdx: Int, roundIdx: Int) {
                 val intent = Intent(this@ParticipatedProjectDetailActivity, RoundListActivity::class.java)
                 intent.putExtra("roundIdx", roundIdx)
-                intent.putExtra("projectIdx", projectIdx)
+                intent.putExtra("projectIdx", this@ParticipatedProjectDetailActivity.projectIdx)
                 startActivity(intent)
             }
         })

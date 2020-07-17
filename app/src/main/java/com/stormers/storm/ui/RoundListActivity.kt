@@ -39,9 +39,7 @@ class RoundListActivity : AppCompatActivity() {
 
         retrofitClient = RetrofitClient.create(FinalRoundInterface::class.java)
 
-
-
-        retrofitClient.responseFinalRoundData(projectIdx.toString()).enqueue(object : Callback<ResponseFinalRoundData> {
+        retrofitClient.responseFinalRoundData(projectIdx).enqueue(object : Callback<ResponseFinalRoundData> {
             override fun onFailure(call: Call<ResponseFinalRoundData>, t: Throwable) {
                 if (t.message != null){
                     Log.d("RoundListActivity", t.message!!)
@@ -50,15 +48,13 @@ class RoundListActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onResponse(
-                call: Call<ResponseFinalRoundData>,
-                response: Response<ResponseFinalRoundData>
-            ) {
+            override fun onResponse(call: Call<ResponseFinalRoundData>, response: Response<ResponseFinalRoundData>) {
                 if (response.isSuccessful) {
                     if (response.body()!!.success) {
                         for (i in response.body()!!.data.indices) {
                             Log.d("RoundListActivity", "받아온 라운드 정보 : ${response.body()!!.data[i]}")
-                            }
+                        }
+
                         roundListAdapterForViewPager.addAll(response.body()!!.data)
                         Log.d("roundIdx" , roundIdx.toString())
                         viewpager_roundcardlist_round.currentItem = roundIdx
