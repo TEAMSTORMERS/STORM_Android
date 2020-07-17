@@ -24,21 +24,25 @@ class RoundFinishActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_round_progress)
 
+
+        button_scrapcard_save_roundmeeting.visibility = View.VISIBLE
+
         goToFragment(RoundmeetingFragment::class.java, null)
 
         initDialogButton()
 
         initDialog()
 
-        //if (userIdx = "host") {
+        if (preference.isHost()) {
 
             button_scrapcard_save_roundmeeting.visibility = View.VISIBLE
 
             button_scrapcard_save_roundmeeting.setOnClickListener {
                 dialog.show(supportFragmentManager, "roundfinish")
-         //   }
+            }
+        } else {
+            button_scrapcard_save_roundmeeting.visibility = View.GONE
         }
-
     }
 
     override fun onResume() {

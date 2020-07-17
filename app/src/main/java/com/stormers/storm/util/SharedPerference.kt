@@ -12,6 +12,7 @@ class SharedPreference(context: Context) {
         const val ROUND_COUNT = "roundCount"
         const val USER_IDX = "user_idx"
         const val PROJECT_CODE = "project_code"
+        const val HOST = "is_host"
     }
 
     private val prefs: SharedPreferences =
@@ -29,6 +30,14 @@ class SharedPreference(context: Context) {
 
     private fun setString(key: String, value: String?) {
         prefs.edit().putString(key, value).apply()
+    }
+
+    private fun setBoolean(key: String, value: Boolean) {
+        prefs.edit().putBoolean(key, value).apply()
+    }
+
+    private fun getBoolean(key: String): Boolean {
+        return prefs.getBoolean(key, false)
     }
 
     private fun getInt(key: String): Int? {
@@ -95,6 +104,14 @@ class SharedPreference(context: Context) {
 
     fun getProjectCode(): String? {
         return getString(PROJECT_CODE)
+    }
+
+    fun setHost(isHost: Boolean)  {
+        setBoolean(HOST, isHost)
+    }
+
+    fun isHost(): Boolean {
+        return getBoolean(HOST)
     }
 }
 
