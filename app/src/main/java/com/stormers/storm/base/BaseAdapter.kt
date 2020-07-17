@@ -37,6 +37,10 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<BaseViewHolder<T>>() {
         notifyItemRangeInserted(startIndex, data.size)
     }
 
+    fun String.addAllList(data : List<T>){
+
+    }
+
     fun getItem(position: Int): T {
         return items[position]
     }
