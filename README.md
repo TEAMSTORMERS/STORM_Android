@@ -4,7 +4,6 @@
 
 ![KakaoTalk_20200717_211627341](https://user-images.githubusercontent.com/56873136/87791082-a7817300-c87c-11ea-919b-9d77ccdaf75e.png)
 
-<br>
 
 ## 실시간 브레인스토밍 협업 플랫폼 - STORM 🌪⚡️
 
