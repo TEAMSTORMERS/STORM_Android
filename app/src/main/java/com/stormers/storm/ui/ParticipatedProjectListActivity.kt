@@ -42,10 +42,7 @@ class ParticipatedProjectListActivity : BaseActivity() {
     }
 
     private fun loadProjectsDatas() {
-        //Todo: 로그인 이후 userId를 입력하여야 함
-        preference.setUserId(1)
-
-        RetrofitClient.create(RequestProject::class.java).requestParticipatedProject(preference.getUserId()!!)
+        RetrofitClient.create(RequestProject::class.java).requestParticipatedProject(preference.getUserIdx()!!)
             .enqueue(object: Callback<ResponseParticipatedProject> {
                 override fun onFailure(call: Call<ResponseParticipatedProject>, t: Throwable) {
                     Log.d("requestParticipatedPj", "fail : ${t.message}")

@@ -30,6 +30,8 @@ class AddProjectActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_project)
 
+        preference.setProjectCode(null)
+
         //뒤로 가기 버튼 설정
         setSupportActionBar(include_addproject_toolbar.toolbar)
 
@@ -100,8 +102,10 @@ class AddProjectActivity : BaseActivity() {
                                     makeDialog(response.body()!!.data.projectCode)
                                         .show(supportFragmentManager, "participate_code")
 
+                                    //프로젝트에 관한 데이터를 preference에 저장
                                     preference.setProjectIdx(response.body()!!.data.projectIdx)
                                     preference.setProjectName(edittext_addproject_projectname.text.toString())
+                                    preference.setProjectCode(response.body()!!.data.projectCode)
                                 }
                             } else {
                                 Log.d("AddProjectActivity", response.message())

@@ -37,14 +37,12 @@ open class BaseProjectWaitingActivity : BaseActivity() {
                     Log.d("ProjectInfo 통신실패", "${t}")
                 }
 
-                override fun onResponse(
-                    call: Call<ResponseProjectInfoModel>,
-                    response: Response<ResponseProjectInfoModel>
-                ) {
+                override fun onResponse(call: Call<ResponseProjectInfoModel>, response: Response<ResponseProjectInfoModel>) {
                     if (response.isSuccessful) {
                         if (response.body()!!.success) {
                             Log.d("getProjectName", "Success. ${response.body()!!.data.projectName}")
                             textview_projectcard_title.text = response.body()!!.data.projectName
+
                             preference.setProjectName(response.body()!!.data.projectName)
                             //Todo: 라운드 참여
                         }

@@ -27,14 +27,18 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : BaseActivity() {
-
-
     private lateinit var recentProjectsAdapter: ParticipatedProjectListAdapter
     val datas = mutableListOf<RecentProjectsModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        preference.setProjectCode(null)
+        preference.setProjectIdx(null)
+        preference.setRoundIdx(null)
+        preference.setRoundCount(null)
+        preference.setProjectName(null)
 
         val mainview_toolbar = findViewById(R.id.include_main_toolbar) as Toolbar
 
@@ -161,7 +165,10 @@ class MainActivity : BaseActivity() {
                             if (response.isSuccessful){
                                 if (response.body()!!.success){
                                     Log.d("enterProject", "projectIdx : ${response.body()!!.data.projectIdx}}")
+
                                     preference.setProjectIdx(response.body()!!.data.projectIdx)
+                                    preference.setProjectCode(edittext_input_participate_code.text.toString())
+
                                     moveToHostRoundActivity()
                                 }
                             }
