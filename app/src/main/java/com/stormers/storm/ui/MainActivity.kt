@@ -65,7 +65,7 @@ class MainActivity : BaseActivity() {
         drawerlayout_main.addDrawerListener(drawerToggle)
         drawerToggle.syncState()
 
-        navigationview_main.setNavigationItemSelectedListener{menuItem ->
+navigationview_main.setNavigationItemSelectedListener{menuItem ->
             when(menuItem.itemId){
                 R.id.item1 -> Toast.makeText(this,"item1 selected", Toast.LENGTH_SHORT).show()
                 R.id.item2 -> Toast.makeText(this,"item2 selected", Toast.LENGTH_SHORT).show()
@@ -138,13 +138,6 @@ class MainActivity : BaseActivity() {
             textview_info_project_list.visibility = View.GONE
             recycler_participated_projects_list.visibility = View.VISIBLE
         }
-    }
-    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        if (currentFocus != null) {
-            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
-        }
-        return super.dispatchTouchEvent(ev)
     }
 
 
