@@ -10,10 +10,11 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
@@ -23,28 +24,27 @@
             android:name=".ui.LoginActivity"
             android:theme="@style/loginTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
 
         </activity>
         <activity android:name=".ui.AddProjectActivity" />
         <activity
             android:name=".ui.MainActivity"
-            android:windowSoftInputMode="adjustNothing"/>
-        <activity android:name=".ui.MemberRoundWaitingActivity"/>
+            android:windowSoftInputMode="adjustNothing" />
+        <activity android:name=".ui.MemberRoundWaitingActivity" />
         <activity android:name=".ui.ParticipatedProjectListActivity" />
         <activity android:name=".ui.ParticipatedProjectDetailActivity" />
-        <activity android:name=".ui.RoundFinishActivity"/>
+        <activity android:name=".ui.RoundFinishActivity" />
         <activity android:name=".ui.RoundListActivity" />
         <activity android:name=".ui.RoundMeetingExpandActivity" />
         <activity android:name=".ui.RoundProgressActivity" />
-        <activity android:name=".ui.RoundSettingActivity"/>
-        <activity android:name=".ui.RoundStartActivity"/>
+        <activity android:name=".ui.RoundSettingActivity" />
+        <activity android:name=".ui.RoundStartActivity" />
         <activity android:name=".ui.ScrapCardCollectingActivity" />
-        <activity android:name=".ui.ScrapedCardDetailActivity"/>
-
-
+        <activity android:name=".ui.ScrapedCardDetailActivity" />
     </application>
 
 </manifest>

@@ -138,13 +138,6 @@ class MainActivity : BaseActivity() {
             recycler_participated_projects_list.visibility = View.VISIBLE
         }
     }
-    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        if (currentFocus != null) {
-            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
-        }
-        return super.dispatchTouchEvent(ev)
-    }
 
 
     override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {

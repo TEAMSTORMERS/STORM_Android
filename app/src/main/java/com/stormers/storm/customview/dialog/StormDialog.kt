@@ -84,8 +84,8 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
 
             if (isPicker) {
                 view.numberpicker_minute.run {
-                    maxValue = 60
-                    minValue = 10
+                    maxValue = 20
+                    minValue = 1
                     wrapSelectorWheel = false
                     descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
                 }
