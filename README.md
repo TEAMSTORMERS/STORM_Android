@@ -20,6 +20,7 @@ STORM은 효율적인 아이디어 회의를 돕는 온라인 툴이자 브레�
 개발 기간 : 2020-06-30~2020-07-18
 <br><br>
 
+
 ## [Library & Purpose📖]([https://github.com/TEAMSTORMERS/STORM_Android/wiki/Library-&-Purpose%F0%9F%93%96](https://github.com/TEAMSTORMERS/STORM_Android/wiki/Library-&-Purpose%F0%9F%93%96))
 
 ## [ConstraintLayout을 이용한 xml🔗](https://github.com/TEAMSTORMERS/STORM_Android/wiki/(A-1%ED%95%AD%EB%AA%A9)-ConstraintLayout%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-xml%F0%9F%94%97)
