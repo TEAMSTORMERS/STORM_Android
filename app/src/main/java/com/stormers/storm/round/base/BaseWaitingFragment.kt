@@ -3,6 +3,7 @@ package com.stormers.storm.round.base
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -39,8 +40,15 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
 
     private lateinit var retrofitList: InterfaceRoundUser
 
+    private lateinit var roundTime : TextView
+
+    private lateinit var roundSubject : TextView
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        roundTime = view.findViewById(R.id.round_time)
+        roundSubject = view.findViewById(R.id.round_subject)
 
         view.include_waitingproject_participant.recyclerview_participant.run {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
@@ -122,8 +130,8 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
                             .append(response.body()!!.data.roundTime)
                             .append("분 예정")
 
-                        round_time.text = time.toString()
-                        round_subject.text = response.body()!!.data.roundPurpose
+                        roundTime.text = time.toString()
+                        roundSubject.text = response.body()!!.data.roundPurpose
 
                         preference.setRoundIdx(response.body()!!.data.roundIdx)
 
