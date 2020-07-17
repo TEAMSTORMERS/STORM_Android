@@ -44,11 +44,15 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
 
     private lateinit var roundSubject : TextView
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         roundTime = view.findViewById(R.id.round_time)
         roundSubject = view.findViewById(R.id.round_subject)
+
+
 
         view.include_waitingproject_participant.recyclerview_participant.run {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)

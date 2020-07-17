@@ -3,6 +3,8 @@ package com.stormers.storm.round.fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.TextView
+import com.airbnb.lottie.LottieAnimationView
 import com.stormers.storm.R
 import com.stormers.storm.customview.StormButton
 import com.stormers.storm.network.BaseResponse
@@ -53,6 +55,10 @@ class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_settin
     override fun afterGettingRoundInfo(roundIdx: Int) {
         //라운드 참여
         enterRound(roundIdx)
+
+        view?.findViewById<TextView>(R.id.textview_round_ready)?.visibility = View.GONE
+        view?.findViewById<LottieAnimationView>(R.id.lottieAnimationView)?.visibility = View.GONE
+        view?.findViewById<TextView>(R.id.textview_readydone)?.visibility = View.VISIBLE
     }
 
     fun getUserList(){
