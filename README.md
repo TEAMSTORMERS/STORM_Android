@@ -184,10 +184,10 @@
         signaturepad.clear()
     }
     
-* OnSignedListener를 view에 설정함
-  - onStartSigning() : pad를 터치했을 때 isDrew의 값이 true로 변경됨
-  - onClear() : pad에 그려진 내용을 지울 때 이벤트 발생함
-  - onTrached() : pad에 그려진 그림을 전체 삭제함
+✔️ OnSignedListener를 view에 설정
+  - onStartSigning() : pad를 터치했을 때 isDrew의 값이 true로 변경
+  - onClear() : pad에 그려진 내용을 지울 때 이벤트 발생
+  - onTrached() : pad에 그려진 그림을 전체 삭제
 
 
 **💾Drawing 파일처리 및 저장**
