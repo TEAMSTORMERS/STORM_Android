@@ -13,21 +13,24 @@
 
 **1️⃣ constraintLayout의 다양한 속성 활용**
 
-**✅ Fragment에 들어갈 뷰들은 위아래가 잘라먹힐 가능성이 있어 모두 chain으로 묶은 뒤 bias 값을 조정하였음**
+
+✅ Fragment에 들어갈 뷰들은 위아래가 잘라먹힐 가능성이 있어 모두 chain으로 묶은 뒤 bias 값을 조정하였음
 
 
-**✅ View의 width, height 값을 constraint_percent 속성으로 적용하였기 때문에 대부분 match_constraint를 사용하였음**
+✅ View의 width, height 값을 constraint_percent 속성으로 적용하였기 때문에 대부분 match_constraint를 사용하였음
 
 
-**✅ width나 height값을 constraint_percent로 조정한 뒤, constraintDimensionRatio 속성으로 나머지 값을 결정하였음**
+✅ width나 height값을 constraint_percent로 조정한 뒤, constraintDimensionRatio 속성으로 나머지 값을 결정하였음
 
 
-**(fragment_host_round_setting.xml / fragment_round_meeting_expend.xml / fragment_round_start.xml / fragment_waiting_for_starting_project.xml / etc.)**
+(fragment_host_round_setting.xml / fragment_round_meeting_expend.xml / fragment_round_start.xml / fragment_waiting_for_starting_project.xml / etc.)
+
+<br>
 
 **ex) fragment_host_round_setting.xm (chain속성)**
 
-  
-	 <ImageView  
+~~~kotlin  
+<ImageView  
 	  android:id="@+id/imageview_symbol"  
 	  android:layout_width="0dp"  
 	  android:layout_height="0dp"  
@@ -53,6 +56,8 @@
 	  app:layout_constraintBottom_toTopOf="@+id/textview_round_goal"  
 	  app:layout_constraintStart_toStartOf="parent"  
 	  app:layout_constraintTop_toBottomOf="@+id/imageview_symbol" />
+~~~
+<br>
 
 **ex) activity_main.xml (constraintHeight_percent)**
           
@@ -68,37 +73,42 @@
           app:layout_constraintStart_toStartOf="parent"  
           app:layout_constraintTop_toTopOf="parent" />
 
-
+<br>
 
 **2️⃣ 제약조건의 연관성**
 
-**✅ 화면의 크기의 변화가 있어도 겹쳐지지 말아야할 뷰들은 서로 제약 조건을 갖도록 하였음**
 
-**✅ 뷰의 위치는 부모보다는 최대한 가까운 뷰에게 제약조건을 걸고 여백을 통해 지정하였음**
+✅ 화면의 크기의 변화가 있어도 겹쳐지지 말아야할 뷰들은 서로 제약 조건을 갖도록 하였음
 
-**✅ 제약 조건을 주지 않아도 위치가 결정되는 경우가 있었지만 각 뷰의 상대적 위치를 확실하게 하기 위해 가까운 뷰와 제약 조건을 가짐**
+✅ 뷰의 위치는 부모보다는 최대한 가까운 뷰에게 제약조건을 걸고 여백을 통해 지정하였음
 
+✅ 제약 조건을 주지 않아도 위치가 결정되는 경우가 있었지만 각 뷰의 상대적 위치를 확실하게 하기 위해 가까운 뷰와 제약 조건을 가짐
+
+<br>
 
 **3️⃣ match_parent, wrap_content, match_constraint의 사용**
 
-**- GridRecyclerView의 item으로 들어갈 layout들은 해당 속성을 사용하기 어려워 길이 값을 하드코딩하였음**
+- GridRecyclerView의 item으로 들어갈 layout들은 해당 속성을 사용하기 어려워 길이 값을 하드코딩하였음
 
-**- 그 외에는 해당 속성을 모두 사용하였음**
+- 그 외에는 해당 속성을 모두 사용하였음
 
+<br>
 
  **ConstraintLayout을 사용하지 않은 레이아웃**
  
 - [ ] **CustomView를 위한 레이아웃**
  
-	**➡️ view_card_custom.xml**
+	➡️ view_card_custom.xml
 
-	**➡️ view_botton_custom.xml**
+	➡️ view_botton_custom.xml
 
  - [ ] **ViewPager2의 아이템 레이아웃 (최상위 레이아웃의 가로세로가 match_parent가 아니면 예외가 발생하여 FrameLayout으로 해결)**
 
-	**➡️ item_round_info_card.xml**
+	➡️ item_round_info_card.xml
 
-	**➡️ item_card_detail.xml**
+	➡️ item_card_detail.xml
+
+<br><br>
 
 ## (A-2항목) Kotlin collection의 확장함수 사용 / Custom 확장함수 사용📝
 
@@ -142,148 +152,119 @@
 **내부 Database 구축을위한 Room 라이브러리**
 
     implementation "androidx.room:room-runtime:2.2.5"
+    
+**drawing 관련 라이브러리**
 
+    implementation 'com.github.gcacace:signature-pad:1.3.1'
 			
+<br><br>
 
 ## (A-3항목) Project Structure📐
 
  
 
 
-## (A-3항목) Core Function & How to build💻
+(A-3항목) Core Function & How to build💻
 
-## 🚪Kakao api, Google api 사용
+**🚪로그인 Kakao api, Google api 사용**
 
-**firebaseAuth, googleSignInClient, user, RC_SIGN_IN 객체를 전역으로 선언**
-
-    private lateinit var firebaseAuth: FirebaseAuth  
-    private lateinit var googleSignInClient: GoogleSignInClient  
-    private val RC_SIGN_IN = 99 //private const val TAG = "GoogleActivity"  
-    val user = FirebaseAuth.getInstance().currentUser**
-
-**GoogleSignInOption객체를 구성할 때 requestIdToken을 호출
-로그인 버튼을 눌렀을 때 signIn 함수 실행되고 구글 계정 인증 Activity가 실행**
-
-    imagebutton_login_google.setOnClickListener {  
-      signIn()  
-        Log.d("GoogleLogIn", "버튼 눌림")  
-    }  
-      
-    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)  
-        .requestIdToken(getString(R.string.default_web_client_id))  
-        .requestEmail()  
-        .build()
-    
-    
-    private fun signIn() {  
-        val signInIntent = googleSignInClient.signInIntent  
-      startActivityForResult(signInIntent, RC_SIGN_IN)  
-    }
-
-**로그인이 정상적으로 수행되고 requestCode가 RC_SIGN_IN이면 firebaseWithGoogle함수 호출**
-
-	if (requestCode == RC_SIGN_IN) {  
-    val task = GoogleSignIn.getSignedInAccountFromIntent(data)  
-    try {  
-		  val account = task.getResult(ApiException::class.java)  
-	      firebaseAuthWithGoogle(account!!)  
-		  } catch (e: ApiException) {  
-			  Log.w("LoginActivity", "Google sign in failed", e)  
-      }  
-	}
-
-**GoogleSignInAccount객체에서 IdToken을 가져와  FirebaseAuth로 교환하고 인증**
-**➡️ 성공적으로 수행되면 RetrofitClient를 통해서 서버로 userName, userTokenGoogle, userUploadUser 송신**
-
-	private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {  
-	    Log.d("LoginActivity", "firebaseAuthWithGoogle:" + acct.id!!)  
-  
-	  val credential = GoogleAuthProvider.getCredential(acct.idToken, null)  
-  
-    firebaseAuth.signInWithCredential(credential)  
-        .addOnCompleteListener(this) { task ->  
-	  if (task.isSuccessful) {  
-                val user = FirebaseAuth.getInstance().currentUser  
-  
-  
-     RetrofitClient.create(InterfaceSignUp::class.java).interfaceSignUp(  
-                    userName, userTokenGoogle, null, userUploadImage  
-                )  
-                    .enqueue(object : Callback<ResponseSignUpModel> {  
-                        override fun onFailure(call: Call<ResponseSignUpModel>, t: Throwable) {  
-                            Log.d("SignUp Google", "${t}")  
-                        }  
-  
-                        override fun onResponse(  
-                            call: Call<ResponseSignUpModel>,  
-	  response: Response<ResponseSignUpModel>  
-                        ) {  
-                            if(response.isSuccessful){  
-                                if(response.body()!!.success){  
-                                    Log.d("SignUp 통신성공", "통신성공")  
-  
-                                    preference.setUserIdx(response.body()!!.data.toString().toInt())  
-  
-                                    Log.w("LoginActivity", "firebaseAuthWithGoogle 성공", task.exception)  
-                                    toMainActivity(firebaseAuth?.currentUser)  
-                                }  
-                            }  
-  
-                        }  
-                    })  
-  
-            } else {  
-                Log.w("LoginActivity", "firebaseAuthWithGoogle 실패", task.exception)  
-                Snackbar.make(constraintlayout_login, "로그인에 실패하였습니다.", Snackbar.LENGTH_SHORT)  
-                    .show()  
-            }  
-        }  
-	}
-	
-	fun toMainActivity(user: FirebaseUser?) {  
-	    if (user != null) { // MainActivity 로 이동  
-	  startActivity(Intent(this, MainActivity::class.java))  
-	        finish()  
-	    }  
-	}
-
- **Kakao api**
-
- **- Application을 상속하는 GlobalAppication.kt**
- **- KakaoAdapter를 상속하는 KakaoSDKAdapter**
- **- SessionCallback.kt를 별도로 생성**
- 
-**<SessionCallback.kt>**
-**SessionCallback.kt에서 로그인 세션이 성공했을 때와 실패했을 때의 행동을 정의**
-
-    override fun onSessionOpenFailed(exception: KakaoException?) {  
-        Log.e("KaKaoLogin","Session Call back :: onSessionOpenFailed ${exception?.message}")  
-    }  
-    override fun onSessionOpened() {  
-      
-        UserManagement.getInstance().me(object : MeV2ResponseCallback() {  
-      
-            override fun onFailure(erroResult: ErrorResult?) {  
-                Log.i("KaKaoLogin", "Session Call back:: on failed ${erroResult?.errorMessage}")  
-            }  
-      
-            override fun onSessionClosed(errorResult: ErrorResult?) {  
-                Log.i("KaKaoLogin", "Session Call back:: on Closed ${errorResult?.errorMessage}")  
-            }  
-      
-            override fun onSuccess(result: MeV2Response?) {  
-                Log.d("KaKaoLogin","성공했습니다.")  
-                startInetnt()  
-                checkNotNull(result) { "session response null" }  
-      }  
-        })  
-    }
-
-	
+ <br><br>
 
 **🎨Drawing기능 구현**
 
+CanvasDrawingFragment.kt
+
+~~~kotlin  
+    private var isDrew = false
+    
+    override fun initCanvas() {
+        signaturepad.setOnSignedListener(object : SignaturePad.OnSignedListener {
+            override fun onStartSigning() {
+                isDrew = true
+            }
+
+            override fun onClear() {
+                isDrew = false
+            }
+
+            override fun onSigned() {
+                //Doing nothing. prevent error.
+                signaturepad
+            }
+        })
+    }
+
+    override fun onTrashed() {
+        signaturepad.clear()
+    }
+~~~
+
+**📌 OnSignedListener를 view에 설정**
+  - onStartSigning() : pad를 터치했을 때 isDrew의 값이 true로 변경
+  - onClear() : pad에 그려진 내용을 지울 때 이벤트 발생
+  - onTrached() : pad에 그려진 그림을 전체 삭제
+
+<br><br>
+
 **💾Drawing 파일처리 및 저장**
+
+**✔️ 그린 그림을 DB에 저장**
+
+CanvasDrawingFragment.kt
+
+~~~kotlin  
+    private fun saveCardIntoDB(bitmap: Bitmap) {
+        savedCardRepository.insert(
+            SavedCardEntity(preference.getProjectIdx()!!, preference.getRoundIdx()!!, SavedCardEntity.FALSE, SavedCardEntity.DRAWING,
+                BitmapConverter.bitmapToString(bitmap), null
+            )
+        )
+    }
+~~~
+    
+<br>
+
+**✔️ 비트맵을 문자열로 변환하여 DB에 저장**
+
+BitmapConverter.kt
+
+~~~kotlin  
+    object BitmapConverter {
+
+        private const val TAG = "BitmapConverter"
+        private const val QUALITY = 70
+
+        // String -> Bitmap
+        fun stringToBitmap(encodedString: String?): Bitmap? {
+            return try {
+                val encodeByte: ByteArray = Base64.decode(encodedString, Base64.DEFAULT)
+                BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.size)
+
+            } catch (e: Exception) {
+                Log.e(TAG, e.message.toString())
+                null
+            }
+        }
+
+        //Bitmap -> String
+        fun bitmapToString(bitmap: Bitmap): String {
+            val baos = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.PNG, QUALITY, baos)
+
+            val bytes: ByteArray = baos.toByteArray()
+            return Base64.encodeToString(bytes, Base64.DEFAULT)
+        }
+
+        //Bitmap -> ByteArray
+        fun bitmapToByteArray(bitmap: Bitmap): ByteArray {
+            val baos = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, QUALITY, baos)
+            return baos.toByteArray()
+        }
+    } 
+~~~
+
+<br><br>
 
 **📶socket 통신**
 
@@ -291,14 +272,43 @@
 
 **1️⃣ Lottie Animation**
   **: 스플래쉬, 로그인, 라운드 대기 중 로딩**
+  
+📌 로그인 애니메이션
 
+~~~kotlin  
     private fun initView() {  
         val animationView = findViewById<LottieAnimationView>(R.id.lottieanimation_login)  
         animationView.setAnimation("login_bg.json")  
         animationView.repeatCount = INFINITE  
       animationView.playAnimation()  
     }
+~~~
+
+<br>
+    
+📌 라운드 대기 중 로딩 애니메이션
+
+~~~kotlin  
+    <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottieAnimationView"
+                android:layout_width="45dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_round_ready"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textview_round_ready"
+                app:layout_constraintTop_toTopOf="@+id/textview_round_ready"
+                app:lottie_autoPlay="true"
+                app:lottie_rawRes="@raw/loading_animation"
+                app:lottie_loop="true" />
+~~~
+<br>
+
+📌 스플래쉬 애니메이션
+
+<br>
 
 **📢Notification**
+
 
 
