@@ -23,6 +23,7 @@ import com.stormers.storm.round.network.InterfaceRoundEnter
 import com.stormers.storm.ui.HostRoundWaitingActivity
 import kotlinx.android.synthetic.main.activity_round_setting.*
 import com.stormers.storm.ui.RoundSettingActivity
+import com.stormers.storm.util.substringForMinute
 import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.fragment_host_round_setting.*
 import retrofit2.Call
@@ -113,7 +114,7 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
                         RoundSettingModel(
                             it,
                             textview_round_goal.text.toString(),
-                            textview_roundsetting_time.text.toString().substring(0, 2).toInt()
+                            textview_roundsetting_time.text.toString().substringForMinute()
                         )
                     ).enqueue(
                         object : Callback<BaseResponse> {
