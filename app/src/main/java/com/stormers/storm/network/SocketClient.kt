@@ -51,7 +51,7 @@ object SocketClient {
         }
     }
 
-    fun sendStringEvent(event: String, data: String) : Boolean {
+    fun sendEvent(event: String, data: String) : Boolean {
         return if (init() != null) {
             try {
                 socket!!.emit(event, data)
@@ -66,18 +66,4 @@ object SocketClient {
         }
     }
 
-    fun sendIntEvent(event: String, data: Int) : Boolean {
-        return if (init() != null) {
-            try {
-                socket!!.emit(event, data)
-                true
-            } catch (e: JSONException) {
-                e.printStackTrace()
-                false
-            }
-        } else {
-            Log.d(TAG, "initial is failed")
-            false
-        }
-    }
 }

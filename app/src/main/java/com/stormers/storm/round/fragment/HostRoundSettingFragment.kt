@@ -209,8 +209,8 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
     //    SocketClient.sendIntEvent("joinRoom", textview_round_goal.text.toString().toInt())
     //    SocketClient.sendIntEvent("joinRoom",  textview_roundsetting_time.text.toString().substring(0,2).toInt())
 
-        SocketClient.sendStringEvent("joinRoom", "roomCode")
-        SocketClient.sendStringEvent("roundSetting",  "roomCode")
+        SocketClient.sendEvent("joinRoom", "roomCode")
+        SocketClient.sendEvent("roundSetting",  "roomCode")
 
         SocketClient.responseEvent("roundcomplete", Emitter.Listener {
             Log.d("소켓 성공", it.toString())

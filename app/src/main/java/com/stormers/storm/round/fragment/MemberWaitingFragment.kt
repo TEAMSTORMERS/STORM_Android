@@ -96,8 +96,8 @@ class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_settin
         SocketClient.getInstance()
         SocketClient.connection()
 
-        SocketClient.sendStringEvent("joinRoom", "roomCode")
-        SocketClient.sendStringEvent("roundSetting",  "roomCode")
+        SocketClient.sendEvent("joinRoom", "roomCode")
+        SocketClient.sendEvent("roundSetting",  "roomCode")
 
         SocketClient.responseEvent("roundcomplete", Emitter.Listener {
             Log.d("소켓 성공", it.toString())
