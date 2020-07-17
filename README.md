@@ -32,6 +32,6 @@ STORM은 효율적인 아이디어 회의를 돕는 온라인 툴이자 브레�
 
 ## [Kotlin collection의 확장함수/ Custom 확장함수🌐](https://github.com/TEAMSTORMERS/STORM_Android/wiki/Kotlin%ED%99%95%EC%9E%A5%ED%95%A8%EC%88%98-%EC%82%AC%EC%9A%A9%F0%9F%8C%90)
 
-## [Project Structure📐](https://github.com/TEAMSTORMERS/STORM_Android/wiki/(A-3%ED%95%AD%EB%AA%A9)-Project-Structure%F0%9F%93%90)
+## [Project Structure📐](hub.com/TEAMSTORMERS/STORM_Android/wiki/Project-Structure📐)
 
 ## [Core Function & How to build💻](https://github.com/TEAMSTORMERS/STORM_Android/wiki/(A-3%ED%95%AD%EB%AA%A9)-Core-Function-&-How-to-build%F0%9F%92%BB)
