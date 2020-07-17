@@ -65,7 +65,7 @@ class MainActivity : BaseActivity() {
         drawerlayout_main.addDrawerListener(drawerToggle)
         drawerToggle.syncState()
 
-        navigationview_main.setNavigationItemSelectedListener{menuItem ->
+navigationview_main.setNavigationItemSelectedListener{menuItem ->
             when(menuItem.itemId){
                 R.id.item1 -> Toast.makeText(this,"item1 selected", Toast.LENGTH_SHORT).show()
                 R.id.item2 -> Toast.makeText(this,"item2 selected", Toast.LENGTH_SHORT).show()
