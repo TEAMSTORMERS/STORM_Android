@@ -33,7 +33,7 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        
+
         preference.setProjectCode(null)
         preference.setProjectIdx(null)
         preference.setRoundIdx(null)

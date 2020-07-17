@@ -21,12 +21,10 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
 
     private lateinit var activityButton: StormButton
 
-    private lateinit var dialog: StormDialog
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        dialog = StormDialogBuilder(StormDialogBuilder.LOADING_LOGO, "5초 후 라운드가 시작합니다").build()
+
 
         //라운드 정보 받아오기
         getRoundInfo()
@@ -45,15 +43,18 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
         activityButton = (activity as RoundSettingActivity).stormButton_ok_host_round_setting
 
         activityButton.setOnClickListener {
-            fragmentManager?.let { it1 -> dialog.show(it1, "round_start") }
 
-            val handler = Handler()
-            val handlerTask = Runnable {
-                startActivity(Intent(activity, RoundProgressActivity::class.java))
-            }
+            startRoundSocket()
 
-            handler.postDelayed(handlerTask, 5000)
+            startRound()
         }
+    }
+
+    private fun startRoundSocket() {
+        SocketClient.getInstance()
+        SocketClient.connection()
+
+        SocketClient.sendEvent("roundStartHost", preference.getProjectCode()!!)
     }
 
     private fun refreshParticipantSocket() {

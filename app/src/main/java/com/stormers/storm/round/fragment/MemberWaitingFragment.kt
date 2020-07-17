@@ -14,7 +14,6 @@ import com.stormers.storm.project.base.BaseProjectWaitingActivity
 import com.stormers.storm.round.base.BaseWaitingFragment
 import com.stormers.storm.round.model.RoundEnterModel
 import com.stormers.storm.round.network.RequestRound
-import com.stormers.storm.user.ParticipantAdapter
 import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_round_setting.*
 import retrofit2.Call
@@ -80,8 +79,19 @@ class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_settin
                     //라운드의 유저 정보 띄우기
                     showRoundUserLIst(roundIdx)
 
-                    //Todo: 라운드기 시작되는지 소켓 통신
+                    waitingRoundStart()
                 }
             })
+    }
+
+    private fun waitingRoundStart() {
+        SocketClient.getInstance()
+        SocketClient.connection()
+
+        SocketClient.responseEvent("roundStartMember", Emitter.Listener {
+            Log.d("startRound_socket", "START ROUND!!!")
+
+            startRound()
+        })
     }
 }
