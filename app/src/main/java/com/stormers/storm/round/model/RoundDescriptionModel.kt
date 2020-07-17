@@ -16,7 +16,7 @@ class RoundDescriptionModel (
     val time : Int,
     @SerializedName("round_participant")
     val round_participant : List<RoundData>,
-    @Ignore
+    @SerializedName("round_idx")
     val roundIdx : Int,
     @Ignore
     val projectIdx: Int

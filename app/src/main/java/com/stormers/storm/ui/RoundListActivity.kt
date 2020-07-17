@@ -27,6 +27,9 @@ class RoundListActivity : AppCompatActivity() {
     private val savedCardRepository : SavedCardRepository by lazy { SavedCardRepository(application) }
 
     private var projectIdx = -1
+
+    private var roundNo = -1
+
     private lateinit var retrofitClient: FinalRoundInterface
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +37,7 @@ class RoundListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_project_cardlist)
         projectIdx = intent.getIntExtra("projectIdx", 1)
         roundIdx = intent.getIntExtra("roundIdx", 1)
+        roundNo = intent.getIntExtra("roundNo", 1)
 
         roundListAdapterForViewPager = RoundListAdapterForViewPager()
 
@@ -79,7 +83,7 @@ class RoundListActivity : AppCompatActivity() {
             adapter = roundListAdapterForViewPager
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
             offscreenPageLimit = 3
-            //currentItem = 5
+            currentItem = roundNo - 1
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
@@ -88,7 +92,7 @@ class RoundListActivity : AppCompatActivity() {
                     val roundIdx = roundListAdapterForViewPager.getItem(position).roundIdx
 
                     //Todo: projectIdx 도 인텐트로 받아오기
-                    val data = savedCardRepository.getAll(1, roundIdx)
+                    val data = savedCardRepository.getAll(projectIdx, roundIdx)
 
 
                     cardAdapter.clear()
@@ -97,11 +101,7 @@ class RoundListActivity : AppCompatActivity() {
             })
         }
 
-
-
-        cardAdapter.addAll(savedCardRepository.getAll(1, 1))
-
-
+        cardAdapter.addAll(savedCardRepository.getAll(projectIdx, roundIdx))
     }
 
 }

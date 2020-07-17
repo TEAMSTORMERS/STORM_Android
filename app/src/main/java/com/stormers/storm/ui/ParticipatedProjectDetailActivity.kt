@@ -134,10 +134,11 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         }
 
         roundListAdapterForViewPager = RoundListAdapter(object : RoundListAdapter.OnRoundClickListener {
-            override fun onRoundClick(projectIdx: Int, roundIdx: Int) {
+            override fun onRoundClick(projectIdx: Int, roundIdx: Int, roundNo: Int) {
                 val intent = Intent(this@ParticipatedProjectDetailActivity, RoundListActivity::class.java)
                 intent.putExtra("roundIdx", roundIdx)
                 intent.putExtra("projectIdx", this@ParticipatedProjectDetailActivity.projectIdx)
+                intent.putExtra("roundNo", roundNo)
                 startActivity(intent)
             }
         })
