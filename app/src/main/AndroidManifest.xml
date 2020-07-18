@@ -8,7 +8,7 @@
         android:name=".ui.GlobalApplication"
         android:allowBackup="true"
         android:icon="@mipmap/storm_app_icon"
-        android:label="@string/app_name"
+        android:label="STORM"
         android:largeHeap="true"
         android:roundIcon="@mipmap/storm_app_icon"
         android:supportsRtl="true"
