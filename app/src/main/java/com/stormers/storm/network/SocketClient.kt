@@ -14,7 +14,7 @@ object SocketClient {
     private val TAG = javaClass.name
 
     //Todo: URL 받으면 추가하기
-    private const val SERVER_URL = "http://9e1f6beb2b10.ngrok.io"
+    private const val SERVER_URL = "http://52.79.151.21:3000"
     private var socket: Socket? = null
 
     fun getInstance() : Socket? {

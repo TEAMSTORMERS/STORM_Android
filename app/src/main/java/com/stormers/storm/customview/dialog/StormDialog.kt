@@ -91,6 +91,7 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
                 }
             }
 
+
             if (isCode) {
                 view.textview_dialog_code.text = code
 
