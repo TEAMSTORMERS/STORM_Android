@@ -8,7 +8,7 @@ import retrofit2.create
 object RetrofitClient {
     //Todo: URL 채우기
 
-    private const val BASE_URL = "http://9e1f6beb2b10.ngrok.io"
+    private const val BASE_URL = "http://52.79.151.21:3000"
 
     private fun getInstance() : Retrofit {
         return Retrofit.Builder()
