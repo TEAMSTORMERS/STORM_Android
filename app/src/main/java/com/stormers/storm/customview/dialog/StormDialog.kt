@@ -88,6 +88,7 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
                     minValue = 1
                     wrapSelectorWheel = false
                     descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
+                    textColor = context.getColor(R.color.storm_gray)
                 }
             }
 
