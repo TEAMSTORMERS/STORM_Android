@@ -37,6 +37,10 @@ class StormDialogBuilder(private var dialogImg: Int, private var title: String) 
 
     private var code: String? = null
 
+    private var minValue: Int? = null
+
+    private var maxValue: Int? = null
+
     fun build() : StormDialog {
         val imageRes = when(dialogImg) {
 
@@ -56,7 +60,9 @@ class StormDialogBuilder(private var dialogImg: Int, private var title: String) 
             horizontalButton,
             isPicker,
             isCode,
-            code
+            code,
+            minValue,
+            maxValue
         )
     }
 
@@ -77,6 +83,16 @@ class StormDialogBuilder(private var dialogImg: Int, private var title: String) 
 
     fun setContentText(contentText: String) : StormDialogBuilder {
         this.contentText = contentText
+        return this
+    }
+
+    fun setMinValue(minValue: Int) : StormDialogBuilder {
+        this.minValue = minValue
+        return this
+    }
+
+    fun setMaxValue(maxValue: Int) : StormDialogBuilder {
+        this.maxValue = maxValue
         return this
     }
 

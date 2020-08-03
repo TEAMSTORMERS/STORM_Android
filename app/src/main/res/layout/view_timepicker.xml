@@ -7,8 +7,9 @@
 
     <NumberPicker
         android:id="@+id/numberpicker_minute"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:selectionDividerHeight="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,10 +20,9 @@
         android:layout_height="wrap_content"
         android:text="분"
         android:textSize="16sp"
+        android:textColor="@color/storm_gray"
         app:layout_constraintBottom_toBottomOf="@+id/numberpicker_minute"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.66"
-        app:layout_constraintStart_toStartOf="@+id/numberpicker_minute"
+        app:layout_constraintStart_toEndOf="@+id/numberpicker_minute"
         app:layout_constraintTop_toTopOf="@+id/numberpicker_minute" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
