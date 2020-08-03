@@ -177,13 +177,10 @@
             android:background="@drawable/mainnone_symbol"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="0.55:1"
-            app:layout_constraintEnd_toEndOf="@+id/imageButton_show_all"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="@+id/textview_past_project_list"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.8"
-            app:layout_constraintWidth_percent="0.1" />
-
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/recycler_participated_projects_list"
+            app:layout_constraintTop_toBottomOf="@+id/textview_past_project_list"
+            app:layout_constraintVertical_bias="0.18" />
 
         <ImageButton
             android:id="@+id/imageButton_show_all"
@@ -223,6 +220,12 @@
             app:layout_constraintStart_toStartOf="@+id/imageview_mainview_symbol"
             app:layout_constraintTop_toBottomOf="@+id/imageview_mainview_symbol" />
 
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_main_noprojectlist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="textview_info_project_list, imageview_mainview_symbol"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_participated_projects_list"
             android:layout_width="0dp"
@@ -237,6 +240,7 @@
             android:scrollbarThumbHorizontal="@color/storm_yellow"
             android:scrollbarTrackHorizontal="@drawable/mainview_processingbar_1"
             android:scrollbars="horizontal"
+            android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
