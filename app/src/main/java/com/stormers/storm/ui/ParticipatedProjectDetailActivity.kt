@@ -60,7 +60,7 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
             ) {
                if(response.isSuccessful){
                    if(response.body()!!.success){
-                       projectUserImageAdapter.(response.body()!!.data.project_participants_list)
+                       projectUserImageAdapter.addAll(response.body()!!.data.project_participants_list)
                    }
                }
             }
