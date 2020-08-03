@@ -7,9 +7,8 @@ import com.stormers.storm.R
 import com.stormers.storm.base.BaseViewHolder
 import com.stormers.storm.project.model.ProjectInfoForUserImageModel
 
-class UserImageViewHolder (parent:ViewGroup) : BaseViewHolder<String>(R.layout.item_user_profile, parent){
+class UserImageViewHolder (parent:ViewGroup) : BaseViewHolder<String>(R.layout.activity_participated_project_detail, parent){
 
-    val data = mutableListOf<ProjectInfoForUserImageModel>()
     val imageview_user_profile = itemView.findViewById<ImageView>(R.id.imageview_user_profile)
 
     override fun bind(data: String) {

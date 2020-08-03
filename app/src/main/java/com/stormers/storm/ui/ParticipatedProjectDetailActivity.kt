@@ -33,6 +33,8 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
 
     private var projectIdx = -1
 
+    private val USER_IMAGE_LIMIT = 5
+
     private lateinit var retrofitClient_roundInfo: RequestRound
     private lateinit var retrofitClient: RequestProject
 
@@ -61,10 +63,13 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
                if(response.isSuccessful){
                    if(response.body()!!.success){
                        projectUserImageAdapter.addAll(response.body()!!.data.project_participants_list)
+                      
                    }
                }
             }
         })
+
+
 
 
 
