@@ -134,9 +134,11 @@ navigationview_main.setNavigationItemSelectedListener{menuItem ->
     private fun showProjectList(data: List<ParticipatedProjectModel>) {
         if(data.isNotEmpty()){
             recentProjectsAdapter.addAll(data)
-            imageview_mainview_symbol.visibility = View.GONE
-            textview_info_project_list.visibility = View.GONE
+            group_main_noprojectlist.visibility = View.GONE
             recycler_participated_projects_list.visibility = View.VISIBLE
+        } else {
+            group_main_noprojectlist.visibility = View.VISIBLE
+            recycler_participated_projects_list.visibility = View.GONE
         }
     }
 
