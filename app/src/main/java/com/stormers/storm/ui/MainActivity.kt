@@ -95,6 +95,37 @@ navigationview_main.setNavigationItemSelectedListener{menuItem ->
             startActivity(Intent(this@MainActivity, ParticipatedProjectListActivity::class.java))
         }
 
+        edittext_input_participate_code.setOnKeyListener { _, keyCode, _ ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                val participatedCode = edittext_input_participate_code.text.toString()
+
+                RetrofitClient.create(RequestProject::class.java)
+                    .joinProjectUsingCode(JoinProjectUsingCodeModel(preference.getUserIdx()!!, participatedCode))
+                    .enqueue(object : Callback<ResponseJoinProjectUsingCode> {
+
+                        override fun onFailure(call: Call<ResponseJoinProjectUsingCode>, t: Throwable) {
+                            Log.e("enterProject", "failed : $t")
+                            Log.e("enterProject", "userIdx : ${preference.getUserIdx()!!}," +
+                                    " code: ${edittext_input_participate_code.text}")
+                        }
+
+                        override fun onResponse(call: Call<ResponseJoinProjectUsingCode>,
+                                                response: Response<ResponseJoinProjectUsingCode>) {
+                            if (response.isSuccessful) {
+                                if (response.body()!!.success) {
+                                    Log.d("enterProject", "projectIdx : ${response.body()!!.data.projectIdx}}")
+
+                                    preference.setProjectIdx(response.body()!!.data.projectIdx)
+                                    preference.setProjectCode(edittext_input_participate_code.text.toString())
+
+                                    moveToHostRoundActivity()
+                                }
+                            }
+                        }
+                    })
+            }
+            return@setOnKeyListener true
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -142,41 +173,6 @@ navigationview_main.setNavigationItemSelectedListener{menuItem ->
         }
     }
 
-
-    override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
-        return when (keyCode){
-
-            KeyEvent.KEYCODE_ENTER -> {
-
-                RetrofitClient.create(RequestProject::class.java)
-                    .joinProjectUsingCode(JoinProjectUsingCodeModel(preference.getUserIdx()!!, edittext_input_participate_code.text.toString()))
-                    .enqueue(object : Callback<ResponseJoinProjectUsingCode> {
-
-                        override fun onFailure(call: Call<ResponseJoinProjectUsingCode>, t: Throwable) {
-                            Log.e("enterProject","failed : $t")
-                            Log.e("enterProject","userIdx : ${preference.getUserIdx()!!}, code: ${edittext_input_participate_code.text}")
-                        }
-
-                        override fun onResponse(call: Call<ResponseJoinProjectUsingCode>, response: Response<ResponseJoinProjectUsingCode>) {
-                            if (response.isSuccessful){
-                                if (response.body()!!.success){
-                                    Log.d("enterProject", "projectIdx : ${response.body()!!.data.projectIdx}}")
-
-                                    preference.setProjectIdx(response.body()!!.data.projectIdx)
-                                    preference.setProjectCode(edittext_input_participate_code.text.toString())
-
-                                    moveToHostRoundActivity()
-                                }
-                            }
-
-                        }
-                    }
-                )
-
-                true
-            } else -> super.onKeyUp(keyCode, event)
-        }
-    }
     private fun moveToHostRoundActivity() {
         val intent = Intent(this, MemberRoundWaitingActivity::class.java)
         startActivity(intent)
