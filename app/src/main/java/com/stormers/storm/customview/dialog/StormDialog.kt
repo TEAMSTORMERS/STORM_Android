@@ -15,7 +15,6 @@ import android.widget.NumberPicker
 import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.DialogFragment
 import com.stormers.storm.R
 import com.stormers.storm.util.MetricsUtil
@@ -24,8 +23,6 @@ import kotlinx.android.synthetic.main.dialog_custom.view.imageview_dialog_symbol
 import kotlinx.android.synthetic.main.dialog_custom.view.textview_dialog_content
 import kotlinx.android.synthetic.main.item_dialog_buttons.view.*
 import kotlinx.android.synthetic.main.view_participation_code.view.*
-import kotlinx.android.synthetic.main.view_timepicker.*
-import kotlinx.android.synthetic.main.view_timepicker.view.*
 import kotlinx.android.synthetic.main.view_timepicker.view.numberpicker_minute
 
 /**
@@ -41,13 +38,17 @@ import kotlinx.android.synthetic.main.view_timepicker.view.numberpicker_minute
  * @param horizontalButtonArray? 가로로 정렬 될 버튼들의 배열
  * listener 는 StromDialogButton.OnClickListener 인터페이스를 구현하여 사용
  */
-class StormDialog(@DrawableRes val imageRes: Int, private val title: String, private val contentText: String?, @LayoutRes val contentRes: Int?,
-                  private val buttonArray: ArrayList<StormDialogButton>?,
-                  private val horizontalButtonArray: ArrayList<StormDialogButton>?, private val isPicker: Boolean, private val isCode: Boolean, private val code: String?) : DialogFragment() {
-
+class StormDialog(@DrawableRes val imageRes: Int, private val title: String, private val contentText: String?,
+                  @LayoutRes val contentRes: Int?, private val buttonArray: ArrayList<StormDialogButton>?,
+                  private val horizontalButtonArray: ArrayList<StormDialogButton>?, private val isPicker: Boolean,
+                  private val isCode: Boolean, private val code: String?, private val minValue: Int?,
+                  private val maxValue: Int?) : DialogFragment() {
 
     companion object {
         const val TAG = "storm_dialog"
+
+        private const val DEFAULT_MAX_VALUE_MINUTE = 10
+        private const val DEFAULT_MIN_VALUE_MINUTE = 1
 
         const val LOADING = -1
     }
@@ -84,8 +85,8 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
 
             if (isPicker) {
                 view.numberpicker_minute.run {
-                    maxValue = 20
-                    minValue = 1
+                    maxValue = this@StormDialog.maxValue?: DEFAULT_MAX_VALUE_MINUTE
+                    minValue = this@StormDialog.minValue?: DEFAULT_MIN_VALUE_MINUTE
                     wrapSelectorWheel = false
                     descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
                     textColor = context.getColor(R.color.storm_gray)
