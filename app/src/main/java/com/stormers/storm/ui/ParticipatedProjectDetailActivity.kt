@@ -10,13 +10,16 @@ import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.card.adapter.SavedCardAdapter
 import com.stormers.storm.card.repository.SavedCardRepository
 import com.stormers.storm.network.RetrofitClient
+import com.stormers.storm.project.adapter.ProjectUserImageAdapter
 import com.stormers.storm.project.network.RequestProject
 import com.stormers.storm.project.network.response.ResponseProjectData
+import com.stormers.storm.project.network.response.ResponseProjectFinalInfoModel
 import com.stormers.storm.round.adapter.RoundListAdapter
 import com.stormers.storm.round.network.RequestRound
 import com.stormers.storm.round.network.response.ResponseFinalRoundData
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_participated_project_detail.*
+import kotlinx.android.synthetic.main.layout_list_user_profile.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -41,6 +44,29 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
 
         retrofitClient = RetrofitClient.create(RequestProject::class.java)
         retrofitClient_roundInfo = RetrofitClient.create(RequestRound::class.java)
+
+        //fixme : 어댑터 적용 
+        val projectUserImageAdapter = ProjectUserImageAdapter()
+        recyclerview_user_profile.adapter = projectUserImageAdapter
+
+        retrofitClient.requestProjectInfoForUserImage(projectIdx).enqueue(object : Callback<ResponseProjectFinalInfoModel>{
+            override fun onFailure(call: Call<ResponseProjectFinalInfoModel>, t: Throwable) {
+               Log.d("통신실패","${t}")
+            }
+
+            override fun onResponse(
+                call: Call<ResponseProjectFinalInfoModel>,
+                response: Response<ResponseProjectFinalInfoModel>
+            ) {
+               if(response.isSuccessful){
+                   if(response.body()!!.success){
+                       projectUserImageAdapter.(response.body()!!.data.project_participants_list)
+                   }
+               }
+            }
+        })
+
+
 
         retrofitClient_roundInfo.responseFinalRoundData(projectIdx).enqueue(object : Callback<ResponseFinalRoundData> {
             override fun onFailure(call: Call<ResponseFinalRoundData>, t: Throwable) {
