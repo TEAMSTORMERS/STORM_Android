@@ -41,6 +41,8 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
 
     private val roundIdx = preference.getRoundIdx()
 
+    private var roundTime: Int? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -64,6 +66,7 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
 
         button.pickerListener = object : StormDialogButton.OnPickerClickListener {
             override fun onClick(minute: Int) {
+                roundTime = minute
                 val string = StringBuilder()
                 string.append(minute)
                     .append(" 분")
@@ -88,22 +91,18 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
         activityButton.setText("확인")
 
         activityButton.setOnClickListener {
-            Log.d("Round Setting","버튼눌림" )
-            if (textview_round_goal.text.isNullOrBlank() || textview_roundsetting_time.text.isNullOrBlank()) {
-                Toast.makeText(context, "라운드 목표 혹은 라운드 소요시간을 입력해주세요", Toast.LENGTH_SHORT)
-                    .show()
+            if (textview_round_goal.text.isNullOrBlank() || roundTime == null) {
+
+                Toast.makeText(context, "라운드 목표 혹은 라운드 소요시간을 입력해주세요", Toast.LENGTH_SHORT).show()
             } else {
                 projectIdx?.let {
-                    RetrofitClient.create(RequestRound::class.java).roundSetting(
-                        RoundSettingModel(
-                            it,
-                            textview_round_goal.text.toString(),
-                            textview_roundsetting_time.text.toString().substring(0, 1).toInt()
-                        )
-                    ).enqueue(
-                        object : Callback<BaseResponse> {
+                    RetrofitClient
+                        .create(RequestRound::class.java)
+                        .roundSetting(RoundSettingModel(it, textview_round_goal.text.toString(), roundTime!!))
+                        .enqueue(object : Callback<BaseResponse> {
+
                             override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
-                                Log.d("Round Setting 통신 실패", "${t}")
+                                Log.d("Round Setting 통신 실패", "$t")
                             }
 
                             override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
