@@ -1,9 +1,13 @@
 package com.stormers.storm.ui
 
+import android.app.ActionBar
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ListView
+import androidx.core.view.size
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stormers.storm.R
@@ -34,8 +38,6 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
 
     private var projectIdx = -1
 
-    private val USER_IMAGE_LIMIT = 5
-
     private lateinit var retrofitClient_roundInfo: RequestRound
     private lateinit var retrofitClient: RequestProject
 
@@ -55,10 +57,10 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         recyclerview_user_profile.adapter = projectUserImageAdapter
 
 
-        retrofitClient.requestProjectInfoForUserImage(projectIdx).enqueue(object : Callback<ResponseProjectFinalInfoModel>{
+        retrofitClient.responseProjectInfoForUserImage(projectIdx).enqueue(object : Callback<ResponseProjectFinalInfoModel>{
             override fun onFailure(call: Call<ResponseProjectFinalInfoModel>, t: Throwable) {
+                Log.d("projectIdx", "${projectIdx}")
                Log.d("프로젝트 참여자 리스트 불러오기 실패","${t}")
-                Log.d("projectIdx",projectIdx.toString())
             }
 
             override fun onResponse(
@@ -68,17 +70,14 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
                if(response.isSuccessful){
                    if(response.body()!!.success){
                        Log.d("프로젝트 참여자 불러오기 성공","성공")
-                       projectUserImageAdapter.clear()
+
                        projectUserImageAdapter.addAll(response.body()!!.data.projectParticipantsList)
+
                       
                    }
                }
             }
         })
-
-
-
-
 
         retrofitClient_roundInfo.responseFinalRoundData(projectIdx).enqueue(object : Callback<ResponseFinalRoundData> {
             override fun onFailure(call: Call<ResponseFinalRoundData>, t: Throwable) {

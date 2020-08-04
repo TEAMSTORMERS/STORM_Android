@@ -1,5 +1,7 @@
 package com.stormers.storm.project.viewholder
 
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.OvalShape
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.Glide
@@ -12,6 +14,7 @@ class UserImageViewHolder (parent:ViewGroup) : BaseViewHolder<String>(R.layout.i
     val imageview_user_profile = itemView.findViewById<ImageView>(R.id.imageview_user_profile)
 
     override fun bind(data: String) {
+
         Glide.with(itemView).load(data).into(imageview_user_profile)
     }
 }

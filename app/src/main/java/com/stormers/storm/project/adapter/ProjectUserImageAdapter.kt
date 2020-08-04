@@ -10,5 +10,6 @@ import com.stormers.storm.round.adapter.RoundListAdapter
 class ProjectUserImageAdapter() : BaseAdapter<String>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<String> {
         return UserImageViewHolder(parent)
+
     }
 }
