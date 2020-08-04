@@ -70,11 +70,10 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
                if(response.isSuccessful){
                    if(response.body()!!.success){
                        Log.d("프로젝트 참여자 불러오기 성공","성공")
-
                        projectUserImageAdapter.addAll(response.body()!!.data.projectParticipantsList)
-
-                      
                    }
+               } else {
+                   Log.d("ProjectUserImageList","${response.message()}, ${response.errorBody()}")
                }
             }
         })

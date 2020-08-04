@@ -194,8 +194,8 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
         SocketClient.getInstance()
         SocketClient.connection()
 
-        SocketClient.sendEvent("joinRoom",  "roomCode")
-        SocketClient.sendEvent("roundSetting",   "roomCode")
+        SocketClient.sendEvent("joinRoom",  preference.getProjectCode()!!)
+        SocketClient.sendEvent("roundSetting",   preference.getProjectCode()!!)
 
         SocketClient.responseEvent("roundComplete", Emitter.Listener {
             Log.d("SocketJoinRoom", "Success.")
