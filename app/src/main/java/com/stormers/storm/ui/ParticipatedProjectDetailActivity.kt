@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
@@ -49,11 +50,14 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
 
         //fixme : 어댑터 적용 
         val projectUserImageAdapter = ProjectUserImageAdapter()
+        recyclerview_user_profile.layoutManager = LinearLayoutManager(baseContext, LinearLayoutManager.HORIZONTAL,false)
+        recyclerview_user_profile.addItemDecoration(MarginDecoration(baseContext, 9, RecyclerView.HORIZONTAL))
         recyclerview_user_profile.adapter = projectUserImageAdapter
+
 
         retrofitClient.requestProjectInfoForUserImage(projectIdx).enqueue(object : Callback<ResponseProjectFinalInfoModel>{
             override fun onFailure(call: Call<ResponseProjectFinalInfoModel>, t: Throwable) {
-               Log.d("통신실패","${t}")
+               Log.d("프로젝트 참여자 불러오기 실패","${t}")
             }
 
             override fun onResponse(
@@ -62,6 +66,7 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
             ) {
                if(response.isSuccessful){
                    if(response.body()!!.success){
+                       Log.d("프로젝트 참여자 불러오기 성공","성공")
                        projectUserImageAdapter.addAll(response.body()!!.data.project_participants_list)
                       
                    }
