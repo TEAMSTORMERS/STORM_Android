@@ -3,7 +3,8 @@ package com.stormers.storm.canvas.fragment
 import android.graphics.Bitmap
 import android.util.Log
 import android.widget.Toast
-import com.github.gcacace.signaturepad.views.SignaturePad
+import com.byox.drawview.enums.DrawingCapture
+import com.byox.drawview.views.DrawView
 import com.stormers.storm.R
 import com.stormers.storm.RoundSetting.AddCardFragment
 import com.stormers.storm.canvas.base.BaseCanvasFragment
@@ -12,43 +13,62 @@ import com.stormers.storm.card.model.SavedCardEntity
 import com.stormers.storm.card.util.BitmapConverter
 import com.stormers.storm.network.Response
 import com.stormers.storm.network.RetrofitClient
-import kotlinx.android.synthetic.main.view_signaturepad.*
+import kotlinx.android.synthetic.main.fragment_round_canvas.*
+import kotlinx.android.synthetic.main.view_draw.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
+import java.lang.Exception
 
 
-class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_signaturepad) {
+class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_draw) {
 
     //그림을 그렸는지 여부
     private var isDrew = false
 
     override fun initCanvas() {
-        signaturepad.setOnSignedListener(object : SignaturePad.OnSignedListener {
-            override fun onStartSigning() {
+        drawview.setOnDrawViewListener(object : DrawView.OnDrawViewListener {
+            override fun onEndDrawing() {}
+
+            override fun onAllMovesPainted() {}
+
+            override fun onStartDrawing() {
                 isDrew = true
             }
 
-            override fun onClear() {
+            override fun onRequestText() {}
+
+            override fun onClearDrawing() {
                 isDrew = false
             }
-
-            override fun onSigned() {
-                //Doing nothing. prevent error.
-                signaturepad
-            }
         })
+
+        imagebutton_canvas_undo.setOnClickListener {
+            if (drawview.canUndo()) {
+                drawview.undo()
+            } else {
+                Log.d(TAG, "nothing to undo")
+            }
+        }
+
+        imagebutton_canvas_redo.setOnClickListener {
+            if (drawview.canRedo()) {
+                drawview.redo()
+            } else {
+                Log.d(TAG, "nothing to redo")
+            }
+        }
     }
 
     override fun onTrashed() {
-        signaturepad.clear()
+        drawview.restartDrawing()
     }
 
     override fun onApplied() {
-        if (isDrew) {
-            val bitmap = signaturepad.signatureBitmap
+        if (isDrew && drawview.canUndo()) {
+            val bitmap = drawview.createCapture(DrawingCapture.BITMAP)[0] as Bitmap
 
             val drawingFile = BitmapConverter.bitmapToFile(bitmap, context!!.cacheDir.toString())
 
@@ -93,7 +113,7 @@ class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_sig
     }
 
     private fun afterResponse() {
-        signaturepad.clear()
+        drawview.restartDrawing()
         Toast.makeText(context, "카드가 추가되었습니다", Toast.LENGTH_SHORT).show()
         goToFragment(AddCardFragment::class.java, null)
     }
