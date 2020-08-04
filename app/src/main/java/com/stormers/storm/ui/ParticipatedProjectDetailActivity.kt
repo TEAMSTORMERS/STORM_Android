@@ -57,7 +57,8 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
 
         retrofitClient.requestProjectInfoForUserImage(projectIdx).enqueue(object : Callback<ResponseProjectFinalInfoModel>{
             override fun onFailure(call: Call<ResponseProjectFinalInfoModel>, t: Throwable) {
-               Log.d("프로젝트 참여자 불러오기 실패","${t}")
+               Log.d("프로젝트 참여자 리스트 불러오기 실패","${t}")
+                Log.d("projectIdx",projectIdx.toString())
             }
 
             override fun onResponse(
@@ -67,7 +68,8 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
                if(response.isSuccessful){
                    if(response.body()!!.success){
                        Log.d("프로젝트 참여자 불러오기 성공","성공")
-                       projectUserImageAdapter.addAll(response.body()!!.data.project_participants_list)
+                       projectUserImageAdapter.clear()
+                       projectUserImageAdapter.addAll(response.body()!!.data.projectParticipantsList)
                       
                    }
                }
