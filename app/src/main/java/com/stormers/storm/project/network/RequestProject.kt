@@ -26,4 +26,7 @@ interface RequestProject {
 
     @GET("/project/user/{user_idx}")
     fun requestParticipatedProject(@Path("user_idx") userIdx: Int) : Call<ResponseParticipatedProject>
+
+    @GET("project/finalInfo/{project_idx}")
+    fun responseProjectInfoForUserImage(@Path ("project_idx") projectIdx: Int) : Call<ResponseProjectFinalInfoModel>
 }
