@@ -1,22 +1,30 @@
 package com.stormers.storm.ui
 
+import android.app.ActionBar
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ListView
+import androidx.core.view.size
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.card.adapter.SavedCardAdapter
 import com.stormers.storm.card.repository.SavedCardRepository
 import com.stormers.storm.network.RetrofitClient
+import com.stormers.storm.project.adapter.ProjectUserImageAdapter
 import com.stormers.storm.project.network.RequestProject
 import com.stormers.storm.project.network.response.ResponseProjectData
+import com.stormers.storm.project.network.response.ResponseProjectFinalInfoModel
 import com.stormers.storm.round.adapter.RoundListAdapter
 import com.stormers.storm.round.network.RequestRound
 import com.stormers.storm.round.network.response.ResponseFinalRoundData
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_participated_project_detail.*
+import kotlinx.android.synthetic.main.layout_list_user_profile.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -41,6 +49,34 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
 
         retrofitClient = RetrofitClient.create(RequestProject::class.java)
         retrofitClient_roundInfo = RetrofitClient.create(RequestRound::class.java)
+
+        //fixme : 어댑터 적용 
+        val projectUserImageAdapter = ProjectUserImageAdapter()
+        recyclerview_user_profile.layoutManager = LinearLayoutManager(baseContext, LinearLayoutManager.HORIZONTAL,false)
+        recyclerview_user_profile.addItemDecoration(MarginDecoration(baseContext, 9, RecyclerView.HORIZONTAL))
+        recyclerview_user_profile.adapter = projectUserImageAdapter
+
+
+        retrofitClient.responseProjectInfoForUserImage(projectIdx).enqueue(object : Callback<ResponseProjectFinalInfoModel>{
+            override fun onFailure(call: Call<ResponseProjectFinalInfoModel>, t: Throwable) {
+                Log.d("projectIdx", "${projectIdx}")
+               Log.d("프로젝트 참여자 리스트 불러오기 실패","${t}")
+            }
+
+            override fun onResponse(
+                call: Call<ResponseProjectFinalInfoModel>,
+                response: Response<ResponseProjectFinalInfoModel>
+            ) {
+               if(response.isSuccessful){
+                   if(response.body()!!.success){
+                       Log.d("프로젝트 참여자 불러오기 성공","성공")
+                       projectUserImageAdapter.addAll(response.body()!!.data.projectParticipantsList)
+                   }
+               } else {
+                   Log.d("ProjectUserImageList","${response.message()}, ${response.errorBody()}")
+               }
+            }
+        })
 
         retrofitClient_roundInfo.responseFinalRoundData(projectIdx).enqueue(object : Callback<ResponseFinalRoundData> {
             override fun onFailure(call: Call<ResponseFinalRoundData>, t: Throwable) {

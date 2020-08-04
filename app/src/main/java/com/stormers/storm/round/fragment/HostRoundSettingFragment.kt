@@ -182,6 +182,7 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
                     if (response.body()!!.success) {
                         //소켓으로 방에 참가하기
                         joinRoundRoom()
+                        Log.d("방생성 성공", "성공")
                     }
                 }
             }
@@ -193,8 +194,8 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
         SocketClient.getInstance()
         SocketClient.connection()
 
-        SocketClient.sendEvent("joinRoom", preference.getProjectCode()!!)
-        SocketClient.sendEvent("roundSetting",  preference.getProjectCode()!!)
+        SocketClient.sendEvent("joinRoom",  preference.getProjectCode()!!)
+        SocketClient.sendEvent("roundSetting",   preference.getProjectCode()!!)
 
         SocketClient.responseEvent("roundComplete", Emitter.Listener {
             Log.d("SocketJoinRoom", "Success.")
