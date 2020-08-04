@@ -48,8 +48,8 @@ class RoundProgressActivity : BaseActivity() {
             finish()
         }
 
-        projectIdx = preference.getProjectIdx()!!
-        roundIdx = preference.getRoundIdx()!!
+        projectIdx = preference.getProjectIdx()?: -1
+        roundIdx = preference.getRoundIdx()?: -1
 
         retrofitClient = RetrofitClient.create(RequestRound::class.java)
 
