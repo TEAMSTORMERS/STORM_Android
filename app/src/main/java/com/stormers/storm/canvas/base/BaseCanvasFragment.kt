@@ -57,6 +57,8 @@ abstract class BaseCanvasFragment(private val mode: Int, @LayoutRes private val 
                 imagebutton_change_draw.setOnClickListener {
                     showChangeDialog()
                 }
+
+                group_canvas_unredo.visibility = View.INVISIBLE
             }
         }
 

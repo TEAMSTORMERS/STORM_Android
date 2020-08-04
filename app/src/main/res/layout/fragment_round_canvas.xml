@@ -38,6 +38,36 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
+        android:id="@+id/imagebutton_canvas_undo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:foreground="@drawable/custom_ripple_oval"
+        android:src="@drawable/all_round_drawing_back"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/imagebutton_canvas_trash"
+        app:layout_constraintTop_toTopOf="@id/imagebutton_canvas_trash"
+        app:layout_constraintEnd_toStartOf="@id/imagebutton_canvas_redo" />
+
+    <ImageButton
+        android:id="@+id/imagebutton_canvas_redo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:foreground="@drawable/custom_ripple_oval"
+        android:padding="10dp"
+        android:src="@drawable/all_round_drawing_ic_go"
+        app:layout_constraintTop_toTopOf="@id/imagebutton_canvas_trash"
+        app:layout_constraintBottom_toBottomOf="@id/imagebutton_canvas_trash"
+        app:layout_constraintEnd_toStartOf="@id/imagebutton_canvas_trash"/>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_canvas_unredo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="imagebutton_canvas_redo, imagebutton_canvas_undo"/>
+
+    <ImageButton
         android:id="@+id/imagebutton_canvas_trash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

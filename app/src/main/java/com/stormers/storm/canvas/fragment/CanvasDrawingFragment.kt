@@ -13,12 +13,14 @@ import com.stormers.storm.card.model.SavedCardEntity
 import com.stormers.storm.card.util.BitmapConverter
 import com.stormers.storm.network.Response
 import com.stormers.storm.network.RetrofitClient
+import kotlinx.android.synthetic.main.fragment_round_canvas.*
 import kotlinx.android.synthetic.main.view_draw.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
+import java.lang.Exception
 
 
 class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_draw) {
@@ -42,6 +44,22 @@ class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_dra
                 isDrew = false
             }
         })
+
+        imagebutton_canvas_undo.setOnClickListener {
+            if (drawview.canUndo()) {
+                drawview.undo()
+            } else {
+                Log.d(TAG, "nothing to undo")
+            }
+        }
+
+        imagebutton_canvas_redo.setOnClickListener {
+            if (drawview.canRedo()) {
+                drawview.redo()
+            } else {
+                Log.d(TAG, "nothing to redo")
+            }
+        }
     }
 
     override fun onTrashed() {
@@ -49,7 +67,7 @@ class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_dra
     }
 
     override fun onApplied() {
-        if (isDrew) {
+        if (isDrew && drawview.canUndo()) {
             val bitmap = drawview.createCapture(DrawingCapture.BITMAP)[0] as Bitmap
 
             val drawingFile = BitmapConverter.bitmapToFile(bitmap, context!!.cacheDir.toString())
