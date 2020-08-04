@@ -47,6 +47,7 @@
         <activity android:name=".ui.RoundStartActivity" />
         <activity android:name=".ui.ScrapCardCollectingActivity" />
         <activity android:name=".ui.ScrapedCardDetailActivity" />
+        <activity android:name=".ui.MypageActivity" />
     </application>
 
 </manifest>
