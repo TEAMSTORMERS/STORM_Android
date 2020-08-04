@@ -20,6 +20,7 @@ import com.stormers.storm.project.network.RequestProject
 import com.stormers.storm.project.network.response.ResponseProjectData
 import com.stormers.storm.project.network.response.ResponseProjectFinalInfoModel
 import com.stormers.storm.round.adapter.RoundListAdapter
+import com.stormers.storm.round.adapter.RoundUserImageAdapter
 import com.stormers.storm.round.network.RequestRound
 import com.stormers.storm.round.network.response.ResponseFinalRoundData
 import com.stormers.storm.util.MarginDecoration
@@ -187,4 +188,5 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
             textview_noscraped.visibility = View.VISIBLE
         }
     }
+
 }
