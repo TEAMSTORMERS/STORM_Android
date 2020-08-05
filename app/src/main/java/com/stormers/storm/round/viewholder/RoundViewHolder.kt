@@ -1,9 +1,7 @@
 package com.stormers.storm.round.viewholder
 
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import com.bumptech.glide.Glide
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseViewHolder
 import com.stormers.storm.project.adapter.ProjectUserImageAdapter
@@ -36,8 +34,8 @@ class RoundViewHolder (parent: ViewGroup, val listener: RoundListAdapter.OnRound
         itemView.round_user_image_list.recyclerview_user_profile.adapter = projectUserImageAdapter
 
         //데이터에서 사용자 이미지 문자열만으로 이루저인 리스트를 생성
-        val participantList = List(data.round_participant.size) {index ->
-            data.round_participant[index].user_img
+        val participantList = List(data.round_User_participant.size) { index ->
+            data.round_User_participant[index].userImg
         }
 
         //유저 이미지 어댑터에 사용자 이미지들의 리스트를 추가해줌
