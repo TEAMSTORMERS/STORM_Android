@@ -13,7 +13,6 @@ import com.stormers.storm.card.repository.SavedCardRepository
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.project.adapter.ProjectUserImageAdapter
 import com.stormers.storm.project.network.RequestProject
-import com.stormers.storm.project.network.response.ResponseProjectData
 import com.stormers.storm.project.network.response.ResponseProjectFinalInfoModel
 import com.stormers.storm.round.adapter.RoundListAdapter
 import com.stormers.storm.round.network.RequestRound
@@ -52,28 +51,6 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         recyclerview_user_profile.addItemDecoration(MarginDecoration(baseContext, 9, RecyclerView.HORIZONTAL))
         recyclerview_user_profile.adapter = projectUserImageAdapter
 
-
-        retrofitClient.responseProjectInfoForUserImage(projectIdx).enqueue(object : Callback<ResponseProjectFinalInfoModel>{
-            override fun onFailure(call: Call<ResponseProjectFinalInfoModel>, t: Throwable) {
-                Log.d("projectIdx", "${projectIdx}")
-               Log.d("프로젝트 참여자 리스트 불러오기 실패","${t}")
-            }
-
-            override fun onResponse(
-                call: Call<ResponseProjectFinalInfoModel>,
-                response: Response<ResponseProjectFinalInfoModel>
-            ) {
-               if(response.isSuccessful){
-                   if(response.body()!!.success){
-                       Log.d("프로젝트 참여자 불러오기 성공","성공")
-                       projectUserImageAdapter.addAll(response.body()!!.data.projectParticipantsList)
-                   }
-               } else {
-                   Log.d("ProjectUserImageList","${response.message()}, ${response.errorBody()}")
-               }
-            }
-        })
-
         retrofitClient_roundInfo.responseFinalRoundData(projectIdx).enqueue(object : Callback<ResponseFinalRoundData> {
             override fun onFailure(call: Call<ResponseFinalRoundData>, t: Throwable) {
                 if (t.message != null){
@@ -100,8 +77,8 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
             }
         })
 
-        retrofitClient.responseProjectData(projectIdx).enqueue(object : Callback<ResponseProjectData> {
-            override fun onFailure(call: Call<ResponseProjectData>, t: Throwable) {
+        retrofitClient.responseProjectData(projectIdx).enqueue(object : Callback<ResponseProjectFinalInfoModel> {
+            override fun onFailure(call: Call<ResponseProjectFinalInfoModel>, t: Throwable) {
                 if (t.message != null){
                     Log.d("PartProDetailActivity", t.message!!)
                 } else {
@@ -109,17 +86,19 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
                 }
             }
 
-            override fun onResponse(call: Call<ResponseProjectData>, response: Response<ResponseProjectData>) {
+            override fun onResponse(call: Call<ResponseProjectFinalInfoModel>, response: Response<ResponseProjectFinalInfoModel>) {
                 if (response.isSuccessful) {
                     if (response.body()!!.success) {
-                        Log.d("PartProDetailActivity", "받아온 프로젝트 이름 : ${response.body()!!.data.project_name}")
+                        Log.d("PartProDetailActivity", "받아온 프로젝트 이름 : ${response.body()!!.data.projectName}")
 
-                        textview_projectcard_title.text = response.body()!!.data.project_name
-                        textView_date_part_detail.text = response.body()!!.data.project_date
+                        textview_projectcard_title.text = response.body()!!.data.projectName
+                        textView_date_part_detail.text = response.body()!!.data.projectDate
+
+                        projectUserImageAdapter.addAll(response.body()!!.data.projectParticipantsList)
 
                         val roundCount = StringBuilder()
                         roundCount.append("ROUND 총 ")
-                            .append(response.body()!!.data.round_count.toString())
+                            .append(response.body()!!.data.roundCount.toString())
                             .append("회")
 
                         textView_round_count_part_detail.text = roundCount
