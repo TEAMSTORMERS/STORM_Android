@@ -8,7 +8,6 @@ import com.stormers.storm.round.network.response.ResponseRoundCountModel
 import com.stormers.storm.round.model.RoundEnterModel
 import com.stormers.storm.round.model.RoundSettingModel
 import com.stormers.storm.round.network.response.ResponseRoundInfoModel
-import com.stormers.storm.round.network.response.ResponseRoundUserImageModel
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -38,7 +37,4 @@ interface RequestRound {
 
     @GET("/round/count/{project_idx}")
     fun getRoundCount(@Path ("project_idx")projectIdx : String) : Call<ResponseRoundCountModel>
-
-    @GET("round/roundFinalInfo/{project_idx}")
-    fun getRoundUserImage(@Path("project_idx") projectIdx: Int) : Call<ResponseRoundUserImageModel>
 }
