@@ -13,6 +13,14 @@ class RoundListAdapter(private val listener: OnRoundClickListener?) : BaseAdapte
         return RoundViewHolder(parent, listener)
     }
 
+    override fun getItemCount(): Int {
+        return if(items.size < 6){
+            items.size
+        } else{
+            5
+        }
+    }
+
     interface OnRoundClickListener {
         fun onRoundClick(projectIdx: Int, roundIdx: Int, roundNo: Int)
     }

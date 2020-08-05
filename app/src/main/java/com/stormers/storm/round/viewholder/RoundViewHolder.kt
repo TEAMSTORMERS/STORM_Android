@@ -1,5 +1,7 @@
 package com.stormers.storm.round.viewholder
 
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.OvalShape
 import android.view.ViewGroup
 import android.widget.TextView
 import com.stormers.storm.R
@@ -29,6 +31,10 @@ class RoundViewHolder (parent: ViewGroup, val listener: RoundListAdapter.OnRound
         Textview_round_roundinfo.text = data.projectTitle
         Textview_round_goal_roundinfo.text = data.roundGoal
         Textview_time_roundinfo.text = roundTime.toString()
+
+        itemView.recyclerview_user_profile.background = ShapeDrawable(OvalShape())
+        itemView.recyclerview_user_profile.clipToOutline = true
+
 
         //뷰홀더를 구성하는 xml에 작성된 사용자 프로필 리사이클러뷰에 유저 이미지 어댑터를 적용
         itemView.round_user_image_list.recyclerview_user_profile.adapter = projectUserImageAdapter
