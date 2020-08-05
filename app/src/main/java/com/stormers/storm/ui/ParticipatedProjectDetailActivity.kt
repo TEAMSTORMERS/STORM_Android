@@ -1,13 +1,9 @@
 package com.stormers.storm.ui
 
-import android.app.ActionBar
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ListView
-import androidx.core.view.size
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stormers.storm.R
@@ -20,7 +16,6 @@ import com.stormers.storm.project.network.RequestProject
 import com.stormers.storm.project.network.response.ResponseProjectData
 import com.stormers.storm.project.network.response.ResponseProjectFinalInfoModel
 import com.stormers.storm.round.adapter.RoundListAdapter
-import com.stormers.storm.round.adapter.RoundUserImageAdapter
 import com.stormers.storm.round.network.RequestRound
 import com.stormers.storm.round.network.response.ResponseFinalRoundData
 import com.stormers.storm.util.MarginDecoration
@@ -172,6 +167,7 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         })
 
         rv_round_part_detail.adapter = roundListAdapterForViewPager
+
     }
 
     override fun onResume() {
@@ -188,5 +184,14 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
             textview_noscraped.visibility = View.VISIBLE
         }
     }
+
+   /*
+   fun roundUserImageList() {
+        val roundUserImageAdapter = RoundUserImageAdapter()
+        rv_round_part_detail.adapter = roundUserImageAdapter
+        rv_round_part_detail.layoutManager = LinearLayoutManager(baseContext,LinearLayoutManager.HORIZONTAL, false)
+
+    }
+    */
 
 }

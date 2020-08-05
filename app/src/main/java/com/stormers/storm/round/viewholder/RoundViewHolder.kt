@@ -6,11 +6,9 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseViewHolder
-import com.stormers.storm.card.model.CardModel
+import com.stormers.storm.project.adapter.ProjectUserImageAdapter
 import com.stormers.storm.round.adapter.RoundListAdapter
 import com.stormers.storm.round.model.RoundDescriptionModel
-import com.stormers.storm.ui.ParticipatedProjectDetailActivity
-import kotlinx.android.synthetic.main.item_heart_card.view.*
 import java.lang.StringBuilder
 
 class RoundViewHolder (parent: ViewGroup, val listener: RoundListAdapter.OnRoundClickListener?) : BaseViewHolder<RoundDescriptionModel>(R.layout.item_round_part_detail, parent) {
@@ -19,6 +17,7 @@ class RoundViewHolder (parent: ViewGroup, val listener: RoundListAdapter.OnRound
     val Textview_time_roundinfo = itemView.findViewById<TextView>(R.id.Textview_time_roundinfo)
 
     override fun bind(data : RoundDescriptionModel){
+
         val roundTime = StringBuilder()
         roundTime.append("총 ")
             .append(data.time)
@@ -35,3 +34,5 @@ class RoundViewHolder (parent: ViewGroup, val listener: RoundListAdapter.OnRound
         }
     }
 }
+
+
