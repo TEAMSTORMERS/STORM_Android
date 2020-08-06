@@ -8,6 +8,7 @@ import com.stormers.storm.card.model.SimpleCardModel
 import com.stormers.storm.project.adapter.ParticipatedProjectListAdapter
 import com.stormers.storm.project.model.ParticipatedProjectModel
 import com.stormers.storm.util.MetricsUtil
+import com.stormers.storm.util.MiddleDividerItemDecoration
 import kotlinx.android.synthetic.main.item_participated_projects_list.view.*
 
 class ParticipatedProjectViewHolder(parent: ViewGroup, private val isMain: Boolean, private val listener: ParticipatedProjectListAdapter.OnProjectClickListener) :
@@ -39,13 +40,18 @@ class ParticipatedProjectViewHolder(parent: ViewGroup, private val isMain: Boole
     private fun initCardImage(data: ParticipatedProjectModel) {
         itemView.recyclerview_projectfolder.run {
             adapter = cardPreviewAdapter
+            addItemDecoration(MiddleDividerItemDecoration(context, MiddleDividerItemDecoration.VERTICAL))
+            addItemDecoration(MiddleDividerItemDecoration(context, MiddleDividerItemDecoration.HORIZONTAL))
         }
+
+        val cardData = mutableListOf<SimpleCardModel>()
         for (i in 0 until 4) {
             if (i < data.projectCard.size) {
-                cardPreviewAdapter.add(data.projectCard[i])
+                cardData.add(data.projectCard[i])
             } else {
-                cardPreviewAdapter.add(SimpleCardModel("null", null))
+                cardData.add(SimpleCardModel("null", null))
             }
         }
+        cardPreviewAdapter.setList(cardData)
     }
 }
