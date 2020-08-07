@@ -19,11 +19,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.stormers.storm.customview.ClickableRecyclerView
             android:id="@+id/recyclerview_projectfolder"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2"
-            tools:itemCount="4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
