@@ -47,7 +47,7 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_participated_project_detail)
 
-        projectIdx = intent.getIntExtra("projetIdx", -1)
+        projectIdx = intent.getIntExtra("projectIdx", -1)
 
         retrofitClient = RetrofitClient.create(RequestProject::class.java)
         retrofitClient_roundInfo = RetrofitClient.create(RequestRound::class.java)
