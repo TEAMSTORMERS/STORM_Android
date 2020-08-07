@@ -3,6 +3,7 @@ package com.stormers.storm.ui
 import android.content.Intent
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -21,6 +22,7 @@ import com.stormers.storm.round.adapter.RoundListAdapter
 import com.stormers.storm.round.network.RequestRound
 import com.stormers.storm.round.network.response.ResponseFinalRoundData
 import com.stormers.storm.util.MarginDecoration
+import kotlinx.android.synthetic.main.activity_add_project.*
 import kotlinx.android.synthetic.main.activity_participated_project_detail.*
 import kotlinx.android.synthetic.main.item_user_profile.view.*
 import kotlinx.android.synthetic.main.layout_list_user_profile.*
@@ -45,7 +47,7 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_participated_project_detail)
 
-        projectIdx = intent.getIntExtra("projectIdx", -1)
+        projectIdx = intent.getIntExtra("projetIdx", -1)
 
         retrofitClient = RetrofitClient.create(RequestProject::class.java)
         retrofitClient_roundInfo = RetrofitClient.create(RequestRound::class.java)
@@ -99,6 +101,13 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
                         textview_projectcard_title.text = response.body()!!.data.projectName
                         textView_date_part_detail.text = response.body()!!.data.projectDate
                         projectUserImageAdapter.addAll(response.body()!!.data.projectParticipantsList)
+
+                        val participants_count = response.body()!!.data.projectParticipantsList.count()
+
+                        if( participants_count > 5 ){
+                            textview_extra_participants_info.setText("+${participants_count - 5}")
+                            textview_extra_participants_info.visibility = View.VISIBLE
+                        }
 
                         val roundCount = StringBuilder()
                         roundCount.append("ROUND 총 ")

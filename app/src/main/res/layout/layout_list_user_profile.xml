@@ -10,12 +10,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        app:spanCount="5"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:listitem="@layout/item_user_profile"/>
+
+    <TextView
+        android:id="@+id/textview_extra_participants_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/very_light_pink"
+        android:textSize="13sp"
+        android:text="+3"
+        android:fontFamily="@font/notosans_bold"
+        android:layout_marginLeft="9dp"
+        app:layout_constraintTop_toTopOf="@id/recyclerview_user_profile"
+        app:layout_constraintStart_toEndOf="@id/recyclerview_user_profile"
+        app:layout_constraintBottom_toBottomOf="@id/recyclerview_user_profile"
+        android:visibility="gone"/>
+
 
 
 

@@ -10,4 +10,12 @@ class ProjectUserImageAdapter() : BaseAdapter<String>(){
         return UserImageViewHolder(parent)
 
     }
+
+    override fun getItemCount(): Int {
+        return if(items.size < 6){
+            items.size
+        } else{
+            5
+        }
+    }
 }
