@@ -8,8 +8,6 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseViewHolder
-import kotlinx.android.synthetic.main.item_user_profile.view.*
-
 
 class UserImageViewHolder (parent:ViewGroup) : BaseViewHolder<String>(R.layout.item_user_profile, parent){
 
