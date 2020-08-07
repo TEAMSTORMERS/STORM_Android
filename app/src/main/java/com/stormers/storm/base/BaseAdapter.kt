@@ -6,7 +6,7 @@ import com.stormers.storm.util.SharedPreference
 
 abstract class BaseAdapter<T> : RecyclerView.Adapter<BaseViewHolder<T>>() {
 
-    private var items: MutableList<T> = mutableListOf()
+    protected var items: MutableList<T> = mutableListOf()
 
     protected val preference: SharedPreference by lazy { GlobalApplication.prefs }
 
