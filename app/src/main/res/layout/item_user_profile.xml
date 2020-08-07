@@ -7,16 +7,14 @@
 
     <ImageView
         android:id="@+id/imageview_user_profile"
-        android:layout_width="wrap_content"
+        android:layout_width="14dp"
         android:layout_height="0dp"
-        android:background="@drawable/participatingprojectview_member1"
+        android:background="@color/storm_yellow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
         app:layout_constraintWidth_percent="0.065" />
 
 
