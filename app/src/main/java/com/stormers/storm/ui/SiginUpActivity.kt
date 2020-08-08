@@ -1,22 +1,36 @@
 package com.stormers.storm.ui
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
+import android.view.MotionEvent
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.gun0912.tedpermission.PermissionListener
+import com.gun0912.tedpermission.TedPermission
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_sigin_up.*
+import kotlinx.android.synthetic.main.bottomsheet_select_profile.*
+import kotlinx.android.synthetic.main.fragment_mypage_profile.*
 
 class SiginUpActivity : AppCompatActivity() {
 
     val change_background = GradientDrawable()
+    val FLAG_REQ_STORAGE = 102
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +40,7 @@ class SiginUpActivity : AppCompatActivity() {
 
         selectProfileColor()
 
+        //사용자 이름 textview 적용
         edittext_name.addTextChangedListener(object :TextWatcher{
             override fun afterTextChanged(s: Editable?) {
                 if (edittext_name.text.length != 0){
@@ -48,9 +63,16 @@ class SiginUpActivity : AppCompatActivity() {
 
         change_profile()
 
+
+        button_gallery.setOnClickListener{
+            selectGallery()
+            settingPermission()
+
+        }
+
     }
 
-
+    // 프로필 default image color변경
     fun selectProfileColor(){
 
         imagebutton_select_profile_purple.setOnClickListener{
@@ -106,6 +128,7 @@ class SiginUpActivity : AppCompatActivity() {
         }
     }
 
+    // 프로필 사진 선택 BottomSheet
     fun change_profile(){
         val bottomSheetChangeProfile : BottomSheetBehavior<View> = BottomSheetBehavior.from(bottomsheet_profile_select)
         bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
@@ -139,7 +162,64 @@ class SiginUpActivity : AppCompatActivity() {
         view_bottom_sheet_blur.setOnClickListener{
             bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
         }
+    }
 
+    fun settingPermission() {
+        var permis = object : PermissionListener {
+            override fun onPermissionGranted() {
+                Log.d("PermissionGranted","권한 허가")
+            }
 
+            override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
+                Log.d("PermissionDenied", "권한 거부")
+            }
+        }
+
+        TedPermission.with(applicationContext).setPermissionListener(permis)
+            .setPermissions(
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                android.Manifest.permission.CAMERA)
+            .check()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        val bottomSheetChangeProfile : BottomSheetBehavior<View> = BottomSheetBehavior.from(bottomsheet_profile_select)
+        bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
+
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                FLAG_REQ_STORAGE -> {
+                    val uri = data?.data
+                    imageview_profile_signup.background = ShapeDrawable(OvalShape())
+                    imageview_profile_signup.clipToOutline = true
+                    imageview_profile_signup.setImageURI(uri)
+                    bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
+                    textview_name_in_profile.visibility = View.GONE
+                }
+            }
+        }
+    }
+
+    private fun selectGallery() {
+        var writePermission = ContextCompat.checkSelfPermission(applicationContext!!, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        var readPermission = ContextCompat.checkSelfPermission(applicationContext!!, android.Manifest.permission.READ_EXTERNAL_STORAGE)
+
+        if (writePermission == PackageManager.PERMISSION_DENIED || readPermission == PackageManager.PERMISSION_DENIED) {
+
+        } else {
+            var intent = Intent(Intent.ACTION_PICK)
+            intent.type = MediaStore.Images.Media.CONTENT_TYPE
+            startActivityForResult(intent, FLAG_REQ_STORAGE)
+        }
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if (currentFocus != null) {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+        }
+        return super.dispatchTouchEvent(ev)
     }
 }

@@ -22,19 +22,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
+        <ImageView
+            android:id="@+id/imageview_decoration_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mypage_popup_bar"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.3"/>
+
         <Button
+            android:id="@+id/button_gallery"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="앨범에서 프로필 사진 선택"
-            android:layout_weight="1"
+            android:layout_weight="0.85"
             android:textColor="@color/storm_gray"
             android:textSize="16sp"
             android:fontFamily="@font/notosans_medium"/>
         <Button
+            android:id="@+id/button_change_default_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="기본 이미지로 변경"
-            android:layout_weight="1"
+            android:layout_weight="0.85"
             android:textColor="@color/storm_gray"
             android:textSize="16sp"
             android:fontFamily="@font/notosans_medium"/>
