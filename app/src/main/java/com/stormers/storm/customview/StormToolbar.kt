@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.stormers.storm.R
 import com.stormers.storm.ui.MypageActivity
@@ -34,6 +35,7 @@ class StormToolbar : ConstraintLayout {
 
     fun setBackButton(listener: OnClickListener?) {
         this.imagebutton_stormtoolbar_left.run {
+            visibility = View.VISIBLE
             setImageResource(R.drawable.mypage_ic_back)
             setOnClickListener {
                 if (listener != null) {
@@ -51,6 +53,7 @@ class StormToolbar : ConstraintLayout {
 
     fun setMyPageButton() {
         this.imagebutton_stormtoolbar_right.run {
+            visibility = View.VISIBLE
             setImageResource(R.drawable.host_a_1_btn_mypage)
             setOnClickListener {
                 context.startActivity(Intent(context as Activity, MypageActivity::class.java))
@@ -60,10 +63,23 @@ class StormToolbar : ConstraintLayout {
 
     fun setExitButton(listener: OnClickListener) {
         this.imagebutton_stormtoolbar_right.run {
+            visibility = View.VISIBLE
             setImageResource(R.drawable.h_roundstart_ic_exit)
             setOnClickListener {
                 listener.onClick(this@StormToolbar)
             }
+        }
+    }
+
+    fun clearButton() {
+        this.imagebutton_stormtoolbar_right.run {
+            visibility = View.INVISIBLE
+            setOnClickListener(null)
+        }
+
+        this.imagebutton_stormtoolbar_left.run {
+            visibility = View.INVISIBLE
+            setOnClickListener(null)
         }
     }
 }

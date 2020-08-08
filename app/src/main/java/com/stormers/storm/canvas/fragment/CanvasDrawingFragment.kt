@@ -6,7 +6,7 @@ import android.widget.Toast
 import com.byox.drawview.enums.DrawingCapture
 import com.byox.drawview.views.DrawView
 import com.stormers.storm.R
-import com.stormers.storm.RoundSetting.AddCardFragment
+import com.stormers.storm.card.fragment.AddCardFragment
 import com.stormers.storm.canvas.base.BaseCanvasFragment
 import com.stormers.storm.canvas.network.RequestCard
 import com.stormers.storm.card.model.SavedCardEntity
@@ -20,7 +20,6 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
-import java.lang.Exception
 
 
 class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_draw) {
