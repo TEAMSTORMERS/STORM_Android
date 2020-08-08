@@ -32,20 +32,12 @@ class AddProjectActivity : BaseActivity() {
 
         preference.setProjectCode(null)
 
-        //뒤로 가기 버튼 설정
-        setSupportActionBar(include_addproject_toolbar.toolbar)
+        stormtoolbar_addproject.run {
+            setBackButton()
+            setMyPageButton()
+        }
 
         start_project()
-
-        //fixme: 뒤로가기 버튼 안먹는 것 같아요!!!
-
-        /*  supportActionBar?.let {
-              it.setDisplayShowTitleEnabled(false)
-              it.setDisplayHomeAsUpEnabled(true)
-              it.setHomeAsUpIndicator(R.drawable.host_a_1_btn_back)
-
-
-          } */
 
         buttonArray.add(
             StormDialogButton("확인", true, object : StormDialogButton.OnClickListener {
@@ -56,32 +48,12 @@ class AddProjectActivity : BaseActivity() {
                 }
             })
         )
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
         return true
     }
-
-    //메뉴 선택시
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                return true
-            }
-
-            //Fixme: 마이페이지 아이콘이 작아지는 문제 해결
-            R.id.menu_toolbar_mypage -> {
-                //Todo: 마이페이지로 이동하는 코드
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
 
     fun start_project() {
 
