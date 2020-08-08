@@ -43,7 +43,7 @@
         app:layout_constraintTop_toBottomOf="@id/textview_sign_up"
         app:layout_constraintVertical_bias="0.1" />
 
-    <com.stormers.storm.customview.StormEditText
+    <EditText
         android:id="@+id/edittext_name_signup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -55,7 +55,7 @@
         app:layout_constraintTop_toBottomOf="@id/imagebutton_select_profile_yellow"
         app:layout_constraintVertical_bias="0.175"
         app:layout_constraintWidth_percent="0.83"
-        app:showRemoveAll="true" />
+         />
 
     <ImageView
         android:id="@+id/imageview_profile_signup"
@@ -72,10 +72,26 @@
         app:layout_constraintWidth_percent="0.394" />
 
 
-    <ImageButton
-        android:id="@+id/imagebutton_set_profile"
+    <TextView
+        android:id="@+id/textview_name_in_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="45sp"
+        android:fontFamily="@font/notosans_bold"
+        android:textColor="@color/storm_white"
+        app:layout_constraintTop_toTopOf="@id/imageview_profile_signup"
+        app:layout_constraintBottom_toBottomOf="@id/imageview_profile_signup"
+        app:layout_constraintStart_toStartOf="@id/imageview_profile_signup"
+        app:layout_constraintEnd_toEndOf="@id/imageview_profile_signup"/>
+
+
+
+    <Button
+        android:id="@+id/imagebutton_set_profile"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.15"
+        app:layout_constraintDimensionRatio="1:1"
         android:layout_marginStart="100dp"
         android:layout_marginTop="100dp"
         android:background="@drawable/join_profile_ic_camera"
@@ -99,7 +115,7 @@
         android:id="@+id/imagebutton_select_profile_yellow_checked"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="gone"
+        android:visibility="invisible"
         android:background="@drawable/join_profile_selected_yellow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
@@ -115,6 +131,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="22dp"
+        android:visibility="invisible"
         android:background="@drawable/circular_profile"
         app:layout_constraintBottom_toBottomOf="@id/imagebutton_select_profile_yellow"
         app:layout_constraintDimensionRatio="1:1"
@@ -129,7 +146,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="22dp"
-        android:visibility="gone"
         android:background="@drawable/join_profile_selected_purple"
         app:layout_constraintBottom_toBottomOf="@id/imagebutton_select_profile_yellow_checked"
         app:layout_constraintDimensionRatio="1:1"
@@ -161,7 +177,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="22dp"
-        android:visibility="gone"
+        android:visibility="invisible"
         android:background="@drawable/join_profile_selected_red"
         app:layout_constraintBottom_toBottomOf="@+id/imagebutton_select_profile_yellow_checked"
         app:layout_constraintDimensionRatio="1:1"
