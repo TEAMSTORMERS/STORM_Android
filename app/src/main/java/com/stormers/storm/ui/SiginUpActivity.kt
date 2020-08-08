@@ -8,11 +8,13 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_sigin_up.*
 
-class SiginUpActivity : BaseActivity() {
+class SiginUpActivity : AppCompatActivity() {
 
     val change_background = GradientDrawable()
 
@@ -43,6 +45,9 @@ class SiginUpActivity : BaseActivity() {
 
             }
         })
+
+        change_profile()
+
     }
 
 
@@ -101,11 +106,40 @@ class SiginUpActivity : BaseActivity() {
         }
     }
 
-    fun setNameCharOnProfile(){
+    fun change_profile(){
+        val bottomSheetChangeProfile : BottomSheetBehavior<View> = BottomSheetBehavior.from(bottomsheet_profile_select)
+        bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
 
+        bottomSheetChangeProfile.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback(){
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
 
+            }
+
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+
+                when(newState){
+                    BottomSheetBehavior.STATE_COLLAPSED -> {
+                        view_bottom_sheet_blur.visibility = View.VISIBLE
+                        bottomsheet_profile_select.visibility = View.VISIBLE
+                    }
+                    BottomSheetBehavior.STATE_HIDDEN -> {
+                        view_bottom_sheet_blur.visibility = View.INVISIBLE
+                        bottomsheet_profile_select.visibility = View.INVISIBLE
+                    }
+
+                }
+
+            }
+        })
+
+        imagebutton_set_profile.setOnClickListener{
+            bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
+
+        view_bottom_sheet_blur.setOnClickListener{
+            bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
+        }
 
 
     }
-
 }

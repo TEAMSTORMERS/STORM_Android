@@ -1,210 +1,231 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.SiginUpActivity">
 
-    <TextView
-        android:id="@+id/textview_sign_up"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="회원가입"
-        android:textColor="@color/storm_gray"
-        android:textSize="23sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.07" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/textview_sign_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="회원가입"
+            android:textColor="@color/storm_gray"
+            android:textSize="23sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.07" />
 
-    <ImageButton
-        android:id="@+id/button_back_signup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/join_profile_ic_back"
-        app:layout_constraintBottom_toBottomOf="@id/textview_sign_up"
-        app:layout_constraintEnd_toStartOf="@id/textview_sign_up"
-        app:layout_constraintHorizontal_bias="0.034"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/textview_sign_up" />
+        <ImageButton
+            android:id="@+id/button_back_signup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/join_profile_ic_back"
+            app:layout_constraintBottom_toBottomOf="@id/textview_sign_up"
+            app:layout_constraintEnd_toStartOf="@id/textview_sign_up"
+            app:layout_constraintHorizontal_bias="0.034"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textview_sign_up" />
 
-    <TextView
-        android:id="@+id/textview_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="프로필"
-        android:textColor="@color/storm_gray"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/textview_sign_up"
-        app:layout_constraintStart_toStartOf="@id/textview_sign_up"
-        app:layout_constraintTop_toBottomOf="@id/textview_sign_up"
-        app:layout_constraintVertical_bias="0.1" />
+        <TextView
+            android:id="@+id/textview_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="프로필"
+            android:textColor="@color/storm_gray"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/textview_sign_up"
+            app:layout_constraintStart_toStartOf="@id/textview_sign_up"
+            app:layout_constraintTop_toBottomOf="@id/textview_sign_up"
+            app:layout_constraintVertical_bias="0.1" />
 
-    <EditText
-        android:id="@+id/edittext_name_signup"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="사용자 이름을 입력하세요"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/imagebutton_select_profile_red"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="@id/imagebutton_select_profile_purple"
-        app:layout_constraintTop_toBottomOf="@id/imagebutton_select_profile_yellow"
-        app:layout_constraintVertical_bias="0.175"
-        app:layout_constraintWidth_percent="0.83"
-         />
+        <EditText
+            android:id="@+id/edittext_name_signup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="사용자 이름을 입력하세요"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/imagebutton_select_profile_red"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="@id/imagebutton_select_profile_purple"
+            app:layout_constraintTop_toBottomOf="@id/imagebutton_select_profile_yellow"
+            app:layout_constraintVertical_bias="0.175"
+            app:layout_constraintWidth_percent="0.83"
+            />
 
-    <ImageView
-        android:id="@+id/imageview_profile_signup"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/circular_profile"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="@id/textview_profile"
-        app:layout_constraintHorizontal_bias="0.512"
-        app:layout_constraintStart_toStartOf="@id/textview_profile"
-        app:layout_constraintTop_toBottomOf="@id/textview_profile"
-        app:layout_constraintVertical_bias="0.056"
-        app:layout_constraintWidth_percent="0.394" />
-
-
-    <TextView
-        android:id="@+id/textview_name_in_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="45sp"
-        android:fontFamily="@font/notosans_bold"
-        android:textColor="@color/storm_white"
-        app:layout_constraintTop_toTopOf="@id/imageview_profile_signup"
-        app:layout_constraintBottom_toBottomOf="@id/imageview_profile_signup"
-        app:layout_constraintStart_toStartOf="@id/imageview_profile_signup"
-        app:layout_constraintEnd_toEndOf="@id/imageview_profile_signup"/>
+        <ImageView
+            android:id="@+id/imageview_profile_signup"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/circular_profile"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="@id/textview_profile"
+            app:layout_constraintHorizontal_bias="0.512"
+            app:layout_constraintStart_toStartOf="@id/textview_profile"
+            app:layout_constraintTop_toBottomOf="@id/textview_profile"
+            app:layout_constraintVertical_bias="0.056"
+            app:layout_constraintWidth_percent="0.394" />
 
 
-
-    <Button
-        android:id="@+id/imagebutton_set_profile"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintWidth_percent="0.15"
-        app:layout_constraintDimensionRatio="1:1"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/join_profile_ic_camera"
-        app:layout_constraintStart_toStartOf="@id/imageview_profile_signup"
-        app:layout_constraintTop_toTopOf="@id/imageview_profile_signup" />
-
-    <ImageButton
-        android:id="@+id/imagebutton_select_profile_yellow"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/join_profile_yellow"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toStartOf="@+id/imagebutton_select_profile_red"
-        app:layout_constraintStart_toEndOf="@+id/imagebutton_select_profile_purple"
-        app:layout_constraintTop_toBottomOf="@+id/imageview_profile_signup"
-        app:layout_constraintVertical_bias="0.116"
-        app:layout_constraintWidth_percent="0.058" />
-
-    <ImageButton
-        android:id="@+id/imagebutton_select_profile_yellow_checked"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="invisible"
-        android:background="@drawable/join_profile_selected_yellow"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toStartOf="@+id/imagebutton_select_profile_red_checked"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imagebutton_select_profile_purple_checked"
-        app:layout_constraintTop_toBottomOf="@+id/imageview_profile_signup"
-        app:layout_constraintVertical_bias="0.116"
-        app:layout_constraintWidth_percent="0.058" />
-
-    <ImageButton
-        android:id="@+id/imagebutton_select_profile_purple"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="22dp"
-        android:visibility="invisible"
-        android:background="@drawable/circular_profile"
-        app:layout_constraintBottom_toBottomOf="@id/imagebutton_select_profile_yellow"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toStartOf="@+id/imagebutton_select_profile_yellow"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="@+id/imageview_profile_signup"
-        app:layout_constraintTop_toTopOf="@id/imagebutton_select_profile_yellow"
-        app:layout_constraintWidth_percent="0.058" />
-
-    <ImageButton
-        android:id="@+id/imagebutton_select_profile_purple_checked"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="22dp"
-        android:background="@drawable/join_profile_selected_purple"
-        app:layout_constraintBottom_toBottomOf="@id/imagebutton_select_profile_yellow_checked"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toStartOf="@+id/imagebutton_select_profile_yellow_checked"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/imagebutton_select_profile_yellow_checked"
-        app:layout_constraintWidth_percent="0.058" />
+        <TextView
+            android:id="@+id/textview_name_in_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="45sp"
+            android:fontFamily="@font/notosans_bold"
+            android:textColor="@color/storm_white"
+            app:layout_constraintTop_toTopOf="@id/imageview_profile_signup"
+            app:layout_constraintBottom_toBottomOf="@id/imageview_profile_signup"
+            app:layout_constraintStart_toStartOf="@id/imageview_profile_signup"
+            app:layout_constraintEnd_toEndOf="@id/imageview_profile_signup"/>
 
 
-    <ImageButton
-        android:id="@+id/imagebutton_select_profile_red"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="22dp"
-        android:background="@drawable/join_profile_red"
-        app:layout_constraintBottom_toBottomOf="@+id/imagebutton_select_profile_yellow"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="@+id/imageview_profile_signup"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imagebutton_select_profile_yellow"
-        app:layout_constraintTop_toTopOf="@+id/imagebutton_select_profile_yellow"
-        app:layout_constraintVertical_bias="1.0"
-        app:layout_constraintWidth_percent="0.058" />
 
-    <ImageButton
-        android:id="@+id/imagebutton_select_profile_red_checked"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="22dp"
-        android:visibility="invisible"
-        android:background="@drawable/join_profile_selected_red"
-        app:layout_constraintBottom_toBottomOf="@+id/imagebutton_select_profile_yellow_checked"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imagebutton_select_profile_yellow_checked"
-        app:layout_constraintTop_toTopOf="@+id/imagebutton_select_profile_yellow_checked"
-        app:layout_constraintVertical_bias="1.0"
-        app:layout_constraintWidth_percent="0.058" />
+        <Button
+            android:id="@+id/imagebutton_set_profile"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintWidth_percent="0.15"
+            app:layout_constraintDimensionRatio="1:1"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/join_profile_ic_camera"
+            app:layout_constraintStart_toStartOf="@id/imageview_profile_signup"
+            app:layout_constraintTop_toTopOf="@id/imageview_profile_signup" />
+
+        <ImageButton
+            android:id="@+id/imagebutton_select_profile_yellow"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/join_profile_yellow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/imagebutton_select_profile_red"
+            app:layout_constraintStart_toEndOf="@+id/imagebutton_select_profile_purple"
+            app:layout_constraintTop_toBottomOf="@+id/imageview_profile_signup"
+            app:layout_constraintVertical_bias="0.116"
+            app:layout_constraintWidth_percent="0.058" />
+
+        <ImageButton
+            android:id="@+id/imagebutton_select_profile_yellow_checked"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="invisible"
+            android:background="@drawable/join_profile_selected_yellow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/imagebutton_select_profile_red_checked"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/imagebutton_select_profile_purple_checked"
+            app:layout_constraintTop_toBottomOf="@+id/imageview_profile_signup"
+            app:layout_constraintVertical_bias="0.116"
+            app:layout_constraintWidth_percent="0.058" />
+
+        <ImageButton
+            android:id="@+id/imagebutton_select_profile_purple"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="22dp"
+            android:visibility="invisible"
+            android:background="@drawable/circular_profile"
+            app:layout_constraintBottom_toBottomOf="@id/imagebutton_select_profile_yellow"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/imagebutton_select_profile_yellow"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@+id/imageview_profile_signup"
+            app:layout_constraintTop_toTopOf="@id/imagebutton_select_profile_yellow"
+            app:layout_constraintWidth_percent="0.058" />
+
+        <ImageButton
+            android:id="@+id/imagebutton_select_profile_purple_checked"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="22dp"
+            android:background="@drawable/join_profile_selected_purple"
+            app:layout_constraintBottom_toBottomOf="@id/imagebutton_select_profile_yellow_checked"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/imagebutton_select_profile_yellow_checked"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/imagebutton_select_profile_yellow_checked"
+            app:layout_constraintWidth_percent="0.058" />
 
 
-    <Button
-        android:id="@+id/button_next_signup"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/box_red_radius"
-        android:elevation="6dp"
-        android:fontFamily="@font/notosans_medium"
-        android:text="다음"
-        android:textColor="@color/storm_white"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/edittext_name_signup"
-        app:layout_constraintStart_toStartOf="@id/edittext_name_signup"
-        app:layout_constraintTop_toBottomOf="@id/edittext_name_signup"
-        app:layout_constraintVertical_bias="0.342"
-        app:layout_constraintWidth_percent="0.8" />
+        <ImageButton
+            android:id="@+id/imagebutton_select_profile_red"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="22dp"
+            android:background="@drawable/join_profile_red"
+            app:layout_constraintBottom_toBottomOf="@+id/imagebutton_select_profile_yellow"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="@+id/imageview_profile_signup"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/imagebutton_select_profile_yellow"
+            app:layout_constraintTop_toTopOf="@+id/imagebutton_select_profile_yellow"
+            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintWidth_percent="0.058" />
+
+        <ImageButton
+            android:id="@+id/imagebutton_select_profile_red_checked"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="22dp"
+            android:visibility="invisible"
+            android:background="@drawable/join_profile_selected_red"
+            app:layout_constraintBottom_toBottomOf="@+id/imagebutton_select_profile_yellow_checked"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/imagebutton_select_profile_yellow_checked"
+            app:layout_constraintTop_toTopOf="@+id/imagebutton_select_profile_yellow_checked"
+            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintWidth_percent="0.058" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/button_next_signup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/box_red_radius"
+            android:elevation="6dp"
+            android:fontFamily="@font/notosans_medium"
+            android:text="다음"
+            android:textColor="@color/storm_white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/edittext_name_signup"
+            app:layout_constraintStart_toStartOf="@id/edittext_name_signup"
+            app:layout_constraintTop_toBottomOf="@id/edittext_name_signup"
+            app:layout_constraintVertical_bias="0.342"
+            app:layout_constraintWidth_percent="0.8" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/view_bottom_sheet_blur"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99000000"
+        android:visibility="gone"/>
+
+    <include
+        android:id="@+id/bottomsheet_profile_select"
+        layout="@layout/bottomsheet_select_profile"/>
+
+
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+

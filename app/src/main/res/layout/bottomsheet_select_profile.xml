@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:behavior_peekHeight="160dp"
+    app:behavior_hideable="true"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <LinearLayout
+        android:id="@+id/linearlayout_change_profile"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:0.45"
+        android:orientation="vertical"
+        android:weightSum="2"
+        android:background="@drawable/box_top_rounded"
+        app:layout_constraintVertical_bias="1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="앨범에서 프로필 사진 선택"
+            android:layout_weight="1"
+            android:textColor="@color/storm_gray"
+            android:textSize="16sp"
+            android:fontFamily="@font/notosans_medium"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="기본 이미지로 변경"
+            android:layout_weight="1"
+            android:textColor="@color/storm_gray"
+            android:textSize="16sp"
+            android:fontFamily="@font/notosans_medium"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
