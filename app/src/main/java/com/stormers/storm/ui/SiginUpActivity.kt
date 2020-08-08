@@ -19,5 +19,8 @@ class SiginUpActivity : AppCompatActivity() {
 
     }
 
+    fun selectProfileColor(){
+
+    }
 
 }
