@@ -17,11 +17,7 @@ class SiginUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sigin_up)
 
-        setProfileColor()
-
     }
 
-    fun setProfileColor(){
-        imageview_select_profile_yellow.setBackgroundColor(Color.parseColor("#f5c245"))
-    }
+
 }

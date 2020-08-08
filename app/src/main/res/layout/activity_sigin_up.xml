@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -43,6 +44,20 @@
         app:layout_constraintTop_toBottomOf="@id/textview_sign_up"
         app:layout_constraintVertical_bias="0.1" />
 
+    <com.stormers.storm.customview.StormEditText
+        android:id="@+id/edittext_name_signup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="사용자 이름을 입력하세요"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/imageview_select_profile_red"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="@id/imageview_select_profile_purple"
+        app:layout_constraintTop_toBottomOf="@id/imageview_select_profile_yellow"
+        app:layout_constraintVertical_bias="0.175"
+        app:layout_constraintWidth_percent="0.83"
+        app:showRemoveAll="true" />
+
     <ImageView
         android:id="@+id/imageview_profile_signup"
         android:layout_width="0dp"
@@ -58,13 +73,23 @@
         app:layout_constraintWidth_percent="0.394" />
 
 
+    <ImageButton
+        android:id="@+id/imagebutton_set_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/join_profile_ic_camera"
+        app:layout_constraintStart_toStartOf="@id/imageview_profile_signup"
+        app:layout_constraintTop_toTopOf="@id/imageview_profile_signup" />
+
     <ImageView
         android:id="@+id/imageview_select_profile_yellow"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/circular_profile"
-        app:layout_constraintDimensionRatio="1:1"
+        android:background="@drawable/join_profile_yellow"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@+id/imageview_select_profile_red"
         app:layout_constraintStart_toEndOf="@+id/imageview_select_profile_purple"
         app:layout_constraintTop_toBottomOf="@+id/imageview_profile_signup"
@@ -90,7 +115,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="22dp"
-        android:background="@drawable/circular_profile"
+        android:background="@drawable/join_profile_red"
         app:layout_constraintBottom_toBottomOf="@+id/imageview_select_profile_yellow"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="@+id/imageview_profile_signup"
@@ -99,6 +124,24 @@
         app:layout_constraintTop_toTopOf="@+id/imageview_select_profile_yellow"
         app:layout_constraintVertical_bias="1.0"
         app:layout_constraintWidth_percent="0.058" />
+
+
+    <Button
+        android:id="@+id/button_next_signup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/box_red_radius"
+        android:elevation="6dp"
+        android:fontFamily="@font/notosans_medium"
+        android:text="다음"
+        android:textColor="@color/storm_white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/edittext_name_signup"
+        app:layout_constraintStart_toStartOf="@id/edittext_name_signup"
+        app:layout_constraintTop_toBottomOf="@id/edittext_name_signup"
+        app:layout_constraintVertical_bias="0.342"
+        app:layout_constraintWidth_percent="0.8" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
