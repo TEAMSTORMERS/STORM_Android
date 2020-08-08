@@ -1,23 +1,13 @@
 package com.stormers.storm.ui
 
-import android.content.Context
-import android.graphics.Color
-import android.graphics.ColorFilter
-import android.graphics.PorterDuff
-import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.CalendarContract
-import android.speech.tts.TextToSpeech
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.KeyEvent
 import android.view.View
 import android.widget.EditText
-import androidx.core.content.ContextCompat
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_sigin_up.*
