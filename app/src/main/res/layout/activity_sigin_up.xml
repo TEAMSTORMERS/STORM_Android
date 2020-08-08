@@ -1,10 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.SiginUpActivity">
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/textview_sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="회원가입"
+        android:textColor="@color/storm_gray"
+        android:textSize="23sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.07" />
+
+    <ImageButton
+        android:id="@+id/button_back_signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/join_profile_ic_back"
+        app:layout_constraintBottom_toBottomOf="@id/textview_sign_up"
+        app:layout_constraintEnd_toStartOf="@id/textview_sign_up"
+        app:layout_constraintHorizontal_bias="0.034"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textview_sign_up" />
+
+    <TextView
+        android:id="@+id/textview_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="프로필"
+        android:textColor="@color/storm_gray"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/textview_sign_up"
+        app:layout_constraintStart_toStartOf="@id/textview_sign_up"
+        app:layout_constraintTop_toBottomOf="@id/textview_sign_up"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <ImageView
+        android:id="@+id/imageview_profile_signup"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/circular_profile"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintEnd_toEndOf="@id/textview_profile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/textview_profile"
+        app:layout_constraintTop_toBottomOf="@id/textview_profile"
+        app:layout_constraintVertical_bias="0.056"
+        app:layout_constraintWidth_percent="0.394" />
+
+
+    <ImageView
+        android:id="@+id/imageview_select_profile_yellow"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/circular_profile"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageview_select_profile_red"
+        app:layout_constraintStart_toEndOf="@+id/imageview_select_profile_purple"
+        app:layout_constraintTop_toBottomOf="@+id/imageview_profile_signup"
+        app:layout_constraintVertical_bias="0.116"
+        app:layout_constraintWidth_percent="0.058" />
+
+    <ImageView
+        android:id="@+id/imageview_select_profile_purple"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="22dp"
+        android:background="@drawable/circular_profile"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintBottom_toBottomOf="@id/imageview_select_profile_yellow"
+        app:layout_constraintEnd_toStartOf="@+id/imageview_select_profile_yellow"
+        app:layout_constraintStart_toStartOf="@+id/imageview_profile_signup"
+        app:layout_constraintTop_toTopOf="@id/imageview_select_profile_yellow"
+        app:layout_constraintWidth_percent="0.058" />
+
+    <ImageView
+        android:id="@+id/imageview_select_profile_red"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="22dp"
+        android:background="@drawable/circular_profile"
+        app:layout_constraintBottom_toBottomOf="@+id/imageview_select_profile_yellow"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="@+id/imageview_profile_signup"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageview_select_profile_yellow"
+        app:layout_constraintTop_toTopOf="@+id/imageview_select_profile_yellow"
+        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintWidth_percent="0.058" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
