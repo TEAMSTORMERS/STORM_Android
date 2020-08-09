@@ -67,9 +67,14 @@ class SiginUpActivity : AppCompatActivity() {
         button_gallery.setOnClickListener{
             selectGallery()
             settingPermission()
-
         }
 
+        button_change_default_image.setOnClickListener{
+            textview_name_in_profile.visibility = View.VISIBLE
+            imageview_profile_signup.setImageResource(R.drawable.profile_circle
+            )
+
+        }
     }
 
     // 프로필 default image color변경
@@ -149,9 +154,7 @@ class SiginUpActivity : AppCompatActivity() {
                         view_bottom_sheet_blur.visibility = View.INVISIBLE
                         bottomsheet_profile_select.visibility = View.INVISIBLE
                     }
-
                 }
-
             }
         })
 
