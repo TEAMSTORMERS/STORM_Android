@@ -4,11 +4,9 @@
     package="com.stormers.storm">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".ui.GlobalApplication"
@@ -30,6 +28,7 @@
         <activity
             android:name=".ui.LoginActivity"
             android:theme="@style/loginTheme">
+            
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -53,6 +52,11 @@
         <activity android:name=".ui.ScrapCardCollectingActivity" />
         <activity android:name=".ui.ScrapedCardDetailActivity" />
         <activity android:name=".ui.MypageActivity" />
+        <activity android:name=".ui.SiginUpActivity"
+            android:windowSoftInputMode="adjustNothing"
+            android:theme="@style/loginTheme">
+
+        </activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -61,9 +65,8 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
-
     </application>
 
 </manifest>
