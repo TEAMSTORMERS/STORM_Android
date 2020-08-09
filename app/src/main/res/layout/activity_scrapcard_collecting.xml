@@ -7,12 +7,11 @@
     android:layout_height="match_parent"
     android:background="@color/storm_red">
 
-    <include
-        android:id="@+id/include_scrapcardlist_toolbar"
+    <com.stormers.storm.customview.StormToolbar
+        android:id="@+id/stormtoolbar_scarpedcard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="49dp"
-        layout="@layout/view_toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,7 +27,7 @@
         android:textFontWeight="600"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include_scrapcardlist_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/stormtoolbar_scarpedcard" />
 
     <TextView
         android:id="@+id/textView_project_name_scrap_collect"
