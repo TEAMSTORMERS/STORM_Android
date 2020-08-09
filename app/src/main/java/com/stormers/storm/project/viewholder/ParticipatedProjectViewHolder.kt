@@ -1,6 +1,7 @@
 package com.stormers.storm.project.viewholder
 
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseViewHolder
 import com.stormers.storm.card.adapter.CardPreviewAdapter
@@ -38,8 +39,9 @@ class ParticipatedProjectViewHolder(parent: ViewGroup, private val isMain: Boole
     }
 
     private fun initCardImage(data: ParticipatedProjectModel) {
-        itemView.recyclerview_projectfolder.run {
+        itemView.recyclerview_projectfolder.recyclerView.run {
             adapter = cardPreviewAdapter
+            layoutManager = GridLayoutManager(context, 2)
             addItemDecoration(MiddleDividerItemDecoration(context, MiddleDividerItemDecoration.VERTICAL))
             addItemDecoration(MiddleDividerItemDecoration(context, MiddleDividerItemDecoration.HORIZONTAL))
         }
