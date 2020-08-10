@@ -1,21 +1,31 @@
 package com.stormers.storm.mypageedittext_user_name.fragment
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.view.KeyEvent
+import android.view.KeyEvent.KEYCODE_ENTER
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -26,8 +36,10 @@ import com.stormers.storm.R
 import com.stormers.storm.base.BaseFragment
 import com.stormers.storm.ui.MypageActivity
 import kotlinx.android.synthetic.main.fragment_mypage_profile.*
+import kotlinx.android.synthetic.main.fragment_mypage_profile.view.*
 import java.io.File
 import java.io.IOException
+import java.security.Key
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.jar.Manifest
@@ -39,8 +51,42 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
         super.onViewCreated(view, savedInstanceState)
 
         imagebutton_mypage_edit.setOnClickListener {
-            textview_user_name_input.visibility = View.INVISIBLE
-            edittext_user_name.visibility = View.VISIBLE
+            edittext_user_name.requestFocus()
+            edittext_user_name.isFocusable = true
+            edittext_user_name.isCursorVisible = true
+            edittext_user_name.setSelection(edittext_user_name.length())
+            //edittext_user_name.setTextColor(Color.parseColor("#989898"))
+            edittext_user_name.setTextColor(ContextCompat.getColor(context!!, R.color.storm_popup_line_gray))
+
+            //키보드 올리기
+            val imm = context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
+        }
+
+        edittext_user_name.setOnKeyListener { v, keyCode, event ->
+            if (keyCode == KEYCODE_ENTER || keyCode == EditorInfo.IME_ACTION_DONE) {
+                //edittext_user_name.setTextColor(Color.parseColor("#707070"))
+                edittext_user_name.setTextColor(ContextCompat.getColor(context!!, R.color.storm_gray))
+                edittext_user_name.clearFocus()
+                edittext_user_name.isCursorVisible = false
+
+                //키보드 내리기
+                val imm = context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(edittext_user_name.windowToken, 0)
+
+                Toast.makeText(context, "사용자 이름이 변경되었습니다.", Toast.LENGTH_SHORT).show()
+                true
+            }
+            false
+        }
+
+        edittext_user_name.setOnClickListener {
+            edittext_user_name.requestFocus()
+            edittext_user_name.isFocusable = true
+            edittext_user_name.isCursorVisible = true
+            edittext_user_name.setSelection(edittext_user_name.length())
+            //edittext_user_name.setTextColor(Color.parseColor("#989898"))
+            edittext_user_name.setTextColor(ContextCompat.getColor(context!!, R.color.storm_popup_line_gray))
         }
 
         settingPermission()
@@ -48,7 +94,11 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
         circleImageView_camera_button.setOnClickListener {
             selectGallery()
         }
+        circleimageview_mypage_profile.setOnClickListener {
+            selectGallery()
+        }
     }
+
 
     fun settingPermission() {
         var permis = object : PermissionListener {

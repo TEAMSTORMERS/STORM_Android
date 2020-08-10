@@ -45,7 +45,6 @@
         app:layout_constraintTop_toTopOf="@+id/circleImageView_camera_button"
         app:layout_constraintWidth_percent="0.05" />
 
-
     <TextView
         android:id="@+id/textview_user_name"
         android:layout_width="wrap_content"
@@ -59,34 +58,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/circleimageview_mypage_profile" />
 
-    <TextView
-        android:id="@+id/textview_user_name_input"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:fontFamily="@font/notosans_bold"
-        android:text="이영진"
-        android:textSize="16sp"
-        android:textColor="@color/storm_gray"
-        app:layout_constraintStart_toStartOf="@+id/textview_user_name"
-        app:layout_constraintTop_toBottomOf="@+id/textview_user_name"/>
-
     <EditText
         android:id="@+id/edittext_user_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
         android:layout_marginEnd="10dp"
         android:fontFamily="@font/notosans_bold"
         android:includeFontPadding="false"
-        android:text="이영진"
+        android:text="강희원"
         android:textSize="16sp"
         android:singleLine="true"
+        android:lines="1"
         android:textColor="@color/storm_gray"
-        app:layout_constraintBottom_toBottomOf="@+id/textview_user_name_input"
-        app:layout_constraintEnd_toStartOf="@+id/imagebutton_mypage_edit"
+        android:background="@null"
         app:layout_constraintStart_toStartOf="@+id/textview_user_name"
-        app:layout_constraintTop_toTopOf="@+id/textview_user_name_input"
-        android:visibility="invisible"/>
+        app:layout_constraintTop_toBottomOf="@+id/textview_user_name" />
 
     <ImageButton
         android:id="@+id/imagebutton_mypage_edit"
@@ -96,9 +83,9 @@
         app:layout_constraintWidth_percent="0.0416"
         app:layout_constraintDimensionRatio="1:1"
         android:background="@drawable/mypage_ic_edit"
-        app:layout_constraintBottom_toBottomOf="@+id/textview_user_name_input"
+        app:layout_constraintBottom_toBottomOf="@+id/edittext_user_name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textview_user_name_input" />
+        app:layout_constraintTop_toTopOf="@+id/edittext_user_name" />
 
     <View
         android:id="@+id/view"
@@ -108,7 +95,7 @@
         android:background="@color/storm_popup_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_user_name_input" />
+        app:layout_constraintTop_toBottomOf="@+id/edittext_user_name" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_project_align"
@@ -119,7 +106,8 @@
         android:layout_marginTop="26dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view">
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        android:clickable="true">
 
         <TextView
             android:id="@+id/textview_project_align"
@@ -127,20 +115,24 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/notosans_bold"
             android:text="참여한 프로젝트 정렬"
-            android:textColor="@color/storm_gray"
             android:textSize="16sp"
+            android:textColor="@color/selector_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:duplicateParentState="true" />
 
         <ImageButton
             android:id="@+id/imagebutton_project_align"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/mypage_align_next"
+            android:background="@drawable/selector_image"
             app:layout_constraintBottom_toBottomOf="@+id/textview_project_align"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textview_project_align" />
+            app:layout_constraintTop_toTopOf="@+id/textview_project_align"
+            android:duplicateParentState="true"
+            android:clickable="false"
+            android:focusable="false"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -153,7 +145,8 @@
         android:layout_marginTop="26dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraint_project_align">
+        app:layout_constraintTop_toBottomOf="@+id/constraint_project_align"
+        android:clickable="true">
 
         <TextView
             android:id="@+id/textview_qna"
@@ -161,20 +154,24 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/notosans_bold"
             android:text="문의사항"
-            android:textColor="@color/storm_gray"
             android:textSize="16sp"
+            android:textColor="@color/selector_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:duplicateParentState="true" />
 
         <ImageButton
             android:id="@+id/imagebutton_qna"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/mypage_align_next"
+            android:background="@drawable/selector_image"
             app:layout_constraintBottom_toBottomOf="@+id/textview_qna"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textview_qna" />
+            app:layout_constraintTop_toTopOf="@+id/textview_qna"
+            android:duplicateParentState="true"
+            android:clickable="false"
+            android:focusable="false"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -187,7 +184,8 @@
         android:layout_marginTop="26dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraint_qna">
+        app:layout_constraintTop_toBottomOf="@+id/constraint_qna"
+        android:clickable="true">
 
         <TextView
             android:id="@+id/textview_logout"
@@ -195,20 +193,24 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/notosans_bold"
             android:text="로그아웃"
-            android:textColor="@color/storm_gray"
             android:textSize="16sp"
+            android:textColor="@color/selector_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:duplicateParentState="true" />
 
         <ImageButton
             android:id="@+id/imagebutton_logout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/mypage_align_next"
+            android:background="@drawable/selector_image"
             app:layout_constraintBottom_toBottomOf="@+id/textview_logout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textview_logout" />
+            app:layout_constraintTop_toTopOf="@+id/textview_logout"
+            android:duplicateParentState="true"
+            android:clickable="false"
+            android:focusable="false"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -221,7 +223,8 @@
         android:layout_marginTop="26dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraint_logout">
+        app:layout_constraintTop_toBottomOf="@+id/constraint_logout"
+        android:clickable="true" >
 
         <TextView
             android:id="@+id/textview_withdrawa"
@@ -229,20 +232,25 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/notosans_bold"
             android:text="회원탈퇴"
-            android:textColor="@color/storm_gray"
+            android:textColor="@color/selector_text"
             android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:duplicateParentState="true"/>
 
         <ImageButton
             android:id="@+id/imagebutton_withdrawa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/mypage_align_next"
-            app:layout_constraintBottom_toBottomOf="@+id/textview_withdrawa"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/selector_image"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textview_withdrawa" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:duplicateParentState="true"
+            android:clickable="false"
+            android:focusable="false"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
