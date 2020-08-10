@@ -52,14 +52,31 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="사용자 이름을 입력하세요"
+            android:inputType="text"
+            android:maxLines="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/imagebutton_select_profile_red"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="@id/imagebutton_select_profile_purple"
             app:layout_constraintTop_toBottomOf="@id/imagebutton_select_profile_yellow"
             app:layout_constraintVertical_bias="0.175"
-            app:layout_constraintWidth_percent="0.83"
-            />
+            app:layout_constraintWidth_percent="0.83" />
+
+        <TextView
+            android:id="@+id/textview_input_more_than_two_char"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_medium"
+            android:text="2글자 이상 입력해주세요"
+            android:textColor="@color/storm_red"
+            android:textSize="11sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/edittext_name_signup"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@id/edittext_name_signup"
+            app:layout_constraintTop_toBottomOf="@id/edittext_name_signup"
+            app:layout_constraintVertical_bias="0.03" />
 
         <ImageView
             android:id="@+id/imageview_profile_signup"
@@ -80,6 +97,7 @@
             android:id="@+id/textview_name_in_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxLength="2"
             android:textSize="45sp"
             android:fontFamily="@font/notosans_bold"
             android:textColor="@color/storm_white"
@@ -209,7 +227,6 @@
             app:layout_constraintTop_toBottomOf="@id/edittext_name_signup"
             app:layout_constraintVertical_bias="0.342"
             app:layout_constraintWidth_percent="0.8" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

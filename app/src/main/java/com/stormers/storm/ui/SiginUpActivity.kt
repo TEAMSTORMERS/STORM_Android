@@ -4,9 +4,13 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Matrix
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
+import android.media.Image
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
@@ -16,21 +20,24 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.stormers.storm.R
-import com.stormers.storm.base.BaseActivity
+import com.stormers.storm.card.util.BitmapConverter
 import kotlinx.android.synthetic.main.activity_sigin_up.*
 import kotlinx.android.synthetic.main.bottomsheet_select_profile.*
-import kotlinx.android.synthetic.main.fragment_mypage_profile.*
 
 class SiginUpActivity : AppCompatActivity() {
 
     val change_background = GradientDrawable()
     val FLAG_REQ_STORAGE = 102
+    lateinit var profile : ImageView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,18 +45,24 @@ class SiginUpActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sigin_up)
 
         var edittext_name = findViewById<EditText>(R.id.edittext_name_signup)
+       // val bmp = Bitmap.createBitmap(textview_name_in_profile.getDrawingCache())
+
 
         selectProfileColor()
 
         //사용자 이름 textview 적용
         edittext_name.addTextChangedListener(object :TextWatcher{
             override fun afterTextChanged(s: Editable?) {
-                if (edittext_name.text.length != 0){
-                    if (edittext_name.text.length >= 2){
-                        var first_two_characters = edittext_name.text.substring(0,2)
-                        textview_name_in_profile.setText(first_two_characters)
-                    }
+
+                if (edittext_name.text.length < 2){
+                    textview_input_more_than_two_char.visibility = View.VISIBLE
+                } else {
+                    textview_input_more_than_two_char.visibility = View.GONE
                 }
+
+                var first_two_characters = edittext_name.text.substring(0, edittext_name.text.length)
+                textview_name_in_profile.setText(first_two_characters)
+
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -62,65 +75,68 @@ class SiginUpActivity : AppCompatActivity() {
             }
         })
 
+
         change_profile()
 
+        goToNextSignUpPage()
     }
 
     // 프로필 default image color변경
     fun selectProfileColor(){
 
-        imagebutton_select_profile_purple.setOnClickListener{
-            imagebutton_select_profile_purple.visibility = View.INVISIBLE
-            imagebutton_select_profile_purple_checked.visibility = View.VISIBLE
+            imagebutton_select_profile_purple.setOnClickListener{
+                imagebutton_select_profile_purple.visibility = View.INVISIBLE
+                imagebutton_select_profile_purple_checked.visibility = View.VISIBLE
 
-            imagebutton_select_profile_yellow.visibility = View.VISIBLE
-            imagebutton_select_profile_yellow_checked.visibility = View.INVISIBLE
+                imagebutton_select_profile_yellow.visibility = View.VISIBLE
+                imagebutton_select_profile_yellow_checked.visibility = View.INVISIBLE
 
-            imagebutton_select_profile_red.visibility = View.VISIBLE
-            imagebutton_select_profile_red_checked.visibility = View.INVISIBLE
+                imagebutton_select_profile_red.visibility = View.VISIBLE
+                imagebutton_select_profile_red_checked.visibility = View.INVISIBLE
 
-            //라운딩 및 프로필 색 변환
-            imageview_profile_signup.background = ShapeDrawable(OvalShape())
-            imageview_profile_signup.clipToOutline = true
-            change_background.setColor(resources.getColor(R.color.storm_purple))
-            imageview_profile_signup.setImageDrawable(change_background)
+                //라운딩 및 프로필 색 변환
+                imageview_profile_signup.background = ShapeDrawable(OvalShape())
+                imageview_profile_signup.clipToOutline = true
+                change_background.setColor(resources.getColor(R.color.storm_purple))
+                imageview_profile_signup.setImageDrawable(change_background)
 
 
+            }
+
+            imagebutton_select_profile_red.setOnClickListener{
+                imagebutton_select_profile_red.visibility = View.INVISIBLE
+                imagebutton_select_profile_red_checked.visibility = View.VISIBLE
+
+                imagebutton_select_profile_purple.visibility = View.VISIBLE
+                imagebutton_select_profile_purple_checked.visibility = View.INVISIBLE
+
+                imagebutton_select_profile_yellow.visibility = View.VISIBLE
+                imagebutton_select_profile_yellow_checked.visibility = View.INVISIBLE
+
+                imageview_profile_signup.background = ShapeDrawable(OvalShape())
+                imageview_profile_signup.clipToOutline = true
+                change_background.setColor(resources.getColor(R.color.storm_red))
+                imageview_profile_signup.setImageDrawable(change_background)
+
+            }
+
+            imagebutton_select_profile_yellow.setOnClickListener{
+                imagebutton_select_profile_yellow.visibility = View.INVISIBLE
+                imagebutton_select_profile_yellow_checked.visibility = View.VISIBLE
+
+                imagebutton_select_profile_purple.visibility = View.VISIBLE
+                imagebutton_select_profile_purple_checked.visibility = View.INVISIBLE
+
+                imagebutton_select_profile_red.visibility = View.VISIBLE
+                imagebutton_select_profile_red_checked.visibility = View.INVISIBLE
+
+                imageview_profile_signup.background = ShapeDrawable(OvalShape())
+                imageview_profile_signup.clipToOutline = true
+                change_background.setColor(resources.getColor(R.color.storm_yellow))
+                imageview_profile_signup.setImageDrawable(change_background)
+            }
         }
 
-        imagebutton_select_profile_red.setOnClickListener{
-            imagebutton_select_profile_red.visibility = View.INVISIBLE
-            imagebutton_select_profile_red_checked.visibility = View.VISIBLE
-
-            imagebutton_select_profile_purple.visibility = View.VISIBLE
-            imagebutton_select_profile_purple_checked.visibility = View.INVISIBLE
-
-            imagebutton_select_profile_yellow.visibility = View.VISIBLE
-            imagebutton_select_profile_yellow_checked.visibility = View.INVISIBLE
-
-            imageview_profile_signup.background = ShapeDrawable(OvalShape())
-            imageview_profile_signup.clipToOutline = true
-            change_background.setColor(resources.getColor(R.color.storm_red))
-            imageview_profile_signup.setImageDrawable(change_background)
-
-        }
-
-        imagebutton_select_profile_yellow.setOnClickListener{
-            imagebutton_select_profile_yellow.visibility = View.INVISIBLE
-            imagebutton_select_profile_yellow_checked.visibility = View.VISIBLE
-
-            imagebutton_select_profile_purple.visibility = View.VISIBLE
-            imagebutton_select_profile_purple_checked.visibility = View.INVISIBLE
-
-            imagebutton_select_profile_red.visibility = View.VISIBLE
-            imagebutton_select_profile_red_checked.visibility = View.INVISIBLE
-
-            imageview_profile_signup.background = ShapeDrawable(OvalShape())
-            imageview_profile_signup.clipToOutline = true
-            change_background.setColor(resources.getColor(R.color.storm_yellow))
-            imageview_profile_signup.setImageDrawable(change_background)
-        }
-    }
 
     // 프로필 사진 선택 BottomSheet
     fun change_profile(){
@@ -226,5 +242,51 @@ class SiginUpActivity : AppCompatActivity() {
             imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
         }
         return super.dispatchTouchEvent(ev)
+    }
+
+    fun goToNextSignUpPage(){
+
+        button_next_signup.setOnClickListener{
+            if(edittext_name_signup.text.isNullOrBlank()){
+                Toast.makeText(this,"이름을 입력해주세요!", Toast.LENGTH_SHORT).show()
+            } else {
+                if(edittext_name_signup.text.length < 2){
+                    Toast.makeText(this,"이름을 2글자 이상 입력해주세요",Toast.LENGTH_SHORT).show()
+                } else {
+                    saveProfile()
+                }
+            }
+        }
+    }
+
+//    fun combineImages(background: Bitmap?, foreground: Bitmap?): Bitmap? {
+//
+//        var background = background
+//        var width = 0
+//        var height = 0
+//        val cs: Bitmap
+//        width = windowManager.defaultDisplay.width
+//        height = windowManager.defaultDisplay.height
+//        cs = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+//        val comboImage = Canvas(cs)
+//        background = Bitmap.createScaledBitmap(background!!, width, height, true)
+//        comboImage.drawBitmap(background, Matrix(), null)
+//        comboImage.drawBitmap(foreground!!, Matrix(), null)
+//        return cs
+//    }
+
+    fun saveProfile() {
+        val textName = findViewById<TextView>(R.id.textview_name_in_profile)
+        textName.buildDrawingCache()
+        val imageBackground = findViewById<ImageView>(R.id.imageview_profile_signup)
+        imageBackground.setImageBitmap(textName.getDrawingCache())
+        textview_name_in_profile.visibility = View.INVISIBLE
+        imageview_profile_signup.visibility = View.INVISIBLE
+
+
+        val intent = Intent(this, SetEmailPasswordActivity::class.java)
+        intent.putExtra("profile", imageBackground.toString())
+        startActivity(intent)
+
     }
 }
