@@ -32,6 +32,7 @@ class SiginUpActivity : AppCompatActivity() {
     val change_background = GradientDrawable()
     val FLAG_REQ_STORAGE = 102
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sigin_up)
@@ -63,18 +64,6 @@ class SiginUpActivity : AppCompatActivity() {
 
         change_profile()
 
-
-        button_gallery.setOnClickListener{
-            selectGallery()
-            settingPermission()
-        }
-
-        button_change_default_image.setOnClickListener{
-            textview_name_in_profile.visibility = View.VISIBLE
-            imageview_profile_signup.setImageResource(R.drawable.profile_circle
-            )
-
-        }
     }
 
     // 프로필 default image color변경
@@ -136,6 +125,7 @@ class SiginUpActivity : AppCompatActivity() {
     // 프로필 사진 선택 BottomSheet
     fun change_profile(){
         val bottomSheetChangeProfile : BottomSheetBehavior<View> = BottomSheetBehavior.from(bottomsheet_profile_select)
+
         bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
 
         bottomSheetChangeProfile.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback(){
@@ -160,6 +150,18 @@ class SiginUpActivity : AppCompatActivity() {
 
         imagebutton_set_profile.setOnClickListener{
             bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_COLLAPSED
+
+            button_gallery.setOnClickListener{
+                selectGallery()
+                settingPermission()
+            }
+
+            button_change_default_image.setOnClickListener{
+                textview_name_in_profile.visibility = View.VISIBLE
+                imageview_profile_signup.setImageResource(R.drawable.profile_circle)
+                bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
+
+            }
         }
 
         view_bottom_sheet_blur.setOnClickListener{

@@ -28,12 +28,6 @@
         <activity
             android:name=".ui.LoginActivity"
             android:theme="@style/loginTheme">
-            
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity android:name=".ui.AddProjectActivity" />
@@ -53,8 +47,14 @@
         <activity android:name=".ui.ScrapedCardDetailActivity" />
         <activity android:name=".ui.MypageActivity" />
         <activity android:name=".ui.SiginUpActivity"
-            android:windowSoftInputMode="adjustNothing"
+            android:windowSoftInputMode="adjustResize"
             android:theme="@style/loginTheme">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
 
