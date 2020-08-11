@@ -16,6 +16,11 @@ class ScrapCardCollectingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scrapcard_collecting)
 
+        stormtoolbar_scarpedcard.run {
+            setBackButton()
+            setMyPageButton()
+        }
+
         scrapCollectAdapter = CardAdapter()
         RecyclerView_scrap_collect.adapter = scrapCollectAdapter
         scrapCollectAdapter.addAll(loadCardDataOfRound())

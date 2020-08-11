@@ -3,7 +3,6 @@ package com.stormers.storm.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.card.fragment.RoundmeetingFragment
@@ -13,7 +12,6 @@ import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.network.SocketClient
 import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_round_progress.*
-import kotlinx.android.synthetic.main.fragment_waiting_for_starting_project.*
 import java.lang.StringBuilder
 
 class RoundFinishActivity : BaseActivity() {
@@ -25,6 +23,10 @@ class RoundFinishActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_round_progress)
+
+        stormtoolbar_roundprogress.setExitButton(View.OnClickListener {
+            //Todo: 프로젝트 나가기
+        })
 
         SocketClient.getInstance()
         SocketClient.connection()

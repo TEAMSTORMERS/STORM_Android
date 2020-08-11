@@ -1,4 +1,4 @@
-package com.stormers.storm.RoundSetting
+package com.stormers.storm.card.fragment
 
 import android.os.Bundle
 import android.view.View
@@ -10,6 +10,7 @@ import com.stormers.storm.card.adapter.SavedCardAdapter
 import com.stormers.storm.card.repository.SavedCardRepository
 import com.stormers.storm.ui.RoundProgressActivity
 import com.stormers.storm.util.MarginDecoration
+import kotlinx.android.synthetic.main.activity_round_progress.*
 import kotlinx.android.synthetic.main.fragment_add_card.*
 
 class AddCardFragment : BaseFragment(R.layout.fragment_add_card) {
@@ -20,6 +21,8 @@ class AddCardFragment : BaseFragment(R.layout.fragment_add_card) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        (activity as RoundProgressActivity).stormtoolbar_roundprogress.clearButton()
 
         addedSavedCardAdapter = SavedCardAdapter(false, null)
         recyclerview_addcard_card.layoutManager = GridLayoutManager(context, 2)
