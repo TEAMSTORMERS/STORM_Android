@@ -4,11 +4,13 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
@@ -18,7 +20,6 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -28,6 +29,10 @@ import com.gun0912.tedpermission.TedPermission
 import com.stormers.storm.R
 import kotlinx.android.synthetic.main.activity_sigin_up.*
 import kotlinx.android.synthetic.main.bottomsheet_select_profile.*
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.IOException
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -84,10 +89,10 @@ class SignUpActivity : AppCompatActivity() {
                 imagebutton_select_profile_red_checked.visibility = View.INVISIBLE
 
                 //라운딩 및 프로필 색 변환
-                imageview_profile_signup.background = ShapeDrawable(OvalShape())
-                imageview_profile_signup.clipToOutline = true
+                constraintlayout_signup_profile.background = ShapeDrawable(OvalShape())
+                constraintlayout_signup_profile.clipToOutline = true
                 changeBackground.setColor(resources.getColor(R.color.storm_purple))
-                imageview_profile_signup.setImageDrawable(changeBackground)
+                imageview_signup_profilebackground.setImageDrawable(changeBackground)
 
 
             }
@@ -102,10 +107,10 @@ class SignUpActivity : AppCompatActivity() {
                 imagebutton_select_profile_yellow.visibility = View.VISIBLE
                 imagebutton_select_profile_yellow_checked.visibility = View.INVISIBLE
 
-                imageview_profile_signup.background = ShapeDrawable(OvalShape())
-                imageview_profile_signup.clipToOutline = true
+                constraintlayout_signup_profile.background = ShapeDrawable(OvalShape())
+                constraintlayout_signup_profile.clipToOutline = true
                 changeBackground.setColor(resources.getColor(R.color.storm_red))
-                imageview_profile_signup.setImageDrawable(changeBackground)
+                imageview_signup_profilebackground.setImageDrawable(changeBackground)
 
             }
 
@@ -119,10 +124,10 @@ class SignUpActivity : AppCompatActivity() {
                 imagebutton_select_profile_red.visibility = View.VISIBLE
                 imagebutton_select_profile_red_checked.visibility = View.INVISIBLE
 
-                imageview_profile_signup.background = ShapeDrawable(OvalShape())
-                imageview_profile_signup.clipToOutline = true
+                constraintlayout_signup_profile.background = ShapeDrawable(OvalShape())
+                constraintlayout_signup_profile.clipToOutline = true
                 changeBackground.setColor(resources.getColor(R.color.storm_yellow))
-                imageview_profile_signup.setImageDrawable(changeBackground)
+                imageview_signup_profilebackground.setImageDrawable(changeBackground)
             }
         }
 
@@ -158,7 +163,7 @@ class SignUpActivity : AppCompatActivity() {
 
             button_change_default_image.setOnClickListener{
                 textview_name_in_profile.visibility = View.VISIBLE
-                imageview_profile_signup.setImageResource(R.drawable.profile_circle)
+                imageview_signup_profilebackground.setImageResource(R.drawable.profile_circle)
                 bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
             }
         }
@@ -196,9 +201,9 @@ class SignUpActivity : AppCompatActivity() {
             when (requestCode) {
                 FLAG_REQ_STORAGE -> {
                     val uri = data?.data
-                    imageview_profile_signup.background = ShapeDrawable(OvalShape())
-                    imageview_profile_signup.clipToOutline = true
-                    imageview_profile_signup.setImageURI(uri)
+                    constraintlayout_signup_profile.background = ShapeDrawable(OvalShape())
+                    constraintlayout_signup_profile.clipToOutline = true
+                    imageview_signup_profilebackground.setImageURI(uri)
                     bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
                     textview_name_in_profile.visibility = View.GONE
                 }
@@ -246,52 +251,15 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun saveProfile() {
 
-//        val tvBitmap = textview_name_in_profile.getDrawingCache()
-//        val ivBitmap = imageview_profile_signup.getDrawingCache()
-//
-//        val tvProfileBitmap = Bitmap.createBitmap(tvBitmap.width, tvBitmap.height, tvBitmap.config)
-//        val ivProfileBitmap = Bitmap.createBitmap(ivBitmap.width, ivBitmap.height, ivBitmap.config)
-//        val canvas = Canvas()
-//
-//        canvas.drawBitmap(tvProfileBitmap, Matrix(),null)
-//        canvas.drawBitmap(ivProfileBitmap, Matrix(), null)
-
-        val tvName = findViewById<TextView>(R.id.textview_name_in_profile)
-        val ivProfileBackground = findViewById<ImageView>(R.id.imageview_profile_signup)
-
-        tvName.buildDrawingCache(true)
-        val namebitmap : Bitmap = tvName.getDrawingCache(true).copy(Bitmap.Config.ARGB_8888, false)
-        tvName.destroyDrawingCache()
-
-        ivProfileBackground.buildDrawingCache(true)
-        val profileBackgroundBitmap : Bitmap = ivProfileBackground.getDrawingCache(true).copy(Bitmap.Config.ARGB_8888, false)
-        ivProfileBackground.destroyDrawingCache()
-
-        val canvas = Canvas()
-        canvas.drawBitmap(profileBackgroundBitmap, Matrix(), null)
-        canvas.drawBitmap(namebitmap, Matrix(), null)
-
+        val profileRootLayout = constraintlayout_signup_profile
+        profileRootLayout.isDrawingCacheEnabled = true
+        profileRootLayout.buildDrawingCache()
+        val profileBitmap = profileRootLayout.drawingCache
         textview_name_in_profile.visibility = View.INVISIBLE
-        imageview_profile_signup.draw(canvas)
+        imageview_signup_profilebackground.setImageDrawable(BitmapDrawable(resources, profileBitmap))
 
-//        val intent = Intent(this, SetEmailPasswordActivity::class.java)
-//        startActivity(intent)
+        //Todo 비트맵 서버로 전송
+
+        startActivity(Intent(this, SetEmailPasswordActivity::class.java))
     }
-
-//    fun getBitmapFromText() : Bitmap? {
-//        var width = 0
-//        var height = 0
-//        width = windowManager.defaultDisplay.width
-//        height = windowManager.defaultDisplay.height
-//        var bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-//        var canvas = Canvas(bitmap)
-//        var profile : Canvas
-//          textview_name_in_profile.draw(canvas)
-//        var iv = imageview_profile_signup.draw(canvas)
-//
-//
-//        return bitmap
-//    }
-
-
 }

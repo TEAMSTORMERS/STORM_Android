@@ -78,35 +78,44 @@
             app:layout_constraintTop_toBottomOf="@id/edittext_name_signup"
             app:layout_constraintVertical_bias="0.03" />
 
-        <ImageView
-            android:id="@+id/imageview_profile_signup"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintlayout_signup_profile"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@drawable/circular_profile"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="@id/textview_profile"
-            app:layout_constraintHorizontal_bias="0.512"
             app:layout_constraintStart_toStartOf="@id/textview_profile"
             app:layout_constraintTop_toBottomOf="@id/textview_profile"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintHorizontal_bias="0.512"
             app:layout_constraintVertical_bias="0.056"
-            app:layout_constraintWidth_percent="0.394" />
+            app:layout_constraintWidth_percent="0.394">
 
+            <ImageView
+                android:id="@+id/imageview_signup_profilebackground"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/circular_profile"
+                android:background="@null"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
-        <TextView
-            android:id="@+id/textview_name_in_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLength="2"
-            android:textSize="45sp"
-            android:fontFamily="@font/notosans_bold"
-            android:textColor="@color/storm_white"
-            app:layout_constraintTop_toTopOf="@id/imageview_profile_signup"
-            app:layout_constraintBottom_toBottomOf="@id/imageview_profile_signup"
-            app:layout_constraintStart_toStartOf="@id/imageview_profile_signup"
-            app:layout_constraintEnd_toEndOf="@id/imageview_profile_signup"/>
+            <TextView
+                android:id="@+id/textview_name_in_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLength="2"
+                android:textSize="45sp"
+                android:fontFamily="@font/notosans_bold"
+                android:textColor="@color/storm_white"
+                app:layout_constraintTop_toTopOf="@id/constraintlayout_signup_profile"
+                app:layout_constraintBottom_toBottomOf="@id/constraintlayout_signup_profile"
+                app:layout_constraintStart_toStartOf="@id/constraintlayout_signup_profile"
+                app:layout_constraintEnd_toEndOf="@id/constraintlayout_signup_profile"/>
 
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
             android:id="@+id/imagebutton_set_profile"
@@ -117,8 +126,8 @@
             android:layout_marginStart="100dp"
             android:layout_marginTop="100dp"
             android:background="@drawable/join_profile_ic_camera"
-            app:layout_constraintStart_toStartOf="@id/imageview_profile_signup"
-            app:layout_constraintTop_toTopOf="@id/imageview_profile_signup" />
+            app:layout_constraintStart_toStartOf="@id/constraintlayout_signup_profile"
+            app:layout_constraintTop_toTopOf="@id/constraintlayout_signup_profile" />
 
         <ImageButton
             android:id="@+id/imagebutton_select_profile_yellow"
@@ -129,7 +138,7 @@
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toStartOf="@+id/imagebutton_select_profile_red"
             app:layout_constraintStart_toEndOf="@+id/imagebutton_select_profile_purple"
-            app:layout_constraintTop_toBottomOf="@+id/imageview_profile_signup"
+            app:layout_constraintTop_toBottomOf="@+id/constraintlayout_signup_profile"
             app:layout_constraintVertical_bias="0.116"
             app:layout_constraintWidth_percent="0.058" />
 
@@ -144,7 +153,7 @@
             app:layout_constraintEnd_toStartOf="@+id/imagebutton_select_profile_red_checked"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/imagebutton_select_profile_purple_checked"
-            app:layout_constraintTop_toBottomOf="@+id/imageview_profile_signup"
+            app:layout_constraintTop_toBottomOf="@+id/constraintlayout_signup_profile"
             app:layout_constraintVertical_bias="0.116"
             app:layout_constraintWidth_percent="0.058" />
 
@@ -159,7 +168,7 @@
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toStartOf="@+id/imagebutton_select_profile_yellow"
             app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="@+id/imageview_profile_signup"
+            app:layout_constraintStart_toStartOf="@+id/constraintlayout_signup_profile"
             app:layout_constraintTop_toTopOf="@id/imagebutton_select_profile_yellow"
             app:layout_constraintWidth_percent="0.058" />
 
@@ -187,7 +196,7 @@
             android:background="@drawable/join_profile_red"
             app:layout_constraintBottom_toBottomOf="@+id/imagebutton_select_profile_yellow"
             app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toEndOf="@+id/imageview_profile_signup"
+            app:layout_constraintEnd_toEndOf="@+id/constraintlayout_signup_profile"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/imagebutton_select_profile_yellow"
             app:layout_constraintTop_toTopOf="@+id/imagebutton_select_profile_yellow"
