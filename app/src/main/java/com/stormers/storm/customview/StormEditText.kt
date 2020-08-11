@@ -3,12 +3,14 @@ package com.stormers.storm.customview
 import android.content.Context
 import android.content.res.TypedArray
 import android.text.Editable
+import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.stormers.storm.R
 import kotlinx.android.synthetic.main.view_edittext_custom.view.*
+import java.util.*
 
 
 class StormEditText : ConstraintLayout {
@@ -82,5 +84,13 @@ class StormEditText : ConstraintLayout {
         }
 
         typedArray.recycle()
+    }
+
+    fun addTextChangedListener(watcher: TextWatcher) {
+        this.edittext_customedittext.addTextChangedListener(watcher)
+    }
+
+    fun removeTextChangedListener(watcher: TextWatcher) {
+        this.edittext_customedittext.removeTextChangedListener(watcher)
     }
 }
