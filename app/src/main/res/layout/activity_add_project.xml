@@ -18,9 +18,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <include
-        android:id="@+id/include_addproject_toolbar"
-        layout="@layout/view_toolbar"
+    <com.stormers.storm.customview.StormToolbar
+        android:id="@+id/stormtoolbar_addproject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="10dp"
@@ -41,7 +40,7 @@
         android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/include_addproject_toolbar" />
+        app:layout_constraintTop_toBottomOf="@id/stormtoolbar_addproject" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintlayout_back_card"

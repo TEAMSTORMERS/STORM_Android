@@ -41,39 +41,7 @@ class MainActivity : BaseActivity() {
         preference.setProjectName(null)
         preference.setHost(false)
 
-        val mainview_toolbar = findViewById(R.id.include_main_toolbar) as Toolbar
-
-        setSupportActionBar(mainview_toolbar)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.mainview_ic_bamburgerbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        val ab = supportActionBar!!
-        ab.setDisplayShowTitleEnabled(false)
-
-        val drawerToggle: ActionBarDrawerToggle = object : ActionBarDrawerToggle(
-            this, drawerlayout_main, mainview_toolbar, R.string.drawer_open, R.string.drawer_close) {
-            override fun onDrawerClosed(view: View){
-                super.onDrawerClosed(view)
-            }
-            override fun onDrawerOpened(drawerView: View){
-                super.onDrawerOpened(drawerView)
-            }
-        }
-
-        // Configure the drawer layout to add listener and show icon on toolbar
-        drawerToggle.isDrawerIndicatorEnabled = true
-        drawerlayout_main.addDrawerListener(drawerToggle)
-        drawerToggle.syncState()
-
-navigationview_main.setNavigationItemSelectedListener{menuItem ->
-            when(menuItem.itemId){
-                R.id.item1 -> Toast.makeText(this,"item1 selected", Toast.LENGTH_SHORT).show()
-                R.id.item2 -> Toast.makeText(this,"item2 selected", Toast.LENGTH_SHORT).show()
-                R.id.item3 -> Toast.makeText(this,"item3 selected", Toast.LENGTH_SHORT).show()
-            }
-            drawerlayout_main.closeDrawer(GravityCompat.START)
-            true
-        }
+        stormtoolbar_main.setMyPageButton()
 
         recentProjectsAdapter = ParticipatedProjectListAdapter(true, object : ParticipatedProjectListAdapter.OnProjectClickListener {
             override fun onProjectClick(projectIdx: Int) {

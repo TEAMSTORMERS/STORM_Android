@@ -17,9 +17,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <include
-        android:id="@+id/include_roundprogress_toolbar"
-        layout="@layout/view_toolbar"
+    <com.stormers.storm.customview.StormToolbar
+        android:id="@+id/stormtoolbar_roundprogress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="49dp"
@@ -52,7 +51,7 @@
         android:textColor="@color/storm_white"
         android:textSize="13sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include_roundprogress_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/stormtoolbar_roundprogress" />
 
     <TextView
         android:id="@+id/textView_round_goal"

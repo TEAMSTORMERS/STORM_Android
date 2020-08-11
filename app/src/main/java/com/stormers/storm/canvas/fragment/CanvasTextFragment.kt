@@ -3,7 +3,7 @@ package com.stormers.storm.canvas.fragment
 import android.util.Log
 import android.widget.Toast
 import com.stormers.storm.R
-import com.stormers.storm.RoundSetting.AddCardFragment
+import com.stormers.storm.card.fragment.AddCardFragment
 import com.stormers.storm.canvas.base.BaseCanvasFragment
 import com.stormers.storm.canvas.network.RequestCard
 import com.stormers.storm.card.model.SavedCardEntity
