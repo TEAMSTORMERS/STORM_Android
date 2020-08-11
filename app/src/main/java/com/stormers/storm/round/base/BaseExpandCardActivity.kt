@@ -24,6 +24,8 @@ abstract class BaseExpandCardActivity(private val isScraped: Boolean): BaseActiv
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_expandcard)
 
+        stormtoolbar_expandcard.setBackButton()
+
         val projectIdx = intent.getIntExtra("projectIdx", 1)
         val roundIdx = intent.getIntExtra("roundIdx", 1)
         val cardId = intent.getIntExtra("cardId", 0)

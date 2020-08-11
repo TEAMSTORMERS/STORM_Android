@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import com.stormers.storm.R
-import com.stormers.storm.RoundSetting.AddCardFragment
+import com.stormers.storm.card.fragment.AddCardFragment
 import com.stormers.storm.base.BaseFragment
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
@@ -14,6 +14,7 @@ import com.stormers.storm.canvas.fragment.CanvasDrawingFragment
 import com.stormers.storm.canvas.fragment.CanvasTextFragment
 import com.stormers.storm.card.repository.SavedCardRepository
 import com.stormers.storm.ui.RoundProgressActivity
+import kotlinx.android.synthetic.main.activity_round_progress.*
 import kotlinx.android.synthetic.main.fragment_round_canvas.*
 
 abstract class BaseCanvasFragment(private val mode: Int, @LayoutRes private val canvasLayout: Int) :
@@ -33,6 +34,10 @@ abstract class BaseCanvasFragment(private val mode: Int, @LayoutRes private val 
         super.onViewCreated(view, savedInstanceState)
 
         LayoutInflater.from(context).inflate(canvasLayout, cardview_roundcanvas_canvas)
+
+        (activity as RoundProgressActivity).stormtoolbar_roundprogress.setBackButton(View.OnClickListener {
+            goToFragment(AddCardFragment::class.java, null)
+        })
 
         initCanvas()
 

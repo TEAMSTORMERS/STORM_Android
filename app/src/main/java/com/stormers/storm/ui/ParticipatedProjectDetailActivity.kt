@@ -40,6 +40,8 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
 
     private var projectIdx = -1
 
+    private var isAfterProject = false
+
     private lateinit var retrofitClient_roundInfo: RequestRound
     private lateinit var retrofitClient: RequestProject
 
@@ -48,6 +50,18 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         setContentView(R.layout.activity_participated_project_detail)
 
         projectIdx = intent.getIntExtra("projectIdx", -1)
+        isAfterProject = intent.getBooleanExtra("isAfterProject", false)
+
+        stormtoolbar_participateddetail.run {
+            if (!isAfterProject) {
+                setBackButton()
+                setMyPageButton()
+            } else {
+                setExitButton(View.OnClickListener {
+                    finish()
+                })
+            }
+        }
 
         retrofitClient = RetrofitClient.create(RequestProject::class.java)
         retrofitClient_roundInfo = RetrofitClient.create(RequestRound::class.java)

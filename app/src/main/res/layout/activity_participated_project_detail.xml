@@ -14,43 +14,17 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintlayout_part_detail"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-            <ImageButton
-                android:id="@+id/imagebutton_storm_logo_part_detail"
-                android:layout_width="0dp"
+            <com.stormers.storm.customview.StormToolbar
+                android:id="@+id/stormtoolbar_participateddetail"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="49dp"
-                android:background="@drawable/storm_logo"
                 app:layout_constraintBottom_toTopOf="@id/cardView_date_round_part_detail"
-                app:layout_constraintDimensionRatio="w,4.46:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageButton
-                android:id="@+id/imageButton_back_part_detail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:background="@drawable/scrapcardview_ic_back"
-                app:layout_constraintBottom_toBottomOf="@+id/imagebutton_storm_logo_part_detail"
-                app:layout_constraintDimensionRatio="w,1:1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/imagebutton_storm_logo_part_detail" />
-
-            <ImageButton
-                android:id="@+id/imageButton_mypage_part_detail"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/scrapcardview_ic_mypage"
-                app:layout_constraintBottom_toBottomOf="@+id/imagebutton_storm_logo_part_detail"
-                app:layout_constraintDimensionRatio="w,1:1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/imagebutton_storm_logo_part_detail" />
-
-            <!--Todo: 실시간으로 참여하는 사람의 프로필 사진이 들어갈 동그라미를 추가해야 합니다 -->
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView_date_round_part_detail"
@@ -64,7 +38,7 @@
                 app:layout_constraintDimensionRatio="1:0.70"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imagebutton_storm_logo_part_detail"
+                app:layout_constraintTop_toBottomOf="@id/stormtoolbar_participateddetail"
                 app:layout_constraintVertical_bias="0.3"
                 app:layout_constraintWidth_percent="0.86">
 
@@ -130,7 +104,7 @@
                 app:layout_constraintDimensionRatio="1:0.67"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imagebutton_storm_logo_part_detail">
+                app:layout_constraintTop_toBottomOf="@+id/stormtoolbar_participateddetail">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"

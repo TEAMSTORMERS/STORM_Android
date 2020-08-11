@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
@@ -23,6 +24,10 @@ open class BaseProjectWaitingActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_round_setting)
+
+        stormtoolbar_roundsetting.setExitButton(View.OnClickListener {
+            //Todo: 프로젝트 나가기
+        })
 
         goToFragment(MemberWaitingFragment::class.java, null)
 

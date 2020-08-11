@@ -23,6 +23,11 @@ class ParticipatedProjectListActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_participated_project_list)
 
+        stormtoolbar_participatedproject.run {
+            setBackButton()
+            setMyPageButton()
+        }
+        
         participatedProjectListAdapter = ParticipatedProjectListAdapter(false, object:
             ParticipatedProjectListAdapter.OnProjectClickListener {
             override fun onProjectClick(projectIdx: Int) {
