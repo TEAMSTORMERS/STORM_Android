@@ -4,14 +4,10 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.content.res.Resources
 import android.graphics.*
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
-import android.media.Image
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
@@ -26,66 +22,56 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.drawToBitmap
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.stormers.storm.R
-import com.stormers.storm.card.util.BitmapConverter
-import kotlinx.android.synthetic.main.activity_add_project.*
 import kotlinx.android.synthetic.main.activity_sigin_up.*
 import kotlinx.android.synthetic.main.bottomsheet_select_profile.*
 
-class SiginUpActivity : AppCompatActivity() {
+class SignUpActivity : AppCompatActivity() {
 
-    val change_background = GradientDrawable()
-    val FLAG_REQ_STORAGE = 102
-    lateinit var profile : ImageView
+    companion object {
+        private const val TAG = "SignUpActivity"
+        private const val FLAG_REQ_STORAGE = 102
+    }
 
+    private val changeBackground = GradientDrawable()
 
+    private lateinit var profile : ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sigin_up)
 
-        var edittext_name = findViewById<EditText>(R.id.edittext_name_signup)
-
+        val editTextName = findViewById<EditText>(R.id.edittext_name_signup)
 
         selectProfileColor()
 
         //사용자 이름 textview 적용
-        edittext_name.addTextChangedListener(object :TextWatcher{
+        editTextName.addTextChangedListener(object :TextWatcher{
             override fun afterTextChanged(s: Editable?) {
 
-                if (edittext_name.text.length < 2){
+                if (editTextName.text.length < 2){
                     textview_input_more_than_two_char.visibility = View.VISIBLE
                 } else {
                     textview_input_more_than_two_char.visibility = View.GONE
                 }
-
-                var first_two_characters = edittext_name.text.substring(0, edittext_name.text.length)
-                textview_name_in_profile.setText(first_two_characters)
-
+                val first_two_characters = editTextName.text.substring(0, editTextName.text.length)
+                textview_name_in_profile.text = first_two_characters
             }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
 
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-
-            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
         })
-
-
-        change_profile()
+        changeProfile()
 
         goToNextSignUpPage()
     }
 
     // 프로필 default image color변경
-    fun selectProfileColor(){
+    private fun selectProfileColor(){
 
             imagebutton_select_profile_purple.setOnClickListener{
                 imagebutton_select_profile_purple.visibility = View.INVISIBLE
@@ -100,8 +86,8 @@ class SiginUpActivity : AppCompatActivity() {
                 //라운딩 및 프로필 색 변환
                 imageview_profile_signup.background = ShapeDrawable(OvalShape())
                 imageview_profile_signup.clipToOutline = true
-                change_background.setColor(resources.getColor(R.color.storm_purple))
-                imageview_profile_signup.setImageDrawable(change_background)
+                changeBackground.setColor(resources.getColor(R.color.storm_purple))
+                imageview_profile_signup.setImageDrawable(changeBackground)
 
 
             }
@@ -118,8 +104,8 @@ class SiginUpActivity : AppCompatActivity() {
 
                 imageview_profile_signup.background = ShapeDrawable(OvalShape())
                 imageview_profile_signup.clipToOutline = true
-                change_background.setColor(resources.getColor(R.color.storm_red))
-                imageview_profile_signup.setImageDrawable(change_background)
+                changeBackground.setColor(resources.getColor(R.color.storm_red))
+                imageview_profile_signup.setImageDrawable(changeBackground)
 
             }
 
@@ -135,34 +121,29 @@ class SiginUpActivity : AppCompatActivity() {
 
                 imageview_profile_signup.background = ShapeDrawable(OvalShape())
                 imageview_profile_signup.clipToOutline = true
-                change_background.setColor(resources.getColor(R.color.storm_yellow))
-                imageview_profile_signup.setImageDrawable(change_background)
+                changeBackground.setColor(resources.getColor(R.color.storm_yellow))
+                imageview_profile_signup.setImageDrawable(changeBackground)
             }
         }
 
 
     // 프로필 사진 선택 BottomSheet
-    fun change_profile(){
+    private fun changeProfile() {
         val bottomSheetChangeProfile : BottomSheetBehavior<View> = BottomSheetBehavior.from(bottomsheet_profile_select)
 
         bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
 
         bottomSheetChangeProfile.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback(){
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-
-            }
+            override fun onSlide(bottomSheet: View, slideOffset: Float) { }
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
+                    view_bottom_sheet_blur.visibility = View.VISIBLE
+                    bottomsheet_profile_select.visibility = View.VISIBLE
 
-                when(newState){
-                    BottomSheetBehavior.STATE_COLLAPSED -> {
-                        view_bottom_sheet_blur.visibility = View.VISIBLE
-                        bottomsheet_profile_select.visibility = View.VISIBLE
-                    }
-                    BottomSheetBehavior.STATE_HIDDEN -> {
-                        view_bottom_sheet_blur.visibility = View.INVISIBLE
-                        bottomsheet_profile_select.visibility = View.INVISIBLE
-                    }
+                } else if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    view_bottom_sheet_blur.visibility = View.INVISIBLE
+                    bottomsheet_profile_select.visibility = View.INVISIBLE
                 }
             }
         })
@@ -179,7 +160,6 @@ class SiginUpActivity : AppCompatActivity() {
                 textview_name_in_profile.visibility = View.VISIBLE
                 imageview_profile_signup.setImageResource(R.drawable.profile_circle)
                 bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
-
             }
         }
 
@@ -188,18 +168,18 @@ class SiginUpActivity : AppCompatActivity() {
         }
     }
 
-    fun settingPermission() {
-        var permis = object : PermissionListener {
+    private fun settingPermission() {
+        val permissionListener = object : PermissionListener {
             override fun onPermissionGranted() {
-                Log.d("PermissionGranted","권한 허가")
+                Log.d(TAG,"settingPermission() : PermissionGranted")
             }
 
             override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
-                Log.d("PermissionDenied", "권한 거부")
+                Log.d(TAG, "settingPermission() : PermissionDenied")
             }
         }
 
-        TedPermission.with(applicationContext).setPermissionListener(permis)
+        TedPermission.with(applicationContext).setPermissionListener(permissionListener)
             .setPermissions(
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 android.Manifest.permission.CAMERA)
@@ -227,13 +207,13 @@ class SiginUpActivity : AppCompatActivity() {
     }
 
     private fun selectGallery() {
-        var writePermission = ContextCompat.checkSelfPermission(applicationContext!!, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        var readPermission = ContextCompat.checkSelfPermission(applicationContext!!, android.Manifest.permission.READ_EXTERNAL_STORAGE)
+        val writePermission = ContextCompat.checkSelfPermission(applicationContext!!, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        val readPermission = ContextCompat.checkSelfPermission(applicationContext!!, android.Manifest.permission.READ_EXTERNAL_STORAGE)
 
         if (writePermission == PackageManager.PERMISSION_DENIED || readPermission == PackageManager.PERMISSION_DENIED) {
-
+            Log.d(TAG, "selectGallery() : Permission is denied")
         } else {
-            var intent = Intent(Intent.ACTION_PICK)
+            val intent = Intent(Intent.ACTION_PICK)
             intent.type = MediaStore.Images.Media.CONTENT_TYPE
             startActivityForResult(intent, FLAG_REQ_STORAGE)
         }
@@ -247,22 +227,24 @@ class SiginUpActivity : AppCompatActivity() {
         return super.dispatchTouchEvent(ev)
     }
 
-    fun goToNextSignUpPage(){
+    private fun goToNextSignUpPage(){
 
         button_next_signup.setOnClickListener{
-            if(edittext_name_signup.text.isNullOrBlank()){
-                Toast.makeText(this,"이름을 입력해주세요!", Toast.LENGTH_SHORT).show()
-            } else {
-                if(edittext_name_signup.text.length < 2){
+            when {
+                edittext_name_signup.text.isNullOrBlank() -> {
+                    Toast.makeText(this,"이름을 입력해주세요!", Toast.LENGTH_SHORT).show()
+                }
+                edittext_name_signup.text.length < 2 -> {
                     Toast.makeText(this,"이름을 2글자 이상 입력해주세요",Toast.LENGTH_SHORT).show()
-                } else {
+                }
+                else -> {
                     saveProfile()
                 }
             }
         }
     }
 
-    fun saveProfile() {
+    private fun saveProfile() {
 
 //        val tvBitmap = textview_name_in_profile.getDrawingCache()
 //        val ivBitmap = imageview_profile_signup.getDrawingCache()
