@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    tools:context=".ui.MypageActivity">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <!--Fixme: 임시로 넣어둔 더미데이터입니다!-->
     <de.hdodenhof.circleimageview.CircleImageView
@@ -12,7 +17,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintWidth_percent="0.5"
-        android:layout_marginTop="83dp"
+        android:layout_marginTop="158dp"
         android:elevation="10dp"
         android:src="@drawable/storm_logo_example"
         app:layout_constraintDimensionRatio="1:1"
@@ -50,7 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="37dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="70dp"
         android:fontFamily="@font/notosans_medium"
         android:text="사용자 이름"
         android:textColor="@color/storm_popup_line_gray"
@@ -62,16 +67,17 @@
         android:id="@+id/edittext_user_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="11dp"
-        android:layout_marginEnd="10dp"
+        android:background="@null"
         android:fontFamily="@font/notosans_bold"
         android:includeFontPadding="false"
-        android:text="강희원"
-        android:textSize="16sp"
-        android:singleLine="true"
         android:lines="1"
+        android:singleLine="true"
+        android:text="강희원"
         android:textColor="@color/storm_gray"
-        android:background="@null"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/imagebutton_mypage_edit"
         app:layout_constraintStart_toStartOf="@+id/textview_user_name"
         app:layout_constraintTop_toBottomOf="@+id/textview_user_name" />
 
@@ -88,53 +94,28 @@
         app:layout_constraintTop_toTopOf="@+id/edittext_user_name" />
 
     <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="26dp"
+        android:id="@+id/view_mypage"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginHorizontal="30dp"
         android:background="@color/storm_popup_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edittext_user_name" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint_project_align"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/textview_notice"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="37dp"
-        android:paddingRight="39dp"
-        android:layout_marginTop="26dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view"
-        android:clickable="true">
-
-        <TextView
-            android:id="@+id/textview_project_align"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/notosans_bold"
-            android:text="참여한 프로젝트 정렬"
-            android:textSize="16sp"
-            android:textColor="@color/selector_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:duplicateParentState="true" />
-
-        <ImageButton
-            android:id="@+id/imagebutton_project_align"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/selector_image"
-            app:layout_constraintBottom_toBottomOf="@+id/textview_project_align"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textview_project_align"
-            android:duplicateParentState="true"
-            android:clickable="false"
-            android:focusable="false"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:fontFamily="@font/notosans_medium"
+        android:text="2자 이상 입력해주세요."
+        android:textColor="@color/storm_red"
+        android:textSize="11sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/view_mypage"
+        app:layout_constraintTop_toBottomOf="@+id/view_mypage"
+        android:visibility="invisible" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_qna"
@@ -142,10 +123,10 @@
         android:layout_height="wrap_content"
         android:paddingLeft="37dp"
         android:paddingRight="39dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="63dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraint_project_align"
+        app:layout_constraintTop_toBottomOf="@+id/view_mypage"
         android:clickable="true">
 
         <TextView
@@ -254,5 +235,19 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/view_bottom_sheet_blur_mypage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99000000"
+        android:visibility="gone"/>
+
+    <include
+        android:id="@+id/bottomsheet_profile_select_mypage"
+        layout="@layout/bottomsheet_select_profile"/>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+

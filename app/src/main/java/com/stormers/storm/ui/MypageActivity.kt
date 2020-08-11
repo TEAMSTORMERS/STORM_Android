@@ -3,7 +3,7 @@ package com.stormers.storm.ui
 import android.os.Bundle
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
-import com.stormers.storm.mypageedittext_user_name.fragment.MypageProfileFragment
+import com.stormers.storm.mypage.fragment.MypageProfileFragment
 
 class MypageActivity : BaseActivity() {
 
