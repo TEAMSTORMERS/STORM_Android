@@ -4,9 +4,10 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Matrix
+import android.content.res.Resources
+import android.graphics.*
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
@@ -25,11 +26,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.drawToBitmap
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.stormers.storm.R
 import com.stormers.storm.card.util.BitmapConverter
+import kotlinx.android.synthetic.main.activity_add_project.*
 import kotlinx.android.synthetic.main.activity_sigin_up.*
 import kotlinx.android.synthetic.main.bottomsheet_select_profile.*
 
@@ -40,12 +43,12 @@ class SiginUpActivity : AppCompatActivity() {
     lateinit var profile : ImageView
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sigin_up)
 
         var edittext_name = findViewById<EditText>(R.id.edittext_name_signup)
-       // val bmp = Bitmap.createBitmap(textview_name_in_profile.getDrawingCache())
 
 
         selectProfileColor()
@@ -259,34 +262,54 @@ class SiginUpActivity : AppCompatActivity() {
         }
     }
 
-//    fun combineImages(background: Bitmap?, foreground: Bitmap?): Bitmap? {
+    fun saveProfile() {
+
+//        val tvBitmap = textview_name_in_profile.getDrawingCache()
+//        val ivBitmap = imageview_profile_signup.getDrawingCache()
 //
-//        var background = background
+//        val tvProfileBitmap = Bitmap.createBitmap(tvBitmap.width, tvBitmap.height, tvBitmap.config)
+//        val ivProfileBitmap = Bitmap.createBitmap(ivBitmap.width, ivBitmap.height, ivBitmap.config)
+//        val canvas = Canvas()
+//
+//        canvas.drawBitmap(tvProfileBitmap, Matrix(),null)
+//        canvas.drawBitmap(ivProfileBitmap, Matrix(), null)
+
+        val tvName = findViewById<TextView>(R.id.textview_name_in_profile)
+        val ivProfileBackground = findViewById<ImageView>(R.id.imageview_profile_signup)
+
+        tvName.buildDrawingCache(true)
+        val namebitmap : Bitmap = tvName.getDrawingCache(true).copy(Bitmap.Config.ARGB_8888, false)
+        tvName.destroyDrawingCache()
+
+        ivProfileBackground.buildDrawingCache(true)
+        val profileBackgroundBitmap : Bitmap = ivProfileBackground.getDrawingCache(true).copy(Bitmap.Config.ARGB_8888, false)
+        ivProfileBackground.destroyDrawingCache()
+
+        val canvas = Canvas()
+        canvas.drawBitmap(profileBackgroundBitmap, Matrix(), null)
+        canvas.drawBitmap(namebitmap, Matrix(), null)
+
+        textview_name_in_profile.visibility = View.INVISIBLE
+        imageview_profile_signup.draw(canvas)
+
+//        val intent = Intent(this, SetEmailPasswordActivity::class.java)
+//        startActivity(intent)
+    }
+
+//    fun getBitmapFromText() : Bitmap? {
 //        var width = 0
 //        var height = 0
-//        val cs: Bitmap
 //        width = windowManager.defaultDisplay.width
 //        height = windowManager.defaultDisplay.height
-//        cs = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-//        val comboImage = Canvas(cs)
-//        background = Bitmap.createScaledBitmap(background!!, width, height, true)
-//        comboImage.drawBitmap(background, Matrix(), null)
-//        comboImage.drawBitmap(foreground!!, Matrix(), null)
-//        return cs
+//        var bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+//        var canvas = Canvas(bitmap)
+//        var profile : Canvas
+//          textview_name_in_profile.draw(canvas)
+//        var iv = imageview_profile_signup.draw(canvas)
+//
+//
+//        return bitmap
 //    }
 
-    fun saveProfile() {
-        val textName = findViewById<TextView>(R.id.textview_name_in_profile)
-        textName.buildDrawingCache()
-        val imageBackground = findViewById<ImageView>(R.id.imageview_profile_signup)
-        imageBackground.setImageBitmap(textName.getDrawingCache())
-        textview_name_in_profile.visibility = View.INVISIBLE
-        imageview_profile_signup.visibility = View.INVISIBLE
 
-
-        val intent = Intent(this, SetEmailPasswordActivity::class.java)
-        intent.putExtra("profile", imageBackground.toString())
-        startActivity(intent)
-
-    }
 }
