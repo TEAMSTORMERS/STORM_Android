@@ -47,7 +47,7 @@
             app:layout_constraintTop_toBottomOf="@id/textview_sign_up"
             app:layout_constraintVertical_bias="0.1" />
 
-        <EditText
+        <com.stormers.storm.customview.StormEditText
             android:id="@+id/edittext_name_signup"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -55,11 +55,11 @@
             android:inputType="text"
             android:maxLines="1"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/imagebutton_select_profile_red"
-            app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="@id/imagebutton_select_profile_purple"
-            app:layout_constraintTop_toBottomOf="@id/imagebutton_select_profile_yellow"
-            app:layout_constraintVertical_bias="0.175"
+            app:layout_constraintEnd_toEndOf="@id/constraintlayout_signup_profile"
+            app:layout_constraintHorizontal_bias="0.491"
+            app:layout_constraintStart_toStartOf="@id/constraintlayout_signup_profile"
+            app:layout_constraintTop_toBottomOf="@id/constraintlayout_signup_profile"
+            app:layout_constraintVertical_bias="0.353"
             app:layout_constraintWidth_percent="0.83" />
 
         <TextView

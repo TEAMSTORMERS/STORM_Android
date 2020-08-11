@@ -49,27 +49,10 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sigin_up)
 
-        val editTextName = findViewById<EditText>(R.id.edittext_name_signup)
-
         selectProfileColor()
 
-        //사용자 이름 textview 적용
-        editTextName.addTextChangedListener(object :TextWatcher{
-            override fun afterTextChanged(s: Editable?) {
+        setNameTextWatcher()
 
-                if (editTextName.text.length < 2){
-                    textview_input_more_than_two_char.visibility = View.VISIBLE
-                } else {
-                    textview_input_more_than_two_char.visibility = View.GONE
-                }
-                val first_two_characters = editTextName.text.substring(0, editTextName.text.length)
-                textview_name_in_profile.text = first_two_characters
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
-        })
         changeProfile()
 
         goToNextSignUpPage()
@@ -239,7 +222,7 @@ class SignUpActivity : AppCompatActivity() {
                 edittext_name_signup.text.isNullOrBlank() -> {
                     Toast.makeText(this,"이름을 입력해주세요!", Toast.LENGTH_SHORT).show()
                 }
-                edittext_name_signup.text.length < 2 -> {
+                edittext_name_signup.text!!.length < 2 -> {
                     Toast.makeText(this,"이름을 2글자 이상 입력해주세요",Toast.LENGTH_SHORT).show()
                 }
                 else -> {
@@ -247,6 +230,25 @@ class SignUpActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    fun setNameTextWatcher(){
+        edittext_name_signup.addTextChangedListener(object :TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+
+                if (edittext_name_signup.text!!.length < 2){
+                    textview_input_more_than_two_char.visibility = View.VISIBLE
+                } else {
+                    textview_input_more_than_two_char.visibility = View.GONE
+                }
+                val first_two_characters = edittext_name_signup.text!!.substring(0, edittext_name_signup.text!!.length)
+                textview_name_in_profile.text = first_two_characters
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
+        })
     }
 
     private fun saveProfile() {
@@ -260,6 +262,6 @@ class SignUpActivity : AppCompatActivity() {
 
         //Todo 비트맵 서버로 전송
 
-        startActivity(Intent(this, SetEmailPasswordActivity::class.java))
+        startActivity(Intent(this, LoginActivity::class.java))
     }
 }

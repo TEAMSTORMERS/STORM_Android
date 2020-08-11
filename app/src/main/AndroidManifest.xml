@@ -32,7 +32,13 @@
 
         <activity
             android:name=".ui.LoginActivity"
-            android:theme="@style/loginTheme"></activity>
+            android:theme="@style/loginTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.AddProjectActivity" />
         <activity
             android:name=".ui.MainActivity"
@@ -53,12 +59,6 @@
             android:name=".ui.SignUpActivity"
             android:theme="@style/loginTheme"
             android:windowSoftInputMode="adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
         </activity>
 
         <provider

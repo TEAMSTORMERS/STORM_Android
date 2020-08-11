@@ -5,13 +5,18 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.View
 import android.widget.Toast
 import com.stormers.storm.R
+import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.card.util.BitmapConverter
 import kotlinx.android.synthetic.main.activity_set_email_password.*
+import kotlinx.android.synthetic.main.activity_sigin_up.*
 import kotlin.math.sign
 
-class SetEmailPasswordActivity : AppCompatActivity() {
+class SetEmailPasswordActivity : BaseActivity() {
 
     lateinit var pref : SharedPreferences
     lateinit var editor: SharedPreferences.Editor
@@ -22,6 +27,7 @@ class SetEmailPasswordActivity : AppCompatActivity() {
         setContentView(R.layout.activity_set_email_password)
 
         signUp()
+        signUpTextWatcher()
     }
 
     fun signUp(){
@@ -62,7 +68,7 @@ class SetEmailPasswordActivity : AppCompatActivity() {
 
                      */
 
-                    val intent = Intent(this, LoginActivity::class.java)
+                    val intent = Intent(this, SignUpActivity::class.java)
 
                     editor.putString("email", edittext_input_email.text.toString())
                     editor.putString("password", edittext_input_password.text.toString())
@@ -81,6 +87,26 @@ class SetEmailPasswordActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    fun signUpTextWatcher() {
+
+        edittext_input_password.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+                if (edittext_input_password.text!!.length >= 1 && edittext_input_password.text!!.length < 8){
+                    textview_password_warning.setText("8자 이상 입력해주세요")
+                    textview_password_warning.visibility = View.VISIBLE
+                } else {
+                    textview_password_warning.visibility = View.GONE
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
+        })
+
     }
 
 }
