@@ -142,6 +142,7 @@
         android:text="로그인"
         android:textColor="@color/storm_gray"
         android:textSize="16sp"
+        android:foreground="?android:selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:0.16"
         app:layout_constraintEnd_toEndOf="@id/edittext_password_login"
