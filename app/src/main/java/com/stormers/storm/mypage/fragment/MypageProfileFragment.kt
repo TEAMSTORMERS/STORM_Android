@@ -61,7 +61,7 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
 
         edittext_user_name.filters = Array(1) {textSetFilter()}
 
-        imagebutton_mypage_edit.setOnClickListener {
+        constraint_mypage_edit.setOnClickListener {
 
             edittext_user_name.isEnabled = true
 

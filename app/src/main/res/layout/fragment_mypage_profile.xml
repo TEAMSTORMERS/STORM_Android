@@ -77,21 +77,37 @@
         android:text="강희원"
         android:textColor="@color/storm_gray"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/imagebutton_mypage_edit"
+        app:layout_constraintEnd_toStartOf="@+id/constraint_mypage_edit"
         app:layout_constraintStart_toStartOf="@+id/textview_user_name"
         app:layout_constraintTop_toBottomOf="@+id/textview_user_name" />
 
-    <ImageButton
-        android:id="@+id/imagebutton_mypage_edit"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_mypage_edit"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="35dp"
-        app:layout_constraintWidth_percent="0.0416"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view_mypage"
         app:layout_constraintDimensionRatio="1:1"
-        android:background="@drawable/mypage_ic_edit"
-        app:layout_constraintBottom_toBottomOf="@+id/edittext_user_name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/edittext_user_name" />
+        app:layout_constraintWidth_percent="0.13"
+        android:clickable="true" >
+
+        <ImageButton
+            android:id="@+id/imagebutton_mypage_edit"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/mypage_ic_edit"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.3125"
+            android:clickable="false"
+            android:focusable="false"
+            android:duplicateParentState="true" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:id="@+id/view_mypage"
