@@ -19,7 +19,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         toos:replace="android:label">
-        <activity android:name=".ui.CompleteSignUpActivity"></activity>
+        <activity android:name=".ui.CompleteSignUpActivity">
+
+        </activity>
         <activity
             android:name=".ui.SetEmailPasswordActivity"
             android:theme="@style/loginTheme"
@@ -37,6 +39,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity android:name=".ui.AddProjectActivity" />
         <activity
