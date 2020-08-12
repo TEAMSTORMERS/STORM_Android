@@ -36,6 +36,8 @@ import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseFragment
+import com.stormers.storm.customview.dialog.StormDialogBuilder
+import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.ui.MypageActivity
 import kotlinx.android.synthetic.main.activity_mypage.*
 import kotlinx.android.synthetic.main.activity_sigin_up.*
@@ -163,6 +165,37 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
 
         view_bottom_sheet_blur_mypage.setOnClickListener{
             bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
+        }
+
+        //회원 탈퇴 fragment로 이동
+        constraint_withdrawa.setOnClickListener {
+            goToFragment(MypageWithdrawalFragment::class.java, null)
+        }
+
+        //로그아웃 다이얼로그
+        constraint_logout.setOnClickListener {
+            val buttonArray = ArrayList<StormDialogButton>()
+
+            buttonArray.add(
+                StormDialogButton("취소", true, object : StormDialogButton.OnClickListener {
+                    override fun onClick() {
+                    }
+                })
+            )
+
+            buttonArray.add(
+                StormDialogButton("확인", true, object : StormDialogButton.OnClickListener {
+                    override fun onClick() {
+                    }
+                })
+            )
+
+            fragmentManager?.let {
+                StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, "로그아웃 하시겠습니까?")
+                    .setHorizontalArray(buttonArray)
+                    .build()
+                    .show(it, "logout")
+            }
         }
     }
 

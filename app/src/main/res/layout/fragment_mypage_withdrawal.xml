@@ -46,7 +46,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginHorizontal="40dp"
         app:layout_constraintHeight_percent="0.15"
-        app:layout_constraintDimensionRatio="h,2.33:1"
+        app:layout_constraintDimensionRatio="h,2.7:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_withdrawal_reason" />
@@ -95,5 +95,16 @@
         android:textSize="11sp"
         app:layout_constraintEnd_toEndOf="@+id/edittext_withdrawal_pwd"
         app:layout_constraintTop_toBottomOf="@+id/edittext_withdrawal_pwd" />
+
+    <com.stormers.storm.customview.StormButton
+        android:id="@+id/stormbutton_withdrawal_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="55dp"
+        android:elevation="10dp"
+        android:text="다음"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
