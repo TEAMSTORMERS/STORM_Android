@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android"
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <item android:state_pressed="false">
-        <shape>
-            <solid android:color="@color/storm_popup_line_gray" />
-            <corners android:radius="11dp" />
-        </shape>
-    </item>
 
-    <item android:state_pressed="true">
-        <shape>
-            <solid android:color="@color/storm_gray"/>
-            <corners android:radius="11dp"/>
-        </shape>
+    <solid android:color="@color/storm_popup_line_gray" />
+    <corners android:radius="11dp" />
 
-    </item>
-</selector>
+</shape>

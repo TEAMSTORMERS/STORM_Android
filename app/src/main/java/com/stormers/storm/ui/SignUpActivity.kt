@@ -217,7 +217,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun goToNextSignUpPage(){
 
-        button_next_signup.setOnClickListener{
+        button_complete_signup.setOnClickListener{
             when {
                 edittext_name_signup.text.isNullOrBlank() -> {
                     Toast.makeText(this,"이름을 입력해주세요!", Toast.LENGTH_SHORT).show()
@@ -227,6 +227,9 @@ class SignUpActivity : AppCompatActivity() {
                 }
                 else -> {
                     saveProfile()
+
+                    val intent = Intent(this, SetEmailPasswordActivity::class.java)
+                    startActivity(intent)
                 }
             }
         }
@@ -261,7 +264,5 @@ class SignUpActivity : AppCompatActivity() {
         imageview_signup_profilebackground.setImageDrawable(BitmapDrawable(resources, profileBitmap))
 
         //Todo 비트맵 서버로 전송
-
-        startActivity(Intent(this, LoginActivity::class.java))
     }
 }

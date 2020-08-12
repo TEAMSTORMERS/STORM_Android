@@ -52,6 +52,7 @@
         android:drawableLeft="@drawable/login_ic_email"
         android:drawablePadding="16dp"
         android:fontFamily="@font/notosans_medium"
+        android:inputType="textEmailAddress"
         android:hint="이메일을 입력하세요"
         android:paddingStart="17dp"
         android:textColor="@color/storm_gray"
@@ -74,6 +75,7 @@
         android:drawableLeft="@drawable/login_password_icn"
         android:drawablePadding="16dp"
         android:hint="비밀번호를 입력하세요"
+        android:inputType="textPassword"
         android:paddingStart="17dp"
         android:fontFamily="@font/notosans_medium"
         android:textColor="@color/storm_gray"
@@ -169,6 +171,7 @@
             android:textColor="@color/storm_popup_line_gray"/>
 
         <TextView
+            android:id="@+id/textview_goto_sign_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="가입하기"

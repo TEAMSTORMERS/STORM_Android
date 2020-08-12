@@ -3,6 +3,7 @@ package com.stormers.storm.ui
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.AsyncTask
@@ -54,6 +55,7 @@ class LoginActivity : BaseActivity() {
 
         initView()
 
+        gotoSignUp()
         logIn()
     }
 
@@ -74,9 +76,18 @@ class LoginActivity : BaseActivity() {
                 textview_login_info.visibility = View.GONE
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
+                finish()
             }
 
         }
     }
 
+    fun gotoSignUp() {
+
+        textview_goto_sign_up.setOnClickListener {
+
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+        }
+    }
 }

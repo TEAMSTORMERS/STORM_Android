@@ -221,7 +221,7 @@
 
 
         <Button
-            android:id="@+id/button_next_signup"
+            android:id="@+id/button_complete_signup"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/box_red_radius"
