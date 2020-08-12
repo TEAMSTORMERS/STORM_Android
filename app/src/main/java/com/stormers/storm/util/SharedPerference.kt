@@ -13,6 +13,8 @@ class SharedPreference(context: Context) {
         const val USER_IDX = "user_idx"
         const val PROJECT_CODE = "project_code"
         const val HOST = "is_host"
+        const val AUTO_LOGIN = "auto_login"
+
     }
 
     private val prefs: SharedPreferences =
@@ -112,6 +114,14 @@ class SharedPreference(context: Context) {
 
     fun isHost(): Boolean {
         return getBoolean(HOST)
+    }
+
+    fun setAutoLogIn(auto_login : Boolean) {
+        setBoolean(AUTO_LOGIN, auto_login)
+    }
+
+    fun getAutoLogIn() : Boolean{
+        return getBoolean(AUTO_LOGIN)
     }
 }
 
