@@ -68,7 +68,7 @@ class MainActivity : BaseActivity() {
                 val participatedCode = edittext_input_participate_code.text.toString()
 
                 RetrofitClient.create(RequestProject::class.java)
-                    .joinProjectUsingCode(JoinProjectUsingCodeModel(preference.getUserIdx()!!, participatedCode))
+                    .joinProjectUsingCode(JoinProjectUsingCodeModel(1, participatedCode))
                     .enqueue(object : Callback<ResponseJoinProjectUsingCode> {
 
                         override fun onFailure(call: Call<ResponseJoinProjectUsingCode>, t: Throwable) {
@@ -112,7 +112,7 @@ class MainActivity : BaseActivity() {
 
     private fun loadProjectsDatas() {
 
-        RetrofitClient.create(RequestProject::class.java).requestParticipatedProject(preference.getUserIdx()!!)
+        RetrofitClient.create(RequestProject::class.java).requestParticipatedProject(1)
             .enqueue(object: Callback<ResponseParticipatedProject> {
                 override fun onFailure(call: Call<ResponseParticipatedProject>, t: Throwable) {
                     Log.d("requestParticipatedPj", "fail : ${t.message}")

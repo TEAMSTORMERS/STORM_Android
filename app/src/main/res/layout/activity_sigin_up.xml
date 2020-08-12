@@ -143,27 +143,11 @@
             app:layout_constraintWidth_percent="0.058" />
 
         <ImageButton
-            android:id="@+id/imagebutton_select_profile_yellow_checked"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:visibility="invisible"
-            android:background="@drawable/join_profile_selected_yellow"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toStartOf="@+id/imagebutton_select_profile_red_checked"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imagebutton_select_profile_purple_checked"
-            app:layout_constraintTop_toBottomOf="@+id/constraintlayout_signup_profile"
-            app:layout_constraintVertical_bias="0.116"
-            app:layout_constraintWidth_percent="0.058" />
-
-        <ImageButton
             android:id="@+id/imagebutton_select_profile_purple"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginEnd="22dp"
-            android:visibility="invisible"
-            android:background="@drawable/circular_profile"
+            android:background="@drawable/join_profile_selected_purple"
             app:layout_constraintBottom_toBottomOf="@id/imagebutton_select_profile_yellow"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toStartOf="@+id/imagebutton_select_profile_yellow"
@@ -171,22 +155,6 @@
             app:layout_constraintStart_toStartOf="@+id/constraintlayout_signup_profile"
             app:layout_constraintTop_toTopOf="@id/imagebutton_select_profile_yellow"
             app:layout_constraintWidth_percent="0.058" />
-
-        <ImageButton
-            android:id="@+id/imagebutton_select_profile_purple_checked"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginEnd="22dp"
-            android:background="@drawable/join_profile_selected_purple"
-            app:layout_constraintBottom_toBottomOf="@id/imagebutton_select_profile_yellow_checked"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toStartOf="@+id/imagebutton_select_profile_yellow_checked"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/imagebutton_select_profile_yellow_checked"
-            app:layout_constraintWidth_percent="0.058" />
-
 
         <ImageButton
             android:id="@+id/imagebutton_select_profile_red"
@@ -202,23 +170,6 @@
             app:layout_constraintTop_toTopOf="@+id/imagebutton_select_profile_yellow"
             app:layout_constraintVertical_bias="1.0"
             app:layout_constraintWidth_percent="0.058" />
-
-        <ImageButton
-            android:id="@+id/imagebutton_select_profile_red_checked"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="22dp"
-            android:visibility="invisible"
-            android:background="@drawable/join_profile_selected_red"
-            app:layout_constraintBottom_toBottomOf="@+id/imagebutton_select_profile_yellow_checked"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/imagebutton_select_profile_yellow_checked"
-            app:layout_constraintTop_toTopOf="@+id/imagebutton_select_profile_yellow_checked"
-            app:layout_constraintVertical_bias="1.0"
-            app:layout_constraintWidth_percent="0.058" />
-
 
         <Button
             android:id="@+id/button_complete_signup"
