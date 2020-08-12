@@ -18,13 +18,8 @@ class SetEmailPasswordActivity : BaseActivity() {
         setContentView(R.layout.activity_set_email_password)
 
         signUpTextWatcher()
-
-        button_next_signup.setOnClickListener(){
-
-            val intent = Intent(this, CompleteSignUpActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-        }
+        goBackActivity()
+        goCompleteSignUpActivity()
     }
 
     fun signUpTextWatcher() {
@@ -93,5 +88,21 @@ class SetEmailPasswordActivity : BaseActivity() {
 
     fun isEmailValid(email: String): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    fun goBackActivity(){
+        button_back_signup.setOnClickListener {
+            startActivity(Intent(this, SignUpActivity::class.java))
+        }
+    }
+
+    fun goCompleteSignUpActivity() {
+
+        button_next_signup.setOnClickListener(){
+
+            val intent = Intent(this, CompleteSignUpActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
     }
 }
