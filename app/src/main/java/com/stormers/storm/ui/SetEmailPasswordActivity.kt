@@ -28,7 +28,7 @@ class SetEmailPasswordActivity : BaseActivity() {
 
         button_next_signup.setOnClickListener(){
 
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, CompleteSignUpActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
@@ -85,9 +85,5 @@ class SetEmailPasswordActivity : BaseActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
         })
-
-
-
     }
-
 }
