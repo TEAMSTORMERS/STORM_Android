@@ -19,7 +19,12 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         toos:replace="android:label">
+        <activity
+            android:name=".ui.SetEmailPasswordActivity"
+            android:theme="@style/loginTheme"
+            android:windowSoftInputMode="adjustPan">
 
+        </activity>
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
@@ -28,7 +33,6 @@
         <activity
             android:name=".ui.LoginActivity"
             android:theme="@style/loginTheme">
-            
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -52,10 +56,10 @@
         <activity android:name=".ui.ScrapCardCollectingActivity" />
         <activity android:name=".ui.ScrapedCardDetailActivity" />
         <activity android:name=".ui.MypageActivity" />
-        <activity android:name=".ui.SiginUpActivity"
-            android:windowSoftInputMode="adjustNothing"
-            android:theme="@style/loginTheme">
-
+        <activity
+            android:name=".ui.SignUpActivity"
+            android:theme="@style/loginTheme"
+            android:windowSoftInputMode="adjustPan">
         </activity>
 
         <provider
