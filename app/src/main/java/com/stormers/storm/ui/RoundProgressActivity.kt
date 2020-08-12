@@ -4,17 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import com.stormers.storm.R
-import com.stormers.storm.RoundSetting.AddCardFragment
+import com.stormers.storm.card.fragment.AddCardFragment
 import com.stormers.storm.base.BaseActivity
-import com.stormers.storm.card.fragment.RoundmeetingFragment
+import com.stormers.storm.customview.dialog.StormDialogBuilder
+import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.round.network.RequestRound
 import com.stormers.storm.round.network.response.ResponseRoundInfoModel
 import kotlinx.android.synthetic.main.activity_round_progress.*
-import kotlinx.android.synthetic.main.view_toolbar.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,14 +31,6 @@ class RoundProgressActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_round_progress)
-
-        setSupportActionBar(include_roundprogress_toolbar.toolbar)
-
-        supportActionBar?.let {
-            it.setDisplayShowTitleEnabled(false)
-            it.setDisplayHomeAsUpEnabled(true)
-            it.setHomeAsUpIndicator(R.drawable.host_a_1_btn_back)
-        }
 
         //Debug 용도로 라운드 목표를 터치하면 라운드가 종료되도록 함
         this.textView_round_goal.setOnClickListener {
@@ -99,28 +89,6 @@ class RoundProgressActivity : BaseActivity() {
         return R.id.framelayout_roundprogress_fragment
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.toolbar_menu, menu)
-        return true
-    }
-
-    //메뉴 선택시
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                return true
-            }
-
-            //Fixme: 마이페이지 아이콘이 작아지는 문제 해결
-            R.id.menu_toolbar_mypage -> {
-                //Todo: 마이페이지로 이동하는 코드
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     private fun countDown(time:Long) {
         val countDownTimer = object : CountDownTimer(time, 1000) {
             override fun onTick(p0: Long) {
@@ -142,5 +110,24 @@ class RoundProgressActivity : BaseActivity() {
             }
         }
         countDownTimer.start()
+    }
+
+    override fun onBackPressed() {
+        if (supportFragmentManager.fragments[0] is AddCardFragment) {
+            val buttonList = ArrayList<StormDialogButton>()
+            buttonList.add(StormDialogButton("취소", true, null))
+            buttonList.add(StormDialogButton("확인", true, object : StormDialogButton.OnClickListener {
+                override fun onClick() {
+                    //Todo: 프로젝트 나가기
+                    finish()
+                }
+            }))
+            StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, "프로젝트에서 나가시겠습니까?")
+                .setHorizontalArray(buttonList)
+                .build()
+                .show(supportFragmentManager, "exit")
+        } else {
+            goToFragment(AddCardFragment::class.java, null)
+        }
     }
 }
