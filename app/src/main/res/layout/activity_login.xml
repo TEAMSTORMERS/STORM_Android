@@ -14,70 +14,175 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/imageview_login_logo"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:src="@drawable/h_roundsetting_logo"
-        app:layout_constraintBottom_toTopOf="@id/imageview_login_stormlogo"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:2.11"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.12"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.32"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_bias="0.25" />
 
     <ImageView
         android:id="@+id/imageview_login_stormlogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
         android:src="@drawable/login_logo_storm"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageview_login_logo" />
+        app:layout_constraintEnd_toEndOf="@+id/imageview_login_logo"
+        app:layout_constraintStart_toStartOf="@+id/imageview_login_logo"
+        app:layout_constraintTop_toBottomOf="@id/imageview_login_logo"
+        app:layout_constraintVertical_bias="0.06" />
 
-
-
-    <ImageButton
-        android:id="@+id/imagebutton_login_kakao"
+    <EditText
+        android:id="@+id/edittext_email_login"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/login_btn_kakao"
-        android:foreground="?android:selectableItemBackground"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@id/imagebutton_login_google"
-        app:layout_constraintDimensionRatio="1:0.16"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.84000003"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintWidth_percent="0.73" />
+        android:background="@drawable/background_edittext_gray_radius"
+        android:drawableLeft="@drawable/login_ic_email"
+        android:drawablePadding="16dp"
+        android:fontFamily="@font/notosans_medium"
+        android:inputType="textEmailAddress"
+        android:hint="이메일을 입력하세요"
+        android:paddingStart="17dp"
+        android:textColor="@color/storm_gray"
+        android:textColorHint="@color/storm_popup_line_gray"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:0.14"
+        app:layout_constraintEnd_toEndOf="@id/imageview_login_stormlogo"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@id/imageview_login_stormlogo"
+        app:layout_constraintTop_toBottomOf="@id/imageview_login_stormlogo"
+        app:layout_constraintVertical_bias="0.154"
+        app:layout_constraintWidth_percent="0.78" />
 
-
-    <ImageButton
-        android:id="@+id/imagebutton_login_google"
+    <EditText
+        android:id="@+id/edittext_password_login"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:background="@null"
-        android:clickable="true"
-        android:focusable="true"
+        android:background="@drawable/background_edittext_gray_radius"
+        android:drawableLeft="@drawable/login_password_icn"
+        android:drawablePadding="16dp"
+        android:hint="비밀번호를 입력하세요"
+        android:inputType="textPassword"
+        android:paddingStart="17dp"
+        android:fontFamily="@font/notosans_medium"
+        android:textColor="@color/storm_gray"
+        android:textColorHint="@color/storm_popup_line_gray"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:0.14"
+        app:layout_constraintEnd_toEndOf="@id/edittext_email_login"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/edittext_email_login"
+        app:layout_constraintTop_toBottomOf="@id/edittext_email_login"
+        app:layout_constraintVertical_bias="0.07"
+        app:layout_constraintWidth_percent="0.78" />
+
+    <TextView
+        android:id="@+id/textview_login_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/notosans_medium"
+        android:text="이메일/비밀번호를 확인해주세요"
+        android:textColor="@color/storm_red"
+        android:textSize="11sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/edittext_password_login"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@id/edittext_password_login"
+        app:layout_constraintTop_toBottomOf="@id/edittext_password_login"
+        app:layout_constraintVertical_bias="0.03" />
+
+    <CheckBox
+        android:id="@+id/checkbox_auto_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/edittext_password_login"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/edittext_password_login"
+        app:layout_constraintTop_toBottomOf="@id/edittext_password_login"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <TextView
+        android:id="@+id/textview_auto_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/notosans_medium"
+        android:text="로그인 상태 유지"
+        android:textColor="@color/storm_popup_line_gray"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@id/checkbox_auto_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.03"
+        app:layout_constraintStart_toEndOf="@id/checkbox_auto_login"
+        app:layout_constraintTop_toTopOf="@id/checkbox_auto_login"
+        app:layout_constraintVertical_bias="0.533" />
+
+    <Button
+        android:id="@+id/button_login"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/background_white_radius"
+        android:elevation="6dp"
+        android:fontFamily="@font/notosans_bold"
+        android:text="로그인"
+        android:textColor="@color/storm_gray"
+        android:textSize="16sp"
         android:foreground="?android:selectableItemBackground"
-        android:scaleType="fitCenter"
-        android:src="@drawable/login_btn_google"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:0.16"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imagebutton_login_kakao"
-        app:layout_constraintWidth_percent="0.73" />
+        app:layout_constraintEnd_toEndOf="@id/edittext_password_login"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@id/edittext_password_login"
+        app:layout_constraintTop_toBottomOf="@id/edittext_password_login"
+        app:layout_constraintVertical_bias="0.656"
+        app:layout_constraintWidth_percent="0.806" />
+
+    <LinearLayout
+        android:id="@+id/constraintlayout_go_to_signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/button_login"
+        app:layout_constraintStart_toStartOf="@id/button_login"
+        app:layout_constraintEnd_toEndOf="@id/button_login"
+        android:orientation="horizontal"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="아직 회원이 아니신가요?"
+            android:fontFamily="@font/notosans_medium"
+            android:textSize="11sp"
+            android:textColor="@color/storm_popup_line_gray"/>
+
+        <TextView
+            android:id="@+id/textview_goto_sign_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="가입하기"
+            android:fontFamily="@font/notosans_bold"
+            android:textSize="11sp"
+            android:textColor="@color/storm_gray"
+            android:layout_marginStart="9dp"/>
+
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
