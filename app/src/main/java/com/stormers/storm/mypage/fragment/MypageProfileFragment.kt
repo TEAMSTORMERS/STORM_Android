@@ -1,36 +1,21 @@
 package com.stormers.storm.mypage.fragment
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.Color
-import android.graphics.ImageDecoder
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
 import android.util.Log
-import android.view.KeyEvent
 import android.view.KeyEvent.KEYCODE_ENTER
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.content.FileProvider
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import com.google.android.gms.common.wrappers.Wrappers.packageManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
@@ -38,18 +23,10 @@ import com.stormers.storm.R
 import com.stormers.storm.base.BaseFragment
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
-import com.stormers.storm.ui.MypageActivity
-import kotlinx.android.synthetic.main.activity_mypage.*
-import kotlinx.android.synthetic.main.activity_sigin_up.*
+import com.stormers.storm.ui.MypageWithdrawalActivity
 import kotlinx.android.synthetic.main.bottomsheet_select_profile.*
 import kotlinx.android.synthetic.main.fragment_mypage_profile.*
-import kotlinx.android.synthetic.main.fragment_mypage_profile.view.*
-import java.io.File
-import java.io.IOException
-import java.security.Key
-import java.text.SimpleDateFormat
 import java.util.*
-import java.util.jar.Manifest
 import java.util.regex.Pattern
 
 class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
@@ -122,12 +99,6 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
 
         settingPermission()
 
-        /*circleImageView_camera_button.setOnClickListener {
-            selectGallery()
-        }
-        circleimageview_mypage_profile.setOnClickListener {
-            selectGallery()
-        }*/
 
         //BottomSheet
         val bottomSheetChangeProfile = BottomSheetBehavior.from(bottomsheet_profile_select_mypage)
@@ -169,7 +140,8 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
 
         //회원 탈퇴 fragment로 이동
         constraint_withdrawa.setOnClickListener {
-            goToFragment(MypageWithdrawalFragment::class.java, null)
+            val nextIntent = Intent(context!!, MypageWithdrawalActivity::class.java)
+            startActivity(nextIntent)
         }
 
         //로그아웃 다이얼로그
@@ -256,16 +228,6 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
             null
         }
         return filter
-
-        /*val filter = InputFilter { source, start, end, dest, dstart, dend ->
-            for (i : Int in start..end) {
-                if (!Character.isLetterOrDigit(source.get(i))) {
-                    return@InputFilter ""
-                }
-            }
-            null
-        }
-        return filter*/
     }
 
 }
