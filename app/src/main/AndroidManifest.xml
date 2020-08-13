@@ -57,6 +57,8 @@
         <activity android:name=".ui.ScrapCardCollectingActivity" />
         <activity android:name=".ui.ScrapedCardDetailActivity" />
         <activity android:name=".ui.MypageActivity" />
+        <activity android:name=".ui.MypageWithdrawalActivity" />
+        <activity android:name=".ui.MypageWithdrawalCheckActivity" />
         <activity
             android:name=".ui.SignUpActivity"
             android:theme="@style/loginTheme"
