@@ -4,7 +4,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/storm_red">
+
+    <ImageButton
+        android:id="@+id/imagebutton_withdrawal_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="49dp"
+        android:background="@drawable/storm_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imagebutton_withdrawal_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/mypage_ic_back"
+        app:layout_constraintBottom_toBottomOf="@+id/imagebutton_withdrawal_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imagebutton_withdrawal_logo" />
+
+    <ImageView
+        android:id="@+id/imageview_withdrawal_background"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="106dp"
+        android:src="@drawable/background_mypage_white_radius"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagebutton_withdrawal_logo" />
 
     <TextView
         android:id="@+id/textview_mypage_withdrawal"
@@ -20,16 +52,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-    android:id="@+id/textview_withdrawal_reason"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="29dp"
-    android:text="탈퇴 사유 입력"
-    android:textColor="@color/storm_gray"
-    android:textSize="15sp"
-    android:fontFamily="@font/notosans_bold"
-    app:layout_constraintStart_toStartOf="@+id/textview_mypage_withdrawal"
-    app:layout_constraintTop_toBottomOf="@+id/textview_mypage_withdrawal" />
+        android:id="@+id/textview_withdrawal_reason"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="29dp"
+        android:text="탈퇴 사유 입력"
+        android:textColor="@color/storm_gray"
+        android:textSize="15sp"
+        android:fontFamily="@font/notosans_bold"
+        app:layout_constraintStart_toStartOf="@+id/textview_mypage_withdrawal"
+        app:layout_constraintTop_toBottomOf="@+id/textview_mypage_withdrawal" />
 
     <EditText
         android:id="@+id/edittext_withdrawal_reason"
@@ -106,5 +138,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

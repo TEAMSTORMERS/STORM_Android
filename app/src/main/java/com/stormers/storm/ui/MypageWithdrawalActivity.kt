@@ -1,20 +1,22 @@
-package com.stormers.storm.mypage.fragment
+package com.stormers.storm.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
 import com.stormers.storm.R
-import com.stormers.storm.base.BaseFragment
-import kotlinx.android.synthetic.main.fragment_mypage_withdrawal.*
+import com.stormers.storm.base.BaseActivity
+import kotlinx.android.synthetic.main.activity_mypage_withdrawal.*
 
-class MypageWithdrawalFragment : BaseFragment(R.layout.fragment_mypage_withdrawal) {
+class MypageWithdrawalActivity : BaseActivity() {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_mypage_withdrawal)
 
         stormbutton_withdrawal_next.setOnClickListener {
-            goToFragment(MypageWithdrawalCheckFragment::class.java, null)
+            val nextIntent = Intent(this, MypageWithdrawalCheckActivity::class.java)
+            startActivity(nextIntent)
         }
 
         edittext_withdrawal_reason.addTextChangedListener(textWatcher)
@@ -32,7 +34,7 @@ class MypageWithdrawalFragment : BaseFragment(R.layout.fragment_mypage_withdrawa
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             if (edittext_withdrawal_reason.lineCount > 5) {
-                edittext_withdrawal_reason.setText(s?.dropLast(1).toString()) // 2줄 초과 시 마지막 한글자 삭제
+                edittext_withdrawal_reason.setText(s?.dropLast(1).toString()) // 5줄 초과 시 마지막 한글자 삭제
                 edittext_withdrawal_reason.setSelection(s?.length!! - 1) // 커서 위치 마지막으로 이동
             }
         }
