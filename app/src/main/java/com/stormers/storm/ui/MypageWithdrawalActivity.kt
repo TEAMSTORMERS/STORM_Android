@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
+import kotlinx.android.synthetic.main.activity_mypage.*
 import kotlinx.android.synthetic.main.activity_mypage_withdrawal.*
 
 class MypageWithdrawalActivity : BaseActivity() {
@@ -20,6 +21,8 @@ class MypageWithdrawalActivity : BaseActivity() {
         }
 
         edittext_withdrawal_reason.addTextChangedListener(textWatcher)
+
+        stormtoolbar_mypage_withdrawal.setBackButton()
 
     }
 
