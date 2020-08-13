@@ -151,6 +151,7 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
             buttonArray.add(
                 StormDialogButton("취소", true, object : StormDialogButton.OnClickListener {
                     override fun onClick() {
+                        //Todo: 다이얼로그의 취소 버튼을 눌렀을 때의 동작
                     }
                 })
             )
@@ -158,6 +159,7 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
             buttonArray.add(
                 StormDialogButton("확인", true, object : StormDialogButton.OnClickListener {
                     override fun onClick() {
+                        //Todo: 다이얼로그의 확인 버튼을 눌렀을 때의 동작
                     }
                 })
             )
