@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.CompleteSignUpActivity">
+
+    <TextView
+        android:id="@+id/textview_sign_up_complete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="회원가입"
+        android:textColor="@color/storm_gray"
+        android:textSize="23sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.098" />
+
+    <ImageView
+        android:id="@+id/imageview_check"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/login_checkbox_icn_check"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:0.75"
+        app:layout_constraintEnd_toEndOf="@id/textview_sign_up_complete"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="@id/textview_sign_up_complete"
+        app:layout_constraintTop_toBottomOf="@id/textview_sign_up_complete"
+        app:layout_constraintVertical_bias="0.31"
+        app:layout_constraintWidth_percent="0.087" />
+
+    <TextView
+        android:id="@+id/textview_sign_up_complete_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/notosans_bold"
+        android:text="회원가입이 완료되었습니다."
+        android:textColor="@color/storm_gray"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/imageview_check"
+        app:layout_constraintStart_toStartOf="@id/imageview_check"
+        app:layout_constraintTop_toBottomOf="@id/imageview_check"
+        app:layout_constraintVertical_bias="0.135" />
+
+    <Button
+        android:id="@+id/button_goto_login"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/box_red_radius"
+        android:elevation="6dp"
+        android:fontFamily="@font/notosans_bold"
+        android:text="로그인"
+        android:textColor="@color/storm_white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:0.16"
+        app:layout_constraintEnd_toEndOf="@id/textview_sign_up_complete_info"
+        app:layout_constraintStart_toStartOf="@id/textview_sign_up_complete_info"
+        app:layout_constraintTop_toBottomOf="@id/textview_sign_up_complete_info"
+        app:layout_constraintVertical_bias="0.562"
+        app:layout_constraintWidth_percent="0.83" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,12 +19,13 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         toos:replace="android:label">
+        <activity android:name=".ui.CompleteSignUpActivity">
+
+        </activity>
         <activity
             android:name=".ui.SetEmailPasswordActivity"
             android:theme="@style/loginTheme"
-            android:windowSoftInputMode="adjustPan">
-
-        </activity>
+            android:windowSoftInputMode="adjustPan"></activity>
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
@@ -59,8 +60,7 @@
         <activity
             android:name=".ui.SignUpActivity"
             android:theme="@style/loginTheme"
-            android:windowSoftInputMode="adjustPan">
-        </activity>
+            android:windowSoftInputMode="adjustPan"></activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"

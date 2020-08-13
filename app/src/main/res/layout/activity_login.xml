@@ -115,7 +115,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/edittext_password_login"
         app:layout_constraintTop_toBottomOf="@id/edittext_password_login"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintVertical_bias="0.03" />
 
     <TextView
         android:id="@+id/textview_auto_login"
@@ -139,17 +139,17 @@
         android:background="@drawable/background_white_radius"
         android:elevation="6dp"
         android:fontFamily="@font/notosans_bold"
+        android:foreground="?android:selectableItemBackground"
         android:text="로그인"
         android:textColor="@color/storm_gray"
         android:textSize="16sp"
-        android:foreground="?android:selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:0.16"
         app:layout_constraintEnd_toEndOf="@id/edittext_password_login"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@id/edittext_password_login"
         app:layout_constraintTop_toBottomOf="@id/edittext_password_login"
-        app:layout_constraintVertical_bias="0.656"
+        app:layout_constraintVertical_bias="0.512"
         app:layout_constraintWidth_percent="0.806" />
 
     <LinearLayout

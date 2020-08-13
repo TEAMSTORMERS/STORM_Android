@@ -1,50 +1,17 @@
 package com.stormers.storm.ui
 
-import android.annotation.SuppressLint
+
 import android.content.Context
 import android.content.Intent
-import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.os.AsyncTask
-import android.os.Build
 import android.os.Bundle
-import android.os.StrictMode
-import android.util.Base64
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable.INFINITE
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
-import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.GoogleAuthProvider
-import com.kakao.auth.AuthType
 import com.kakao.auth.Session
-import com.kakao.util.helper.Utility.getPackageInfo
 import com.stormers.storm.R
-import com.stormers.storm.SignUp.InterfaceSignUp
-import com.stormers.storm.SignUp.ResponseSignUpModel
 import com.stormers.storm.base.BaseActivity
-import com.stormers.storm.card.util.BitmapConverter
-import com.stormers.storm.kakao.SessionCallback
-import com.stormers.storm.network.RetrofitClient
-import com.stormers.storm.util.SharedPreference.Companion.USER_IDX
+import com.stormers.storm.util.SharedPreference
 import kotlinx.android.synthetic.main.activity_login.*
-import okhttp3.MediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
 
 
 class LoginActivity : BaseActivity() {
@@ -53,10 +20,13 @@ class LoginActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        initView()
 
+
+        initView()
         gotoSignUp()
         logIn()
+        autoLogIn()
+
     }
 
     //Lottie 애니메이션 로그인뷰
@@ -85,9 +55,28 @@ class LoginActivity : BaseActivity() {
     fun gotoSignUp() {
 
         textview_goto_sign_up.setOnClickListener {
-
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        if(checkbox_auto_login.isChecked){
+            preference.setAutoLogIn(true)
+        } else {
+            preference.setAutoLogIn(false)
+        }
+    }
+
+    fun autoLogIn() {
+
+        val status_auto_login = preference.getAutoLogIn()
+
+        if(status_auto_login == true){
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
         }
     }
 }
