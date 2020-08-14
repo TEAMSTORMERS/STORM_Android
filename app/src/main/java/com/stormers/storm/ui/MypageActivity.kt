@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.mypage.fragment.MypageProfileFragment
+import kotlinx.android.synthetic.main.activity_mypage.*
 
 class MypageActivity : BaseActivity() {
 
@@ -12,6 +13,8 @@ class MypageActivity : BaseActivity() {
         setContentView(R.layout.activity_mypage)
 
         goToFragment(MypageProfileFragment::class.java, null)
+
+        stormtoolbar_mypage.setBackButton()
 
     }
 

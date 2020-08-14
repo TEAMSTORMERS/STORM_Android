@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/storm_red">
+
+    <com.stormers.storm.customview.StormToolbar
+        android:id="@+id/stormtoolbar_mypage_withdrawal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="38dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageview_withdrawal_background"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="95dp"
+        android:src="@drawable/background_mypage_white_radius"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stormtoolbar_mypage_withdrawal" />
+
+    <TextView
+        android:id="@+id/textview_mypage_withdrawal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="218dp"
+        android:fontFamily="@font/notosans_bold"
+        android:text="회원 탈퇴"
+        android:textColor="@color/storm_red"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textview_withdrawal_reason"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="29dp"
+        android:text="탈퇴 사유 입력"
+        android:textColor="@color/storm_gray"
+        android:textSize="15sp"
+        android:fontFamily="@font/notosans_bold"
+        app:layout_constraintStart_toStartOf="@+id/textview_mypage_withdrawal"
+        app:layout_constraintTop_toBottomOf="@+id/textview_mypage_withdrawal" />
+
+    <EditText
+        android:id="@+id/edittext_withdrawal_reason"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/box_roundcorner"
+        android:hint="탈퇴 사유를 입력해주세요(선택)"
+        android:fontFamily="@font/notosans_medium"
+        android:textSize="13sp"
+        android:textColor="@color/storm_popup_line_gray"
+        android:gravity="start|top"
+        android:lines="5"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="12dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="40dp"
+        app:layout_constraintHeight_percent="0.15"
+        app:layout_constraintDimensionRatio="h,2.7:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_withdrawal_reason" />
+
+    <TextView
+        android:id="@+id/textview_withdrawal_pwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:fontFamily="@font/notosans_bold"
+        android:text="비밀번호 입력"
+        android:textColor="@color/storm_gray"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/edittext_withdrawal_reason"
+        app:layout_constraintTop_toBottomOf="@+id/edittext_withdrawal_reason" />
+
+    <EditText
+        android:id="@+id/edittext_withdrawal_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/box_roundcorner"
+        android:fontFamily="@font/notosans_medium"
+        android:gravity="start"
+        android:hint="비밀번호를 입력하세요"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="12dp"
+        android:textColor="@color/storm_popup_line_gray"
+        android:textSize="13sp"
+        android:singleLine="true"
+        app:layout_constraintDimensionRatio="h,7:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_withdrawal_pwd" />
+
+    <TextView
+        android:id="@+id/textview_withdrawal_pwd_notice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/notosans_medium"
+        android:text="비밀번호가 일치하지 않습니다."
+        android:textColor="@color/storm_red"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toEndOf="@+id/edittext_withdrawal_pwd"
+        app:layout_constraintTop_toBottomOf="@+id/edittext_withdrawal_pwd" />
+
+    <com.stormers.storm.customview.StormButton
+        android:id="@+id/stormbutton_withdrawal_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="55dp"
+        android:elevation="10dp"
+        android:text="다음"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
