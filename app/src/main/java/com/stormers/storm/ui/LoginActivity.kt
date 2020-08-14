@@ -20,8 +20,6 @@ class LoginActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-
-
         initView()
         gotoSignUp()
         logIn()
@@ -44,29 +42,23 @@ class LoginActivity : BaseActivity() {
                 textview_login_info.visibility = View.VISIBLE
             } else {
                 textview_login_info.visibility = View.GONE
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+
+                startActivity(Intent(this, MainActivity::class.java))
+                if(checkbox_auto_login.isChecked){
+                    preference.setAutoLogIn(true)
+                } else {
+                    preference.setAutoLogIn(false)
+                }
+
                 finish()
             }
-
         }
     }
 
     fun gotoSignUp() {
 
         textview_goto_sign_up.setOnClickListener {
-            val intent = Intent(this, SignUpActivity::class.java)
-            startActivity(intent)
-        }
-    }
-
-    override fun onStop() {
-        super.onStop()
-
-        if(checkbox_auto_login.isChecked){
-            preference.setAutoLogIn(true)
-        } else {
-            preference.setAutoLogIn(false)
+            startActivity(Intent(this, SignUpActivity::class.java))
         }
     }
 

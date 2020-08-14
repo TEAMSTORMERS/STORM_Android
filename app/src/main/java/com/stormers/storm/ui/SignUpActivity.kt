@@ -55,21 +55,18 @@ class SignUpActivity : AppCompatActivity() {
 
         changeProfile()
 
-        goToNextSignUpPage()
+        goToLogInActivity()
     }
 
     // 프로필 default image color변경
     private fun selectProfileColor(){
 
             imagebutton_select_profile_purple.setOnClickListener{
-                imagebutton_select_profile_purple.visibility = View.INVISIBLE
-                imagebutton_select_profile_purple_checked.visibility = View.VISIBLE
+                imagebutton_select_profile_purple.setBackgroundResource(R.drawable.join_profile_selected_purple)
 
-                imagebutton_select_profile_yellow.visibility = View.VISIBLE
-                imagebutton_select_profile_yellow_checked.visibility = View.INVISIBLE
+                imagebutton_select_profile_yellow.setBackgroundResource(R.drawable.join_profile_yellow)
 
-                imagebutton_select_profile_red.visibility = View.VISIBLE
-                imagebutton_select_profile_red_checked.visibility = View.INVISIBLE
+                imagebutton_select_profile_red.setBackgroundResource(R.drawable.join_profile_red)
 
                 //라운딩 및 프로필 색 변환
                 constraintlayout_signup_profile.background = ShapeDrawable(OvalShape())
@@ -81,14 +78,11 @@ class SignUpActivity : AppCompatActivity() {
             }
 
             imagebutton_select_profile_red.setOnClickListener{
-                imagebutton_select_profile_red.visibility = View.INVISIBLE
-                imagebutton_select_profile_red_checked.visibility = View.VISIBLE
+                imagebutton_select_profile_purple.setBackgroundResource(R.drawable.join_profile_purple)
 
-                imagebutton_select_profile_purple.visibility = View.VISIBLE
-                imagebutton_select_profile_purple_checked.visibility = View.INVISIBLE
+                imagebutton_select_profile_yellow.setBackgroundResource(R.drawable.join_profile_yellow)
 
-                imagebutton_select_profile_yellow.visibility = View.VISIBLE
-                imagebutton_select_profile_yellow_checked.visibility = View.INVISIBLE
+                imagebutton_select_profile_red.setBackgroundResource(R.drawable.join_profile_selected_red)
 
                 constraintlayout_signup_profile.background = ShapeDrawable(OvalShape())
                 constraintlayout_signup_profile.clipToOutline = true
@@ -98,14 +92,11 @@ class SignUpActivity : AppCompatActivity() {
             }
 
             imagebutton_select_profile_yellow.setOnClickListener{
-                imagebutton_select_profile_yellow.visibility = View.INVISIBLE
-                imagebutton_select_profile_yellow_checked.visibility = View.VISIBLE
+                imagebutton_select_profile_purple.setBackgroundResource(R.drawable.join_profile_purple)
 
-                imagebutton_select_profile_purple.visibility = View.VISIBLE
-                imagebutton_select_profile_purple_checked.visibility = View.INVISIBLE
+                imagebutton_select_profile_yellow.setBackgroundResource(R.drawable.join_profile_selected_yellow)
 
-                imagebutton_select_profile_red.visibility = View.VISIBLE
-                imagebutton_select_profile_red_checked.visibility = View.INVISIBLE
+                imagebutton_select_profile_red.setBackgroundResource(R.drawable.join_profile_red)
 
                 constraintlayout_signup_profile.background = ShapeDrawable(OvalShape())
                 constraintlayout_signup_profile.clipToOutline = true
@@ -215,37 +206,24 @@ class SignUpActivity : AppCompatActivity() {
         return super.dispatchTouchEvent(ev)
     }
 
-    private fun goToNextSignUpPage(){
-
-        button_complete_signup.setOnClickListener{
-            when {
-                edittext_name_signup.text.isNullOrBlank() -> {
-                    Toast.makeText(this,"이름을 입력해주세요!", Toast.LENGTH_SHORT).show()
-                }
-                edittext_name_signup.text!!.length < 2 -> {
-                    Toast.makeText(this,"이름을 2글자 이상 입력해주세요",Toast.LENGTH_SHORT).show()
-                }
-                else -> {
-                    saveProfile()
-
-                    val intent = Intent(this, SetEmailPasswordActivity::class.java)
-                    startActivity(intent)
-                }
-            }
-        }
-    }
-
     fun setNameTextWatcher(){
         edittext_name_signup.addTextChangedListener(object :TextWatcher{
             override fun afterTextChanged(s: Editable?) {
+
+                val first_two_characters = edittext_name_signup.text!!.substring(0, edittext_name_signup.text!!.length)
+                textview_name_in_profile.text = first_two_characters
 
                 if (edittext_name_signup.text!!.length < 2){
                     textview_input_more_than_two_char.visibility = View.VISIBLE
                 } else {
                     textview_input_more_than_two_char.visibility = View.GONE
+
+                    button_complete_signup.setOnClickListener {
+                        saveProfile()
+                        val intent = Intent(this@SignUpActivity, SetEmailPasswordActivity::class.java)
+                        startActivity(intent)
+                    }
                 }
-                val first_two_characters = edittext_name_signup.text!!.substring(0, edittext_name_signup.text!!.length)
-                textview_name_in_profile.text = first_two_characters
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
@@ -264,5 +242,11 @@ class SignUpActivity : AppCompatActivity() {
         imageview_signup_profilebackground.setImageDrawable(BitmapDrawable(resources, profileBitmap))
 
         //Todo 비트맵 서버로 전송
+    }
+
+    fun goToLogInActivity() {
+        button_back_signup.setOnClickListener {
+            startActivity(Intent(this,LoginActivity::class.java))
+        }
     }
 }
