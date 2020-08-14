@@ -4,6 +4,10 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.OvalShape
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
@@ -24,6 +28,7 @@ import com.stormers.storm.base.BaseFragment
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.ui.MypageWithdrawalActivity
+import kotlinx.android.synthetic.main.activity_sigin_up.*
 import kotlinx.android.synthetic.main.bottomsheet_select_profile.*
 import kotlinx.android.synthetic.main.fragment_mypage_profile.*
 import java.util.*
@@ -32,11 +37,20 @@ import java.util.regex.Pattern
 class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
     val FLAG_REQ_STORAGE = 102
     var char_limit = false
+    private val changeBackground = GradientDrawable()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        selectProfileColor()
+
         edittext_user_name.isEnabled = false
+
+        //초기 기본이미지 text 설정
+        if (edittext_user_name.text.length >= 2){
+            var first_two_characters = edittext_user_name.text.substring(0,2)
+            textview_mypage_name_in_profile.setText(first_two_characters)
+        }
 
         edittext_user_name.filters = Array(1) {textSetFilter()}
 
@@ -77,7 +91,15 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
 
         edittext_user_name.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-
+                if (edittext_user_name.text.isNotEmpty()){
+                    if (edittext_user_name.text.length >= 2){
+                        var first_two_characters = edittext_user_name.text.substring(0,2)
+                        textview_mypage_name_in_profile.setText(first_two_characters)
+                    }
+                    else {
+                        textview_mypage_name_in_profile.setText(edittext_user_name.text)
+                    }
+                }
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -124,7 +146,7 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
             }
         })
 
-        circleImageView_camera_button.setOnClickListener{
+        val cameraButtonClickListener = View.OnClickListener {
             bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_COLLAPSED
 
             button_gallery.setOnClickListener{
@@ -132,7 +154,20 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
                 settingPermission()
                 bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
             }
+
+            //bottomSheet에서 기본이미지로 변경 버튼 누를 경우
+           button_change_default_image.setOnClickListener {
+               constraintlayout_mypage_default_profile.visibility = View.VISIBLE
+               circleimageview_mypage_profile.visibility = View.INVISIBLE
+
+               bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
+            }
+
         }
+
+        circleImageView_camera_button.setOnClickListener(cameraButtonClickListener)
+        imageview_mypage_default_image.setOnClickListener(cameraButtonClickListener)
+        circleimageview_mypage_profile.setOnClickListener(cameraButtonClickListener)
 
         view_bottom_sheet_blur_mypage.setOnClickListener{
             bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
@@ -200,6 +235,11 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
             when (requestCode) {
                 FLAG_REQ_STORAGE -> {
                     val uri = data?.data
+
+                    //앨범에서 가져온 사진으로 변경
+                    constraintlayout_mypage_default_profile.visibility = View.INVISIBLE
+                    circleimageview_mypage_profile.visibility = View.VISIBLE
+
                     circleimageview_mypage_profile.setImageURI(uri)
                 }
             }
@@ -230,6 +270,57 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
             null
         }
         return filter
+    }
+
+    private fun selectProfileColor() {
+
+        imagebutton_mypage_select_purple.setOnClickListener{
+            imagebutton_mypage_select_purple.setBackgroundResource(R.drawable.join_profile_selected_purple)
+            imagebutton_mypage_select_yellow.setBackgroundResource(R.drawable.join_profile_yellow)
+            imagebutton_mypage_select_red.setBackgroundResource(R.drawable.join_profile_red)
+
+            //라운딩 및 프로필 색 변환
+            constraint_mypage_default.background = ShapeDrawable(OvalShape())
+            constraint_mypage_default.clipToOutline = true
+            changeBackground.setColor(resources.getColor(R.color.storm_purple))
+            imageview_mypage_default_image.setImageDrawable(changeBackground)
+
+        }
+
+        imagebutton_mypage_select_red.setOnClickListener{
+            imagebutton_mypage_select_purple.setBackgroundResource(R.drawable.join_profile_purple)
+            imagebutton_mypage_select_yellow.setBackgroundResource(R.drawable.join_profile_yellow)
+            imagebutton_mypage_select_red.setBackgroundResource(R.drawable.join_profile_selected_red)
+
+            constraint_mypage_default.background = ShapeDrawable(OvalShape())
+            constraint_mypage_default.clipToOutline = true
+            changeBackground.setColor(resources.getColor(R.color.storm_red))
+            imageview_mypage_default_image.setImageDrawable(changeBackground)
+
+        }
+
+        imagebutton_mypage_select_yellow.setOnClickListener{
+            imagebutton_mypage_select_purple.setBackgroundResource(R.drawable.join_profile_purple)
+            imagebutton_mypage_select_yellow.setBackgroundResource(R.drawable.join_profile_selected_yellow)
+            imagebutton_mypage_select_red.setBackgroundResource(R.drawable.join_profile_red)
+
+            constraint_mypage_default.background = ShapeDrawable(OvalShape())
+            constraint_mypage_default.clipToOutline = true
+            changeBackground.setColor(resources.getColor(R.color.storm_yellow))
+            imageview_mypage_default_image.setImageDrawable(changeBackground)
+        }
+    }
+
+    private fun saveProfile() {
+
+        val profileRootLayout = constraintlayout_signup_profile
+        profileRootLayout.isDrawingCacheEnabled = true
+        profileRootLayout.buildDrawingCache()
+        val profileBitmap = profileRootLayout.drawingCache
+        textview_name_in_profile.visibility = View.INVISIBLE
+        imageview_signup_profilebackground.setImageDrawable(BitmapDrawable(resources, profileBitmap))
+
+        //Todo 비트맵 서버로 전송
     }
 
 }
