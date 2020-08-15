@@ -83,6 +83,18 @@ class StormEditText : ConstraintLayout {
             edittext_customedittext.hint = null
         }
 
+        val lines = typedArray.getInteger(R.styleable.StormEditText_android_lines, -1)
+
+        if (lines != -1) {
+            edittext_customedittext.setLines(lines)
+        }
+
+        val inputType = typedArray.getInt(R.styleable.StormEditText_android_inputType, -1)
+
+        if (inputType != -1) {
+             edittext_customedittext.inputType = inputType
+        }
+
         typedArray.recycle()
     }
 
