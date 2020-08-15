@@ -18,7 +18,6 @@ import android.view.KeyEvent.KEYCODE_ENTER
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
@@ -52,11 +51,17 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val user_idx = 1
+        circleImageView_camera_button.background = ShapeDrawable(OvalShape())
+        circleImageView_camera_button.clipToOutline = true
+
+        imageview_mypage_default_image.background = ShapeDrawable(OvalShape())
+        imageview_mypage_default_image.clipToOutline = true
+
+        val userIdx = preference.getUserIdx()!!
 
         retrofitClient = RetrofitClient.create(MypageInterface::class.java)
 
-        retrofitClient.responseMypageData(user_idx).enqueue(object :
+        retrofitClient.responseMypageData(userIdx).enqueue(object :
             Callback<ResponseMypageData> {
             override fun onFailure(call: Call<ResponseMypageData>, t: Throwable) {
                 if (t.message != null) {
@@ -79,10 +84,10 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
 
                         //서버로부터 받아온 profile image 적용
                         //Todo: 서버로부터 받아온 이미지가 기본이미지인지, 앨범에서 선택한 이미지인지에 따라 처음으로 보여지는 뷰를 달리 해야 합니다!
-                        circleimageview_mypage_profile.visibility = View.VISIBLE
-                        constraintlayout_mypage_default_profile.visibility = View.INVISIBLE
+                        constraint_select_button.visibility = View.INVISIBLE
+                        textview_mypage_name_in_profile.visibility = View.INVISIBLE
 
-                        Glide.with(context!!).load(response.body()!!.data.user_img).into(circleimageview_mypage_profile)
+                        Glide.with(context!!).load(response.body()!!.data.user_img).into(imageview_mypage_default_image)
 
                     } else {
                         Log.d("MypageProfileFragment", "통신실패")
@@ -209,8 +214,10 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
 
             //bottomSheet에서 기본이미지로 변경 버튼 누를 경우
            button_change_default_image.setOnClickListener {
-               constraintlayout_mypage_default_profile.visibility = View.VISIBLE
-               circleimageview_mypage_profile.visibility = View.INVISIBLE
+               constraint_select_button.visibility = View.VISIBLE
+               textview_mypage_name_in_profile.visibility = View.VISIBLE
+
+               selectPurpleButton()
 
                bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
             }
@@ -219,7 +226,6 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
 
         circleImageView_camera_button.setOnClickListener(cameraButtonClickListener)
         imageview_mypage_default_image.setOnClickListener(cameraButtonClickListener)
-        circleimageview_mypage_profile.setOnClickListener(cameraButtonClickListener)
 
         view_bottom_sheet_blur_mypage.setOnClickListener{
             bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
@@ -289,10 +295,13 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
                     val uri = data?.data
 
                     //앨범에서 가져온 사진으로 변경
-                    constraintlayout_mypage_default_profile.visibility = View.INVISIBLE
-                    circleimageview_mypage_profile.visibility = View.VISIBLE
+                    imageview_mypage_default_image.background = ShapeDrawable(OvalShape())
+                    imageview_mypage_default_image.clipToOutline = true
 
-                    circleimageview_mypage_profile.setImageURI(uri)
+                    textview_mypage_name_in_profile.visibility = View.INVISIBLE
+                    constraint_select_button.visibility = View.INVISIBLE
+
+                    imageview_mypage_default_image.setImageURI(uri)
                 }
             }
         }
@@ -327,40 +336,50 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
     private fun selectProfileColor() {
 
         imagebutton_mypage_select_purple.setOnClickListener{
-            imagebutton_mypage_select_purple.setBackgroundResource(R.drawable.join_profile_selected_purple)
-            imagebutton_mypage_select_yellow.setBackgroundResource(R.drawable.join_profile_yellow)
-            imagebutton_mypage_select_red.setBackgroundResource(R.drawable.join_profile_red)
-
-            //라운딩 및 프로필 색 변환
-            constraint_mypage_default.background = ShapeDrawable(OvalShape())
-            constraint_mypage_default.clipToOutline = true
-            changeBackground.setColor(resources.getColor(R.color.storm_purple))
-            imageview_mypage_default_image.setImageDrawable(changeBackground)
-
+            selectPurpleButton()
         }
 
         imagebutton_mypage_select_red.setOnClickListener{
-            imagebutton_mypage_select_purple.setBackgroundResource(R.drawable.join_profile_purple)
-            imagebutton_mypage_select_yellow.setBackgroundResource(R.drawable.join_profile_yellow)
-            imagebutton_mypage_select_red.setBackgroundResource(R.drawable.join_profile_selected_red)
-
-            constraint_mypage_default.background = ShapeDrawable(OvalShape())
-            constraint_mypage_default.clipToOutline = true
-            changeBackground.setColor(resources.getColor(R.color.storm_red))
-            imageview_mypage_default_image.setImageDrawable(changeBackground)
-
+            selectRedButton()
         }
 
         imagebutton_mypage_select_yellow.setOnClickListener{
-            imagebutton_mypage_select_purple.setBackgroundResource(R.drawable.join_profile_purple)
-            imagebutton_mypage_select_yellow.setBackgroundResource(R.drawable.join_profile_selected_yellow)
-            imagebutton_mypage_select_red.setBackgroundResource(R.drawable.join_profile_red)
-
-            constraint_mypage_default.background = ShapeDrawable(OvalShape())
-            constraint_mypage_default.clipToOutline = true
-            changeBackground.setColor(resources.getColor(R.color.storm_yellow))
-            imageview_mypage_default_image.setImageDrawable(changeBackground)
+            selectYellowButton()
         }
+    }
+
+    private fun selectPurpleButton() {
+        imagebutton_mypage_select_purple.setBackgroundResource(R.drawable.join_profile_selected_purple)
+        imagebutton_mypage_select_yellow.setBackgroundResource(R.drawable.join_profile_yellow)
+        imagebutton_mypage_select_red.setBackgroundResource(R.drawable.join_profile_red)
+
+        //라운딩 및 프로필 색 변환
+        constraint_mypage_default.background = ShapeDrawable(OvalShape())
+        constraint_mypage_default.clipToOutline = true
+        changeBackground.setColor(resources.getColor(R.color.storm_purple))
+        imageview_mypage_default_image.setImageDrawable(changeBackground)
+    }
+
+    private fun selectRedButton() {
+        imagebutton_mypage_select_purple.setBackgroundResource(R.drawable.join_profile_purple)
+        imagebutton_mypage_select_yellow.setBackgroundResource(R.drawable.join_profile_yellow)
+        imagebutton_mypage_select_red.setBackgroundResource(R.drawable.join_profile_selected_red)
+
+        constraint_mypage_default.background = ShapeDrawable(OvalShape())
+        constraint_mypage_default.clipToOutline = true
+        changeBackground.setColor(resources.getColor(R.color.storm_red))
+        imageview_mypage_default_image.setImageDrawable(changeBackground)
+    }
+
+    private fun selectYellowButton() {
+        imagebutton_mypage_select_purple.setBackgroundResource(R.drawable.join_profile_purple)
+        imagebutton_mypage_select_yellow.setBackgroundResource(R.drawable.join_profile_selected_yellow)
+        imagebutton_mypage_select_red.setBackgroundResource(R.drawable.join_profile_red)
+
+        constraint_mypage_default.background = ShapeDrawable(OvalShape())
+        constraint_mypage_default.clipToOutline = true
+        changeBackground.setColor(resources.getColor(R.color.storm_yellow))
+        imageview_mypage_default_image.setImageDrawable(changeBackground)
     }
 
     private fun saveProfile() {
