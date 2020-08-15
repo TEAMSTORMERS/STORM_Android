@@ -18,8 +18,10 @@ import android.view.KeyEvent.KEYCODE_ENTER
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
@@ -27,10 +29,16 @@ import com.stormers.storm.R
 import com.stormers.storm.base.BaseFragment
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
+import com.stormers.storm.mypage.network.MypageInterface
+import com.stormers.storm.mypage.network.ResponseMypageData
+import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.ui.MypageWithdrawalActivity
 import kotlinx.android.synthetic.main.activity_sigin_up.*
 import kotlinx.android.synthetic.main.bottomsheet_select_profile.*
 import kotlinx.android.synthetic.main.fragment_mypage_profile.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
 import java.util.regex.Pattern
 
@@ -39,8 +47,52 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
     var char_limit = false
     private val changeBackground = GradientDrawable()
 
+    private lateinit var retrofitClient: MypageInterface
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val user_idx = 1
+
+        retrofitClient = RetrofitClient.create(MypageInterface::class.java)
+
+        retrofitClient.responseMypageData(user_idx).enqueue(object :
+            Callback<ResponseMypageData> {
+            override fun onFailure(call: Call<ResponseMypageData>, t: Throwable) {
+                if (t.message != null) {
+                    Log.d("MypageProfileFragment", t.message!!)
+                } else {
+                    Log.d("MypageProfileFragment", "통신실패")
+                }
+            }
+
+            override fun onResponse(
+                call: Call<ResponseMypageData>,
+                response: Response<ResponseMypageData>
+            ) {
+                if (response.isSuccessful) {
+                    if (response.body()!!.success) {
+                        Log.d("MypageProfileFragment", "user_idx : ${response.body()!!}")
+
+                        //서버로부터 받아온 user name 적용
+                        edittext_user_name.setText(response.body()!!.data.user_name)
+
+                        //서버로부터 받아온 profile image 적용
+                        //Todo: 서버로부터 받아온 이미지가 기본이미지인지, 앨범에서 선택한 이미지인지에 따라 처음으로 보여지는 뷰를 달리 해야 합니다!
+                        circleimageview_mypage_profile.visibility = View.VISIBLE
+                        constraint_mypage_default.visibility = View.INVISIBLE
+
+                        Glide.with(context!!).load(response.body()!!.data.user_img).into(circleimageview_mypage_profile)
+
+                    } else {
+                        Log.d("MypageProfileFragment", "통신실패")
+                    }
+                } else {
+                    Log.d("MypageProfileFragment", "${response.message()}, ${response.errorBody()}")
+                }
+            }
+
+        })
 
         selectProfileColor()
 
