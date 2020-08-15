@@ -16,15 +16,31 @@
 
     <ImageButton
         android:id="@+id/imagebutton_customedittext"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginEnd="5dp"
         android:background="@null"
         android:src="@drawable/h_projectsetting_btn_cancle"
-        app:layout_constraintBottom_toBottomOf="@+id/edittext_customedittext"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintDimensionRatio="h,1:1"
         app:layout_constraintEnd_toEndOf="@+id/edittext_customedittext"
-        app:layout_constraintTop_toTopOf="@+id/edittext_customedittext"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/edittext_customedittext" />
+
+    <ImageView
+        android:id="@+id/imageview_customedittext_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:src="@drawable/login_ic_email"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="40dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

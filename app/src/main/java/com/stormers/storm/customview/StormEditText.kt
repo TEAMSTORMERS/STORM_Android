@@ -7,10 +7,11 @@ import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.stormers.storm.R
+import com.stormers.storm.util.MetricsUtil
 import kotlinx.android.synthetic.main.view_edittext_custom.view.*
-import java.util.*
 
 
 class StormEditText : ConstraintLayout {
@@ -95,7 +96,24 @@ class StormEditText : ConstraintLayout {
              edittext_customedittext.inputType = inputType
         }
 
+        val srcDrawable = typedArray.getDrawable(R.styleable.StormEditText_android_drawableStart)
+
+
+        if (srcDrawable != null) {
+            imageview_customedittext_left.run {
+                visibility = View.VISIBLE
+                setImageDrawable(srcDrawable)
+            }
+            setPaddingForImageView()
+        }
+
         typedArray.recycle()
+    }
+
+    private fun setPaddingForImageView() {
+        this.edittext_customedittext.setPadding(
+            MetricsUtil.convertDpToPixel(51f, context).toInt(), MetricsUtil.convertDpToPixel(11f, context).toInt(),
+            MetricsUtil.convertDpToPixel(18f, context).toInt(), MetricsUtil.convertDpToPixel(17f, context).toInt())
     }
 
     fun addTextChangedListener(watcher: TextWatcher) {
@@ -105,4 +123,6 @@ class StormEditText : ConstraintLayout {
     fun removeTextChangedListener(watcher: TextWatcher) {
         this.edittext_customedittext.removeTextChangedListener(watcher)
     }
+
+
 }
