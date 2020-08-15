@@ -80,7 +80,7 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
                         //서버로부터 받아온 profile image 적용
                         //Todo: 서버로부터 받아온 이미지가 기본이미지인지, 앨범에서 선택한 이미지인지에 따라 처음으로 보여지는 뷰를 달리 해야 합니다!
                         circleimageview_mypage_profile.visibility = View.VISIBLE
-                        constraint_mypage_default.visibility = View.INVISIBLE
+                        constraintlayout_mypage_default_profile.visibility = View.INVISIBLE
 
                         Glide.with(context!!).load(response.body()!!.data.user_img).into(circleimageview_mypage_profile)
 
