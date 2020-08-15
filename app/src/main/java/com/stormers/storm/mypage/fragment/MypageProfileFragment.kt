@@ -4,6 +4,10 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.OvalShape
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
@@ -16,6 +20,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
@@ -23,20 +28,86 @@ import com.stormers.storm.R
 import com.stormers.storm.base.BaseFragment
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
+import com.stormers.storm.mypage.network.MypageInterface
+import com.stormers.storm.mypage.network.ResponseMypageData
+import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.ui.MypageWithdrawalActivity
+import kotlinx.android.synthetic.main.activity_sigin_up.*
 import kotlinx.android.synthetic.main.bottomsheet_select_profile.*
 import kotlinx.android.synthetic.main.fragment_mypage_profile.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
 import java.util.regex.Pattern
 
 class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
     val FLAG_REQ_STORAGE = 102
     var char_limit = false
+    private val changeBackground = GradientDrawable()
+
+    private lateinit var retrofitClient: MypageInterface
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        circleImageView_camera_button.background = ShapeDrawable(OvalShape())
+        circleImageView_camera_button.clipToOutline = true
+
+        imageview_mypage_default_image.background = ShapeDrawable(OvalShape())
+        imageview_mypage_default_image.clipToOutline = true
+
+        val userIdx = preference.getUserIdx()!!
+
+        retrofitClient = RetrofitClient.create(MypageInterface::class.java)
+
+        retrofitClient.responseMypageData(userIdx).enqueue(object :
+            Callback<ResponseMypageData> {
+            override fun onFailure(call: Call<ResponseMypageData>, t: Throwable) {
+                if (t.message != null) {
+                    Log.d("MypageProfileFragment", t.message!!)
+                } else {
+                    Log.d("MypageProfileFragment", "통신실패")
+                }
+            }
+
+            override fun onResponse(
+                call: Call<ResponseMypageData>,
+                response: Response<ResponseMypageData>
+            ) {
+                if (response.isSuccessful) {
+                    if (response.body()!!.success) {
+                        Log.d("MypageProfileFragment", "user_idx : ${response.body()!!}")
+
+                        //서버로부터 받아온 user name 적용
+                        edittext_user_name.setText(response.body()!!.data.user_name)
+
+                        //서버로부터 받아온 profile image 적용
+                        //Todo: 서버로부터 받아온 이미지가 기본이미지인지, 앨범에서 선택한 이미지인지에 따라 처음으로 보여지는 뷰를 달리 해야 합니다!
+                        constraint_select_button.visibility = View.INVISIBLE
+                        textview_mypage_name_in_profile.visibility = View.INVISIBLE
+
+                        Glide.with(context!!).load(response.body()!!.data.user_img).into(imageview_mypage_default_image)
+
+                    } else {
+                        Log.d("MypageProfileFragment", "통신실패")
+                    }
+                } else {
+                    Log.d("MypageProfileFragment", "${response.message()}, ${response.errorBody()}")
+                }
+            }
+
+        })
+
+        selectProfileColor()
+
         edittext_user_name.isEnabled = false
+
+        //초기 기본이미지 text 설정
+        if (edittext_user_name.text.length >= 2){
+            var first_two_characters = edittext_user_name.text.substring(0,2)
+            textview_mypage_name_in_profile.setText(first_two_characters)
+        }
 
         edittext_user_name.filters = Array(1) {textSetFilter()}
 
@@ -77,7 +148,15 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
 
         edittext_user_name.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-
+                if (edittext_user_name.text.isNotEmpty()){
+                    if (edittext_user_name.text.length >= 2){
+                        var first_two_characters = edittext_user_name.text.substring(0,2)
+                        textview_mypage_name_in_profile.setText(first_two_characters)
+                    }
+                    else {
+                        textview_mypage_name_in_profile.setText(edittext_user_name.text)
+                    }
+                }
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -124,7 +203,7 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
             }
         })
 
-        circleImageView_camera_button.setOnClickListener{
+        val cameraButtonClickListener = View.OnClickListener {
             bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_COLLAPSED
 
             button_gallery.setOnClickListener{
@@ -132,7 +211,21 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
                 settingPermission()
                 bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
             }
+
+            //bottomSheet에서 기본이미지로 변경 버튼 누를 경우
+           button_change_default_image.setOnClickListener {
+               constraint_select_button.visibility = View.VISIBLE
+               textview_mypage_name_in_profile.visibility = View.VISIBLE
+
+               selectPurpleButton()
+
+               bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
+            }
+
         }
+
+        circleImageView_camera_button.setOnClickListener(cameraButtonClickListener)
+        imageview_mypage_default_image.setOnClickListener(cameraButtonClickListener)
 
         view_bottom_sheet_blur_mypage.setOnClickListener{
             bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
@@ -200,7 +293,15 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
             when (requestCode) {
                 FLAG_REQ_STORAGE -> {
                     val uri = data?.data
-                    circleimageview_mypage_profile.setImageURI(uri)
+
+                    //앨범에서 가져온 사진으로 변경
+                    imageview_mypage_default_image.background = ShapeDrawable(OvalShape())
+                    imageview_mypage_default_image.clipToOutline = true
+
+                    textview_mypage_name_in_profile.visibility = View.INVISIBLE
+                    constraint_select_button.visibility = View.INVISIBLE
+
+                    imageview_mypage_default_image.setImageURI(uri)
                 }
             }
         }
@@ -230,6 +331,67 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
             null
         }
         return filter
+    }
+
+    private fun selectProfileColor() {
+
+        imagebutton_mypage_select_purple.setOnClickListener{
+            selectPurpleButton()
+        }
+
+        imagebutton_mypage_select_red.setOnClickListener{
+            selectRedButton()
+        }
+
+        imagebutton_mypage_select_yellow.setOnClickListener{
+            selectYellowButton()
+        }
+    }
+
+    private fun selectPurpleButton() {
+        imagebutton_mypage_select_purple.setBackgroundResource(R.drawable.join_profile_selected_purple)
+        imagebutton_mypage_select_yellow.setBackgroundResource(R.drawable.join_profile_yellow)
+        imagebutton_mypage_select_red.setBackgroundResource(R.drawable.join_profile_red)
+
+        //라운딩 및 프로필 색 변환
+        constraint_mypage_default.background = ShapeDrawable(OvalShape())
+        constraint_mypage_default.clipToOutline = true
+        changeBackground.setColor(resources.getColor(R.color.storm_purple))
+        imageview_mypage_default_image.setImageDrawable(changeBackground)
+    }
+
+    private fun selectRedButton() {
+        imagebutton_mypage_select_purple.setBackgroundResource(R.drawable.join_profile_purple)
+        imagebutton_mypage_select_yellow.setBackgroundResource(R.drawable.join_profile_yellow)
+        imagebutton_mypage_select_red.setBackgroundResource(R.drawable.join_profile_selected_red)
+
+        constraint_mypage_default.background = ShapeDrawable(OvalShape())
+        constraint_mypage_default.clipToOutline = true
+        changeBackground.setColor(resources.getColor(R.color.storm_red))
+        imageview_mypage_default_image.setImageDrawable(changeBackground)
+    }
+
+    private fun selectYellowButton() {
+        imagebutton_mypage_select_purple.setBackgroundResource(R.drawable.join_profile_purple)
+        imagebutton_mypage_select_yellow.setBackgroundResource(R.drawable.join_profile_selected_yellow)
+        imagebutton_mypage_select_red.setBackgroundResource(R.drawable.join_profile_red)
+
+        constraint_mypage_default.background = ShapeDrawable(OvalShape())
+        constraint_mypage_default.clipToOutline = true
+        changeBackground.setColor(resources.getColor(R.color.storm_yellow))
+        imageview_mypage_default_image.setImageDrawable(changeBackground)
+    }
+
+    private fun saveProfile() {
+
+        val profileRootLayout = constraintlayout_signup_profile
+        profileRootLayout.isDrawingCacheEnabled = true
+        profileRootLayout.buildDrawingCache()
+        val profileBitmap = profileRootLayout.drawingCache
+        textview_name_in_profile.visibility = View.INVISIBLE
+        imageview_signup_profilebackground.setImageDrawable(BitmapDrawable(resources, profileBitmap))
+
+        //Todo 비트맵 서버로 전송
     }
 
 }

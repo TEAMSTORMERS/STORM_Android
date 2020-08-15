@@ -11,21 +11,98 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--Fixme: 임시로 넣어둔 더미데이터입니다!-->
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/circleimageview_mypage_profile"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_mypage_default"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintWidth_percent="0.5"
         android:layout_marginTop="158dp"
-        android:elevation="10dp"
-        android:src="@drawable/storm_logo_example"
+        app:layout_constraintWidth_percent="0.5"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" >
 
-    <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
+            android:id="@+id/imageview_mypage_default_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@null"
+            android:src="@drawable/circular_profile"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/textview_mypage_name_in_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_bold"
+            android:maxLength="2"
+            android:textColor="@color/storm_white"
+            android:textSize="45sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/imageview_mypage_default_image"
+            app:layout_constraintTop_toTopOf="@id/imageview_mypage_default_image" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_select_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraint_mypage_default">
+
+        <ImageButton
+            android:id="@+id/imagebutton_mypage_select_yellow"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/join_profile_yellow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/imagebutton_mypage_select_red"
+            app:layout_constraintStart_toEndOf="@+id/imagebutton_mypage_select_purple"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.058" />
+
+        <ImageButton
+            android:id="@+id/imagebutton_mypage_select_purple"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="22dp"
+            android:background="@drawable/join_profile_selected_purple"
+            app:layout_constraintBottom_toBottomOf="@id/imagebutton_mypage_select_yellow"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/imagebutton_mypage_select_yellow"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/imagebutton_mypage_select_yellow"
+            app:layout_constraintWidth_percent="0.058" />
+
+        <ImageButton
+            android:id="@+id/imagebutton_mypage_select_red"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="22dp"
+            android:background="@drawable/join_profile_red"
+            app:layout_constraintBottom_toBottomOf="@+id/imagebutton_mypage_select_yellow"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/imagebutton_mypage_select_yellow"
+            app:layout_constraintTop_toTopOf="@+id/imagebutton_mypage_select_yellow"
+            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintWidth_percent="0.058" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
         android:id="@+id/circleImageView_camera_button"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -33,9 +110,9 @@
         android:layout_marginBottom="4dp"
         android:elevation="10dp"
         android:src="@color/storm_gray2"
-        app:layout_constraintBottom_toBottomOf="@+id/circleimageview_mypage_profile"
+        app:layout_constraintBottom_toBottomOf="@+id/constraint_mypage_default"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="@+id/circleimageview_mypage_profile"
+        app:layout_constraintEnd_toEndOf="@+id/constraint_mypage_default"
         app:layout_constraintWidth_percent="0.083" />
 
     <ImageView
@@ -61,7 +138,7 @@
         android:textColor="@color/storm_popup_line_gray"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/circleimageview_mypage_profile" />
+        app:layout_constraintTop_toBottomOf="@+id/constraint_mypage_default" />
 
     <EditText
         android:id="@+id/edittext_user_name"
