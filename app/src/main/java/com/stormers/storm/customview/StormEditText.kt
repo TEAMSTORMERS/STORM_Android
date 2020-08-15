@@ -104,16 +104,9 @@ class StormEditText : ConstraintLayout {
                 visibility = View.VISIBLE
                 setImageDrawable(srcDrawable)
             }
-            setPaddingForImageView()
         }
 
         typedArray.recycle()
-    }
-
-    private fun setPaddingForImageView() {
-        this.edittext_customedittext.setPadding(
-            MetricsUtil.convertDpToPixel(51f, context).toInt(), MetricsUtil.convertDpToPixel(11f, context).toInt(),
-            MetricsUtil.convertDpToPixel(18f, context).toInt(), MetricsUtil.convertDpToPixel(17f, context).toInt())
     }
 
     fun addTextChangedListener(watcher: TextWatcher) {
@@ -123,6 +116,4 @@ class StormEditText : ConstraintLayout {
     fun removeTextChangedListener(watcher: TextWatcher) {
         this.edittext_customedittext.removeTextChangedListener(watcher)
     }
-
-
 }

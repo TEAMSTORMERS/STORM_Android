@@ -2,45 +2,49 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background_edittext_gray_radius">
 
     <EditText
         android:id="@+id/edittext_customedittext"
-        style="@style/custom_editText"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:layout_marginStart="10dp"
+        android:textSize="14sp"
+        android:textColorHint="@color/storm_popup_line_gray"
+        android:textColor="@color/storm_gray"
+        android:letterSpacing="-0.03"
+        android:lineSpacingExtra="6sp"
+        android:gravity="start|center_vertical"
+        android:fontFamily="@font/notosans_medium"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toStartOf="@id/imagebutton_customedittext"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageview_customedittext_left"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <ImageButton
         android:id="@+id/imagebutton_customedittext"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="5dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:background="@null"
         android:src="@drawable/h_projectsetting_btn_cancle"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="h,1:1"
-        app:layout_constraintEnd_toEndOf="@+id/edittext_customedittext"
-        app:layout_constraintTop_toTopOf="@+id/edittext_customedittext" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageview_customedittext_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="17dp"
-        android:src="@drawable/login_ic_email"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        android:layout_marginEnd="6dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/edittext_customedittext"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="40dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

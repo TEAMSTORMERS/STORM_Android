@@ -27,19 +27,6 @@
         <item name="android:paddingLeft">13dp</item>
     </style>
 
-    <!--Custom EditText-->
-    <style name="custom_editText" parent="Widget.AppCompat.EditText">
-        <item name="android:background">@drawable/background_edittext_gray_radius</item>
-        <item name="android:paddingStart">16dp</item>
-        <item name="android:paddingEnd">16dp</item>
-        <item name="android:paddingTop">11dp</item>
-        <item name="android:paddingBottom">11dp</item>
-        <item name="android:textColor">@color/storm_gray</item>
-        <item name="android:textColorHint">@color/storm_popup_line_gray</item>
-        <item name="android:textSize">13sp</item>
-        <item name="android:gravity">top|start</item>
-    </style>
-
     <!--StormButton TextView-->
     <style name="storm_button_textview" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">15sp</item>

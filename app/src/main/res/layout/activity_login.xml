@@ -18,7 +18,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/imageview_login_logo"
@@ -44,43 +44,31 @@
         app:layout_constraintTop_toBottomOf="@id/imageview_login_logo"
         app:layout_constraintVertical_bias="0.06" />
 
-    <EditText
+    <com.stormers.storm.customview.StormEditText
         android:id="@+id/edittext_email_login"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/background_edittext_gray_radius"
-        android:drawableLeft="@drawable/login_ic_email"
+        android:drawableStart="@drawable/login_ic_email"
         android:drawablePadding="16dp"
-        android:fontFamily="@font/notosans_medium"
-        android:inputType="textEmailAddress"
         android:hint="이메일을 입력하세요"
-        android:paddingStart="17dp"
-        android:textColor="@color/storm_gray"
-        android:textColorHint="@color/storm_popup_line_gray"
-        android:textSize="13sp"
+        android:inputType="textEmailAddress"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:0.14"
         app:layout_constraintEnd_toEndOf="@id/imageview_login_stormlogo"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="@id/imageview_login_stormlogo"
         app:layout_constraintTop_toBottomOf="@id/imageview_login_stormlogo"
-        app:layout_constraintVertical_bias="0.154"
+        app:layout_constraintVertical_bias="0.153"
         app:layout_constraintWidth_percent="0.78" />
 
-    <EditText
+    <com.stormers.storm.customview.StormEditText
         android:id="@+id/edittext_password_login"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/background_edittext_gray_radius"
-        android:drawableLeft="@drawable/login_password_icn"
-        android:drawablePadding="16dp"
+        android:drawableStart="@drawable/login_password_icn"
         android:hint="비밀번호를 입력하세요"
         android:inputType="textPassword"
-        android:paddingStart="17dp"
-        android:fontFamily="@font/notosans_medium"
-        android:textColor="@color/storm_gray"
-        android:textColorHint="@color/storm_popup_line_gray"
-        android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:0.14"
         app:layout_constraintEnd_toEndOf="@id/edittext_email_login"
