@@ -1,10 +1,14 @@
 package com.stormers.storm.canvas.fragment
 
 import android.graphics.Bitmap
+import android.graphics.ColorMatrix
+import android.graphics.ColorMatrixColorFilter
+import android.graphics.PorterDuff
 import android.util.Log
+import android.widget.ImageView
 import android.widget.Toast
-import com.byox.drawview.enums.DrawingCapture
-import com.byox.drawview.views.DrawView
+import com.rm.freedrawview.FreeDrawView
+import com.rm.freedrawview.PathRedoUndoCountChangeListener
 import com.stormers.storm.R
 import com.stormers.storm.card.fragment.AddCardFragment
 import com.stormers.storm.canvas.base.BaseCanvasFragment
@@ -28,61 +32,88 @@ class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_dra
     private var isDrew = false
 
     override fun initCanvas() {
-        drawview.setOnDrawViewListener(object : DrawView.OnDrawViewListener {
-            override fun onEndDrawing() {}
-
-            override fun onAllMovesPainted() {}
-
-            override fun onStartDrawing() {
-                isDrew = true
+        drawview.setPathRedoUndoCountChangeListener(object : PathRedoUndoCountChangeListener {
+            override fun onRedoCountChanged(redoCount: Int) {
+                if (redoCount == 0) {
+                    setEnableRedoButton(false)
+                } else {
+                    setEnableRedoButton(true)
+                }
             }
 
-            override fun onRequestText() {}
-
-            override fun onClearDrawing() {
-                isDrew = false
+            override fun onUndoCountChanged(undoCount: Int) {
+                if (undoCount == 0) {
+                    isDrew = false
+                    setEnableUndoButton(false)
+                } else {
+                    isDrew = true
+                    setEnableUndoButton(true)
+                }
             }
         })
 
         imagebutton_canvas_undo.setOnClickListener {
-            if (drawview.canUndo()) {
-                drawview.undo()
+            if (drawview.undoCount != 0) {
+                drawview.undoLast()
             } else {
                 Log.d(TAG, "nothing to undo")
             }
         }
 
         imagebutton_canvas_redo.setOnClickListener {
-            if (drawview.canRedo()) {
-                drawview.redo()
+            if (drawview.redoCount != 0) {
+                drawview.redoLast()
             } else {
                 Log.d(TAG, "nothing to redo")
             }
         }
+
+        //버튼 둘 다 비활성화
+        setEnableRedoButton(false)
+        setEnableUndoButton(false)
     }
 
     override fun onTrashed() {
-        drawview.restartDrawing()
+        drawview.clearDrawAndHistory()
     }
 
     override fun onApplied() {
-        if (isDrew && drawview.canUndo()) {
-            val bitmap = drawview.createCapture(DrawingCapture.BITMAP)[0] as Bitmap
+        if (isDrew && drawview.undoCount != 0) {
 
-            val drawingFile = BitmapConverter.bitmapToFile(bitmap, context!!.cacheDir.toString())
+            drawview.getDrawScreenshot(object : FreeDrawView.DrawCreatorListener {
+                override fun onDrawCreated(draw: Bitmap?) {
+                    if (draw != null) {
+                        sendBitmap(draw)
+                    } else {
+                        Log.d(TAG, "bitmap is null")
+                    }
+                }
 
-            val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), drawingFile!!)
+                override fun onDrawCreationError() {
+                    Log.e(TAG, "bitmap convert is fail")
+                }
+            })
 
-            val uploadFile = MultipartBody.Part.createFormData("card_img", drawingFile.name, requestFile)
+        } else {
+            Toast.makeText(context, "카드를 입력해주세요", Toast.LENGTH_SHORT).show()
+        }
+    }
 
-            val userIdx = RequestBody.create(MediaType.parse("text/plain"), preference.getUserIdx().toString())
+    private fun sendBitmap(bitmap: Bitmap) {
+        val drawingFile = BitmapConverter.bitmapToFile(bitmap, context!!.cacheDir.toString())
 
-            val projectIdx = RequestBody.create(MediaType.parse("text/plain"), preference.getProjectIdx().toString())
+        val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), drawingFile!!)
 
-            val roundIdx = RequestBody.create(MediaType.parse("text/plain"), preference.getRoundIdx().toString())
+        val uploadFile = MultipartBody.Part.createFormData("card_img", drawingFile.name, requestFile)
 
-            RetrofitClient.create(RequestCard::class.java).postCard(userIdx, projectIdx, roundIdx, uploadFile, null)
-                .enqueue(object: Callback<Response> {
+        val userIdx = RequestBody.create(MediaType.parse("text/plain"), preference.getUserIdx().toString())
+
+        val projectIdx = RequestBody.create(MediaType.parse("text/plain"), preference.getProjectIdx().toString())
+
+        val roundIdx = RequestBody.create(MediaType.parse("text/plain"), preference.getRoundIdx().toString())
+
+        RetrofitClient.create(RequestCard::class.java).postCard(userIdx, projectIdx, roundIdx, uploadFile, null)
+            .enqueue(object: Callback<Response> {
 
                 override fun onFailure(call: Call<Response>, t: Throwable) {
                     Log.d("postCard", t.message)
@@ -104,15 +135,10 @@ class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_dra
                     }
                 }
             })
-
-
-        } else {
-            Toast.makeText(context, "카드를 입력해주세요", Toast.LENGTH_SHORT).show()
-        }
     }
 
     private fun afterResponse() {
-        drawview.restartDrawing()
+        drawview.clearDrawAndHistory()
         Toast.makeText(context, "카드가 추가되었습니다", Toast.LENGTH_SHORT).show()
         goToFragment(AddCardFragment::class.java, null)
     }
@@ -123,5 +149,25 @@ class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_dra
                 BitmapConverter.bitmapToString(bitmap), null
             )
         )
+    }
+
+
+    private fun setEnableUndoButton(isEnable: Boolean) {
+        setSaturationView(imagebutton_canvas_undo, !isEnable)
+        imagebutton_canvas_undo.isClickable = isEnable
+    }
+
+    private fun setEnableRedoButton(isEnable: Boolean) {
+        setSaturationView(imagebutton_canvas_redo, !isEnable)
+        imagebutton_canvas_redo.isClickable = isEnable
+    }
+
+    private fun setSaturationView(view: ImageView, isSaturation: Boolean) {
+        if (isSaturation) {
+            view.setColorFilter(context!!.getColor(R.color.very_light_pink), PorterDuff.Mode.MULTIPLY)
+        } else {
+            view.colorFilter = null
+        }
+        Log.d(TAG, "setSaturation(): ${view.id} - $isSaturation")
     }
 }

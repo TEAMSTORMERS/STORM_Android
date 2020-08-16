@@ -1,17 +1,22 @@
 package com.stormers.storm.round.base
 
 import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
+import androidx.annotation.LayoutRes
 import androidx.viewpager2.widget.ViewPager2
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.card.adapter.ExpandCardAdapter
 import com.stormers.storm.card.model.SavedCardEntity
 import com.stormers.storm.card.repository.SavedCardRepository
+import com.stormers.storm.customview.StormButton
+import com.stormers.storm.customview.StormToolbar
 import com.stormers.storm.util.DepthPageTransformer
-import kotlinx.android.synthetic.main.activity_expandcard.*
 
-abstract class BaseExpandCardActivity(private val isScraped: Boolean): BaseActivity() {
+abstract class BaseExpandCardActivity(private val isScraped: Boolean, @LayoutRes val layoutRes: Int): BaseActivity() {
     private val expandCardAdapter: ExpandCardAdapter by lazy { ExpandCardAdapter() }
 
     private val savedCardRepository: SavedCardRepository by lazy { SavedCardRepository(application) }
@@ -20,15 +25,44 @@ abstract class BaseExpandCardActivity(private val isScraped: Boolean): BaseActiv
 
     private var data: List<SavedCardEntity>? = null
 
+    private lateinit var toolbar: StormToolbar
+
+    private lateinit var includeLayout: View
+
+    private lateinit var applyButton: StormButton
+
+    private lateinit var memoEditText: EditText
+
+    private lateinit var viewpager: ViewPager2
+
+    protected var projectIdx = -1
+
+    protected var roundIdx = -1
+
+    protected var cardId = -1
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_expandcard)
+        setContentView(layoutRes)
 
-        stormtoolbar_expandcard.setBackButton()
+        projectIdx = intent.getIntExtra("projectIdx", -1)
 
-        val projectIdx = intent.getIntExtra("projectIdx", 1)
-        val roundIdx = intent.getIntExtra("roundIdx", 1)
-        val cardId = intent.getIntExtra("cardId", 0)
+        roundIdx = intent.getIntExtra("roundIdx", -1)
+
+        cardId = intent.getIntExtra("cardId", -1)
+
+        toolbar = findViewById(onCreateToolbar())
+
+        toolbar.setBackButton()
+
+        includeLayout = findViewById(onCreateViewPagerLayout())
+
+        applyButton = includeLayout.findViewById(onCreateApplyButton())
+
+        memoEditText = includeLayout.findViewById(onCreateMemoEditText())
+
+        viewpager = includeLayout.findViewById(onCreateViewpager())
 
         data = initData(projectIdx, roundIdx, cardId)
 
@@ -38,21 +72,19 @@ abstract class BaseExpandCardActivity(private val isScraped: Boolean): BaseActiv
 
         initViewPager()
 
-        stormbutton_expandcard_apply.setOnClickListener {
+        applyButton.setOnClickListener {
 
             val updatedCard = expandCardAdapter.getItem(currentPage)
-            updatedCard.memo = edittext_expandcard_memo.text.toString()
+            updatedCard.memo = memoEditText.text.toString()
             savedCardRepository.update(updatedCard)
 
             Toast.makeText(application, "메모가 저장되었습니다.", Toast.LENGTH_SHORT).show()
-
-            onApplied(updatedCard.cardId, updatedCard.memo)
         }
 
     }
 
     private fun initViewPager() {
-        viewpager_fragment_card_expand.run {
+        viewpager.run {
             adapter = expandCardAdapter
             offscreenPageLimit = 3
             setPageTransformer(DepthPageTransformer())
@@ -85,9 +117,9 @@ abstract class BaseExpandCardActivity(private val isScraped: Boolean): BaseActiv
     private fun setMemo(position: Int) {
         data?.let {
             if (it[position].memo != null) {
-                edittext_expandcard_memo.setText(it[position].memo)
+                memoEditText.setText(it[position].memo)
             } else {
-                edittext_expandcard_memo.text = null
+                memoEditText.text = null
             }
         }
     }
@@ -100,5 +132,15 @@ abstract class BaseExpandCardActivity(private val isScraped: Boolean): BaseActiv
         }
     }
 
-    abstract fun onApplied(cardId: Int, memo: String?)
+    abstract fun onCreateToolbar() : Int
+
+    abstract fun onCreateViewPagerLayout() : Int
+
+    abstract fun onCreateApplyButton() : Int
+
+    abstract fun onCreateMemoEditText() : Int
+
+    abstract fun onCreateViewpager() : Int
+
+
 }

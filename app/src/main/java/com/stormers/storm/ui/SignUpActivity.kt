@@ -1,5 +1,6 @@
 package com.stormers.storm.ui
 
+import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -9,6 +10,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -22,12 +24,17 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.stormers.storm.R
+import com.stormers.storm.customview.dialog.StormDialogBuilder
+import com.stormers.storm.customview.dialog.StormDialogButton
+import kotlinx.android.synthetic.main.activity_set_email_password.*
 import kotlinx.android.synthetic.main.activity_sigin_up.*
+import kotlinx.android.synthetic.main.activity_sigin_up.button_back_signup
 import kotlinx.android.synthetic.main.bottomsheet_select_profile.*
 import java.io.File
 import java.io.FileNotFoundException
@@ -39,11 +46,16 @@ class SignUpActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "SignUpActivity"
         private const val FLAG_REQ_STORAGE = 102
+        private const val FLAG_PERM_STORAGE = 99
     }
+
+    val STORAGE_PERMISSION = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
     private val changeBackground = GradientDrawable()
 
     private lateinit var profile : ImageView
+
+    val buttonArray = ArrayList<StormDialogButton>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +68,7 @@ class SignUpActivity : AppCompatActivity() {
         changeProfile()
 
         goToLogInActivity()
+
     }
 
     // 프로필 default image color변경
@@ -105,7 +118,6 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
 
-
     // 프로필 사진 선택 BottomSheet
     private fun changeProfile() {
         val bottomSheetChangeProfile : BottomSheetBehavior<View> = BottomSheetBehavior.from(bottomsheet_profile_select)
@@ -130,39 +142,27 @@ class SignUpActivity : AppCompatActivity() {
         imagebutton_set_profile.setOnClickListener{
             bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_COLLAPSED
 
-            button_gallery.setOnClickListener{
-                selectGallery()
-                settingPermission()
-            }
+        }
 
-            button_change_default_image.setOnClickListener{
-                textview_name_in_profile.visibility = View.VISIBLE
-                imageview_signup_profilebackground.setImageResource(R.drawable.profile_circle)
-                bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
+        button_gallery.setOnClickListener{
+            if(checkPermission(STORAGE_PERMISSION, FLAG_PERM_STORAGE)){
+                openGallery()
             }
+        }
+
+        button_change_default_image.setOnClickListener{
+            textview_name_in_profile.visibility = View.VISIBLE
+            imageview_signup_profilebackground.setImageResource(R.drawable.profile_circle)
+            bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
+
+            imagebutton_select_profile_purple.visibility = View.VISIBLE
+            imagebutton_select_profile_yellow.visibility = View.VISIBLE
+            imagebutton_select_profile_red.visibility = View.VISIBLE
         }
 
         view_bottom_sheet_blur.setOnClickListener{
             bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
         }
-    }
-
-    private fun settingPermission() {
-        val permissionListener = object : PermissionListener {
-            override fun onPermissionGranted() {
-                Log.d(TAG,"settingPermission() : PermissionGranted")
-            }
-
-            override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
-                Log.d(TAG, "settingPermission() : PermissionDenied")
-            }
-        }
-
-        TedPermission.with(applicationContext).setPermissionListener(permissionListener)
-            .setPermissions(
-                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                android.Manifest.permission.CAMERA)
-            .check()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -178,6 +178,7 @@ class SignUpActivity : AppCompatActivity() {
                     constraintlayout_signup_profile.background = ShapeDrawable(OvalShape())
                     constraintlayout_signup_profile.clipToOutline = true
                     imageview_signup_profilebackground.setImageURI(uri)
+
                     bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
                     textview_name_in_profile.visibility = View.GONE
                 }
@@ -185,16 +186,46 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    private fun selectGallery() {
-        val writePermission = ContextCompat.checkSelfPermission(applicationContext!!, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        val readPermission = ContextCompat.checkSelfPermission(applicationContext!!, android.Manifest.permission.READ_EXTERNAL_STORAGE)
-
-        if (writePermission == PackageManager.PERMISSION_DENIED || readPermission == PackageManager.PERMISSION_DENIED) {
-            Log.d(TAG, "selectGallery() : Permission is denied")
-        } else {
+    //갤러리 전환
+    private fun openGallery() {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = MediaStore.Images.Media.CONTENT_TYPE
             startActivityForResult(intent, FLAG_REQ_STORAGE)
+
+            imagebutton_select_profile_purple.visibility = View.GONE
+            imagebutton_select_profile_yellow.visibility = View.GONE
+            imagebutton_select_profile_red.visibility = View.GONE
+    }
+
+    //갤러리 권한처리 메서드
+    fun checkPermission(permissions: Array<out String>, flag: Int) :Boolean {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            for(permission in permissions) {
+                if(ContextCompat.checkSelfPermission(this, permission) !=
+                        PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this, permissions, flag)
+                    return false
+                }
+            }
+        }
+        return true
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode){
+            FLAG_PERM_STORAGE -> {
+                for (grant in grantResults){
+                    if(grant != PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(this, "저장소 권한을 승인해야 프로필 사진을 설정할 수 있습니다.", Toast.LENGTH_SHORT).show()
+                        return
+                    }
+                }
+                openGallery()
+            }
         }
     }
 
@@ -215,8 +246,12 @@ class SignUpActivity : AppCompatActivity() {
 
                 if (edittext_name_signup.text!!.length < 2){
                     textview_input_more_than_two_char.visibility = View.VISIBLE
+                    button_complete_signup.setBackgroundResource(R.drawable.button_color_popup_line_gray)
+                    button_complete_signup.isEnabled = false
                 } else {
                     textview_input_more_than_two_char.visibility = View.GONE
+                    button_complete_signup.setBackgroundResource(R.drawable.box_red_radius)
+                    button_complete_signup.isEnabled = true
 
                     button_complete_signup.setOnClickListener {
                         saveProfile()
@@ -245,8 +280,30 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     fun goToLogInActivity() {
+
+        buttonArray.add(
+            StormDialogButton("취소", true, object : StormDialogButton.OnClickListener{
+                override fun onClick() {
+                    Log.d("회원가입진행","회원가입진행")
+                }
+            })
+        )
+
+        buttonArray.add(
+            StormDialogButton("확인", true, object : StormDialogButton.OnClickListener{
+                override fun onClick() {
+                    startActivity(Intent(this@SignUpActivity, LoginActivity::class.java))
+                    finish()
+                }
+            })
+        )
+
         button_back_signup.setOnClickListener {
-            startActivity(Intent(this,LoginActivity::class.java))
+            StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, "입력한 내용이 삭제됩니다.\n뒤로 가시겠습니까?")
+                .setHorizontalArray(buttonArray)
+                .build()
+                .show(supportFragmentManager, "cancle SignUp")
         }
+
     }
 }

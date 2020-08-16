@@ -31,7 +31,6 @@ class LoginActivity : BaseActivity() {
         button_login.setOnClickListener{
             if (edittext_email_login.text.isNullOrBlank() || edittext_password_login.text.isNullOrBlank()){
                 textview_login_info.visibility = View.VISIBLE
-
             } else {
                 if(checkbox_auto_login.isChecked){
                     preference.setAutoLogIn(true)
@@ -51,7 +50,7 @@ class LoginActivity : BaseActivity() {
     //Lottie 애니메이션 로그인뷰
     private fun initAnimation() {
         val animationView = findViewById<LottieAnimationView>(R.id.lottieanimation_login)
-        animationView.setAnimation("login_bg.json")
+        animationView.setAnimation("login_0816.json")
         animationView.repeatCount = INFINITE
         animationView.playAnimation()
     }
