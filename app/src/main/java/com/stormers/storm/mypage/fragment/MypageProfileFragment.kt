@@ -57,7 +57,7 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
         imageview_mypage_default_image.background = ShapeDrawable(OvalShape())
         imageview_mypage_default_image.clipToOutline = true
 
-        val userIdx = preference.getUserIdx()!!
+        val userIdx = 1
 
         retrofitClient = RetrofitClient.create(MypageInterface::class.java)
 
