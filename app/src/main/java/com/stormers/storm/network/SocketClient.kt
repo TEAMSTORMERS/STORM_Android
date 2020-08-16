@@ -13,6 +13,7 @@ import java.net.URISyntaxException
 object SocketClient {
     private val TAG = javaClass.name
 
+    //Todo: URL 받으면 추가하기
     private const val SERVER_URL = "http://3.34.179.75:3000"
     private var socket: Socket? = null
 

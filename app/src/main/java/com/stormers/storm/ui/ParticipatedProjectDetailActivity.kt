@@ -145,7 +145,7 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
             startActivity(intent)
         }
 
-        scrapedCardAdapter = SavedCardAdapter(false, object: SavedCardAdapter.OnCardClickListener {
+        scrapedCardAdapter = SavedCardAdapter(true, object: SavedCardAdapter.OnCardClickListener {
             override fun onCardClick(projectIdx: Int, roundIdx: Int, cardId: Int) {
                 val intent = Intent(this@ParticipatedProjectDetailActivity, ScrapedCardDetailActivity::class.java)
                 intent.putExtra("projectIdx", projectIdx)
