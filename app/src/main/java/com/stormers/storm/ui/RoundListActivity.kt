@@ -44,7 +44,7 @@ class RoundListActivity : AppCompatActivity() {
 
         cardAdapter = SavedCardAdapter(true, object : SavedCardAdapter.OnCardClickListener {
             override fun onCardClick(projectIdx: Int, roundIdx: Int, cardId: Int) {
-                val intent = Intent(this@RoundListActivity, RoundMeetingExpandActivity::class.java)
+                val intent = Intent(this@RoundListActivity, ScrapedCardDetailActivity::class.java)
                 intent.putExtra("projectIdx", projectIdx)
                 intent.putExtra("roundIdx", roundIdx)
                 intent.putExtra("cardId", cardId)
@@ -70,7 +70,6 @@ class RoundListActivity : AppCompatActivity() {
                         for (i in response.body()!!.data.indices) {
                             Log.d("RoundListActivity", "받아온 라운드 정보 : ${response.body()!!.data[i]}")
                         }
-
                         roundListAdapterForViewPager.addAll(response.body()!!.data)
                         Log.d("roundIdx" , roundIdx.toString())
                     }
