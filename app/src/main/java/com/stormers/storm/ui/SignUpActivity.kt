@@ -27,7 +27,11 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.stormers.storm.R
+import com.stormers.storm.customview.dialog.StormDialogBuilder
+import com.stormers.storm.customview.dialog.StormDialogButton
+import kotlinx.android.synthetic.main.activity_set_email_password.*
 import kotlinx.android.synthetic.main.activity_sigin_up.*
+import kotlinx.android.synthetic.main.activity_sigin_up.button_back_signup
 import kotlinx.android.synthetic.main.bottomsheet_select_profile.*
 import java.io.File
 import java.io.FileNotFoundException
@@ -44,6 +48,8 @@ class SignUpActivity : AppCompatActivity() {
     private val changeBackground = GradientDrawable()
 
     private lateinit var profile : ImageView
+
+    val buttonArray = ArrayList<StormDialogButton>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -139,6 +145,10 @@ class SignUpActivity : AppCompatActivity() {
                 textview_name_in_profile.visibility = View.VISIBLE
                 imageview_signup_profilebackground.setImageResource(R.drawable.profile_circle)
                 bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
+
+                imagebutton_select_profile_purple.visibility = View.VISIBLE
+                imagebutton_select_profile_yellow.visibility = View.VISIBLE
+                imagebutton_select_profile_red.visibility = View.VISIBLE
             }
         }
 
@@ -195,6 +205,10 @@ class SignUpActivity : AppCompatActivity() {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = MediaStore.Images.Media.CONTENT_TYPE
             startActivityForResult(intent, FLAG_REQ_STORAGE)
+
+            imagebutton_select_profile_purple.visibility = View.GONE
+            imagebutton_select_profile_yellow.visibility = View.GONE
+            imagebutton_select_profile_red.visibility = View.GONE
         }
     }
 
@@ -215,8 +229,12 @@ class SignUpActivity : AppCompatActivity() {
 
                 if (edittext_name_signup.text!!.length < 2){
                     textview_input_more_than_two_char.visibility = View.VISIBLE
+                    button_complete_signup.setBackgroundResource(R.drawable.button_color_popup_line_gray)
+                    button_complete_signup.isEnabled = false
                 } else {
                     textview_input_more_than_two_char.visibility = View.GONE
+                    button_complete_signup.setBackgroundResource(R.drawable.box_red_radius)
+                    button_complete_signup.isEnabled = true
 
                     button_complete_signup.setOnClickListener {
                         saveProfile()
@@ -245,8 +263,30 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     fun goToLogInActivity() {
+
+        buttonArray.add(
+            StormDialogButton("취소", true, object : StormDialogButton.OnClickListener{
+                override fun onClick() {
+                    Log.d("회원가입진행","회원가입진행")
+                }
+            })
+        )
+
+        buttonArray.add(
+            StormDialogButton("확인", true, object : StormDialogButton.OnClickListener{
+                override fun onClick() {
+                    startActivity(Intent(this@SignUpActivity, LoginActivity::class.java))
+                    finish()
+                }
+            })
+        )
+
         button_back_signup.setOnClickListener {
-            startActivity(Intent(this,LoginActivity::class.java))
+            StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, "입력한 내용이 삭제됩니다.\n뒤로 가시겠습니까?")
+                .setHorizontalArray(buttonArray)
+                .build()
+                .show(supportFragmentManager, "cancle SignUp")
         }
+
     }
 }
