@@ -30,7 +30,7 @@ class LoginActivity : BaseActivity() {
     //Lottie 애니메이션 로그인뷰
     private fun initView() {
         val animationView = findViewById<LottieAnimationView>(R.id.lottieanimation_login)
-        animationView.setAnimation("login_bg.json")
+        animationView.setAnimation("login_0816.json")
         animationView.repeatCount = INFINITE
         animationView.playAnimation()
     }
@@ -44,6 +44,7 @@ class LoginActivity : BaseActivity() {
                 textview_login_info.visibility = View.GONE
 
                 startActivity(Intent(this, MainActivity::class.java))
+
                 if(checkbox_auto_login.isChecked){
                     preference.setAutoLogIn(true)
                 } else {
