@@ -49,6 +49,7 @@
                     android:layout_width="45dp"
                     android:layout_height="15dp"
                     android:layout_marginStart="10dp"
+                    android:layout_gravity="center"
                     app:lottie_autoPlay="true"
                     app:lottie_rawRes="@raw/loading_animation"
                     app:lottie_loop="true" />
