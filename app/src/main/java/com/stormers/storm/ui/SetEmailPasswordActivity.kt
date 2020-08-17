@@ -20,6 +20,7 @@ class SetEmailPasswordActivity : BaseActivity() {
         signUpTextWatcher()
         goBackActivity()
         goCompleteSignUpActivity()
+        checkVaildEmailType()
     }
 
     fun signUpTextWatcher() {
@@ -104,5 +105,25 @@ class SetEmailPasswordActivity : BaseActivity() {
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
+    }
+
+    fun checkVaildEmailType() {
+
+        edittext_input_email.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+
+                if(isEmailValid(edittext_input_email.text.toString()) == false){
+                    textview_email_warning.visibility = View.VISIBLE
+                } else {
+                    textview_email_warning.visibility = View.GONE
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+        })
     }
 }

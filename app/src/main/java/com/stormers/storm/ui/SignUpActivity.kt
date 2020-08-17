@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.ShapeDrawable
@@ -21,6 +22,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -75,48 +77,63 @@ class SignUpActivity : AppCompatActivity() {
     private fun selectProfileColor(){
 
             imagebutton_select_profile_purple.setOnClickListener{
-                imagebutton_select_profile_purple.setBackgroundResource(R.drawable.join_profile_selected_purple)
-
-                imagebutton_select_profile_yellow.setBackgroundResource(R.drawable.join_profile_yellow)
-
-                imagebutton_select_profile_red.setBackgroundResource(R.drawable.join_profile_red)
-
-                //라운딩 및 프로필 색 변환
-                constraintlayout_signup_profile.background = ShapeDrawable(OvalShape())
-                constraintlayout_signup_profile.clipToOutline = true
-                changeBackground.setColor(resources.getColor(R.color.storm_purple))
-                imageview_signup_profilebackground.setImageDrawable(changeBackground)
-
-
+                changeProfileResources(imagebutton_select_profile_purple)
+                keepBackgroundShapeAndSetColor(R.color.storm_purple)
             }
 
             imagebutton_select_profile_red.setOnClickListener{
-                imagebutton_select_profile_purple.setBackgroundResource(R.drawable.join_profile_purple)
-
-                imagebutton_select_profile_yellow.setBackgroundResource(R.drawable.join_profile_yellow)
-
-                imagebutton_select_profile_red.setBackgroundResource(R.drawable.join_profile_selected_red)
-
-                constraintlayout_signup_profile.background = ShapeDrawable(OvalShape())
-                constraintlayout_signup_profile.clipToOutline = true
-                changeBackground.setColor(resources.getColor(R.color.storm_red))
-                imageview_signup_profilebackground.setImageDrawable(changeBackground)
+                changeProfileResources(imagebutton_select_profile_red)
+                keepBackgroundShapeAndSetColor(R.color.storm_red)
 
             }
 
             imagebutton_select_profile_yellow.setOnClickListener{
-                imagebutton_select_profile_purple.setBackgroundResource(R.drawable.join_profile_purple)
-
-                imagebutton_select_profile_yellow.setBackgroundResource(R.drawable.join_profile_selected_yellow)
-
-                imagebutton_select_profile_red.setBackgroundResource(R.drawable.join_profile_red)
-
-                constraintlayout_signup_profile.background = ShapeDrawable(OvalShape())
-                constraintlayout_signup_profile.clipToOutline = true
-                changeBackground.setColor(resources.getColor(R.color.storm_yellow))
-                imageview_signup_profilebackground.setImageDrawable(changeBackground)
+                changeProfileResources(imagebutton_select_profile_yellow)
+                keepBackgroundShapeAndSetColor(R.color.storm_yellow)
             }
         }
+    fun keepBackgroundShapeAndSetColor(colorId: Int) {
+        constraintlayout_signup_profile.background = ShapeDrawable(OvalShape())
+        constraintlayout_signup_profile.clipToOutline = true
+        changeBackground.setColor(resources.getColor(colorId))
+        imageview_signup_profilebackground.setImageDrawable(changeBackground)
+    }
+
+
+    fun changeProfileDefaultBackground() {
+        if(imagebutton_select_profile_purple.background.equals(R.drawable.join_profile_selected_purple)){
+            keepBackgroundShapeAndSetColor(R.color.storm_purple)
+        } else {
+            if(imagebutton_select_profile_purple.background.equals(R.drawable.join_profile_selected_yellow)){
+                keepBackgroundShapeAndSetColor(R.color.storm_yellow)
+            } else {
+                if (imagebutton_select_profile_purple.background.equals(R.drawable.join_profile_selected_red)){
+                    keepBackgroundShapeAndSetColor(R.color.storm_red)
+                }
+            }
+        }
+    }
+
+    fun changeProfileResources(imageButtonSelected : ImageButton) {
+
+        if(imageButtonSelected == imagebutton_select_profile_purple) {
+            imagebutton_select_profile_purple.setBackgroundResource(R.drawable.join_profile_selected_purple)
+            imagebutton_select_profile_yellow.setBackgroundResource(R.drawable.join_profile_yellow)
+            imagebutton_select_profile_red.setBackgroundResource(R.drawable.join_profile_red)
+        } else {
+            if(imageButtonSelected == imagebutton_select_profile_yellow) {
+                imagebutton_select_profile_purple.setBackgroundResource(R.drawable.join_profile_purple)
+                imagebutton_select_profile_yellow.setBackgroundResource(R.drawable.join_profile_selected_yellow)
+                imagebutton_select_profile_red.setBackgroundResource(R.drawable.join_profile_red)
+            }  else {
+                if(imageButtonSelected == imagebutton_select_profile_red) {
+                    imagebutton_select_profile_purple.setBackgroundResource(R.drawable.join_profile_purple)
+                    imagebutton_select_profile_yellow.setBackgroundResource(R.drawable.join_profile_yellow)
+                    imagebutton_select_profile_red.setBackgroundResource(R.drawable.join_profile_selected_red)
+                }
+            }
+        }
+    }
 
     // 프로필 사진 선택 BottomSheet
     private fun changeProfile() {
@@ -152,12 +169,18 @@ class SignUpActivity : AppCompatActivity() {
 
         button_change_default_image.setOnClickListener{
             textview_name_in_profile.visibility = View.VISIBLE
-            imageview_signup_profilebackground.setImageResource(R.drawable.profile_circle)
+
+            imageview_signup_profilebackground.setImageResource(R.drawable.circular_profile)
             bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
+
+            changeProfileResources(imagebutton_select_profile_purple)
 
             imagebutton_select_profile_purple.visibility = View.VISIBLE
             imagebutton_select_profile_yellow.visibility = View.VISIBLE
             imagebutton_select_profile_red.visibility = View.VISIBLE
+
+
+            changeProfileDefaultBackground()
         }
 
         view_bottom_sheet_blur.setOnClickListener{
