@@ -7,6 +7,7 @@ import android.util.Log
 import com.stormers.storm.R
 import com.stormers.storm.card.fragment.AddCardFragment
 import com.stormers.storm.base.BaseActivity
+import com.stormers.storm.card.model.SavedCardEntity
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.network.RetrofitClient
@@ -17,7 +18,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.lang.StringBuilder
+import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.collections.ArrayList
 
 class RoundProgressActivity : BaseActivity() {
 
@@ -27,6 +30,8 @@ class RoundProgressActivity : BaseActivity() {
     private var roundIdx = -1
 
     val projectName = preference.getProjectName()
+
+    val cardList = mutableListOf<SavedCardEntity>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -9,6 +9,7 @@ import com.stormers.storm.canvas.network.RequestCard
 import com.stormers.storm.card.model.SavedCardEntity
 import com.stormers.storm.network.Response
 import com.stormers.storm.network.RetrofitClient
+import com.stormers.storm.ui.RoundProgressActivity
 import kotlinx.android.synthetic.main.view_addcard_edittext.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
@@ -22,7 +23,8 @@ class CanvasTextFragment : BaseCanvasFragment(TEXT_MODE, R.layout.view_addcard_e
     }
 
     override fun onApplied() {
-        if (!edittext_addcard.text.isNullOrBlank()) {
+        val content = edittext_addcard.text.toString()
+        if (!content.isNullOrBlank()) {
 
             val userIdx = RequestBody.create(MediaType.parse("text/plain"), preference.getUserIdx().toString())
 
@@ -30,7 +32,7 @@ class CanvasTextFragment : BaseCanvasFragment(TEXT_MODE, R.layout.view_addcard_e
 
             val roundIdx = RequestBody.create(MediaType.parse("text/plain"), preference.getRoundIdx().toString())
 
-            val cardText = RequestBody.create(MediaType.parse("text/plain"), edittext_addcard.text.toString())
+            val cardText = RequestBody.create(MediaType.parse("text/plain"), content)
 
             RetrofitClient.create(RequestCard::class.java)
                 .postCard(userIdx, projectIdx, roundIdx, null, cardText).enqueue(object : Callback<Response> {
@@ -42,8 +44,8 @@ class CanvasTextFragment : BaseCanvasFragment(TEXT_MODE, R.layout.view_addcard_e
                     override fun onResponse(call: Call<Response>, response: retrofit2.Response<Response>) {
                         if (response.isSuccessful) {
                             if (response.body()!!.success) {
-                                savedCardRepository.insert(SavedCardEntity(preference.getProjectIdx()!!, preference.getRoundIdx()!!,SavedCardEntity.FALSE,SavedCardEntity.TEXT,
-                                    edittext_addcard.text.toString(), null))
+
+                                saveCard(content)
 
                                 Toast.makeText(context, "카드가 추가되었습니다", Toast.LENGTH_SHORT).show()
 
@@ -60,5 +62,10 @@ class CanvasTextFragment : BaseCanvasFragment(TEXT_MODE, R.layout.view_addcard_e
         } else {
             Toast.makeText(context, "카드를 입력해주세요", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun saveCard(content: String) {
+        (activity as RoundProgressActivity).cardList.add(SavedCardEntity(null, null,
+            null, null, null, SavedCardEntity.TEXT, content, null))
     }
 }

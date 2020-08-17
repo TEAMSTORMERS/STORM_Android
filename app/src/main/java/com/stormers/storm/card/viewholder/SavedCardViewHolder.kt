@@ -1,5 +1,6 @@
 package com.stormers.storm.card.viewholder
 
+import android.util.Log
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.stormers.storm.R
@@ -15,6 +16,10 @@ class SavedCardViewHolder(parent: ViewGroup, private val showHeart: Boolean,
                           private val listener: SavedCardAdapter.OnCardClickListener?)
     : BaseViewHolder<SavedCardEntity>(R.layout.item_heart_card, parent) {
 
+    companion object {
+        private const val TAG = "SavedCardViewHolder"
+    }
+
     private val savedCardRepository: SavedCardRepository by lazy { SavedCardRepository(itemView.context) }
 
     override fun bind(data: SavedCardEntity) {
@@ -27,7 +32,11 @@ class SavedCardViewHolder(parent: ViewGroup, private val showHeart: Boolean,
 
         listener?.let {
             itemView.setOnClickListener {
-                listener.onCardClick(data.projectIdx, data.roundIdx, data.cardId)
+                if (data.projectIdx != null && data.roundIdx != null && data.cardIdx != null) {
+                    listener.onCardClick(data.projectIdx, data.roundIdx, data.cardIdx)
+                } else {
+                    Log.e(TAG, "Wrong card")
+                }
             }
         }
 

@@ -21,9 +21,9 @@ class ParticipantViewHolder(parent: ViewGroup): BaseViewHolder<UserModel>(R.layo
         imageViewParticipantItemProfile.clipToOutline = true
 
         //프로필 사진 적용
-        Glide.with(itemView).load(data.profileUrl).into(imageViewParticipantItemProfile)
+        Glide.with(itemView).load(data.UserImg).into(imageViewParticipantItemProfile)
 
         //이름 적용
-        textViewParticipantItemName.text = data.name
+        textViewParticipantItemName.text = data.userName
     }
 }

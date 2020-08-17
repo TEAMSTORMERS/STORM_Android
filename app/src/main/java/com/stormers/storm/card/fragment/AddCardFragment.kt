@@ -15,8 +15,6 @@ import kotlinx.android.synthetic.main.fragment_add_card.*
 
 class AddCardFragment : BaseFragment(R.layout.fragment_add_card) {
 
-    private val savedCardRepository : SavedCardRepository by lazy { SavedCardRepository(context!!) }
-
     private lateinit var addedSavedCardAdapter: SavedCardAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -29,14 +27,13 @@ class AddCardFragment : BaseFragment(R.layout.fragment_add_card) {
         recyclerview_addcard_card.addItemDecoration(MarginDecoration(context!!, 2, 20, 20))
         recyclerview_addcard_card.adapter = addedSavedCardAdapter
 
-        val savedCard = preference.getProjectIdx()?.let { savedCardRepository.getAll(it, preference.getRoundIdx()!!) }
+        val cards = (activity as RoundProgressActivity).cardList
 
         //데이터가 있으면 리사이클러뷰를 보이고 없으면 보이지 않기. 따로 Fragment 만들지 않기
-        if (savedCard != null && savedCard.isNotEmpty()) {
-            addedSavedCardAdapter.addAll(savedCard)
+        if (cards.isNotEmpty()) {
+            addedSavedCardAdapter.setList(cards)
             recyclerview_addcard_card.visibility = View.VISIBLE
             constraintlayout_addcard_nocard.visibility = View.GONE
-
         } else {
             recyclerview_addcard_card.visibility = View.GONE
             constraintlayout_addcard_nocard.visibility = View.VISIBLE

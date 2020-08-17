@@ -74,9 +74,19 @@ class RoundmeetingFragment : BaseFragment(R.layout.fragment_roundmeeting) {
     private fun saveCard(cardList: List<ResponseCardModel>) {
         for (card in cardList) {
             val localCard = if (card.card_txt != null) {
-                SavedCardEntity(projectIdx!!, roundIdx!!, SavedCardEntity.FALSE, SavedCardEntity.TEXT, card.card_txt, null)
+                //Todo: userIdx 추가하기
+                SavedCardEntity(card.card_idx, projectIdx!!, roundIdx!!, null,
+                    SavedCardEntity.FALSE, SavedCardEntity.TEXT, card.card_txt, null)
+            } else if (card.card_img != null) {
+                SavedCardEntity(card.card_idx, projectIdx!!, roundIdx!!, null,
+                    SavedCardEntity.FALSE, SavedCardEntity.DRAWING, card.card_img, null)
             } else {
-                SavedCardEntity(projectIdx!!, roundIdx!!, SavedCardEntity.FALSE, SavedCardEntity.DRAWING, card.card_img, null)
+                null
+            }
+
+            if (localCard == null) {
+                Log.d(TAG, "Wrong card")
+                return
             }
             savedCardRepository.insert(localCard)
         }

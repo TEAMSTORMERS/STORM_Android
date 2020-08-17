@@ -104,7 +104,7 @@ abstract class BaseExpandCardActivity(private val isScraped: Boolean, @LayoutRes
     private fun initCurrentPage(cardId: Int) {
         if (data != null) {
             for (i in data!!.indices) {
-                if (data!![i].cardId == cardId) {
+                if (data!![i].cardIdx == cardId) {
                     currentPage = i
 
                     setMemo(currentPage)
