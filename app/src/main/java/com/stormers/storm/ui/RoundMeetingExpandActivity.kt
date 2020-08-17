@@ -4,11 +4,15 @@ import android.os.Bundle
 import com.stormers.storm.R
 
 import com.stormers.storm.round.base.BaseExpandCardActivity
+import kotlinx.android.synthetic.main.activity_expandcard.*
 
 class RoundMeetingExpandActivity : BaseExpandCardActivity(false, R.layout.activity_expandcard) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        selectedCardCount(textview_card_number)
+        currentCardCount(textview_card_number)
     }
 
     override fun onCreateToolbar(): Int {
