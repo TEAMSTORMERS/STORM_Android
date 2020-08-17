@@ -78,21 +78,21 @@ class SignUpActivity : AppCompatActivity() {
 
             imagebutton_select_profile_purple.setOnClickListener{
                 changeProfileResources(imagebutton_select_profile_purple)
-                keepBackgroundShapAndSetColor(R.color.storm_purple)
+                keepBackgroundShapeAndSetColor(R.color.storm_purple)
             }
 
             imagebutton_select_profile_red.setOnClickListener{
                 changeProfileResources(imagebutton_select_profile_red)
-                keepBackgroundShapAndSetColor(R.color.storm_red)
+                keepBackgroundShapeAndSetColor(R.color.storm_red)
 
             }
 
             imagebutton_select_profile_yellow.setOnClickListener{
                 changeProfileResources(imagebutton_select_profile_yellow)
-                keepBackgroundShapAndSetColor(R.color.storm_yellow)
+                keepBackgroundShapeAndSetColor(R.color.storm_yellow)
             }
         }
-    fun keepBackgroundShapAndSetColor(colorId: Int) {
+    fun keepBackgroundShapeAndSetColor(colorId: Int) {
         constraintlayout_signup_profile.background = ShapeDrawable(OvalShape())
         constraintlayout_signup_profile.clipToOutline = true
         changeBackground.setColor(resources.getColor(colorId))
@@ -102,13 +102,13 @@ class SignUpActivity : AppCompatActivity() {
 
     fun changeProfileDefaultBackground() {
         if(imagebutton_select_profile_purple.background.equals(R.drawable.join_profile_selected_purple)){
-            keepBackgroundShapAndSetColor(R.color.storm_purple)
+            keepBackgroundShapeAndSetColor(R.color.storm_purple)
         } else {
             if(imagebutton_select_profile_purple.background.equals(R.drawable.join_profile_selected_yellow)){
-                keepBackgroundShapAndSetColor(R.color.storm_yellow)
+                keepBackgroundShapeAndSetColor(R.color.storm_yellow)
             } else {
                 if (imagebutton_select_profile_purple.background.equals(R.drawable.join_profile_selected_red)){
-                    keepBackgroundShapAndSetColor(R.color.storm_red)
+                    keepBackgroundShapeAndSetColor(R.color.storm_red)
                 }
             }
         }
