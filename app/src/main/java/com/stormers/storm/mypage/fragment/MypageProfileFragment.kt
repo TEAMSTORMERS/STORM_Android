@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
@@ -16,9 +17,12 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.KeyEvent.KEYCODE_ENTER
 import android.view.View
+import android.view.contentcapture.ContentCaptureContext
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContentResolverCompat
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -32,6 +36,7 @@ import com.stormers.storm.mypage.network.MypageInterface
 import com.stormers.storm.mypage.network.ResponseMypageData
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.ui.MypageWithdrawalActivity
+import com.stormers.storm.ui.SignUpActivity
 import kotlinx.android.synthetic.main.activity_sigin_up.*
 import kotlinx.android.synthetic.main.bottomsheet_select_profile.*
 import kotlinx.android.synthetic.main.fragment_mypage_profile.*
@@ -39,12 +44,21 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
+import java.util.jar.Manifest
 import java.util.regex.Pattern
 
 class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
+
     val FLAG_REQ_STORAGE = 102
+    val FLAG_PERM_STORAGE = 99
+    val STORAGE_PERMISSION = arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE,
+        android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
     var char_limit = false
+
     private val changeBackground = GradientDrawable()
+
+    private lateinit var bottomSheetChangeProfile: BottomSheetBehavior<View>
 
     private lateinit var retrofitClient: MypageInterface
 
@@ -176,11 +190,8 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
 
         })
 
-        settingPermission()
-
-
         //BottomSheet
-        val bottomSheetChangeProfile = BottomSheetBehavior.from(bottomsheet_profile_select_mypage)
+        bottomSheetChangeProfile = BottomSheetBehavior.from(bottomsheet_profile_select_mypage)
         bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
 
         bottomSheetChangeProfile.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback(){
@@ -203,14 +214,16 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
             }
         })
 
+
         val cameraButtonClickListener = View.OnClickListener {
             bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_COLLAPSED
 
             button_gallery.setOnClickListener{
-                selectGallery()
-                settingPermission()
-                bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
+                if (checkPermission(STORAGE_PERMISSION, FLAG_PERM_STORAGE)) {
+                    selectGallery()
+                }
             }
+
 
             //bottomSheet에서 기본이미지로 변경 버튼 누를 경우
            button_change_default_image.setOnClickListener {
@@ -221,9 +234,9 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
 
                bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
             }
-
         }
 
+        //카메라 버튼 선택
         circleImageView_camera_button.setOnClickListener(cameraButtonClickListener)
         imageview_mypage_default_image.setOnClickListener(cameraButtonClickListener)
 
@@ -231,7 +244,7 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
             bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
         }
 
-        //회원 탈퇴 fragment로 이동
+        //회원 탈퇴 activity로 이동
         constraint_withdrawa.setOnClickListener {
             val nextIntent = Intent(context!!, MypageWithdrawalActivity::class.java)
             startActivity(nextIntent)
@@ -267,25 +280,6 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
     }
 
 
-
-    fun settingPermission() {
-        var permis = object : PermissionListener {
-            override fun onPermissionGranted() {
-                Log.d("PermissionGranted","권한 허가")
-            }
-
-            override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
-                Log.d("PermissionDenied", "권한 거부")
-            }
-        }
-
-        TedPermission.with(context).setPermissionListener(permis)
-            .setPermissions(
-                android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                android.Manifest.permission.CAMERA)
-            .check()
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -308,17 +302,11 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
     }
 
     private fun selectGallery() {
-        var writePermission = ContextCompat.checkSelfPermission(context!!, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        var readPermission = ContextCompat.checkSelfPermission(context!!, android.Manifest.permission.READ_EXTERNAL_STORAGE)
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = MediaStore.Images.Media.CONTENT_TYPE
+        startActivityForResult(intent, FLAG_REQ_STORAGE)
 
-        if (writePermission == PackageManager.PERMISSION_DENIED || readPermission == PackageManager.PERMISSION_DENIED) {
-
-        } else {
-            var intent = Intent(Intent.ACTION_PICK)
-            intent.type = MediaStore.Images.Media.CONTENT_TYPE
-            startActivityForResult(intent, FLAG_REQ_STORAGE)
-        }
-
+        bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
     }
 
     fun textSetFilter(): InputFilter {
@@ -394,4 +382,35 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
         //Todo 비트맵 서버로 전송
     }
 
+    //권한처리 메서드
+    fun checkPermission(permissions: Array<out String>, flag: Int) :Boolean {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            for(permission in permissions) {
+                if(ContextCompat.checkSelfPermission(context!!, permission) !=
+                    PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(permissions, flag)
+                    return false
+                }
+            }
+        }
+        return true
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            FLAG_PERM_STORAGE -> {
+                for (grant in grantResults){
+                    if(grant != PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(context, "저장소 권한을 승인해야 프로필 사진을 설정할 수 있습니다.", Toast.LENGTH_SHORT).show()
+                        return
+                    }
+                }
+                selectGallery()
+            }
+        }
+    }
 }
