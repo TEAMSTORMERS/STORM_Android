@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
-import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import com.stormers.storm.R
@@ -17,8 +16,8 @@ import com.stormers.storm.project.network.RequestProject
 import com.stormers.storm.project.network.response.ResponseAddProject
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.project.model.AddProjectModel
+import com.stormers.storm.project.model.ProjectModel
 import kotlinx.android.synthetic.main.activity_add_project.*
-import kotlinx.android.synthetic.main.view_toolbar.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,12 +36,13 @@ class AddProjectActivity : BaseActivity() {
             setMyPageButton()
         }
 
-        start_project()
+        button_add_project.setOnClickListener {
+            startProject()
+        }
 
         buttonArray.add(
             StormDialogButton("확인", true, object : StormDialogButton.OnClickListener {
                 override fun onClick() {
-                    Log.d("버튼 누름","성공")
                     startActivity(Intent(this@AddProjectActivity, RoundSettingActivity::class.java))
                     finish()
                 }
@@ -55,39 +55,41 @@ class AddProjectActivity : BaseActivity() {
         return true
     }
 
-    fun start_project() {
+    private fun startProject() {
+        val projectName = edittext_addproject_projectname.text.toString()
+        val projectComment = edittext_addproject_notice.text.toString()
 
-        button_add_project.setOnClickListener {
-            RetrofitClient.create(RequestProject::class.java)
-                .addProject(AddProjectModel(edittext_addproject_projectname.text.toString(),
-                    edittext_addproject_notice.text.toString(), preference.getUserIdx()!!))
+        RetrofitClient.create(RequestProject::class.java)
+            .addProject(AddProjectModel(projectName,
+                projectComment, preference.getUserIdx()!!))
 
-                .enqueue(object : Callback<ResponseAddProject> {
-                        override fun onFailure(call: Call<ResponseAddProject>, t: Throwable) {
-                            Log.d("통신실패", "${t}")
-                        }
+            .enqueue(object : Callback<ResponseAddProject> {
+                override fun onFailure(call: Call<ResponseAddProject>, t: Throwable) {
+                    Log.d("통신실패", "${t}")
+                }
 
-                        override fun onResponse(call: Call<ResponseAddProject>, response: Response<ResponseAddProject>) {
-                            if (response.isSuccessful) {
-                                if (response.body()!!.success) {
-                                    Log.d("AddProject", "참가 코드 : ${response.body()!!.data.projectCode}")
-                                    Log.d("AddProject", "projectIdx : ${response.body()!!.data.projectIdx}")
+                override fun onResponse(call: Call<ResponseAddProject>, response: Response<ResponseAddProject>) {
+                    if (response.isSuccessful) {
+                        if (response.body()!!.success) {
+                            Log.d("AddProject", "참가 코드 : ${response.body()!!.data.projectCode}")
+                            Log.d("AddProject", "projectIdx : ${response.body()!!.data.projectIdx}")
 
-                                    makeDialog(response.body()!!.data.projectCode)
-                                        .show(supportFragmentManager, "participate_code")
+                            //참여 코드 다이얼로그 띄우기
+                            makeDialog(response.body()!!.data.projectCode)
+                                .show(supportFragmentManager, "participate_code")
 
-                                    //프로젝트에 관한 데이터를 preference에 저장
-                                    preference.setProjectIdx(response.body()!!.data.projectIdx)
-                                    preference.setProjectName(edittext_addproject_projectname.text.toString())
-                                    preference.setProjectCode(response.body()!!.data.projectCode)
-                                }
-                            } else {
-                                Log.d("AddProjectActivity", response.message())
+                            //현재 프로젝트에 관한 정보를 앱 전역에 저장
+                            response.body()!!.data.let {
+                                GlobalApplication.currentProject = ProjectModel(it.projectIdx, it.projectCode,
+                                    projectName, projectComment, null, null)
                             }
+                            GlobalApplication.isHost = true
                         }
+                    } else {
+                        Log.d("AddProjectActivity", response.message())
                     }
-                )
-        }
+                }
+            })
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

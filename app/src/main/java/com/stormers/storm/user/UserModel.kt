@@ -14,9 +14,13 @@ data class UserModel(
 
     @SerializedName("user_img")
     @ColumnInfo(name = "user_img")
-    val UserImg: String,
+    val userImg: String,
 
     @SerializedName("user_name")
     @ColumnInfo(name = "user_name")
     val userName: String
-)
+) {
+    override fun toString(): String {
+        return "userIdx: $userIdx, userImg: $userImg, userName: $userName"
+    }
+}

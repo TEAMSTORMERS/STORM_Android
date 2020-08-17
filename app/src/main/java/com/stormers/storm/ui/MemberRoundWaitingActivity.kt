@@ -33,9 +33,8 @@ class MemberRoundWaitingActivity: BaseActivity() {
 
         retrofitClient = RetrofitClient.create(RequestProject::class.java)
 
-        preference.getProjectIdx()?.let {
 
-            retrofitClient.responseProjectinfo(it).enqueue(object :
+            retrofitClient.responseProjectinfo(GlobalApplication.currentProject!!.projectIdx).enqueue(object :
                 Callback<ResponseProjectInfoModel> {
                 override fun onFailure(call: Call<ResponseProjectInfoModel>, t: Throwable) {
 
@@ -48,14 +47,18 @@ class MemberRoundWaitingActivity: BaseActivity() {
                             Log.d("getProjectName", "Success. ${response.body()!!.data.projectName}")
                             textview_projectcard_title.text = response.body()!!.data.projectName
 
-                            preference.setProjectName(response.body()!!.data.projectName)
-                            //Todo: 라운드 참여
+                            GlobalApplication.currentProject!!.run {
+                                response.body()!!.data.let {
+                                    projectName = it.projectName
+                                    projectComment = it.projectComment
+                                }
+
+                            }
                         }
                     }
                 }
             })
 
-        }
     }
 
     override fun initFragmentId(): Int? {

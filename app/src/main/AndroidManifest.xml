@@ -25,7 +25,7 @@
         <activity
             android:name=".ui.SetEmailPasswordActivity"
             android:theme="@style/loginTheme"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
@@ -39,12 +39,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity android:name=".ui.AddProjectActivity" />
         <activity
             android:name=".ui.MainActivity"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustNothing"/>
         <activity android:name=".ui.MemberRoundWaitingActivity" />
         <activity android:name=".ui.ParticipatedProjectListActivity" />
         <activity android:name=".ui.ParticipatedProjectDetailActivity" />
@@ -62,7 +61,7 @@
         <activity
             android:name=".ui.SignUpActivity"
             android:theme="@style/loginTheme"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

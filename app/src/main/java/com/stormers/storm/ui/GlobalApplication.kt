@@ -3,6 +3,9 @@ package com.stormers.storm.ui
 import android.app.Application
 import com.kakao.auth.KakaoSDK
 import com.stormers.storm.kakao.KakaoSDKAdapter
+import com.stormers.storm.project.model.ProjectEntity
+import com.stormers.storm.project.model.ProjectModel
+import com.stormers.storm.round.model.RoundModel
 import com.stormers.storm.util.DatabaseManager
 import com.stormers.storm.util.SharedPreference
 
@@ -36,5 +39,14 @@ class GlobalApplication : Application() {
         lateinit var databaseManager: DatabaseManager
 
         lateinit var prefs: SharedPreference
+
+
+        var userIdx: Int = -1
+
+        var currentProject: ProjectModel? = null
+
+        var currentRound: RoundModel? = null
+
+        var isHost: Boolean = false
     }
 }

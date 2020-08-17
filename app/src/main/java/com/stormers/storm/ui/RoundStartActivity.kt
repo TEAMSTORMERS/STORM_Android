@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
-import com.stormers.storm.round.fragment.RoundStartFragment
+import com.stormers.storm.round.fragment.HostRoundWaitingFragment
 import kotlinx.android.synthetic.main.activity_round_setting.*
 
 class RoundStartActivity : BaseActivity() {
@@ -16,7 +16,7 @@ class RoundStartActivity : BaseActivity() {
             //Todo: 라운드 나가기
         })
 
-        goToFragment(RoundStartFragment::class.java, null)
+        goToFragment(HostRoundWaitingFragment::class.java, null)
 
     }
 

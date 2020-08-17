@@ -34,12 +34,15 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        preference.setProjectCode(null)
-        preference.setProjectIdx(null)
-        preference.setRoundIdx(null)
-        preference.setRoundCount(null)
-        preference.setProjectName(null)
-        preference.setHost(false)
+        //Todo: 회원가입 후 하드코딩 제거
+        preference.setUserIdx(1)
+
+        GlobalApplication.run {
+            userIdx = preference.getUserIdx()!!
+            currentRound = null
+            currentProject = null
+            isHost = false
+        }
 
         stormtoolbar_main.setMyPageButton()
 
@@ -81,12 +84,13 @@ class MainActivity : BaseActivity() {
                                                 response: Response<ResponseJoinProjectUsingCode>) {
                             if (response.isSuccessful) {
                                 if (response.body()!!.success) {
-                                    Log.d("enterProject", "projectIdx : ${response.body()!!.data.projectIdx}}")
+                                    val projectIdx = response.body()!!.data.projectIdx
+                                    Log.d("enterProject", "projectIdx : ${projectIdx}}")
 
-                                    preference.setProjectIdx(response.body()!!.data.projectIdx)
-                                    preference.setProjectCode(edittext_input_participate_code.text.toString())
+                                    GlobalApplication.currentProject = ProjectModel(projectIdx, edittext_input_participate_code.text.toString(),
+                                    null, null, null, null)
 
-                                    moveToHostRoundActivity()
+                                    startActivity(Intent(this@MainActivity, MemberRoundWaitingActivity::class.java))
                                 }
                             }
                         }
@@ -139,10 +143,5 @@ class MainActivity : BaseActivity() {
             group_main_noprojectlist.visibility = View.VISIBLE
             recycler_participated_projects_list.visibility = View.GONE
         }
-    }
-
-    private fun moveToHostRoundActivity() {
-        val intent = Intent(this, MemberRoundWaitingActivity::class.java)
-        startActivity(intent)
     }
 }

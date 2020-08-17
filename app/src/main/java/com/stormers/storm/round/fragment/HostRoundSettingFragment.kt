@@ -13,11 +13,11 @@ import com.stormers.storm.customview.dialog.StormDialogButton
 
 import com.stormers.storm.round.network.RequestRound
 import com.stormers.storm.network.*
-import com.stormers.storm.round.RoundRepository
 import com.stormers.storm.round.network.response.ResponseRoundCountModel
 import com.stormers.storm.round.model.RoundEnterModel
 import com.stormers.storm.round.model.RoundModel
 import com.stormers.storm.round.model.RoundSettingModel
+import com.stormers.storm.ui.GlobalApplication
 import kotlinx.android.synthetic.main.activity_round_setting.*
 import com.stormers.storm.ui.RoundSettingActivity
 import io.socket.emitter.Emitter
@@ -37,9 +37,9 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
 
     private lateinit var retrofitClient: RequestRound
 
-    private val projectIdx = preference.getProjectIdx()
+    private val projectIdx = GlobalApplication.currentProject!!.projectIdx
 
-    private val userIdx = preference.getUserIdx()
+    private val userIdx = GlobalApplication.userIdx
 
     private var roundCount: Int? = null
 
@@ -47,20 +47,22 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
 
     private var roundPurpose: String? = null
 
-    private val roundRepository: RoundRepository by lazy { RoundRepository.getInstance() }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //서버로부터 라운드 정보를 가져옴
+        //서버로부터 라운드 횟수를 가져옴
         getRoundCount()
 
+        //액비티이단의 확인 버튼 초기화
         initActivityButton()
 
+        //라운드 목표 시간 다이어그램 버튼 초기화
         initDialogButton()
 
+        //라운드 목표 시간 다이어그램 초기화
         initDialog()
 
+        //라운드 목표 시간 버튼 초기화
         textview_roundsetting_time.setOnClickListener {
             timePickerDialog.show(fragmentManager!!, "timepicker")
         }
@@ -97,71 +99,73 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
         activityButton.setText("확인")
 
         activityButton.setOnClickListener {
-            roundPurpose = textview_round_goal.text.toString()
+            createRound()
+        }
+    }
 
-            if (roundPurpose.isNullOrBlank() || roundTime == null) {
-                Toast.makeText(context, "라운드 목표 혹은 라운드 소요시간을 입력해주세요", Toast.LENGTH_SHORT).show()
-            } else {
-                projectIdx?.let {
-                    RetrofitClient
-                        .create(RequestRound::class.java)
-                        .roundSetting(RoundSettingModel(it, textview_round_goal.text.toString(), roundTime!!))
-                        .enqueue(object : Callback<BaseResponse> {
+    private fun createRound() {
+        roundPurpose = textview_round_goal.text.toString()
 
-                            override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
-                                Log.d("Round Setting 통신 실패", "$t")
+        if (roundPurpose.isNullOrBlank() || roundTime == null) {
+            Toast.makeText(context, "라운드 목표 혹은 라운드 소요시간을 입력해주세요", Toast.LENGTH_SHORT).show()
+        } else {
+            RetrofitClient
+                .create(RequestRound::class.java)
+                .roundSetting(RoundSettingModel(projectIdx, roundPurpose!!, roundTime!!))
+                .enqueue(object : Callback<BaseResponse> {
+
+                    override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
+                        Log.d(TAG, "createRound: fail, ${t.message}")
+                    }
+
+                    override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
+                        if (response.isSuccessful) {
+                            if (response.body()!!.success) {
+                                val roundIdx = response.body()!!.data
+                                Log.d(TAG, "createRound: success, roundIdx: $roundIdx")
+
+                                //현재 라운드 앱 전역에 저장
+                                GlobalApplication.currentRound = RoundModel(roundIdx, roundCount, roundPurpose, roundTime, null)
+
+                                //라운드 입장
+                                enterRound(roundIdx)
+                            } else {
+                                Log.d(TAG, "createRound: not success, ${response.body()!!.message}")
                             }
-
-                            override fun onResponse(call: Call<BaseResponse>, response: Response<BaseResponse>) {
-                                if (response.isSuccessful) {
-                                    if (response.body()!!.success) {
-                                        Log.d("Round Setting 통신 성공", response.body()!!.data.toString())
-
-                                        //RoundIdx 저장
-                                        preference.setRoundIdx(response.body()!!.data)
-
-                                        //라운드 입장
-                                        enterRound(response.body()!!.data)
-                                    } else {
-                                        Log.d("Round Setting 통신 실패", response.body()!!.message)
-                                    }
-                                } else {
-                                    Log.d("Round Setting 통신 실패", response.body()!!.message)
-                                }
-                            }
+                        } else {
+                            Log.d(TAG, "createRound: not success, ${response.body()!!.message}")
                         }
-                    )
+                    }
                 }
-            }
+                )
         }
     }
 
     private fun getRoundCount() {
         retrofitClient = RetrofitClient.create(RequestRound::class.java)
 
-        projectIdx?.let {
-            retrofitClient.responseRoundCount(it)
-                .enqueue(object : Callback<ResponseRoundCountModel> {
-                    override fun onFailure(call: Call<ResponseRoundCountModel>, t: Throwable) {
-                        Log.d(TAG, "getRoundCount: fail, ${t.message}")
-                    }
+        retrofitClient.responseRoundCount(projectIdx)
+            .enqueue(object : Callback<ResponseRoundCountModel> {
+                override fun onFailure(call: Call<ResponseRoundCountModel>, t: Throwable) {
+                    Log.d(TAG, "getRoundCount: fail, ${t.message}")
+                }
 
-                    override fun onResponse(call: Call<ResponseRoundCountModel>, response: Response<ResponseRoundCountModel>) {
-                        if (response.isSuccessful) {
-                            if (response.body()!!.success) {
-                                Log.d(TAG, "getRoundCount : success, ${response.body()!!.data}")
+                override fun onResponse(call: Call<ResponseRoundCountModel>, response: Response<ResponseRoundCountModel>) {
+                    if (response.isSuccessful) {
+                        if (response.body()!!.success) {
+                            Log.d(TAG, "getRoundCount : success, ${response.body()!!.data}")
 
-                                preference.setRoundCount(response.body()!!.data)
-                                setRoundCount(response.body()!!.data)
-                            } else {
-                                Log.d(TAG, "getRoundCount : not success, but ${response.message()}")
-                            }
+                            preference.setRoundCount(response.body()!!.data)
+                            setRoundCount(response.body()!!.data)
                         } else {
-                            Log.d(TAG, "getRoundCount : not success, but ${response.message()}")
+                            Log.d(TAG, "getRoundCount : not success, ${response.message()}")
                         }
+                    } else {
+                        Log.d(TAG, "getRoundCount : not success, ${response.message()}")
                     }
-                })
-        }
+                }
+            })
+
     }
 
     private fun setRoundCount(roundCount: Int) {
@@ -173,34 +177,28 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
     }
 
     fun enterRound(roundIdx: Int){
-        RetrofitClient.create(RequestRound::class.java).interfaceRoundEnter((RoundEnterModel(userIdx!!, roundIdx)))
+        Log.d(TAG, "enterRound: userIdx: $userIdx")
+        Log.d(TAG, "enterRound: projectIdx: ${GlobalApplication.currentProject!!.projectIdx}")
+        Log.d(TAG, "enterRound: roundIdx: $roundIdx")
+
+        RetrofitClient.create(RequestRound::class.java).interfaceRoundEnter((RoundEnterModel(userIdx, roundIdx)))
             .enqueue(object  : Callback<SimpleResponse> {
 
             override fun onFailure(call: Call<SimpleResponse>, t: Throwable) {
-                Log.d("enterRound", "failed : ${t.message}")
-                Log.d("enterRound", "userIdx: $userIdx")
-                Log.d("enterRound", "projectIdx: ${preference.getProjectIdx()}")
-                Log.d("enterRound", "roundIdx: $roundIdx")
+                Log.d(TAG, "enterRound: failed, ${t.message}")
             }
 
             override fun onResponse(call: Call<SimpleResponse>, response: Response<SimpleResponse>) {
-                Log.d("enterRound", "success, ${response.message()}")
-                Log.d("enterRound", "userIdx: $userIdx")
-                Log.d("enterRound", "projectIdx: ${preference.getProjectIdx()}")
-                Log.d("enterRound", "roundIdx: $roundIdx")
-
                 if (response.isSuccessful) {
                     if (response.body()!!.success) {
-
-                        roundRepository.insert(RoundModel(
-                            //Todo: 라운드 참가자 집어넣기
-                            roundIdx, roundCount, roundPurpose, roundTime, projectIdx!!, null))
+                        Log.d(TAG, "enterRound: success")
 
                         //소켓으로 방에 참가하기
                         joinRoundRoom()
-                        Log.d("방생성 성공", "성공")
                     }
+                    Log.d(TAG, "enterRound: not success")
                 }
+                Log.d(TAG, "enterRound: not success")
             }
         })
     }
@@ -210,14 +208,14 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
         SocketClient.getInstance()
         SocketClient.connection()
 
-        SocketClient.sendEvent("joinRoom",  preference.getProjectCode()!!)
-        SocketClient.sendEvent("roundSetting",   preference.getProjectCode()!!)
+        SocketClient.sendEvent("joinRoom", GlobalApplication.currentProject!!.projectCode)
+        SocketClient.sendEvent("roundSetting", GlobalApplication.currentProject!!.projectCode)
 
         SocketClient.responseEvent("roundComplete", Emitter.Listener {
             Log.d("SocketJoinRoom", "Success.")
 
             //방에 들어갔으면 프래그먼트 전환
-            goToFragment(RoundStartFragment::class.java, null)
+            goToFragment(HostRoundWaitingFragment::class.java, null)
         })
     }
 }

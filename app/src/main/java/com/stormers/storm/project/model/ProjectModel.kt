@@ -1,21 +1,18 @@
 package com.stormers.storm.project.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import com.stormers.storm.round.model.RoundModel
+import com.stormers.storm.user.UserModel
 
-@Entity(tableName = "project_entity")
-data class ProjectModel (
-    @PrimaryKey
-    @ColumnInfo(name = "project_idx")
+data class ProjectModel(
     val projectIdx: Int,
 
-    @ColumnInfo(name = "project_name")
-    val projectName: String?,
+    val projectCode: String,
 
-    @ColumnInfo(name = "project_comment")
-    val projectComment: String?,
+    var projectName: String?,
 
-    @ColumnInfo(name = "project_participants_idx")
-    val projectParticipantsIdx: Int?
+    var projectComment: String?,
+
+    val projectRounds: List<RoundModel>?,
+
+    val projectParticipants: List<UserModel>?
 )

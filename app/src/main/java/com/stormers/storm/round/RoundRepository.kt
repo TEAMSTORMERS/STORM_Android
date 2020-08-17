@@ -1,8 +1,12 @@
 package com.stormers.storm.round
 
 import android.util.Log
+import com.stormers.storm.project.model.ProjectEntity
+import com.stormers.storm.round.model.RoundEntity
 import com.stormers.storm.round.model.RoundModel
+import com.stormers.storm.roundparticipant.RoundParticipantRepository
 import com.stormers.storm.ui.GlobalApplication
+import com.stormers.storm.user.UserModel
 
 class RoundRepository {
 
@@ -25,71 +29,76 @@ class RoundRepository {
 
     private val dao: RoundDao by lazy { GlobalApplication.databaseManager.roundDao() }
 
-    private var projectIdxCache: Int? = null
+    //private val projectRepository: ProjectRepository by lazy { ProjectRepository }
 
-    private var cache: List<RoundModel>? = null
+    private val roundParticipantRepository: RoundParticipantRepository by lazy { RoundParticipantRepository.getInstance() }
 
     fun getAll(projectIdx: Int, callback: LoadRoundsCallback) {
-        if (projectIdxCache == null || projectIdxCache != projectIdx || cache == null) {
-            projectIdxCache = projectIdx
-            cache = dao.getAll(projectIdx)
-        }
-        val result = cache
 
-        Log.d(TAG, "projectIdx : $projectIdx result : $result")
+        val results = dao.getAll(projectIdx)
 
-        if (result == null) {
+        Log.d(TAG, "projectIdx : $projectIdx result : $results")
+
+        if (results == null) {
             callback.onDataNotAvailable()
         } else {
-            callback.onRoundsLoaded(result)
+            callback.onRoundsLoaded(getRoundModels(results))
         }
     }
 
     fun get(roundIdx: Int, callback: GetRoundCallback) {
-        var result: RoundModel? = null
-
-        if (cache != null) {
-            for (round in cache!!) {
-                if (round.roundIdx == roundIdx) {
-                    result = round
-                    break
-                }
-            }
-        } else {
-            result = dao.get(roundIdx)
-            result?.let {
-                cache = List(1) { i -> it}
-            }
-
-        }
+        val result = dao.get(roundIdx)
 
         Log.d(TAG, "get: roundIdx: $roundIdx round : $result")
 
         if (result == null) {
             callback.onDataNotAvailable()
         } else {
-            callback.onRoundLoaded(result)
+            callback.onRoundLoaded(getRoundModel(result))
         }
     }
 
-    fun insert(round: RoundModel) {
-        dao.insert(round)
-        cache = List(1) {round}
-        projectIdxCache = null
+    fun insert(projectIdx: Int, round: RoundModel) {
+        roundParticipantRepository.insert(round.roundIdx, round.participants!!)
+
+        round.let {
+            dao.insert(RoundEntity(it.roundIdx, it.roundNumber, it.roundPurpose, it.roundTime, projectIdx))
+        }
         Log.d(TAG, "insert: $round")
     }
 
-    fun update(round: RoundModel) {
+    fun update(round: RoundEntity) {
         dao.update(round)
-        cache = List(1) {round}
-        projectIdxCache = null
         Log.d(TAG, "insert: $round")
     }
 
     fun deleteAll() {
         dao.deleteAll()
-        cache = null
-        projectIdxCache = null
+    }
+
+    private fun getRoundModels(roundEntities: List<RoundEntity>): List<RoundModel> {
+        val roundModels = mutableListOf<RoundModel>()
+        for (roundEntity in roundEntities) {
+            roundModels.add(getRoundModel(roundEntity))
+        }
+
+        return roundModels
+    }
+
+    private fun getRoundModel(roundEntity: RoundEntity): RoundModel {
+        var roundModel: RoundModel
+
+        var projectEntity: ProjectEntity? = null
+
+        var participants: List<UserModel>
+
+
+        roundEntity.let {
+            //projectModel = projectRepository.get(it.projectIdx)
+            participants = roundParticipantRepository.getAll(it.roundIdx)
+            roundModel = RoundModel(it.roundIdx, it.roundNumber, it.roundPurpose, it.roundTime, participants)
+        }
+        return roundModel
     }
 
     interface LoadRoundsCallback {
