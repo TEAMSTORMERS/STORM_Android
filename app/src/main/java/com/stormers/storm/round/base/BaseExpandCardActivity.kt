@@ -23,7 +23,7 @@ abstract class BaseExpandCardActivity(private val isScraped: Boolean, @LayoutRes
 
     private val savedCardRepository: SavedCardRepository by lazy { SavedCardRepository(application) }
 
-    protected var currentPage = 0
+    private var currentPage = 0
 
     private var data: List<SavedCardEntity>? = null
 
