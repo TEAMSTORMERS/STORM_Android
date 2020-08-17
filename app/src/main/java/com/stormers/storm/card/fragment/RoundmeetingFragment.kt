@@ -21,7 +21,7 @@ import retrofit2.Response
 
 class RoundmeetingFragment : BaseFragment(R.layout.fragment_roundmeeting) {
 
-    private val savedCardRepository : SavedCardRepository by lazy { SavedCardRepository(context!!) }
+    private val savedCardRepository : SavedCardRepository by lazy { SavedCardRepository() }
     lateinit var roundmeetingAdapter: SavedCardAdapter
 
     private val projectIdx = preference.getProjectIdx()

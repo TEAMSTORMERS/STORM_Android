@@ -16,9 +16,6 @@ data class ProjectModel (
     @ColumnInfo(name = "project_comment")
     val projectComment: String?,
 
-    @ColumnInfo(name = "project_rounds_idx")
-    val projectRoundsIdx: List<Int>?,
-
     @ColumnInfo(name = "project_participants_idx")
-    val projectParticipantsIdx: List<Int>?
+    val projectParticipantsIdx: Int?
 )

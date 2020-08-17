@@ -36,7 +36,7 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
     lateinit var scrapedCardAdapter: SavedCardAdapter
     lateinit var roundListAdapterForViewPager: RoundListAdapter
 
-    private val savedCardRepository: SavedCardRepository by lazy { SavedCardRepository(application) }
+    private val savedCardRepository: SavedCardRepository by lazy { SavedCardRepository() }
 
     private var projectIdx = -1
 

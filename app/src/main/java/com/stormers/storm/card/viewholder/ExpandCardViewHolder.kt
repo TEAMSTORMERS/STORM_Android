@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.item_expandcard_card.view.*
 
 class ExpandCardViewHolder(parent: ViewGroup) : BaseViewHolder<SavedCardEntity>(R.layout.item_expandcard_card, parent) {
 
-    private val savedCardRepository: SavedCardRepository by lazy { SavedCardRepository(itemView.context) }
+    private val savedCardRepository: SavedCardRepository by lazy { SavedCardRepository() }
 
     private var isScraped = false
 

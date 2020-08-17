@@ -13,8 +13,10 @@ import com.stormers.storm.customview.dialog.StormDialogButton
 
 import com.stormers.storm.round.network.RequestRound
 import com.stormers.storm.network.*
+import com.stormers.storm.round.RoundRepository
 import com.stormers.storm.round.network.response.ResponseRoundCountModel
 import com.stormers.storm.round.model.RoundEnterModel
+import com.stormers.storm.round.model.RoundModel
 import com.stormers.storm.round.model.RoundSettingModel
 import kotlinx.android.synthetic.main.activity_round_setting.*
 import com.stormers.storm.ui.RoundSettingActivity
@@ -39,9 +41,13 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
 
     private val userIdx = preference.getUserIdx()
 
-    private val roundIdx = preference.getRoundIdx()
+    private var roundCount: Int? = null
 
     private var roundTime: Int? = null
+
+    private var roundPurpose: String? = null
+
+    private val roundRepository: RoundRepository by lazy { RoundRepository.getInstance() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -91,8 +97,9 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
         activityButton.setText("확인")
 
         activityButton.setOnClickListener {
-            if (textview_round_goal.text.isNullOrBlank() || roundTime == null) {
+            roundPurpose = textview_round_goal.text.toString()
 
+            if (roundPurpose.isNullOrBlank() || roundTime == null) {
                 Toast.makeText(context, "라운드 목표 혹은 라운드 소요시간을 입력해주세요", Toast.LENGTH_SHORT).show()
             } else {
                 projectIdx?.let {
@@ -136,29 +143,33 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
             retrofitClient.responseRoundCount(it)
                 .enqueue(object : Callback<ResponseRoundCountModel> {
                     override fun onFailure(call: Call<ResponseRoundCountModel>, t: Throwable) {
-                        Log.d("RoundCount 통신실패", "${t}")
+                        Log.d(TAG, "getRoundCount: fail, ${t.message}")
                     }
 
                     override fun onResponse(call: Call<ResponseRoundCountModel>, response: Response<ResponseRoundCountModel>) {
                         if (response.isSuccessful) {
                             if (response.body()!!.success) {
-                                Log.d("RoundCount 통신 성공", response.body()!!.data.toString())
+                                Log.d(TAG, "getRoundCount : success, ${response.body()!!.data}")
 
                                 preference.setRoundCount(response.body()!!.data)
-
-                                val round = StringBuilder()
-                                round.append("ROUND ")
-                                    .append(response.body()!!.data)
-                                textview_roundnumber.text = round.toString()
+                                setRoundCount(response.body()!!.data)
                             } else {
-                                Log.d("RoundCount 통신 실패", response.message())
+                                Log.d(TAG, "getRoundCount : not success, but ${response.message()}")
                             }
                         } else {
-                            Log.d("RoundCount 통신 실패", response.message())
+                            Log.d(TAG, "getRoundCount : not success, but ${response.message()}")
                         }
                     }
                 })
         }
+    }
+
+    private fun setRoundCount(roundCount: Int) {
+        this.roundCount = roundCount
+        val round = StringBuilder()
+        round.append("ROUND ")
+            .append(roundCount)
+        textview_roundnumber.text = round.toString()
     }
 
     fun enterRound(roundIdx: Int){
@@ -173,13 +184,18 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
             }
 
             override fun onResponse(call: Call<SimpleResponse>, response: Response<SimpleResponse>) {
-                Log.d("enterRound", "${response.message() } $response" )
+                Log.d("enterRound", "success, ${response.message()}")
                 Log.d("enterRound", "userIdx: $userIdx")
                 Log.d("enterRound", "projectIdx: ${preference.getProjectIdx()}")
                 Log.d("enterRound", "roundIdx: $roundIdx")
 
                 if (response.isSuccessful) {
                     if (response.body()!!.success) {
+
+                        roundRepository.insert(RoundModel(
+                            //Todo: 라운드 참가자 집어넣기
+                            roundIdx, roundCount, roundPurpose, roundTime, projectIdx!!, null))
+
                         //소켓으로 방에 참가하기
                         joinRoundRoom()
                         Log.d("방생성 성공", "성공")

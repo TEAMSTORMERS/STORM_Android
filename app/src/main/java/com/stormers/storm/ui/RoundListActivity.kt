@@ -25,7 +25,7 @@ class RoundListActivity : AppCompatActivity() {
 
     private lateinit var cardAdapter: SavedCardAdapter
 
-    private val savedCardRepository : SavedCardRepository by lazy { SavedCardRepository(application) }
+    private val savedCardRepository : SavedCardRepository by lazy { SavedCardRepository() }
 
     private var projectIdx = -1
 

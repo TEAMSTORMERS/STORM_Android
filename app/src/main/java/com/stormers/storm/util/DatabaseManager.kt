@@ -6,10 +6,14 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.stormers.storm.card.dao.SavedCardDao
 import com.stormers.storm.card.model.SavedCardEntity
+import com.stormers.storm.project.model.ProjectModel
+import com.stormers.storm.round.RoundDao
+import com.stormers.storm.round.model.RoundModel
 
-@Database(entities = [SavedCardEntity::class], version = 1)
+@Database(entities = [SavedCardEntity::class, RoundModel::class, ProjectModel::class], version = 1)
 abstract class DatabaseManager : RoomDatabase() {
     abstract fun savedCardDao() : SavedCardDao
+    abstract fun roundDao() : RoundDao
 
     companion object {
         private const val DB_NAME = "storm-db"

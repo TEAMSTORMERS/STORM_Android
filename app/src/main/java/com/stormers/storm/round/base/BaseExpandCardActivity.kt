@@ -19,7 +19,7 @@ import com.stormers.storm.util.DepthPageTransformer
 abstract class BaseExpandCardActivity(private val isScraped: Boolean, @LayoutRes val layoutRes: Int): BaseActivity() {
     private val expandCardAdapter: ExpandCardAdapter by lazy { ExpandCardAdapter() }
 
-    private val savedCardRepository: SavedCardRepository by lazy { SavedCardRepository(application) }
+    private val savedCardRepository: SavedCardRepository by lazy { SavedCardRepository() }
 
     private var currentPage = 0
 

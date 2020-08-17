@@ -1,17 +1,13 @@
 package com.stormers.storm.card.repository
 
-import android.content.Context
-import android.graphics.Bitmap
 import com.stormers.storm.base.BaseRepository
 import com.stormers.storm.card.dao.SavedCardDao
 import com.stormers.storm.card.model.SavedCardEntity
-import com.stormers.storm.card.util.BitmapConverter
-import com.stormers.storm.util.DatabaseManager
-import java.lang.Exception
+import com.stormers.storm.ui.GlobalApplication
 
-class SavedCardRepository(val context: Context) : BaseRepository<SavedCardEntity>() {
+class SavedCardRepository : BaseRepository<SavedCardEntity>() {
 
-    private val dao: SavedCardDao by lazy { DatabaseManager.getInstance(context).savedCardDao() }
+    private val dao: SavedCardDao by lazy { GlobalApplication.databaseManager.savedCardDao() }
 
     fun getAll(projectIdx: Int): List<SavedCardEntity>? {
         return dao.getAll(projectIdx)

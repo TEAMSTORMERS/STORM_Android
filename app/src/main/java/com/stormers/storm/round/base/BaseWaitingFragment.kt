@@ -18,10 +18,14 @@ import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.project.network.RequestProject
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.project.network.response.ResponseProjectUserListModel
+import com.stormers.storm.round.RoundRepository
+import com.stormers.storm.round.model.RoundModel
 import com.stormers.storm.round.network.RequestRound
 import com.stormers.storm.round.network.response.ResponseRoundInfoModel
 import com.stormers.storm.ui.RoundProgressActivity
 import com.stormers.storm.user.ParticipantAdapter
+import com.stormers.storm.user.UserModel
+import com.stormers.storm.user.UserRepository
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.fragment_round_setting_waiting_member.view.*
 import kotlinx.android.synthetic.main.layout_list_of_participant.view.*
@@ -38,6 +42,8 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
 
     private val participantAdapter: ParticipantAdapter by lazy { ParticipantAdapter() }
 
+    protected val roundRepository: RoundRepository by lazy { RoundRepository.getInstance() }
+
     private val buttonArray = ArrayList<StormDialogButton>()
 
     private lateinit var ruleReminderDialog: StormDialog
@@ -47,8 +53,6 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
     private lateinit var roundTime : TextView
 
     private lateinit var roundSubject : TextView
-
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -80,60 +84,78 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
 
     protected fun showRoundUserLIst(roundIdx: Int) {
 
-        RetrofitClient.create(RequestRound::class.java).showRoundUser(roundIdx)
-            .enqueue(object : Callback<ResponseProjectUserListModel> {
-
-            override fun onFailure(call: Call<ResponseProjectUserListModel>, t: Throwable) {
-                Log.d("getParticipantList", "failed : ${t.message}")
+        getParticipants(roundIdx, object: UserRepository.LoadUsersCallback {
+            override fun onUsersLoaded(users: List<UserModel>) {
+                participantAdapter.clear()
+                participantAdapter.addAll(users)
             }
-            override fun onResponse(call: Call<ResponseProjectUserListModel>, response: Response<ResponseProjectUserListModel>) {
-                if (response.isSuccessful) {
-                    if (response.body()!!.success) {
-                        Log.d("getParticipantList", "Success : ${response.body()!!.data}")
 
-                        participantAdapter.clear()
-                        participantAdapter.addAll(response.body()!!.data)
-                    }
-                }
+            override fun onDataNotAvailable() {
+                Log.e(TAG, "Wrong participant")
             }
         })
     }
 
-    protected fun getRoundInfo(){
+    private fun getParticipants(roundIdx: Int, callback: UserRepository.LoadUsersCallback) {
+        RetrofitClient.create(RequestRound::class.java).showRoundUser(roundIdx)
+            .enqueue(object : Callback<ResponseProjectUserListModel> {
 
-        RetrofitClient.create(RequestRound::class.java).responseRoundInfo(preference.getProjectIdx()!!).enqueue(object : Callback<ResponseRoundInfoModel>{
-            override fun onFailure(call: Call<ResponseRoundInfoModel>, t: Throwable) {
-                Log.d("RoundInfo 통신실패", "{$t}")
-            }
-            override fun onResponse(call: Call<ResponseRoundInfoModel>, response: Response<ResponseRoundInfoModel>) {
+                override fun onFailure(call: Call<ResponseProjectUserListModel>, t: Throwable) {
+                    Log.d("getParticipantList", "failed : ${t.message}")
+                    callback.onDataNotAvailable()
+                }
+                override fun onResponse(call: Call<ResponseProjectUserListModel>, response: Response<ResponseProjectUserListModel>) {
+                    if (response.isSuccessful) {
+                        if (response.body()!!.success) {
+                            Log.d("getParticipantList", "Success : ${response.body()!!.data}")
 
-                if(response.isSuccessful){
+                            val result = response.body()!!.data
 
-                    if(response.body()!!.success){
-                        Log.d("RoundInfo 통신성공","성공")
-
-                        val time = StringBuilder()
-                        time.append("총 ")
-                            .append(response.body()!!.data.roundTime)
-                            .append("분 예정")
-
-                        roundTime.text = time.toString()
-                        roundSubject.text = response.body()!!.data.roundPurpose
-
-                        preference.setRoundIdx(response.body()!!.data.roundIdx)
-
-                        afterGettingRoundInfo(response.body()!!.data.roundIdx)
+                            if (result.isEmpty()) {
+                                callback.onDataNotAvailable()
+                            } else {
+                                callback.onUsersLoaded(result)
+                            }
+                        } else {
+                            callback.onDataNotAvailable()
+                        }
+                    } else {
+                        callback.onDataNotAvailable()
                     }
                 }
-            }
-        })
+            })
+    }
+
+    protected fun setRoundData(round: RoundModel) {
+        val time = StringBuilder()
+        time.append("총 ")
+            .append(round.roundTime)
+            .append("분 예정")
+
+        roundTime.text = time.toString()
+        roundSubject.text = round.roundPurpose
+
+        preference.setRoundIdx(round.roundIdx)
+
+        afterGettingRoundInfo(round.roundIdx)
     }
 
     protected fun startRound() {
         val handler = Handler(Looper.getMainLooper())
         val handlerTask = Runnable {
-            startActivity(Intent(activity, RoundProgressActivity::class.java))
-            activity?.finish()
+
+            getParticipants(preference.getRoundIdx()!!, object : UserRepository.LoadUsersCallback {
+                override fun onUsersLoaded(users: List<UserModel>) {
+                    onStartRound(users)
+
+                    startActivity(Intent(activity, RoundProgressActivity::class.java))
+                    activity?.finish()
+                }
+
+                override fun onDataNotAvailable() {
+                    Log.e(TAG, "Wrong participants")
+                }
+            })
         }
 
         handler.postDelayed(handlerTask, START_DELAY)
@@ -144,4 +166,6 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
     }
 
     abstract fun afterGettingRoundInfo(roundIdx: Int)
+
+    abstract fun onStartRound(participants: List<UserModel>)
 }

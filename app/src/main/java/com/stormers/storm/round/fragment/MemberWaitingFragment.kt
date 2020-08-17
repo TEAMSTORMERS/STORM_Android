@@ -10,10 +10,13 @@ import com.stormers.storm.customview.StormButton
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.network.SimpleResponse
 import com.stormers.storm.network.SocketClient
-import com.stormers.storm.project.base.BaseProjectWaitingActivity
 import com.stormers.storm.round.base.BaseWaitingFragment
 import com.stormers.storm.round.model.RoundEnterModel
+import com.stormers.storm.round.model.RoundModel
 import com.stormers.storm.round.network.RequestRound
+import com.stormers.storm.round.network.response.ResponseRoundInfoModel
+import com.stormers.storm.ui.MemberRoundWaitingActivity
+import com.stormers.storm.user.UserModel
 import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_round_setting.*
 import retrofit2.Call
@@ -25,10 +28,12 @@ class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_settin
 
     private lateinit var activityButton: StormButton
 
+    private var currentRoundModel: RoundModel? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        activityButton = (activity as BaseProjectWaitingActivity).stormButton_ok_host_round_setting
+        activityButton = (activity as MemberRoundWaitingActivity).stormButton_ok_host_round_setting
 
         activityButton.run {
             visibility = View.GONE
@@ -36,9 +41,6 @@ class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_settin
 
         //[socket] 라운드 설정이 마쳐지는지 확인
         waitingRoundSetting()
-
-        //Todo: 소켓으로 라운드가 시작되는지 확인
-        //Todo: 라운드가 시작되면 RoundProgressActivity로 전환
     }
 
     //라운드 정보를 받고 나면 실행될 콜백
@@ -49,6 +51,14 @@ class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_settin
         view?.findViewById<TextView>(R.id.textview_round_ready)?.visibility = View.GONE
         view?.findViewById<LottieAnimationView>(R.id.lottieAnimationView)?.visibility = View.GONE
         view?.findViewById<TextView>(R.id.textview_readydone)?.visibility = View.VISIBLE
+    }
+
+    override fun onStartRound(participants: List<UserModel>) {
+        currentRoundModel?.let {
+            //Todo: 참가자 목록 집어넣기
+            it.roundParticipantsIdx = null
+            roundRepository.insert(it)
+        }
     }
 
     private fun waitingRoundSetting() {
@@ -92,6 +102,31 @@ class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_settin
             Log.d("startRound_socket", "START ROUND!!!")
 
             startRound()
+        })
+    }
+
+    private fun getRoundInfo(){
+
+        RetrofitClient.create(RequestRound::class.java).responseRoundInfo(preference.getProjectIdx()!!).enqueue(object : Callback<ResponseRoundInfoModel>{
+            override fun onFailure(call: Call<ResponseRoundInfoModel>, t: Throwable) {
+                Log.d("RoundInfo 통신실패", "{$t}")
+            }
+            override fun onResponse(call: Call<ResponseRoundInfoModel>, response: Response<ResponseRoundInfoModel>) {
+
+                if(response.isSuccessful){
+
+                    if(response.body()!!.success){
+                        Log.d("RoundInfo 통신성공","성공")
+
+                        response.body()!!.data.let {
+                            preference.setRoundIdx(it.roundIdx)
+                            currentRoundModel = RoundModel(it.roundIdx, it.roundNumber, it.roundPurpose, it.roundTime, preference.getProjectIdx()!!, null)
+                        }
+
+                        setRoundData(currentRoundModel!!)
+                    }
+                }
+            }
         })
     }
 }

@@ -20,7 +20,7 @@ class SavedCardViewHolder(parent: ViewGroup, private val showHeart: Boolean,
         private const val TAG = "SavedCardViewHolder"
     }
 
-    private val savedCardRepository: SavedCardRepository by lazy { SavedCardRepository(itemView.context) }
+    private val savedCardRepository: SavedCardRepository by lazy { SavedCardRepository() }
 
     override fun bind(data: SavedCardEntity) {
 

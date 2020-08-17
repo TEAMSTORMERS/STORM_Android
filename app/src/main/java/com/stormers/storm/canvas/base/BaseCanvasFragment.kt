@@ -28,8 +28,6 @@ abstract class BaseCanvasFragment(private val mode: Int, @LayoutRes private val 
     private lateinit var targetModeStr: String
     private lateinit var targetFragment: Class<*>
 
-    protected val savedCardRepository: SavedCardRepository by lazy { SavedCardRepository(context!!) }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
