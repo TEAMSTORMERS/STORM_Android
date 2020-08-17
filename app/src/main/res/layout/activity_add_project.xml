@@ -73,10 +73,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="프로젝트 명을 입력해주세요"
-            app:showRemoveAll="true"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.487"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview2" />
+            app:layout_constraintTop_toBottomOf="@id/textview2"
+            app:showRemoveAll="true" />
 
         <TextView
             android:id="@+id/textview3"
@@ -87,24 +88,20 @@
             app:layout_constraintStart_toStartOf="@id/textview2"
             app:layout_constraintTop_toBottomOf="@id/edittext_addproject_projectname" />
 
-        <!--Todo: 줄 간격 디자이너한테 물어보고 조절하기-->
-        <EditText
+        <com.stormers.storm.customview.StormEditText
             android:id="@+id/edittext_addproject_notice"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="12dp"
             android:background="@drawable/box_roundcorner"
             android:ems="10"
-            android:gravity="start|top"
             android:hint="프로젝트의 공지 사항을 입력해주세요."
             android:inputType="textMultiLine"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="11dp"
-            android:textSize="13sp"
             android:textColor="@color/storm_gray"
+            android:textSize="13sp"
             app:layout_constraintDimensionRatio="w,1:2"
             app:layout_constraintEnd_toEndOf="@id/edittext_addproject_projectname"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/edittext_addproject_projectname"
             app:layout_constraintTop_toBottomOf="@id/textview3" />
 

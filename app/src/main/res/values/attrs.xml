@@ -3,6 +3,9 @@
     <declare-styleable name="StormEditText">
         <attr name="showRemoveAll" format="boolean" />
         <attr name="android:hint" format="reference|string"/>
+        <attr name="android:inputType"/>
+        <attr name="android:lines" format="integer"/>
+        <attr name="android:drawableStart" format="integer|color"/>
     </declare-styleable>
 
     <declare-styleable name="StormButton">

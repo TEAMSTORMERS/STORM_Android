@@ -26,6 +26,7 @@
         <item name="android:textColorHint">@color/brownish_grey</item>
         <item name="android:paddingLeft">13dp</item>
     </style>
+
     <!--Custom EditText-->
     <style name="custom_editText" parent="Widget.AppCompat.EditText">
         <item name="android:background">@drawable/background_edittext_gray_radius</item>
@@ -36,8 +37,8 @@
         <item name="android:textColor">@color/storm_gray</item>
         <item name="android:textColorHint">@color/storm_popup_line_gray</item>
         <item name="android:textSize">13sp</item>
-
     </style>
+
 
     <!--StormButton TextView-->
     <style name="storm_button_textview" parent="Widget.AppCompat.TextView">
