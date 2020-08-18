@@ -1,10 +1,14 @@
 package com.stormers.storm.ui
 
 import android.os.Bundle
+import android.widget.TextView
+import androidx.viewpager2.widget.ViewPager2
 import com.stormers.storm.R
 
 import com.stormers.storm.round.base.BaseExpandCardActivity
+import com.stormers.storm.util.DepthPageTransformer
 import kotlinx.android.synthetic.main.activity_expandcard.*
+import java.lang.StringBuilder
 
 class RoundMeetingExpandActivity : BaseExpandCardActivity(false, R.layout.activity_expandcard) {
 
@@ -33,6 +37,51 @@ class RoundMeetingExpandActivity : BaseExpandCardActivity(false, R.layout.activi
 
     override fun onCreateViewpager(): Int {
         return R.id.viewpager_fragment_card_expand
+    }
+
+    var allCardCount = 0
+
+    private fun selectedCardCount(textView: TextView) {
+        allCardCount = data!!.size
+
+        if (data != null) {
+            for (i in data!!.indices) {
+                if (data!![i].cardId == cardId) {
+                    currentPage = i
+
+                    textView.text = getCountString(allCardCount, currentPage)
+                }
+            }
+        }
+    }
+
+    private fun currentCardCount(textView: TextView) {
+        viewpager.run {
+            adapter = expandCardAdapter
+            offscreenPageLimit = 3
+            setPageTransformer(DepthPageTransformer())
+            currentItem = currentPage
+
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    currentPage = position
+
+                    textView.text = getCountString(allCardCount, currentPage)
+                }
+            })
+        }
+    }
+
+    private fun getCountString(allCount: Int, currentCount: Int): String {
+        val cardCount = StringBuilder()
+        cardCount.append("(")
+            .append((currentCount+1).toString())
+            .append("/")
+            .append(allCount.toString())
+            .append(")")
+
+        return cardCount.toString()
     }
 
 }

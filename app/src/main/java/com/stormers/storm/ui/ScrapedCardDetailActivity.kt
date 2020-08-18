@@ -5,7 +5,7 @@ import com.stormers.storm.R
 import com.stormers.storm.round.base.BaseExpandCardActivity
 import kotlinx.android.synthetic.main.activity_scrapcard.*
 
-class ScrapedCardDetailActivity : BaseExpandCardActivity(false, R.layout.activity_scrapcard) {
+class ScrapedCardDetailActivity : BaseExpandCardActivity(true, R.layout.activity_scrapcard) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -19,13 +19,13 @@ import com.stormers.storm.util.DepthPageTransformer
 import java.lang.StringBuilder
 
 abstract class BaseExpandCardActivity(private val isScraped: Boolean, @LayoutRes val layoutRes: Int): BaseActivity() {
-    private val expandCardAdapter: ExpandCardAdapter by lazy { ExpandCardAdapter() }
+    protected val expandCardAdapter: ExpandCardAdapter by lazy { ExpandCardAdapter() }
 
     private val savedCardRepository: SavedCardRepository by lazy { SavedCardRepository(application) }
 
-    private var currentPage = 0
+    protected var currentPage = 0
 
-    private var data: List<SavedCardEntity>? = null
+    protected var data: List<SavedCardEntity>? = null
 
     private lateinit var toolbar: StormToolbar
 
@@ -35,7 +35,7 @@ abstract class BaseExpandCardActivity(private val isScraped: Boolean, @LayoutRes
 
     private lateinit var memoEditText: EditText
 
-    private lateinit var viewpager: ViewPager2
+    protected lateinit var viewpager: ViewPager2
 
     protected var projectIdx = -1
 
@@ -113,57 +113,6 @@ abstract class BaseExpandCardActivity(private val isScraped: Boolean, @LayoutRes
                     break
                 }
             }
-        }
-    }
-
-    var allCardCount = 0
-
-    protected fun selectedCardCount(textView: TextView) {
-        if (data != null) {
-            for (i in data!!.indices) {
-                allCardCount = i+1
-            }
-        }
-        if (data != null) {
-            for (i in data!!.indices) {
-                if (data!![i].cardId == cardId) {
-                    currentPage = i
-
-                    val cardCount = StringBuilder()
-                    cardCount.append("(")
-                        .append((currentPage+1).toString())
-                        .append("/")
-                        .append(allCardCount.toString())
-                        .append(")")
-
-                    textView.text = cardCount.toString()
-                }
-            }
-        }
-    }
-
-    protected fun currentCardCount(textView: TextView) {
-        viewpager.run {
-            adapter = expandCardAdapter
-            offscreenPageLimit = 3
-            setPageTransformer(DepthPageTransformer())
-            currentItem = currentPage
-
-            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                    currentPage = position
-
-                    val cardCount = StringBuilder()
-                    cardCount.append("(")
-                        .append((currentPage+1).toString())
-                        .append("/")
-                        .append(allCardCount.toString())
-                        .append(")")
-
-                    textView.text = cardCount.toString()
-                }
-            })
         }
     }
 
