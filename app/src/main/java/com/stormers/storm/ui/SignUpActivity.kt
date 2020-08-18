@@ -174,12 +174,7 @@ class SignUpActivity : AppCompatActivity() {
                 openGallery()
 
                 button_complete_signup.setOnClickListener {
-                    val intent = Intent(this@SignUpActivity, SetEmailPasswordActivity::class.java)
-                    profileBitmap = imageview_signup_profilebackground.drawingCache
-                    intent.putExtra("userName", edittext_name_signup.text.toString())
-                    intent.putExtra("userImage", profileBitmap)
-                    intent.putExtra("USER_IMAGE_FLAG", USER_IMAGE_FLAG)
-                    startActivity(intent)
+
                 }
             }
         }
@@ -198,15 +193,6 @@ class SignUpActivity : AppCompatActivity() {
 
 
             changeProfileDefaultBackground()
-
-            button_complete_signup.setOnClickListener{
-                val intent = Intent(this@SignUpActivity, SetEmailPasswordActivity::class.java)
-                saveProfile()
-                intent.putExtra("userName", edittext_name_signup.text.toString())
-                intent.putExtra("userImage", profileBitmap)
-                intent.putExtra("USER_IMAGE_FLAG", USER_IMAGE_FLAG)
-                startActivity(intent)
-            }
         }
 
         view_bottom_sheet_blur.setOnClickListener{
@@ -303,6 +289,43 @@ class SignUpActivity : AppCompatActivity() {
                     textview_input_more_than_two_char.visibility = View.GONE
                     button_complete_signup.setBackgroundResource(R.drawable.box_red_radius)
                     button_complete_signup.isEnabled = true
+
+                    button_complete_signup.setOnClickListener{
+
+                        Log.d("버튼눌림", "버튼눌림")
+
+                        if(imagebutton_select_profile_purple.visibility == View.GONE) {
+                            USER_IMAGE_FLAG = 1
+                            Log.d("이미지 변환 전", "이미지 변환 전")
+                            imageview_signup_profilebackground.isDrawingCacheEnabled = true
+                            imageview_signup_profilebackground.buildDrawingCache()
+                            profileBitmap = imageview_signup_profilebackground.drawingCache
+                            Log.d("이미지 변환 후", "이미지 변환 후")
+
+                            val intent = Intent(this@SignUpActivity, SetEmailPasswordActivity::class.java)
+                            Log.d("intent 객체 생성", "intent 객체 생성")
+                            intent.putExtra("userName", edittext_name_signup.text.toString())
+                            intent.putExtra("userImage", profileBitmap)
+                            intent.putExtra("USER_IMAGE_FLAG", USER_IMAGE_FLAG)
+                            startActivity(intent)
+                        } else {
+
+                            if (imagebutton_select_profile_purple.visibility == View.VISIBLE){
+                                USER_IMAGE_FLAG = 0
+                                Log.d("프로필 저장 전", "프로필 저장 전")
+                                saveProfile()
+                                Log.d("프로필 저장 완료", "프로필 저장 완료")
+
+                                val intent = Intent(this@SignUpActivity, SetEmailPasswordActivity::class.java)
+                                Log.d("intent 객체 생성", "intent 객체 생성")
+                                intent.putExtra("userName", edittext_name_signup.text.toString())
+                                intent.putExtra("userImage", profileBitmap)
+                                intent.putExtra("USER_IMAGE_FLAG", USER_IMAGE_FLAG)
+                                startActivity(intent)
+                            }
+                        }
+                    }
+
                 }
             }
 
@@ -314,15 +337,13 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun saveProfile() {
 
-        profileRootLayout = findViewById<ConstraintLayout>(R.id.constraintlayout_signup_profile)
+        profileRootLayout = constraintlayout_signup_profile
         profileRootLayout.isDrawingCacheEnabled = true
         profileRootLayout.buildDrawingCache()
 
         profileBitmap = profileRootLayout.drawingCache
         textview_name_in_profile.visibility = View.INVISIBLE
         imageview_signup_profilebackground.setImageDrawable(BitmapDrawable(resources, profileBitmap))
-
-        USER_IMAGE_FLAG = 0
     }
 
     fun goToLogInActivity() {

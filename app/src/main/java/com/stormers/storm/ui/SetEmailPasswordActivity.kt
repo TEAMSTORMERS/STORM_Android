@@ -117,8 +117,6 @@ class SetEmailPasswordActivity : BaseActivity() {
 
         button_next_signup.setOnClickListener(){
 
-            //Todo : 서버로 회원가입 정보 전송
-
             val userImage = intent.getParcelableExtra<Bitmap>("userImage")
 
             val fileUserImage = BitmapConverter.bitmapToFile(userImage, this.cacheDir.toString())
