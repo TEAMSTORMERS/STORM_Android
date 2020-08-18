@@ -11,6 +11,7 @@ import com.stormers.storm.card.model.SavedCardEntity
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.network.RetrofitClient
+import com.stormers.storm.round.base.BaseRoundProgressActivity
 import com.stormers.storm.round.network.RequestRound
 import com.stormers.storm.round.network.response.ResponseRoundInfoModel
 import kotlinx.android.synthetic.main.activity_round_progress.*
@@ -22,20 +23,12 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
-class RoundProgressActivity : BaseActivity() {
-
-    private lateinit var retrofitClient: RequestRound
-
-    private var projectIdx = -1
-    private var roundIdx = -1
-
-    val projectName = preference.getProjectName()
+class RoundProgressActivity : BaseRoundProgressActivity() {
 
     val cardList = mutableListOf<SavedCardEntity>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_round_progress)
 
         //Debug 용도로 라운드 목표를 터치하면 라운드가 종료되도록 함
         this.textView_round_goal.setOnClickListener {
@@ -43,51 +36,11 @@ class RoundProgressActivity : BaseActivity() {
             finish()
         }
 
-        projectIdx = preference.getProjectIdx()?: -1
-        roundIdx = preference.getRoundIdx()?: -1
+        val roundTime: Long = (roundTime * 1000 * 60).toLong()
 
-        retrofitClient = RetrofitClient.create(RequestRound::class.java)
-
-        retrofitClient.responseRoundInfo(projectIdx).enqueue(object :
-            Callback<ResponseRoundInfoModel> {
-            override fun onFailure(call: Call<ResponseRoundInfoModel>, t: Throwable) {
-                if (t.message != null){
-                    Log.d("RoundProgressActivity", t.message!!)
-                } else {
-                    Log.d("RoundProgressActivity", "통신실패")
-                }
-            }
-
-            override fun onResponse(
-                call: Call<ResponseRoundInfoModel>,
-                response: Response<ResponseRoundInfoModel>
-            ) {
-                if (response.isSuccessful) {
-                    if (response.body()!!.success) {
-                        Log.d("RoundProgressActivity", "받아온 라운드 정보 : ${response.body()!!.data}")
-                        val roundNumber = StringBuilder()
-                        roundNumber.append("ROUND ")
-                            .append(response.body()!!.data.roundNumber).toString()
-
-                        val roundTime : Long = ((response.body()!!.data.roundTime) * 1000 * 60).toLong()
-                        countDown(roundTime)
-
-                        textView_project_name.setText(projectName)
-                        textView_round_goal.setText(response.body()!!.data.roundPurpose)
-                        textView_round.setText(roundNumber)
-                    }
-                    else {
-                        Log.d("RoundProgressActivity", "통신실패")
-                        Log.d("RoundProgressActivity", "받아온 라운드 정보 : ${response.body()!!.message}")
-                    }
-                } else {
-                    Log.d("RoundProgressActivity", "${response.message()} , ${response.errorBody()}")
-                }
-            }
-        })
+        countDown(roundTime)
 
         goToFragment(AddCardFragment::class.java, null)
-
     }
 
     override fun initFragmentId(): Int? {
@@ -106,7 +59,7 @@ class RoundProgressActivity : BaseActivity() {
                         TimeUnit.MILLISECONDS.toMinutes(millis)
                     ))
                 )
-                textView_time.setText(hms)
+                textView_time.text = hms
             }
 
             override fun onFinish() {

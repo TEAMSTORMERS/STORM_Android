@@ -78,6 +78,9 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
 
         //룰 리마인더 초기화
         initRuleReminder(view)
+
+        //참가자 갱신
+        refreshParticipants(GlobalApplication.currentRound!!.roundIdx)
     }
 
     private fun initView(view: View) {
@@ -126,7 +129,8 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
     }
 
     private fun getParticipants(roundIdx: Int, callback: UserRepository.LoadUsersCallback) {
-        RetrofitClient.create(RequestRound::class.java).showRoundUser(roundIdx)
+        Log.d(TAG, "getParticipants: projectIdx: ${GlobalApplication.currentProject!!.projectIdx}, roundIdx: $roundIdx")
+        RetrofitClient.create(RequestRound::class.java).showRoundUser(GlobalApplication.currentProject!!.projectIdx, roundIdx)
             .enqueue(object : Callback<ResponseProjectUserListModel> {
 
                 override fun onFailure(call: Call<ResponseProjectUserListModel>, t: Throwable) {
@@ -141,13 +145,16 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
 
                             if (result.isEmpty()) {
                                 callback.onDataNotAvailable()
+                                Log.d(TAG, "but empty")
                             } else {
                                 callback.onUsersLoaded(result)
                             }
                         } else {
+                            Log.d(TAG, "getParticipants: Not success ${response.body()!!.message}")
                             callback.onDataNotAvailable()
                         }
                     } else {
+                        Log.d(TAG, "getParticipants: Not success ${response.message()}")
                         callback.onDataNotAvailable()
                     }
                 }

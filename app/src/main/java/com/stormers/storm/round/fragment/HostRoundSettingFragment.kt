@@ -109,9 +109,10 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
         if (roundPurpose.isNullOrBlank() || roundTime == null) {
             Toast.makeText(context, "라운드 목표 혹은 라운드 소요시간을 입력해주세요", Toast.LENGTH_SHORT).show()
         } else {
+            Log.d(TAG, "createRound: userIdx : $userIdx, projectIdx: $projectIdx, roundPurpose: $roundPurpose")
             RetrofitClient
                 .create(RequestRound::class.java)
-                .roundSetting(RoundSettingModel(projectIdx, roundPurpose!!, roundTime!!))
+                .roundSetting(RoundSettingModel(GlobalApplication.userIdx, projectIdx, roundPurpose!!, roundTime!!))
                 .enqueue(object : Callback<BaseResponse> {
 
                     override fun onFailure(call: Call<BaseResponse>, t: Throwable) {
@@ -127,17 +128,16 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
                                 //현재 라운드 앱 전역에 저장
                                 GlobalApplication.currentRound = RoundModel(roundIdx, roundCount, roundPurpose, roundTime, null)
 
-                                //라운드 입장
-                                enterRound(roundIdx)
+                                //소켓으로 방에 참가하기
+                                joinRoundRoom()
                             } else {
                                 Log.d(TAG, "createRound: not success, ${response.body()!!.message}")
                             }
                         } else {
-                            Log.d(TAG, "createRound: not success, ${response.body()!!.message}")
+                            Log.d(TAG, "createRound: not success, ${response.message()}")
                         }
                     }
-                }
-                )
+                })
         }
     }
 
@@ -176,33 +176,6 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
         textview_roundnumber.text = round.toString()
     }
 
-    fun enterRound(roundIdx: Int){
-        Log.d(TAG, "enterRound: userIdx: $userIdx")
-        Log.d(TAG, "enterRound: projectIdx: ${GlobalApplication.currentProject!!.projectIdx}")
-        Log.d(TAG, "enterRound: roundIdx: $roundIdx")
-
-        RetrofitClient.create(RequestRound::class.java).interfaceRoundEnter((RoundEnterModel(userIdx, roundIdx)))
-            .enqueue(object  : Callback<SimpleResponse> {
-
-            override fun onFailure(call: Call<SimpleResponse>, t: Throwable) {
-                Log.d(TAG, "enterRound: failed, ${t.message}")
-            }
-
-            override fun onResponse(call: Call<SimpleResponse>, response: Response<SimpleResponse>) {
-                if (response.isSuccessful) {
-                    if (response.body()!!.success) {
-                        Log.d(TAG, "enterRound: success")
-
-                        //소켓으로 방에 참가하기
-                        joinRoundRoom()
-                    }
-                    Log.d(TAG, "enterRound: not success")
-                }
-                Log.d(TAG, "enterRound: not success")
-            }
-        })
-    }
-
     fun joinRoundRoom(){
 
         SocketClient.getInstance()
@@ -210,6 +183,8 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
 
         SocketClient.sendEvent("joinRoom", GlobalApplication.currentProject!!.projectCode!!)
         SocketClient.sendEvent("roundSetting", GlobalApplication.currentProject!!.projectCode!!)
+        
+        Log.d(TAG, "projectCode: ${GlobalApplication.currentProject!!.projectCode!!}")
 
         SocketClient.responseEvent("roundComplete", Emitter.Listener {
             Log.d("SocketJoinRoom", "Success.")

@@ -9,6 +9,7 @@ import com.stormers.storm.canvas.network.RequestCard
 import com.stormers.storm.card.model.SavedCardEntity
 import com.stormers.storm.network.Response
 import com.stormers.storm.network.RetrofitClient
+import com.stormers.storm.ui.GlobalApplication
 import com.stormers.storm.ui.RoundProgressActivity
 import kotlinx.android.synthetic.main.view_addcard_edittext.*
 import okhttp3.MediaType
@@ -26,11 +27,11 @@ class CanvasTextFragment : BaseCanvasFragment(TEXT_MODE, R.layout.view_addcard_e
         val content = edittext_addcard.text.toString()
         if (!content.isNullOrBlank()) {
 
-            val userIdx = RequestBody.create(MediaType.parse("text/plain"), preference.getUserIdx().toString())
+            val userIdx = RequestBody.create(MediaType.parse("text/plain"), GlobalApplication.userIdx.toString())
 
-            val projectIdx = RequestBody.create(MediaType.parse("text/plain"), preference.getProjectIdx().toString())
+            val projectIdx = RequestBody.create(MediaType.parse("text/plain"), GlobalApplication.currentProject!!.projectIdx.toString())
 
-            val roundIdx = RequestBody.create(MediaType.parse("text/plain"), preference.getRoundIdx().toString())
+            val roundIdx = RequestBody.create(MediaType.parse("text/plain"), GlobalApplication.currentRound!!.roundIdx.toString())
 
             val cardText = RequestBody.create(MediaType.parse("text/plain"), content)
 

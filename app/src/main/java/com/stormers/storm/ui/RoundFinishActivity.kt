@@ -5,16 +5,17 @@ import android.os.Bundle
 import android.view.View
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
-import com.stormers.storm.card.fragment.RoundmeetingFragment
+import com.stormers.storm.card.fragment.RoundMeetingFragment
 import com.stormers.storm.customview.dialog.StormDialog
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.network.SocketClient
+import com.stormers.storm.round.base.BaseRoundProgressActivity
 import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_round_progress.*
 import java.lang.StringBuilder
 
-class RoundFinishActivity : BaseActivity() {
+class RoundFinishActivity : BaseRoundProgressActivity() {
 
     private var buttonArray = ArrayList<StormDialogButton>()
 
@@ -22,7 +23,10 @@ class RoundFinishActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_round_progress)
+
+        goToFragment(RoundMeetingFragment::class.java, null)
+
+        setRoundTime()
 
         stormtoolbar_roundprogress.setExitButton(View.OnClickListener {
             //Todo: 프로젝트 나가기
@@ -33,13 +37,11 @@ class RoundFinishActivity : BaseActivity() {
 
         button_scrapcard_save_roundmeeting.visibility = View.VISIBLE
 
-        goToFragment(RoundmeetingFragment::class.java, null)
-
         initDialogButton()
 
         initDialog()
 
-        if (preference.isHost()) {
+        if (GlobalApplication.isHost) {
 
             button_scrapcard_save_roundmeeting.visibility = View.VISIBLE
 
@@ -53,9 +55,14 @@ class RoundFinishActivity : BaseActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-
+    private fun setRoundTime() {
+        val time = StringBuilder("총 ")
+        if (roundTime < 10) {
+            time.append(0)
+        }
+        time.append(roundTime)
+            .append(":00 소요")
+        textView_time.text = time.toString()
     }
 
     private fun initDialogButton() {

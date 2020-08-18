@@ -15,6 +15,7 @@ import com.stormers.storm.card.model.SavedCardEntity
 import com.stormers.storm.card.util.BitmapConverter
 import com.stormers.storm.network.Response
 import com.stormers.storm.network.RetrofitClient
+import com.stormers.storm.ui.GlobalApplication
 import com.stormers.storm.ui.RoundProgressActivity
 import kotlinx.android.synthetic.main.fragment_round_canvas.*
 import kotlinx.android.synthetic.main.view_draw.*
@@ -105,11 +106,11 @@ class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_dra
 
         val uploadFile = MultipartBody.Part.createFormData("card_img", drawingFile.name, requestFile)
 
-        val userIdx = RequestBody.create(MediaType.parse("text/plain"), preference.getUserIdx().toString())
+        val userIdx = RequestBody.create(MediaType.parse("text/plain"), GlobalApplication.userIdx.toString())
 
-        val projectIdx = RequestBody.create(MediaType.parse("text/plain"), preference.getProjectIdx().toString())
+        val projectIdx = RequestBody.create(MediaType.parse("text/plain"), GlobalApplication.currentProject!!.projectIdx.toString())
 
-        val roundIdx = RequestBody.create(MediaType.parse("text/plain"), preference.getRoundIdx().toString())
+        val roundIdx = RequestBody.create(MediaType.parse("text/plain"), GlobalApplication.currentRound!!.roundIdx.toString())
 
         RetrofitClient.create(RequestCard::class.java).postCard(userIdx, projectIdx, roundIdx, uploadFile, null)
             .enqueue(object: Callback<Response> {
