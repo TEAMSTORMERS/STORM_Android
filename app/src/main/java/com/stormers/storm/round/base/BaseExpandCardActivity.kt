@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.viewpager2.widget.ViewPager2
@@ -15,15 +16,16 @@ import com.stormers.storm.card.repository.SavedCardRepository
 import com.stormers.storm.customview.StormButton
 import com.stormers.storm.customview.StormToolbar
 import com.stormers.storm.util.DepthPageTransformer
+import java.lang.StringBuilder
 
 abstract class BaseExpandCardActivity(private val isScraped: Boolean, @LayoutRes val layoutRes: Int): BaseActivity() {
-    private val expandCardAdapter: ExpandCardAdapter by lazy { ExpandCardAdapter() }
+    protected val expandCardAdapter: ExpandCardAdapter by lazy { ExpandCardAdapter() }
 
     private val savedCardRepository: SavedCardRepository by lazy { SavedCardRepository(application) }
 
-    private var currentPage = 0
+    protected var currentPage = 0
 
-    private var data: List<SavedCardEntity>? = null
+    protected var data: List<SavedCardEntity>? = null
 
     private lateinit var toolbar: StormToolbar
 
@@ -33,7 +35,7 @@ abstract class BaseExpandCardActivity(private val isScraped: Boolean, @LayoutRes
 
     private lateinit var memoEditText: EditText
 
-    private lateinit var viewpager: ViewPager2
+    protected lateinit var viewpager: ViewPager2
 
     protected var projectIdx = -1
 
