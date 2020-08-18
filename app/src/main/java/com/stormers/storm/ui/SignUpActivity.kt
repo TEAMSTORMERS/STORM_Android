@@ -16,6 +16,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.text.Editable
+import android.text.Layout
 import android.text.TextWatcher
 import android.util.Log
 import android.view.MotionEvent
@@ -26,6 +27,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -58,6 +60,12 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var profile : ImageView
 
     val buttonArray = ArrayList<StormDialogButton>()
+
+    lateinit var profileRootLayout : ConstraintLayout
+
+    lateinit var profileBitmap : Bitmap
+
+    var USER_IMAGE_FLAG = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -164,6 +172,15 @@ class SignUpActivity : AppCompatActivity() {
         button_gallery.setOnClickListener{
             if(checkPermission(STORAGE_PERMISSION, FLAG_PERM_STORAGE)){
                 openGallery()
+
+                button_complete_signup.setOnClickListener {
+                    val intent = Intent(this@SignUpActivity, SetEmailPasswordActivity::class.java)
+                    profileBitmap = imageview_signup_profilebackground.drawingCache
+                    intent.putExtra("userName", edittext_name_signup.text.toString())
+                    intent.putExtra("userImage", profileBitmap)
+                    intent.putExtra("USER_IMAGE_FLAG", USER_IMAGE_FLAG)
+                    startActivity(intent)
+                }
             }
         }
 
@@ -181,6 +198,15 @@ class SignUpActivity : AppCompatActivity() {
 
 
             changeProfileDefaultBackground()
+
+            button_complete_signup.setOnClickListener{
+                val intent = Intent(this@SignUpActivity, SetEmailPasswordActivity::class.java)
+                saveProfile()
+                intent.putExtra("userName", edittext_name_signup.text.toString())
+                intent.putExtra("userImage", profileBitmap)
+                intent.putExtra("USER_IMAGE_FLAG", USER_IMAGE_FLAG)
+                startActivity(intent)
+            }
         }
 
         view_bottom_sheet_blur.setOnClickListener{
@@ -201,6 +227,7 @@ class SignUpActivity : AppCompatActivity() {
                     constraintlayout_signup_profile.background = ShapeDrawable(OvalShape())
                     constraintlayout_signup_profile.clipToOutline = true
                     imageview_signup_profilebackground.setImageURI(uri)
+                    USER_IMAGE_FLAG = 1
 
                     bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
                     textview_name_in_profile.visibility = View.GONE
@@ -260,7 +287,8 @@ class SignUpActivity : AppCompatActivity() {
         return super.dispatchTouchEvent(ev)
     }
 
-    fun setNameTextWatcher(){
+    fun setNameTextWatcher() {
+
         edittext_name_signup.addTextChangedListener(object :TextWatcher{
             override fun afterTextChanged(s: Editable?) {
 
@@ -275,12 +303,6 @@ class SignUpActivity : AppCompatActivity() {
                     textview_input_more_than_two_char.visibility = View.GONE
                     button_complete_signup.setBackgroundResource(R.drawable.box_red_radius)
                     button_complete_signup.isEnabled = true
-
-                    button_complete_signup.setOnClickListener {
-                        saveProfile()
-                        val intent = Intent(this@SignUpActivity, SetEmailPasswordActivity::class.java)
-                        startActivity(intent)
-                    }
                 }
             }
 
@@ -292,14 +314,15 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun saveProfile() {
 
-        val profileRootLayout = constraintlayout_signup_profile
+        profileRootLayout = findViewById<ConstraintLayout>(R.id.constraintlayout_signup_profile)
         profileRootLayout.isDrawingCacheEnabled = true
         profileRootLayout.buildDrawingCache()
-        val profileBitmap = profileRootLayout.drawingCache
+
+        profileBitmap = profileRootLayout.drawingCache
         textview_name_in_profile.visibility = View.INVISIBLE
         imageview_signup_profilebackground.setImageDrawable(BitmapDrawable(resources, profileBitmap))
 
-        //Todo 비트맵 서버로 전송
+        USER_IMAGE_FLAG = 0
     }
 
     fun goToLogInActivity() {

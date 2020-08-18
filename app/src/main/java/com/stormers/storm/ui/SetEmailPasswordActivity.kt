@@ -2,20 +2,36 @@ package com.stormers.storm.ui
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 
 import com.stormers.storm.R
+import com.stormers.storm.SignUp.InterfaceSignUp
+import com.stormers.storm.SignUp.ResponseSignUpModel
+import com.stormers.storm.SignUp.SignUpModel
 import com.stormers.storm.base.BaseActivity
+import com.stormers.storm.card.util.BitmapConverter
+import com.stormers.storm.network.RetrofitClient
 import kotlinx.android.synthetic.main.activity_set_email_password.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.Request
+import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SetEmailPasswordActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_set_email_password)
+
 
         signUpTextWatcher()
         goBackActivity()
@@ -97,13 +113,47 @@ class SetEmailPasswordActivity : BaseActivity() {
         }
     }
 
-    fun goCompleteSignUpActivity() {
+    private fun goCompleteSignUpActivity() {
 
         button_next_signup.setOnClickListener(){
 
-            val intent = Intent(this, CompleteSignUpActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
+            //Todo : 서버로 회원가입 정보 전송
+
+            val userImage = intent.getParcelableExtra<Bitmap>("userImage")
+
+            val fileUserImage = BitmapConverter.bitmapToFile(userImage, this.cacheDir.toString())
+
+            val requestUserImageFile = RequestBody.create(MediaType.parse("multipart/form-data"), fileUserImage!!)
+
+            val sendUserImage = MultipartBody.Part.createFormData("userName", fileUserImage.name, requestUserImageFile)
+
+            val userName = RequestBody.create(MediaType.parse("text/plain"), intent.getStringExtra("userName"))
+
+            val userEmail = RequestBody.create(MediaType.parse("text/plain"), edittext_input_email.text.toString())
+
+            val userPassword = RequestBody.create(MediaType.parse("text/plain"), edittext_input_password.text.toString())
+
+            val USER_IMAGE_FLAG = RequestBody.create(MediaType.parse("text/plain"), intent.getStringExtra("USER_IMAGE_FLAG"))
+
+
+            RetrofitClient.create(InterfaceSignUp::class.java).interfaceSignUp(
+                sendUserImage, userName, userEmail, userPassword, USER_IMAGE_FLAG)
+                .enqueue(object : Callback<ResponseSignUpModel>{
+                    override fun onFailure(call: Call<ResponseSignUpModel>, t: Throwable) {
+                        Log.d("회원가입 통신실패","${t}")
+                    }
+
+                    override fun onResponse(
+                        call: Call<ResponseSignUpModel>,
+                        response: Response<ResponseSignUpModel>
+                    ) {
+                        Log.d("회원가입 성공", response.message())
+
+                        val intent = Intent(this@SetEmailPasswordActivity, CompleteSignUpActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                    }
+                })
         }
     }
 

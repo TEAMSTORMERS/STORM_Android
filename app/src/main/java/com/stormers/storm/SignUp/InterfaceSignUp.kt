@@ -10,8 +10,9 @@ import retrofit2.http.Part
 
 interface InterfaceSignUp{
     @Multipart
-    @POST("/user")
+    @POST("/user/signup")
     fun interfaceSignUp(
-        @Part("user_name")userName : RequestBody, @Part("user_token_google")userTokenGoogle : RequestBody?,
-        @Part("user_token_kakao")userTokenKakao : RequestBody?, @Part user_img : MultipartBody.Part?) : Call<ResponseSignUpModel>
+        @Part("user_img")userImage : MultipartBody.Part?, @Part("user_name")userName : RequestBody,
+        @Part("user_email")userEmail : RequestBody, @Part("user_password")userPassword : RequestBody,
+        @Part("user_img_flag")USER_IMG_FLAG :RequestBody) : Call<ResponseSignUpModel>
 }
