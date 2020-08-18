@@ -6,13 +6,13 @@ import com.stormers.storm.user.UserModel
 data class ProjectModel(
     val projectIdx: Int,
 
-    val projectCode: String,
+    val projectCode: String?,
 
     var projectName: String?,
 
     var projectComment: String?,
 
-    val projectRounds: List<RoundModel>?,
+    var projectRounds: List<RoundModel>?,
 
     val projectParticipants: List<UserModel>?
 )

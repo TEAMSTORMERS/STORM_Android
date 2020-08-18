@@ -6,7 +6,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.stormers.storm.card.dao.SavedCardDao
 import com.stormers.storm.card.model.SavedCardEntity
+import com.stormers.storm.project.ProjectDao
+import com.stormers.storm.project.ProjectParticipantDao
 import com.stormers.storm.project.model.ProjectEntity
+import com.stormers.storm.project.model.ProjectParticipantEntity
 import com.stormers.storm.round.RoundDao
 import com.stormers.storm.round.model.RoundEntity
 import com.stormers.storm.roundparticipant.RoundParticipantDao
@@ -15,12 +18,14 @@ import com.stormers.storm.user.UserDao
 import com.stormers.storm.user.UserModel
 
 @Database(entities = [SavedCardEntity::class, RoundEntity::class, ProjectEntity::class, UserModel::class,
-RoundParticipantEntity::class], version = 1)
+RoundParticipantEntity::class, ProjectParticipantEntity::class], version = 1)
 abstract class DatabaseManager : RoomDatabase() {
     abstract fun savedCardDao() : SavedCardDao
     abstract fun roundDao() : RoundDao
     abstract fun userDao() : UserDao
     abstract fun roundParticipantDao(): RoundParticipantDao
+    abstract fun projectDao(): ProjectDao
+    abstract fun projectParticipantDao(): ProjectParticipantDao
 
     companion object {
         private const val DB_NAME = "storm-db"

@@ -45,6 +45,6 @@ class HostRoundWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_sta
         SocketClient.getInstance()
         SocketClient.connection()
 
-        SocketClient.sendEvent("roundStartHost", GlobalApplication.currentProject!!.projectCode)
+        SocketClient.sendEvent("roundStartHost", GlobalApplication.currentProject!!.projectCode!!)
     }
 }

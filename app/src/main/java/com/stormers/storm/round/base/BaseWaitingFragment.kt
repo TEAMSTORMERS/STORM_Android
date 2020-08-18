@@ -17,6 +17,7 @@ import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.network.SocketClient
+import com.stormers.storm.project.ProjectRepository
 import com.stormers.storm.project.network.response.ResponseProjectUserListModel
 import com.stormers.storm.round.RoundRepository
 import com.stormers.storm.round.model.RoundEntity
@@ -44,6 +45,8 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
     private val participantAdapter: ParticipantAdapter by lazy { ParticipantAdapter() }
 
     private val roundRepository: RoundRepository by lazy { RoundRepository.getInstance() }
+
+    private val projectRepository: ProjectRepository by lazy { ProjectRepository.getInstance() }
 
     private val buttonArray = ArrayList<StormDialogButton>()
 
@@ -187,10 +190,11 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
     }
 
     private fun onStartRound(participants: List<UserModel>) {
-        //저장해둔 현재 라운드 정보를 DB에 저장
+        //저장해둔 현재 라운드와 프로젝트의 정보를 DB에 저장
         GlobalApplication.run {
             currentRound!!.participants = participants
             roundRepository.insert(currentProject!!.projectIdx, currentRound!!)
+            projectRepository.insert(currentProject!!)
         }
     }
 }

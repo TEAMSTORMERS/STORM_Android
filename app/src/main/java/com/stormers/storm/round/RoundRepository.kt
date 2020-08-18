@@ -46,6 +46,18 @@ class RoundRepository {
         }
     }
 
+    fun getAll(projectIdx: Int): List<RoundModel> {
+        val results = dao.getAll(projectIdx)
+
+        Log.d(TAG, "projectIdx : $projectIdx result : $results")
+
+        return if (results == null) {
+            mutableListOf()
+        } else {
+            getRoundModels(results)
+        }
+    }
+
     fun get(roundIdx: Int, callback: GetRoundCallback) {
         val result = dao.get(roundIdx)
 
@@ -59,7 +71,7 @@ class RoundRepository {
     }
 
     fun insert(projectIdx: Int, round: RoundModel) {
-        roundParticipantRepository.insert(round.roundIdx, round.participants!!)
+        roundParticipantRepository.insert(projectIdx, round.roundIdx, round.participants!!)
 
         round.let {
             dao.insert(RoundEntity(it.roundIdx, it.roundNumber, it.roundPurpose, it.roundTime, projectIdx))
@@ -88,13 +100,10 @@ class RoundRepository {
     private fun getRoundModel(roundEntity: RoundEntity): RoundModel {
         var roundModel: RoundModel
 
-        var projectEntity: ProjectEntity? = null
-
         var participants: List<UserModel>
 
 
         roundEntity.let {
-            //projectModel = projectRepository.get(it.projectIdx)
             participants = roundParticipantRepository.getAll(it.roundIdx)
             roundModel = RoundModel(it.roundIdx, it.roundNumber, it.roundPurpose, it.roundTime, participants)
         }

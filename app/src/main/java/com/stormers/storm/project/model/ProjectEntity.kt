@@ -13,9 +13,13 @@ data class ProjectEntity (
     @ColumnInfo(name = "project_name")
     val projectName: String?,
 
-    @ColumnInfo(name = "project_comment")
-    val projectComment: String?,
+    @ColumnInfo(name = "project_code")
+    val projectCode: String?,
 
-    @ColumnInfo(name = "project_participants_idx")
-    val projectParticipantsIdx: Int?
-)
+    @ColumnInfo(name = "project_comment")
+    val projectComment: String?
+) {
+    override fun toString(): String {
+        return "projectIdx: $projectIdx, projectName: $projectName, projectCod: $projectCode, projectComment: $projectComment"
+    }
+}
