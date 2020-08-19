@@ -14,6 +14,7 @@ import com.stormers.storm.SignUp.ResponseSignUpModel
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.card.util.BitmapConverter
 import com.stormers.storm.network.RetrofitClient
+import com.stormers.storm.ui.SignUpActivity.Companion.IS_DEFAULT_IMAGE
 import kotlinx.android.synthetic.main.activity_set_email_password.*
 import kotlinx.android.synthetic.main.fragment_mypage_profile.*
 import okhttp3.MediaType
@@ -25,9 +26,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class SetEmailPasswordActivity : BaseActivity() {
-
-    private val IS_DEFAULT_IMAGE = 0
-    private val USER_IMAGE = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -122,7 +120,7 @@ class SetEmailPasswordActivity : BaseActivity() {
 
             val requestUserImageFile = RequestBody.create(MediaType.parse("multipart/form-data"), fileUserImage!!)
 
-            val sendUserImage = MultipartBody.Part.createFormData("userName", fileUserImage.name, requestUserImageFile)
+            val sendUserImage = MultipartBody.Part.createFormData("user_img", fileUserImage.name, requestUserImageFile)
 
             val userName = RequestBody.create(MediaType.parse("text/plain"), intent.getStringExtra("userName"))
 
@@ -131,9 +129,6 @@ class SetEmailPasswordActivity : BaseActivity() {
             val userPassword = RequestBody.create(MediaType.parse("text/plain"), edittext_input_password.text.toString())
 
             val userImageFlag = RequestBody.create(MediaType.parse("text/plain"), intent.getIntExtra("userImageFlag", IS_DEFAULT_IMAGE).toString())
-
-
-
 
                     //Todo : HTTP통신 수정
             RetrofitClient.create(InterfaceSignUp::class.java).interfaceSignUp(sendUserImage, userName,userEmail,userPassword, userImageFlag)

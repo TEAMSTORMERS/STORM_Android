@@ -53,8 +53,8 @@ class SignUpActivity : BaseActivity() {
         private const val TAG = "SignUpActivity"
         private const val FLAG_REQ_STORAGE = 102
         private const val FLAG_PERM_STORAGE = 99
-        private const val IS_DEFAULT_IMAGE = 0
-        private const val USER_IMAGE = 1
+        const val IS_DEFAULT_IMAGE = 0
+        const val USER_IMAGE = 1
     }
 
     val STORAGE_PERMISSION = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -354,18 +354,11 @@ class SignUpActivity : BaseActivity() {
                 }
 
                 USER_IMAGE -> {
+                    saveProfile()
 
-                    //fixme: 수정
-                    Log.d("이미지 변환 전", "이미지 변환 전")
-
-                    imageview_signup_profilebackground.isDrawingCacheEnabled = true
-                    imageview_signup_profilebackground.buildDrawingCache()
-                    GlobalApplication.profileBitmap = imageview_signup_profilebackground.drawingCache
-                    Log.d("이미지 변환 후", "이미지 변환 후")
-
+                    GlobalApplication.profileBitmap = profileBitmap
                     val intent = Intent(this@SignUpActivity, SetEmailPasswordActivity::class.java)
                     intent.putExtra("userName", edittext_name_signup.text.toString())
-                    intent.putExtra("userImage", profileBitmap)
                     intent.putExtra("userImageFlag", userImageFlag)
                     startActivity(intent)
                 }
