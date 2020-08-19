@@ -49,6 +49,7 @@ class MypageWithdrawalCheckActivity : BaseActivity() {
 
                                 val intent = Intent(this@MypageWithdrawalCheckActivity, LoginActivity::class.java)
                                 preference.setAutoLogIn(false)
+                                preference.setUserIdx(-1)
                                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                 startActivity(intent)
                             } else {
