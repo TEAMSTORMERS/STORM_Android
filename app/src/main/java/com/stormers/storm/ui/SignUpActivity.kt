@@ -15,7 +15,9 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.provider.Settings
 import android.text.Editable
+import android.text.Layout
 import android.text.TextWatcher
 import android.util.Log
 import android.view.MotionEvent
@@ -26,12 +28,14 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.stormers.storm.R
+import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
 import kotlinx.android.synthetic.main.activity_set_email_password.*
@@ -43,12 +47,14 @@ import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 
-class SignUpActivity : AppCompatActivity() {
+class SignUpActivity : BaseActivity() {
 
     companion object {
         private const val TAG = "SignUpActivity"
         private const val FLAG_REQ_STORAGE = 102
         private const val FLAG_PERM_STORAGE = 99
+        const val IS_DEFAULT_IMAGE = 0
+        const val USER_IMAGE = 1
     }
 
     val STORAGE_PERMISSION = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -58,6 +64,12 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var profile : ImageView
 
     val buttonArray = ArrayList<StormDialogButton>()
+
+    lateinit var profileRootLayout : ConstraintLayout
+
+    lateinit var profileBitmap : Bitmap
+
+    var userImageFlag = IS_DEFAULT_IMAGE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,8 +81,9 @@ class SignUpActivity : AppCompatActivity() {
 
         changeProfile()
 
-        goToLogInActivity()
+        goToSetEmailPassword()
 
+        goToLogInActivity()
     }
 
     // 프로필 default image color변경
@@ -179,7 +192,7 @@ class SignUpActivity : AppCompatActivity() {
             imagebutton_select_profile_yellow.visibility = View.VISIBLE
             imagebutton_select_profile_red.visibility = View.VISIBLE
 
-
+            userImageFlag = IS_DEFAULT_IMAGE
             changeProfileDefaultBackground()
         }
 
@@ -201,6 +214,8 @@ class SignUpActivity : AppCompatActivity() {
                     constraintlayout_signup_profile.background = ShapeDrawable(OvalShape())
                     constraintlayout_signup_profile.clipToOutline = true
                     imageview_signup_profilebackground.setImageURI(uri)
+
+                    userImageFlag = USER_IMAGE
 
                     bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
                     textview_name_in_profile.visibility = View.GONE
@@ -260,7 +275,8 @@ class SignUpActivity : AppCompatActivity() {
         return super.dispatchTouchEvent(ev)
     }
 
-    fun setNameTextWatcher(){
+    fun setNameTextWatcher() {
+
         edittext_name_signup.addTextChangedListener(object :TextWatcher{
             override fun afterTextChanged(s: Editable?) {
 
@@ -275,12 +291,6 @@ class SignUpActivity : AppCompatActivity() {
                     textview_input_more_than_two_char.visibility = View.GONE
                     button_complete_signup.setBackgroundResource(R.drawable.box_red_radius)
                     button_complete_signup.isEnabled = true
-
-                    button_complete_signup.setOnClickListener {
-                        saveProfile()
-                        val intent = Intent(this@SignUpActivity, SetEmailPasswordActivity::class.java)
-                        startActivity(intent)
-                    }
                 }
             }
 
@@ -292,14 +302,13 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun saveProfile() {
 
-        val profileRootLayout = constraintlayout_signup_profile
+        profileRootLayout = constraintlayout_signup_profile
         profileRootLayout.isDrawingCacheEnabled = true
         profileRootLayout.buildDrawingCache()
-        val profileBitmap = profileRootLayout.drawingCache
+
+        profileBitmap = profileRootLayout.drawingCache
         textview_name_in_profile.visibility = View.INVISIBLE
         imageview_signup_profilebackground.setImageDrawable(BitmapDrawable(resources, profileBitmap))
-
-        //Todo 비트맵 서버로 전송
     }
 
     fun goToLogInActivity() {
@@ -328,5 +337,33 @@ class SignUpActivity : AppCompatActivity() {
                 .show(supportFragmentManager, "cancle SignUp")
         }
 
+    }
+
+    fun goToSetEmailPassword() {
+        button_complete_signup.setOnClickListener{
+
+            when(userImageFlag){
+                IS_DEFAULT_IMAGE -> {
+                    saveProfile()
+                    val intent = Intent(this@SignUpActivity, SetEmailPasswordActivity::class.java)
+
+                    GlobalApplication.profileBitmap = profileBitmap
+                    intent.putExtra("userName", edittext_name_signup.text.toString())
+                    intent.putExtra("UserImageFlag", userImageFlag)
+                    startActivity(intent)
+                }
+
+                USER_IMAGE -> {
+                    saveProfile()
+
+                    GlobalApplication.profileBitmap = profileBitmap
+                    val intent = Intent(this@SignUpActivity, SetEmailPasswordActivity::class.java)
+                    intent.putExtra("userName", edittext_name_signup.text.toString())
+                    intent.putExtra("userImageFlag", userImageFlag)
+                    startActivity(intent)
+                }
+            }
+
+        }
     }
 }
