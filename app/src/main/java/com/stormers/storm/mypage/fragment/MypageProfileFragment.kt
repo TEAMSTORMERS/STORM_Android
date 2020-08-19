@@ -30,11 +30,14 @@ import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseFragment
+import com.stormers.storm.canvas.network.RequestCard
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
+import com.stormers.storm.mypage.network.MypageData
 import com.stormers.storm.mypage.network.MypageInterface
 import com.stormers.storm.mypage.network.ResponseMypageData
 import com.stormers.storm.network.RetrofitClient
+import com.stormers.storm.network.SimpleResponse
 import com.stormers.storm.ui.MypageWithdrawalActivity
 import com.stormers.storm.ui.SignUpActivity
 import kotlinx.android.synthetic.main.activity_sigin_up.*
@@ -62,6 +65,8 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
 
     private lateinit var retrofitClient: MypageInterface
 
+    var userIdx = -1
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -71,7 +76,7 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
         imageview_mypage_default_image.background = ShapeDrawable(OvalShape())
         imageview_mypage_default_image.clipToOutline = true
 
-        val userIdx = preference.getUserIdx()!!
+        userIdx = preference.getUserIdx()!!
 
         retrofitClient = RetrofitClient.create(MypageInterface::class.java)
 
@@ -96,7 +101,6 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
                         //서버로부터 받아온 user name 적용
                         edittext_user_name.setText(response.body()!!.data.user_name)
 
-                        //Todo: 서버로부터 받아온 이미지가 기본이미지인지, 앨범에서 선택한 이미지인지에 따라 처음으로 보여지는 뷰를 달리 해야 합니다!
                         //서버로부터 받아온 profile image 적용: 앨범에서 사진을 설정했을 경우
                         if (response.body()!!.data.user_img_flag == 1) {
                             constraint_select_button.visibility = View.INVISIBLE
@@ -148,6 +152,8 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
 
         edittext_user_name.setOnKeyListener { v, keyCode, event ->
             if ((keyCode == KEYCODE_ENTER || keyCode == EditorInfo.IME_ACTION_DONE) && !char_limit) {
+                updateName(edittext_user_name.text.toString())
+
                 edittext_user_name.setTextColor(ContextCompat.getColor(context!!, R.color.storm_gray))
                 edittext_user_name.clearFocus()
                 edittext_user_name.isCursorVisible = false
@@ -417,5 +423,38 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
                 selectGallery()
             }
         }
+    }
+
+    fun updateName(name : String) {
+        val user_idx = userIdx
+        val user_name = name
+
+        retrofitClient.updateMypageName(user_idx, user_name)
+            .enqueue(object : Callback<SimpleResponse> {
+                override fun onFailure(call: Call<SimpleResponse>, t: Throwable) {
+                    if (t.message != null) {
+                        Log.d("MypageProfileNameUpdate", t.message!!)
+                    } else {
+                        Log.d("MypageProfileNameUpdate", "통신실패")
+                    }
+                }
+
+                override fun onResponse(
+                    call: Call<SimpleResponse>,
+                    response: Response<SimpleResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        if (response.body()!!.success) {
+                            Log.d("MypageProfileNameUpdate", "user_idx : ${response.body()!!}")
+                        } else {
+                            Log.d("MypageProfileNameUpdate", "통신실패")
+                        }
+                    } else {
+                        Log.d("MypageProfileNameUpdate", "${response.message()}, ${response.errorBody()}")
+                    }
+                }
+
+            })
+
     }
 }
