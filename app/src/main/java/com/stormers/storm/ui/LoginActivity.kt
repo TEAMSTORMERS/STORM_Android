@@ -2,6 +2,7 @@ package com.stormers.storm.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable.INFINITE
@@ -22,16 +23,11 @@ class LoginActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        if(preference.getAutoLogIn()) {
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
-        }
+
+        autoLogIn()
 
         //애니메이션 초기화
         initAnimation()
-
-        //뷰 초기화
-        initView()
     }
 
     private fun initView() {
@@ -60,6 +56,8 @@ class LoginActivity : BaseActivity() {
                     ) {
                         if(response.isSuccessful){
                             if (response.body()!!.success){
+                                Log.d("userIdx", response.body()!!.data.toString())
+                                preference.setUserIdx(response.body()!!.data)
                                 val intent = Intent(this@LoginActivity, MainActivity::class.java)
                                 startActivity(intent)
                                 finish()
@@ -72,6 +70,16 @@ class LoginActivity : BaseActivity() {
 
         textview_goto_sign_up.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))
+        }
+    }
+
+    fun autoLogIn() {
+        if(preference.getAutoLogIn()) {
+            Log.d("userIdx",GlobalApplication.userIdx.toString())
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        } else {
+            initView()
         }
     }
 
