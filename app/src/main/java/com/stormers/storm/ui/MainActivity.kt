@@ -21,6 +21,11 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : BaseActivity() {
+
+    companion object {
+        private const val TAG = "MainActivity"
+    }
+
     private lateinit var recentProjectsAdapter: ProjectPreviewAdapter
 
     private val projectRepository: ProjectRepository by lazy { ProjectRepository.getInstance() }
@@ -40,6 +45,67 @@ class MainActivity : BaseActivity() {
             isHost = false
         }
 
+        initView()
+
+        initListener()
+
+    }
+
+    private fun initListener() {
+        iamgeview_storming_bacground.setOnClickListener {
+            val intent = Intent(this, AddProjectActivity::class.java)
+            startActivity(intent)
+        }
+        
+        imageButton_show_all.setOnClickListener {
+            startActivity(Intent(this@MainActivity, ParticipatedProjectListActivity::class.java))
+        }
+
+        edittext_input_participate_code.setOnKeyListener { _, keyCode, _ ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                enterProject(edittext_input_participate_code.text.toString())
+            }
+            return@setOnKeyListener true
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadProjectPreviews()
+    }
+
+    private fun enterProject(participatedCode: String) {
+
+        RetrofitClient.create(RequestProject::class.java)
+            .joinProjectUsingCode(JoinProjectUsingCodeModel(preference.getUserIdx()!!, participatedCode))
+            .enqueue(object : Callback<ResponseJoinProjectUsingCode> {
+
+                override fun onFailure(call: Call<ResponseJoinProjectUsingCode>, t: Throwable) {
+                    Log.e("enterProject", "fail : ${t.message}")
+                }
+
+                override fun onResponse(call: Call<ResponseJoinProjectUsingCode>,
+                                        response: Response<ResponseJoinProjectUsingCode>) {
+                    if (response.isSuccessful) {
+                        if (response.body()!!.success) {
+                            val projectIdx = response.body()!!.data.projectIdx
+                            Log.d(TAG, "enterProject: success, projectIdx : ${projectIdx}}")
+
+                            GlobalApplication.currentProject = ProjectModel(projectIdx, edittext_input_participate_code.text.toString(),
+                                null, null, null, null)
+
+                            startActivity(Intent(this@MainActivity, MemberRoundWaitingActivity::class.java))
+                        } else {
+                            Log.d(TAG, "enterProject: Not success, ${response.body()!!.message}")
+                        }
+                    } else {
+                        Log.d(TAG, "enterProject: Not success, ${response.message()}")
+                    }
+                }
+            })
+    }
+
+    private fun initView() {
         stormtoolbar_main.setMyPageButton()
 
         recentProjectsAdapter = ProjectPreviewAdapter(true, object : ProjectPreviewAdapter.OnProjectClickListener {
@@ -53,59 +119,6 @@ class MainActivity : BaseActivity() {
         recycler_participated_projects_list.adapter = recentProjectsAdapter
         recycler_participated_projects_list.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         recycler_participated_projects_list.addItemDecoration(MarginDecoration(baseContext,16,RecyclerView.HORIZONTAL))
-
-        moveToAddProject()
-
-        imageButton_show_all.setOnClickListener {
-            startActivity(Intent(this@MainActivity, ParticipatedProjectListActivity::class.java))
-        }
-
-        edittext_input_participate_code.setOnKeyListener { _, keyCode, _ ->
-            if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                val participatedCode = edittext_input_participate_code.text.toString()
-
-                RetrofitClient.create(RequestProject::class.java)
-                    .joinProjectUsingCode(JoinProjectUsingCodeModel(preference.getUserIdx()!!, participatedCode))
-                    .enqueue(object : Callback<ResponseJoinProjectUsingCode> {
-
-                        override fun onFailure(call: Call<ResponseJoinProjectUsingCode>, t: Throwable) {
-                            Log.e("enterProject", "failed : $t")
-                            Log.e("enterProject", "userIdx : ${preference.getUserIdx()!!}," +
-                                    " code: ${edittext_input_participate_code.text}")
-                        }
-
-                        override fun onResponse(call: Call<ResponseJoinProjectUsingCode>,
-                                                response: Response<ResponseJoinProjectUsingCode>) {
-                            if (response.isSuccessful) {
-                                if (response.body()!!.success) {
-                                    val projectIdx = response.body()!!.data.projectIdx
-                                    Log.d("enterProject", "projectIdx : ${projectIdx}}")
-
-                                    GlobalApplication.currentProject = ProjectModel(projectIdx, edittext_input_participate_code.text.toString(),
-                                    null, null, null, null)
-
-                                    startActivity(Intent(this@MainActivity, MemberRoundWaitingActivity::class.java))
-                                }
-                            }
-                        }
-                    })
-            }
-            return@setOnKeyListener true
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        loadProjectPreviews()
-    }
-
-
-    fun moveToAddProject(){
-        iamgeview_storming_bacground.setOnClickListener {
-            val intent = Intent(this,AddProjectActivity::class.java)
-            startActivity(intent)
-
-        }
     }
 
     private fun loadProjectPreviews() {
