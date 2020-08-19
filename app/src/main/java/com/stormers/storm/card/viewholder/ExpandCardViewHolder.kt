@@ -7,18 +7,17 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseViewHolder
-import com.stormers.storm.card.model.SavedCardEntity
-import com.stormers.storm.card.repository.SavedCardRepository
-import com.stormers.storm.card.util.BitmapConverter
+import com.stormers.storm.card.model.CardEntity
+import com.stormers.storm.card.repository.CardRepository
 import kotlinx.android.synthetic.main.item_expandcard_card.view.*
 
-class ExpandCardViewHolder(parent: ViewGroup) : BaseViewHolder<SavedCardEntity>(R.layout.item_expandcard_card, parent) {
+class ExpandCardViewHolder(parent: ViewGroup) : BaseViewHolder<CardEntity>(R.layout.item_expandcard_card, parent) {
 
-    private val savedCardRepository: SavedCardRepository by lazy { SavedCardRepository(itemView.context) }
+    private val cardRepository: CardRepository by lazy { CardRepository() }
 
     private var isScraped = false
 
-    override fun bind(data: SavedCardEntity) {
+    override fun bind(data: CardEntity) {
 
         //배경 둥글게 자르기
         itemView.imageview_expandcard_profile.run {
@@ -26,7 +25,7 @@ class ExpandCardViewHolder(parent: ViewGroup) : BaseViewHolder<SavedCardEntity>(
             clipToOutline = true
         }
 
-        isScraped = data.isScraped == SavedCardEntity.TRUE
+        isScraped = data.isScraped == CardEntity.TRUE
 
         applyHeart(isScraped, data)
 
@@ -34,7 +33,7 @@ class ExpandCardViewHolder(parent: ViewGroup) : BaseViewHolder<SavedCardEntity>(
             switchHeart(data)
         }
 
-        if (data.cardType == SavedCardEntity.DRAWING) {
+        if (data.cardType == CardEntity.DRAWING) {
             Glide.with(itemView).load(data.content).into(itemView.imageview_expandcard_content)
             itemView.textview_expandcard_content.visibility = View.INVISIBLE
         } else {
@@ -43,20 +42,20 @@ class ExpandCardViewHolder(parent: ViewGroup) : BaseViewHolder<SavedCardEntity>(
         }
     }
 
-    private fun switchHeart(data: SavedCardEntity) {
+    private fun switchHeart(data: CardEntity) {
         isScraped = !isScraped
 
         applyHeart(isScraped, data)
     }
 
-    private fun applyHeart(isScraped: Boolean, data: SavedCardEntity) {
+    private fun applyHeart(isScraped: Boolean, data: CardEntity) {
         if (isScraped) {
             itemView.imagebutton_expandcard_heart.setImageResource(R.drawable.scrapcard_btn_heart_1)
-            data.isScraped = SavedCardEntity.TRUE
+            data.isScraped = CardEntity.TRUE
         } else {
             itemView.imagebutton_expandcard_heart.setImageResource(R.drawable.h_roundmeeting_btn_heart4)
-            data.isScraped = SavedCardEntity.FALSE
+            data.isScraped = CardEntity.FALSE
         }
-        savedCardRepository.update(data)
+        cardRepository.update(data)
     }
 }

@@ -32,19 +32,18 @@ object SocketClient {
         if (socket == null) {
             try {
                 socket = IO.socket(SERVER_URL)
+                Log.d(TAG, "Initializing is done")
             } catch (e: URISyntaxException) {
                 e.printStackTrace()
             }
         }
-
-        Log.d(TAG, socket.toString())
-
         return socket
     }
 
     fun responseEvent(event: String, callback: Emitter.Listener) {
         if (init() != null) {
             socket!!.on(event, callback)
+            Log.d(TAG, "responseEvent: $event")
         } else {
             Log.d(TAG, "initial is failed")
         }
@@ -54,6 +53,7 @@ object SocketClient {
         return if (init() != null) {
             try {
                 socket!!.emit(event, data)
+                Log.d(TAG, "sendEvent: $event, data: $data")
                 true
             } catch (e: JSONException) {
                 e.printStackTrace()

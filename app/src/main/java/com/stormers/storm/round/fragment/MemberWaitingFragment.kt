@@ -10,10 +10,15 @@ import com.stormers.storm.customview.StormButton
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.network.SimpleResponse
 import com.stormers.storm.network.SocketClient
-import com.stormers.storm.project.base.BaseProjectWaitingActivity
 import com.stormers.storm.round.base.BaseWaitingFragment
 import com.stormers.storm.round.model.RoundEnterModel
+import com.stormers.storm.round.model.RoundEntity
+import com.stormers.storm.round.model.RoundModel
 import com.stormers.storm.round.network.RequestRound
+import com.stormers.storm.round.network.response.ResponseRoundInfoModel
+import com.stormers.storm.ui.GlobalApplication
+import com.stormers.storm.ui.MemberRoundWaitingActivity
+import com.stormers.storm.user.UserModel
 import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_round_setting.*
 import retrofit2.Call
@@ -25,61 +30,43 @@ class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_settin
 
     private lateinit var activityButton: StormButton
 
+    private var currentRoundEntity: RoundEntity? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        activityButton = (activity as BaseProjectWaitingActivity).stormButton_ok_host_round_setting
+        activityButton = (activity as MemberRoundWaitingActivity).stormButton_ok_host_round_setting
 
         activityButton.run {
             visibility = View.GONE
         }
 
-        //[socket] 라운드 설정이 마쳐지는지 확인
-        waitingRoundSetting()
-
-        //Todo: 소켓으로 라운드가 시작되는지 확인
-        //Todo: 라운드가 시작되면 RoundProgressActivity로 전환
-    }
-
-    //라운드 정보를 받고 나면 실행될 콜백
-    override fun afterGettingRoundInfo(roundIdx: Int) {
-        //라운드 참여
-        enterRound(roundIdx)
-
-        view?.findViewById<TextView>(R.id.textview_round_ready)?.visibility = View.GONE
-        view?.findViewById<LottieAnimationView>(R.id.lottieAnimationView)?.visibility = View.GONE
-        view?.findViewById<TextView>(R.id.textview_readydone)?.visibility = View.VISIBLE
-    }
-
-    private fun waitingRoundSetting() {
-        SocketClient.getInstance()
-        SocketClient.connection()
-
-        SocketClient.sendEvent("joinRoom", preference.getProjectCode()!!)
-        SocketClient.responseEvent("roundComplete", Emitter.Listener {
-            Log.d("socketText", "호스트 측에서 라운드 설정을 완료하였습니다.")
-
-            //라운드 정보 불러오기
-            getRoundInfo()
-        })
+        //라운드 정보 불러오기
+        getRoundInfo()
     }
 
     //라운드 참여
     private fun enterRound(roundIdx: Int){
+        Log.d(TAG, "enterRound: userIdx: ${GlobalApplication.userIdx}")
+        Log.d(TAG, "enterRound: projectIdx: ${GlobalApplication.currentProject!!.projectIdx}")
+        Log.d(TAG, "enterRound: roundIdx: $roundIdx")
+
         RetrofitClient.create(RequestRound::class.java).interfaceRoundEnter((RoundEnterModel(preference.getUserIdx()!!, roundIdx)))
             .enqueue(object  : Callback<SimpleResponse> {
 
                 override fun onFailure(call: Call<SimpleResponse>, t: Throwable) {
-                    Log.d("라운드 참여 통신 실패", "${t}")
+                    Log.d(TAG, "enterRound: fail, ${t.message}")
                 }
 
                 override fun onResponse(call: Call<SimpleResponse>, response: Response<SimpleResponse>) {
-                    Log.d("멤버 라운드 참여 성공", "user : ${preference.getUserIdx()}, round : $roundIdx")
+                    if (response.isSuccessful) {
+                        Log.d(TAG, "enterRound: success")
 
-                    //라운드의 유저 정보 띄우기
-                    showRoundUserLIst(roundIdx)
-
-                    waitingRoundStart()
+                        //라운드 시작을 기다림
+                        waitingRoundStart()
+                    } else {
+                        Log.d(TAG, "enterRound: fail")
+                    }
                 }
             })
     }
@@ -92,6 +79,35 @@ class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_settin
             Log.d("startRound_socket", "START ROUND!!!")
 
             startRound()
+        })
+    }
+
+    private fun getRoundInfo(){
+
+        RetrofitClient.create(RequestRound::class.java).responseRoundInfo(GlobalApplication.currentProject!!.projectIdx).enqueue(object : Callback<ResponseRoundInfoModel>{
+            override fun onFailure(call: Call<ResponseRoundInfoModel>, t: Throwable) {
+                Log.d("RoundInfo 통신실패", "{$t}")
+            }
+            override fun onResponse(call: Call<ResponseRoundInfoModel>, response: Response<ResponseRoundInfoModel>) {
+
+                if(response.isSuccessful){
+
+                    if(response.body()!!.success){
+                        Log.d("RoundInfo 통신성공","성공")
+
+                        response.body()!!.data.let {
+                            //받은 라운드 정보를 앱 전역에 저장
+                            GlobalApplication.currentRound = RoundModel(it.roundIdx, it.roundNumber, it.roundPurpose, it.roundTime, null)
+
+                            //라운드 정보를 뷰에 초기화
+                            initRoundInfo(it.roundPurpose, it.roundTime)
+
+                            //라운드에 참여
+                            enterRound(it.roundIdx)
+                        }
+                    }
+                }
+            }
         })
     }
 }

@@ -1,16 +1,18 @@
 package com.stormers.storm.card.model
 
-import android.content.Context
+import com.stormers.storm.card.CardType
 import com.stormers.storm.user.UserModel
 
-class CardModel(
-    val url: String,
-    var isLiked: Boolean = false,
-    val owner: UserModel?,
-    val roundIdx: Int?
+data class CardModel(
+    val cardIdx: Int,
+    var isScraped: Boolean,
+    val cardType: CardType,
+    val cardContent: String,
+    var cardMemo: String?,
+    val cardOwner: UserModel
 ) {
-
-    fun getImageID(context: Context): Int {
-     return context.resources.getIdentifier(url, "drawable", context.packageName)
+    override fun toString(): String {
+        return "cardIdx: $cardIdx, isScraped: $isScraped, cardType: $cardType, " +
+                "cardContent: ${cardContent}, cardMemo: $cardMemo, cardOwener: $cardOwner"
     }
 }

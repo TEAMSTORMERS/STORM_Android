@@ -6,8 +6,10 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.stormers.storm.R
-import com.stormers.storm.card.adapter.SavedCardAdapter
-import com.stormers.storm.card.repository.SavedCardRepository
+import com.stormers.storm.base.BaseActivity
+import com.stormers.storm.card.adapter.CardListAdapter
+import com.stormers.storm.card.model.CardEnumModel
+import com.stormers.storm.card.repository.CardRepository
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.round.adapter.RoundListAdapterForViewPager
 import com.stormers.storm.round.network.RequestRound
@@ -18,14 +20,18 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class RoundListActivity : AppCompatActivity() {
+class RoundListActivity : BaseActivity() {
+
+    companion object {
+        private const val TAG = "RoundListActivity"
+    }
 
     private var roundIdx = -1
     lateinit var roundListAdapterForViewPager: RoundListAdapterForViewPager
 
-    private lateinit var cardAdapter: SavedCardAdapter
+    private lateinit var cardListAdapter: CardListAdapter
 
-    private val savedCardRepository : SavedCardRepository by lazy { SavedCardRepository(application) }
+    private val cardRepository : CardRepository by lazy { CardRepository() }
 
     private var projectIdx = -1
 
@@ -42,7 +48,7 @@ class RoundListActivity : AppCompatActivity() {
 
         roundListAdapterForViewPager = RoundListAdapterForViewPager()
 
-        cardAdapter = SavedCardAdapter(true, object : SavedCardAdapter.OnCardClickListener {
+        cardListAdapter = CardListAdapter(true, object : CardListAdapter.OnCardClickListener {
             override fun onCardClick(projectIdx: Int, roundIdx: Int, cardId: Int) {
                 val intent = Intent(this@RoundListActivity, ScrapedCardDetailActivity::class.java)
                 intent.putExtra("projectIdx", projectIdx)
@@ -85,7 +91,7 @@ class RoundListActivity : AppCompatActivity() {
 
 
         recyclerView_roundcardlist_cardlist.run {
-            adapter = cardAdapter
+            adapter = cardListAdapter
             addItemDecoration(MarginDecoration(this@RoundListActivity, 2, 20, 20))
         }
 
@@ -100,19 +106,28 @@ class RoundListActivity : AppCompatActivity() {
 
                     val roundIdx = roundListAdapterForViewPager.getItem(position).roundIdx
 
-                    val data = savedCardRepository.getAll(projectIdx, roundIdx)
-
-                    cardAdapter.clear()
-                    cardAdapter.addAll(data)
+                    setCardList(roundIdx)
                 }
             })
         }
     }
 
+    private fun setCardList(roundIdx: Int) {
+        cardRepository.getAllForList(projectIdx, roundIdx, object: CardRepository.LoadEnumCardsCallback {
+            override fun onCardLoaded(cards: List<CardEnumModel>) {
+                cardListAdapter.setList(cards)
+            }
+
+            override fun onDataNotAvailable() {
+                Log.e(TAG, "No data in DB. projectIdx: $projectIdx, roundIdx: $roundIdx")
+            }
+        })
+    }
+
+
     override fun onResume() {
         super.onResume()
 
-        cardAdapter.clear()
-        cardAdapter.addAll(savedCardRepository.getAll(projectIdx, roundIdx))
+        setCardList(roundIdx)
     }
 }
