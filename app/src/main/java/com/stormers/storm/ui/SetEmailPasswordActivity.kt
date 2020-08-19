@@ -114,8 +114,6 @@ class SetEmailPasswordActivity : BaseActivity() {
     fun goCompleteSignUpActivity() {
 
         button_next_signup.setOnClickListener{
-            Log.d("버튼눌림", " 버튼눌림")
-
             val fileUserImage = BitmapConverter.bitmapToFile(GlobalApplication.profileBitmap!! , this.cacheDir.toString())
 
             val requestUserImageFile = RequestBody.create(MediaType.parse("multipart/form-data"), fileUserImage!!)
@@ -129,8 +127,7 @@ class SetEmailPasswordActivity : BaseActivity() {
             val userPassword = RequestBody.create(MediaType.parse("text/plain"), edittext_input_password.text.toString())
 
             val userImageFlag = RequestBody.create(MediaType.parse("text/plain"), intent.getIntExtra("userImageFlag", IS_DEFAULT_IMAGE).toString())
-
-                    //Todo : HTTP통신 수정
+            
             RetrofitClient.create(InterfaceSignUp::class.java).interfaceSignUp(sendUserImage, userName,userEmail,userPassword, userImageFlag)
                 .enqueue(object : Callback<ResponseSignUpModel>{
                     override fun onFailure(call: Call<ResponseSignUpModel>, t: Throwable) {
@@ -143,7 +140,6 @@ class SetEmailPasswordActivity : BaseActivity() {
                     ) {
                         if(response.isSuccessful){
                             if (response.body()!!.success){
-                                Log.d("회원가입 성공", response.body()!!.success.toString())
 
                                 val intent = Intent(this@SetEmailPasswordActivity, CompleteSignUpActivity::class.java)
                                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
