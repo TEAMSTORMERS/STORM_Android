@@ -38,6 +38,7 @@ import com.stormers.storm.mypage.network.MypageInterface
 import com.stormers.storm.mypage.network.ResponseMypageData
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.network.SimpleResponse
+import com.stormers.storm.ui.LoginActivity
 import com.stormers.storm.ui.MypageWithdrawalActivity
 import com.stormers.storm.ui.SignUpActivity
 import kotlinx.android.synthetic.main.activity_sigin_up.*
@@ -283,7 +284,10 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
             buttonArray.add(
                 StormDialogButton("확인", true, object : StormDialogButton.OnClickListener {
                     override fun onClick() {
-                        //Todo: 다이얼로그의 확인 버튼을 눌렀을 때의 동작
+                        preference.setAutoLogIn(false)
+                        preference.setUserIdx(-1)
+
+                        startActivity(Intent(context, LoginActivity::class.java))
                     }
                 })
             )
