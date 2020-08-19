@@ -39,6 +39,8 @@ class MainActivity : BaseActivity() {
 
     private var lookupDialogButtons = ArrayList<StormDialogButton>()
 
+    private val errorDialogButton = ArrayList<StormDialogButton>()
+
     private var lookupDialogListener: StormDialogButton.OnClickListener? = null
 
     private var lookupDialogCallback: StormDialog.OnContentAttachedCallback? = null
@@ -63,11 +65,32 @@ class MainActivity : BaseActivity() {
 
         initListener()
 
+        initDialogButton()
     }
 
     override fun onResume() {
         super.onResume()
         loadProjectPreviews()
+    }
+
+    private fun initView() {
+        stormtoolbar_main.setMyPageButton()
+
+        recentProjectsAdapter = ProjectPreviewAdapter(true, object : ProjectPreviewAdapter.OnProjectClickListener {
+            override fun onProjectClick(projectIdx: Int) {
+                val intent  = Intent(this@MainActivity,ParticipatedProjectDetailActivity::class.java)
+                intent.putExtra("projectIdx", projectIdx)
+                startActivity(intent)
+            }
+        })
+
+        recycler_participated_projects_list.adapter = recentProjectsAdapter
+        recycler_participated_projects_list.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        recycler_participated_projects_list.addItemDecoration(MarginDecoration(baseContext,16,RecyclerView.HORIZONTAL))
+    }
+
+    private fun initDialogButton() {
+        errorDialogButton.add(StormDialogButton("확인", true, null))
     }
 
     private fun initListener() {
@@ -115,11 +138,16 @@ class MainActivity : BaseActivity() {
 
     private fun showErrorLookupComment(status: Int) {
         val comment = getResponseLookupComment(status)
+
+        StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, comment)
+            .setButtonArray(errorDialogButton)
+            .build()
+            .show(supportFragmentManager, "error_dialog")
     }
 
     private fun getResponseLookupComment(status: Int): String {
          return when (status) {
-            202 -> "이미 프로젝트가 진행 중입니다."
+            202 -> "지금은 프로젝트에\n참여하실 수 없습니다.."
             204 -> "지금은 호스트가 준비 중입니다."
             400 -> "유효하지 않은 코드입니다."
             else -> "오류가 발생했습니다."
@@ -195,22 +223,6 @@ class MainActivity : BaseActivity() {
                     }
                 }
             })
-    }
-
-    private fun initView() {
-        stormtoolbar_main.setMyPageButton()
-
-        recentProjectsAdapter = ProjectPreviewAdapter(true, object : ProjectPreviewAdapter.OnProjectClickListener {
-            override fun onProjectClick(projectIdx: Int) {
-                val intent  = Intent(this@MainActivity,ParticipatedProjectDetailActivity::class.java)
-                intent.putExtra("projectIdx", projectIdx)
-                startActivity(intent)
-            }
-        })
-
-        recycler_participated_projects_list.adapter = recentProjectsAdapter
-        recycler_participated_projects_list.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        recycler_participated_projects_list.addItemDecoration(MarginDecoration(baseContext,16,RecyclerView.HORIZONTAL))
     }
 
     private fun loadProjectPreviews() {
