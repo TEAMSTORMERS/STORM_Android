@@ -26,6 +26,9 @@ abstract class CardDao : BaseDao<CardEntity> {
     @Query("SELECT * FROM scraped_card_entity WHERE project_idx = :projectIdx AND round_idx = :roundIdx AND scraped = ${CardEntity.TRUE}")
     abstract fun getAllScrapedCard(projectIdx: Int, roundIdx: Int): List<CardEntity>?
 
+    @Query("SELECT content FROM scraped_card_entity WHERE project_idx = :projectIdx LIMIT :limit")
+    abstract fun getContentsAll(projectIdx: Int, limit: Int): List<String>?
+
     @Query("DELETE FROM scraped_card_entity")
     abstract fun deleteAll()
 

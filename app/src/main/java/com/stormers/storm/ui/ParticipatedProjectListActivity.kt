@@ -6,7 +6,7 @@ import android.util.Log
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.network.RetrofitClient
-import com.stormers.storm.project.adapter.ParticipatedProjectListAdapter
+import com.stormers.storm.project.adapter.ProjectPreviewAdapter
 import com.stormers.storm.project.network.response.ResponseParticipatedProject
 import com.stormers.storm.project.network.RequestProject
 import com.stormers.storm.util.MarginDecoration
@@ -17,7 +17,7 @@ import retrofit2.Response
 
 class ParticipatedProjectListActivity : BaseActivity() {
 
-    private lateinit var participatedProjectListAdapter : ParticipatedProjectListAdapter
+    private lateinit var projectPreviewAdapter : ProjectPreviewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,8 +28,8 @@ class ParticipatedProjectListActivity : BaseActivity() {
             setMyPageButton()
         }
         
-        participatedProjectListAdapter = ParticipatedProjectListAdapter(false, object:
-            ParticipatedProjectListAdapter.OnProjectClickListener {
+        projectPreviewAdapter = ProjectPreviewAdapter(false, object:
+            ProjectPreviewAdapter.OnProjectClickListener {
             override fun onProjectClick(projectIdx: Int) {
                 val intent = Intent(this@ParticipatedProjectListActivity, ParticipatedProjectDetailActivity::class.java)
                 intent.putExtra("projectIdx", projectIdx)
@@ -38,7 +38,7 @@ class ParticipatedProjectListActivity : BaseActivity() {
         })
 
         recyclerview_participatedproject.run {
-            adapter = participatedProjectListAdapter
+            adapter = projectPreviewAdapter
             addItemDecoration(MarginDecoration(this@ParticipatedProjectListActivity,
                 2, 20, 30))
         }
@@ -58,7 +58,7 @@ class ParticipatedProjectListActivity : BaseActivity() {
                         if (response.body()!!.success) {
                             val data = response.body()!!.data
 
-                            participatedProjectListAdapter.addAll(data)
+                            //projectPreviewAdapter.addAll(data)
                         }
                     }
                 }

@@ -9,25 +9,25 @@ import com.stormers.storm.base.BaseViewHolder
 import com.stormers.storm.card.model.SimpleCardModel
 import kotlinx.android.synthetic.main.item_card_preview.view.*
 
-class CardPreviewViewHolder(parent: ViewGroup) : BaseViewHolder<SimpleCardModel>(R.layout.item_card_preview, parent) {
+class CardPreviewViewHolder(parent: ViewGroup) : BaseViewHolder<String>(R.layout.item_card_preview, parent) {
 
-    override fun bind(data: SimpleCardModel) {
-        data.card_img?.let {
-            itemView.imageview_cardpreview_img.visibility = View.VISIBLE
-
-            if (it == "null") {
+    override fun bind(data: String) {
+        when {
+            data == "null" -> {
+                itemView.imageview_cardpreview_img.visibility = View.VISIBLE
                 itemView.imageview_cardpreview_img.setImageResource(R.drawable.h_roundstart_popup_symbol)
-            } else {
-                Glide.with(itemView).load(it).into(itemView.imageview_cardpreview_img)
+                itemView.textview_cardpreview_txt.visibility = View.GONE
             }
-
-            itemView.textview_cardpreview_txt.visibility = View.GONE
-        }
-
-        data.card_txt?.let {
-            itemView.textview_cardpreview_txt.visibility = View.VISIBLE
-            itemView.textview_cardpreview_txt.text = it
-            itemView.imageview_cardpreview_img.visibility = View.GONE
+            data.contains("https") -> {
+                itemView.imageview_cardpreview_img.visibility = View.VISIBLE
+                Glide.with(itemView).load(data).into(itemView.imageview_cardpreview_img)
+                itemView.textview_cardpreview_txt.visibility = View.GONE
+            }
+            else -> {
+                itemView.textview_cardpreview_txt.visibility = View.VISIBLE
+                itemView.textview_cardpreview_txt.text = data
+                itemView.imageview_cardpreview_img.visibility = View.GONE
+            }
         }
     }
 }
