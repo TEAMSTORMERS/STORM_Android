@@ -35,6 +35,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.stormers.storm.R
+import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
 import kotlinx.android.synthetic.main.activity_set_email_password.*
@@ -46,13 +47,14 @@ import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 
-class SignUpActivity : AppCompatActivity() {
+class SignUpActivity : BaseActivity() {
 
     companion object {
         private const val TAG = "SignUpActivity"
         private const val FLAG_REQ_STORAGE = 102
         private const val FLAG_PERM_STORAGE = 99
-
+        private const val IS_DEFAULT_IMAGE = 0
+        private const val USER_IMAGE = 1
     }
 
     val STORAGE_PERMISSION = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -67,13 +69,11 @@ class SignUpActivity : AppCompatActivity() {
 
     lateinit var profileBitmap : Bitmap
 
-    lateinit var UserImageFlag : String
+    var userImageFlag = IS_DEFAULT_IMAGE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sigin_up)
-
-        UserImageFlag = "0"
 
         selectProfileColor()
 
@@ -192,7 +192,7 @@ class SignUpActivity : AppCompatActivity() {
             imagebutton_select_profile_yellow.visibility = View.VISIBLE
             imagebutton_select_profile_red.visibility = View.VISIBLE
 
-            UserImageFlag = "0"
+            userImageFlag = IS_DEFAULT_IMAGE
             changeProfileDefaultBackground()
         }
 
@@ -215,7 +215,7 @@ class SignUpActivity : AppCompatActivity() {
                     constraintlayout_signup_profile.clipToOutline = true
                     imageview_signup_profilebackground.setImageURI(uri)
 
-                    UserImageFlag = "1"
+                    userImageFlag = USER_IMAGE
 
                     bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
                     textview_name_in_profile.visibility = View.GONE
@@ -342,18 +342,18 @@ class SignUpActivity : AppCompatActivity() {
     fun goToSetEmailPassword() {
         button_complete_signup.setOnClickListener{
 
-            when(UserImageFlag){
-                "0" -> {
+            when(userImageFlag){
+                IS_DEFAULT_IMAGE -> {
                     saveProfile()
                     val intent = Intent(this@SignUpActivity, SetEmailPasswordActivity::class.java)
 
                     GlobalApplication.profileBitmap = profileBitmap
                     intent.putExtra("userName", edittext_name_signup.text.toString())
-                    intent.putExtra("UserImageFlag", UserImageFlag)
+                    intent.putExtra("UserImageFlag", userImageFlag)
                     startActivity(intent)
                 }
 
-                "1" -> {
+                USER_IMAGE -> {
 
                     //fixme: 수정
                     Log.d("이미지 변환 전", "이미지 변환 전")
@@ -366,7 +366,7 @@ class SignUpActivity : AppCompatActivity() {
                     val intent = Intent(this@SignUpActivity, SetEmailPasswordActivity::class.java)
                     intent.putExtra("userName", edittext_name_signup.text.toString())
                     intent.putExtra("userImage", profileBitmap)
-                    intent.putExtra("UserImageFlag", UserImageFlag)
+                    intent.putExtra("userImageFlag", userImageFlag)
                     startActivity(intent)
                 }
             }
