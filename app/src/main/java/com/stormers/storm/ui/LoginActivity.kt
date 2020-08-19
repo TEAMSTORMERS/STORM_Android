@@ -25,7 +25,6 @@ class LoginActivity : BaseActivity() {
 
 
         autoLogIn()
-
         //애니메이션 초기화
         initAnimation()
     }
@@ -36,18 +35,20 @@ class LoginActivity : BaseActivity() {
             if (edittext_email_login.text.isNullOrBlank() || edittext_password_login.text.isNullOrBlank()){
                 textview_login_info.visibility = View.VISIBLE
             } else {
+
                 if(checkbox_auto_login.isChecked){
                     preference.setAutoLogIn(true)
                 } else {
                     preference.setAutoLogIn(false)
                 }
+
                 RetrofitClient.create(RequestLogIn::class.java).requestLogIn(
                     LogInModel(
                         edittext_email_login.text.toString(),
                         edittext_password_login.text.toString())
                 ).enqueue(object :retrofit2.Callback<ResponseLogIn>{
                     override fun onFailure(call: Call<ResponseLogIn>, t: Throwable) {
-
+                        Log.d("로그인 실패", t.message)
                     }
 
                     override fun onResponse(
@@ -61,7 +62,12 @@ class LoginActivity : BaseActivity() {
                                 val intent = Intent(this@LoginActivity, MainActivity::class.java)
                                 startActivity(intent)
                                 finish()
+                            } else {
+                                Log.d("로그인 실패", response.message())
                             }
+                        } else {
+                            Log.d("로그인 실패", response.message())
+                            textview_login_info.visibility = View.VISIBLE
                         }
                     }
                 })
@@ -74,8 +80,9 @@ class LoginActivity : BaseActivity() {
     }
 
     fun autoLogIn() {
-        if(preference.getAutoLogIn()) {
-            Log.d("userIdx",GlobalApplication.userIdx.toString())
+
+        if(preference.getAutoLogIn() == true) {
+            Log.d("userIdx", preference.getUserIdx().toString())
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         } else {

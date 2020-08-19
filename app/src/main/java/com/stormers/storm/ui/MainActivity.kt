@@ -35,9 +35,6 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //Todo: 회원가입 후 하드코딩 제거
-        preference.setUserIdx(1)
-
         GlobalApplication.run {
             userIdx = preference.getUserIdx()!!
             currentRound = null
