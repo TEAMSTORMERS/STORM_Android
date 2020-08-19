@@ -23,6 +23,7 @@ class LoginActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        goToSignUp()
 
         autoLogIn()
         //애니메이션 초기화
@@ -74,9 +75,12 @@ class LoginActivity : BaseActivity() {
                 })
             }
         }
+    }
 
+    fun goToSignUp() {
         textview_goto_sign_up.setOnClickListener {
-            startActivity(Intent(this, SignUpActivity::class.java))
+            val intent = Intent(this, SetEmailPasswordActivity::class.java)
+            startActivity(intent)
         }
     }
 

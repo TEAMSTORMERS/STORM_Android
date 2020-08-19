@@ -35,13 +35,23 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.stormers.storm.R
+import com.stormers.storm.SignUp.InterfaceSignUp
+import com.stormers.storm.SignUp.ResponseSignUpModel
 import com.stormers.storm.base.BaseActivity
+import com.stormers.storm.card.util.BitmapConverter
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
+import com.stormers.storm.network.RetrofitClient
 import kotlinx.android.synthetic.main.activity_set_email_password.*
 import kotlinx.android.synthetic.main.activity_sigin_up.*
 import kotlinx.android.synthetic.main.activity_sigin_up.button_back_signup
 import kotlinx.android.synthetic.main.bottomsheet_select_profile.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
@@ -81,7 +91,7 @@ class SignUpActivity : BaseActivity() {
 
         changeProfile()
 
-        goToSetEmailPassword()
+        goCompleteSignUpActivity()
 
         goToLogInActivity()
     }
@@ -324,7 +334,7 @@ class SignUpActivity : BaseActivity() {
         buttonArray.add(
             StormDialogButton("확인", true, object : StormDialogButton.OnClickListener{
                 override fun onClick() {
-                    startActivity(Intent(this@SignUpActivity, LoginActivity::class.java))
+                    startActivity(Intent(this@SignUpActivity, SetEmailPasswordActivity::class.java))
                     finish()
                 }
             })
@@ -339,31 +349,62 @@ class SignUpActivity : BaseActivity() {
 
     }
 
-    fun goToSetEmailPassword() {
+
+    fun goCompleteSignUpActivity() {
+
         button_complete_signup.setOnClickListener{
 
-            when(userImageFlag){
-                IS_DEFAULT_IMAGE -> {
-                    saveProfile()
-                    val intent = Intent(this@SignUpActivity, SetEmailPasswordActivity::class.java)
+            saveProfile()
+            GlobalApplication.profileBitmap = profileBitmap
 
-                    GlobalApplication.profileBitmap = profileBitmap
-                    intent.putExtra("userName", edittext_name_signup.text.toString())
-                    intent.putExtra("UserImageFlag", userImageFlag)
-                    startActivity(intent)
-                }
+            val fileUserImage = BitmapConverter.bitmapToFile(GlobalApplication.profileBitmap!! , this.cacheDir.toString())
 
-                USER_IMAGE -> {
-                    saveProfile()
+            val requestUserImageFile = RequestBody.create(MediaType.parse("multipart/form-data"), fileUserImage!!)
 
-                    GlobalApplication.profileBitmap = profileBitmap
-                    val intent = Intent(this@SignUpActivity, SetEmailPasswordActivity::class.java)
-                    intent.putExtra("userName", edittext_name_signup.text.toString())
-                    intent.putExtra("userImageFlag", userImageFlag)
-                    startActivity(intent)
-                }
-            }
+            val sendUserImage = MultipartBody.Part.createFormData("user_img", fileUserImage.name, requestUserImageFile)
 
+            val userName = RequestBody.create(MediaType.parse("text/plain"), edittext_name_signup.text.toString())
+
+            val userEmail = RequestBody.create(MediaType.parse("text/plain"), intent.getStringExtra("userEmail"))
+
+            val userPassword = RequestBody.create(MediaType.parse("text/plain"), intent.getStringExtra("userPassword"))
+
+            val userImageFlag = RequestBody.create(MediaType.parse("text/plain"), userImageFlag.toString())
+
+            RetrofitClient.create(InterfaceSignUp::class.java).interfaceSignUp(sendUserImage, userName,userEmail,userPassword, userImageFlag)
+                .enqueue(object : Callback<ResponseSignUpModel> {
+                    override fun onFailure(call: Call<ResponseSignUpModel>, t: Throwable) {
+
+                    }
+
+                    override fun onResponse(
+                        call: Call<ResponseSignUpModel>,
+                        response: Response<ResponseSignUpModel>
+                    ) {
+                        if(response.isSuccessful){
+                            if (response.body()!!.success){
+
+                                val intent = Intent(this@SignUpActivity, CompleteSignUpActivity::class.java)
+                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                startActivity(intent)
+                            } else {
+                                if(response.body()!!.status == 400) {
+                                    Log.d("정보누락", response.body()!!.status.toString())
+                                } else {
+                                    if (response.body()!!.status == 600){
+                                        Log.d("중복이메일, DB오류", response.body()!!.status.toString())
+                                        textview_email_warning.setText("이미 사용중인 이메일입니다.")
+                                        textview_email_warning.visibility = View.VISIBLE
+                                    } else {
+                                        Log.d("서버오류", response.body()!!.status.toString())
+                                    }
+                                }
+                            }
+                        } else {
+                            Log.d("서버통신 오류", response.message())
+                        }
+                    }
+                })
         }
     }
 }

@@ -177,7 +177,7 @@
             android:background="@drawable/button_color_popup_line_gray"
             android:elevation="6dp"
             android:fontFamily="@font/notosans_medium"
-            android:text="다음"
+            android:text="완료"
             android:textColor="@color/storm_white"
             android:textSize="16sp"
             android:enabled="false"
