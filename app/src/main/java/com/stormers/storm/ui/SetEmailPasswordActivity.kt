@@ -1,10 +1,7 @@
 package com.stormers.storm.ui
 
-import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
-import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -13,7 +10,6 @@ import android.view.View
 import com.stormers.storm.R
 import com.stormers.storm.SignUp.InterfaceSignUp
 import com.stormers.storm.SignUp.ResponseSignUpModel
-import com.stormers.storm.SignUp.SignUpModel
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.card.util.BitmapConverter
 import com.stormers.storm.network.RetrofitClient
@@ -28,15 +24,19 @@ import retrofit2.Response
 
 class SetEmailPasswordActivity : BaseActivity() {
 
+    lateinit var UserImageFlag : RequestBody
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_set_email_password)
 
+        UserImageFlag = RequestBody.create(MediaType.parse("text/plain"), intent.getStringExtra("UserImageFlag"))
+
 
         signUpTextWatcher()
         goBackActivity()
-        goCompleteSignUpActivity()
         checkVaildEmailType()
+        goCompleteSignUpActivity()
     }
 
     fun signUpTextWatcher() {
@@ -115,11 +115,10 @@ class SetEmailPasswordActivity : BaseActivity() {
 
     private fun goCompleteSignUpActivity() {
 
-        button_next_signup.setOnClickListener(){
+        button_next_signup.setOnClickListener{
+            Log.d("버튼눌림", " 버튼눌림")
 
-            val userImage = intent.getParcelableExtra<Bitmap>("userImage")
-
-            val fileUserImage = BitmapConverter.bitmapToFile(userImage, this.cacheDir.toString())
+            val fileUserImage = BitmapConverter.bitmapToFile(GlobalApplication.profileBitmap!! , this.cacheDir.toString())
 
             val requestUserImageFile = RequestBody.create(MediaType.parse("multipart/form-data"), fileUserImage!!)
 
@@ -131,25 +130,34 @@ class SetEmailPasswordActivity : BaseActivity() {
 
             val userPassword = RequestBody.create(MediaType.parse("text/plain"), edittext_input_password.text.toString())
 
-            val USER_IMAGE_FLAG = RequestBody.create(MediaType.parse("text/plain"), intent.getStringExtra("USER_IMAGE_FLAG"))
-
+            //Todo : HTTP통신 수정
 
             RetrofitClient.create(InterfaceSignUp::class.java).interfaceSignUp(
-                sendUserImage, userName, userEmail, userPassword, USER_IMAGE_FLAG)
+                sendUserImage, userName, userEmail, userPassword, UserImageFlag)
                 .enqueue(object : Callback<ResponseSignUpModel>{
                     override fun onFailure(call: Call<ResponseSignUpModel>, t: Throwable) {
-                        Log.d("회원가입 통신실패","${t}")
+                        if (t.message != null){
+                            Log.d("회원가입실패", t.message!!)
+                        } else {
+                            Log.d("통신실패", "통신실패")
+                        }
                     }
 
                     override fun onResponse(
                         call: Call<ResponseSignUpModel>,
                         response: Response<ResponseSignUpModel>
                     ) {
-                        Log.d("회원가입 성공", response.message())
+                        if(response.isSuccessful){
+                            if (response.body()!!.success ){
+                                Log.d("회원가입 성공", response.body()!!.success.toString())
 
-                        val intent = Intent(this@SetEmailPasswordActivity, CompleteSignUpActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(intent)
+                                val intent = Intent(this@SetEmailPasswordActivity, CompleteSignUpActivity::class.java)
+                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                startActivity(intent)
+                            } else {
+                                textview_email_warning.visibility = View.VISIBLE
+                            }
+                        }
                     }
                 })
         }

@@ -1,6 +1,7 @@
 package com.stormers.storm.ui
 
 import android.app.Application
+import android.graphics.Bitmap
 import com.kakao.auth.KakaoSDK
 import com.stormers.storm.kakao.KakaoSDKAdapter
 import com.stormers.storm.util.SharedPreference
@@ -30,5 +31,7 @@ class GlobalApplication : Application(){
         var instance: GlobalApplication? = null
 
         lateinit var prefs: SharedPreference
+
+        var profileBitmap : Bitmap? = null
     }
 }
