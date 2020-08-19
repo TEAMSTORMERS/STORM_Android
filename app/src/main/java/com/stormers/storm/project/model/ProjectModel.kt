@@ -1,8 +1,18 @@
 package com.stormers.storm.project.model
 
-import android.graphics.drawable.Drawable
+import com.stormers.storm.round.model.RoundModel
+import com.stormers.storm.user.UserModel
 
-data class ProjectModel (
-    //Todo: API 명세서에 맞게 수정하여 사용
-    val projectImage : Drawable?
+data class ProjectModel(
+    val projectIdx: Int,
+
+    val projectCode: String?,
+
+    var projectName: String?,
+
+    var projectComment: String?,
+
+    var projectRounds: List<RoundModel>?,
+
+    val projectParticipants: List<UserModel>?
 )

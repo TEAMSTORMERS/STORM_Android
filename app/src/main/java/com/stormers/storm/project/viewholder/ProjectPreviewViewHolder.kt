@@ -6,24 +6,25 @@ import com.stormers.storm.R
 import com.stormers.storm.base.BaseViewHolder
 import com.stormers.storm.card.adapter.CardPreviewAdapter
 import com.stormers.storm.card.model.SimpleCardModel
-import com.stormers.storm.project.adapter.ParticipatedProjectListAdapter
+import com.stormers.storm.project.adapter.ProjectPreviewAdapter
 import com.stormers.storm.project.model.ParticipatedProjectModel
+import com.stormers.storm.project.model.ProjectPreviewModel
 import com.stormers.storm.util.MetricsUtil
 import com.stormers.storm.util.MiddleDividerItemDecoration
 import kotlinx.android.synthetic.main.item_participated_projects_list.view.*
 
-class ParticipatedProjectViewHolder(parent: ViewGroup, private val isMain: Boolean, private val listener: ParticipatedProjectListAdapter.OnProjectClickListener) :
-    BaseViewHolder<ParticipatedProjectModel>(R.layout.item_participated_projects_list, parent) {
+class ProjectPreviewViewHolder(parent: ViewGroup, private val isMain: Boolean, private val listener: ProjectPreviewAdapter.OnProjectClickListener) :
+    BaseViewHolder<ProjectPreviewModel>(R.layout.item_participated_projects_list, parent) {
 
     private val cardPreviewAdapter: CardPreviewAdapter by lazy { CardPreviewAdapter() }
 
-    override fun bind(data: ParticipatedProjectModel) {
+    override fun bind(data: ProjectPreviewModel) {
         initItemLayout(data)
 
         initCardImage(data)
     }
 
-    private fun initItemLayout(data: ParticipatedProjectModel) {
+    private fun initItemLayout(data: ProjectPreviewModel) {
         itemView.name_of_project.text = data.projectName
 
         if (!isMain) {
@@ -38,7 +39,7 @@ class ParticipatedProjectViewHolder(parent: ViewGroup, private val isMain: Boole
         }
     }
 
-    private fun initCardImage(data: ParticipatedProjectModel) {
+    private fun initCardImage(data: ProjectPreviewModel) {
         itemView.recyclerview_projectfolder.recyclerView.run {
             adapter = cardPreviewAdapter
             layoutManager = GridLayoutManager(context, 2)
@@ -46,12 +47,12 @@ class ParticipatedProjectViewHolder(parent: ViewGroup, private val isMain: Boole
             addItemDecoration(MiddleDividerItemDecoration(context, MiddleDividerItemDecoration.HORIZONTAL))
         }
 
-        val cardData = mutableListOf<SimpleCardModel>()
+        val cardData = mutableListOf<String>()
         for (i in 0 until 4) {
-            if (i < data.projectCard.size) {
-                cardData.add(data.projectCard[i])
+            if (i < data.projectContents.size) {
+                cardData.add(data.projectContents[i])
             } else {
-                cardData.add(SimpleCardModel("null", null))
+                cardData.add("null")
             }
         }
         cardPreviewAdapter.setList(cardData)

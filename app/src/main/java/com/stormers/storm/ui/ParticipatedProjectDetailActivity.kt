@@ -1,19 +1,16 @@
 package com.stormers.storm.ui
 
 import android.content.Intent
-import android.graphics.drawable.ShapeDrawable
-import android.graphics.drawable.shapes.OvalShape
-import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
-import com.stormers.storm.card.adapter.SavedCardAdapter
-import com.stormers.storm.card.repository.SavedCardRepository
+import com.stormers.storm.card.adapter.CardListAdapter
+import com.stormers.storm.card.model.CardEnumModel
+import com.stormers.storm.card.repository.CardRepository
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.project.adapter.ProjectUserImageAdapter
 import com.stormers.storm.project.network.RequestProject
@@ -22,21 +19,18 @@ import com.stormers.storm.round.adapter.RoundListAdapter
 import com.stormers.storm.round.network.RequestRound
 import com.stormers.storm.round.network.response.ResponseFinalRoundData
 import com.stormers.storm.util.MarginDecoration
-import kotlinx.android.synthetic.main.activity_add_project.*
 import kotlinx.android.synthetic.main.activity_participated_project_detail.*
-import kotlinx.android.synthetic.main.item_user_profile.view.*
 import kotlinx.android.synthetic.main.layout_list_user_profile.*
-import kotlinx.android.synthetic.main.layout_list_user_profile.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class ParticipatedProjectDetailActivity : BaseActivity() {
 
-    lateinit var scrapedCardAdapter: SavedCardAdapter
+    lateinit var scrapedCardListAdapter: CardListAdapter
     lateinit var roundListAdapterForViewPager: RoundListAdapter
 
-    private val savedCardRepository: SavedCardRepository by lazy { SavedCardRepository(application) }
+    private val cardRepository: CardRepository by lazy { CardRepository() }
 
     private var projectIdx = -1
 
@@ -145,7 +139,7 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
             startActivity(intent)
         }
 
-        scrapedCardAdapter = SavedCardAdapter(true, object: SavedCardAdapter.OnCardClickListener {
+        scrapedCardListAdapter = CardListAdapter(true, object: CardListAdapter.OnCardClickListener {
             override fun onCardClick(projectIdx: Int, roundIdx: Int, cardId: Int) {
                 val intent = Intent(this@ParticipatedProjectDetailActivity, ScrapedCardDetailActivity::class.java)
                 intent.putExtra("projectIdx", projectIdx)
@@ -155,7 +149,7 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
             }
         })
 
-        rv_scrap_card_part_detail.adapter = scrapedCardAdapter
+        rv_scrap_card_part_detail.adapter = scrapedCardListAdapter
         rv_scrap_card_part_detail.addItemDecoration(MarginDecoration(this, 15, RecyclerView.HORIZONTAL))
         rv_scrap_card_part_detail.addItemDecoration(MarginDecoration(this, 15, RecyclerView.VERTICAL))
 
@@ -179,16 +173,16 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
 
-        val data = savedCardRepository.getAllScrapedCard(projectIdx)
+        cardRepository.getScrapAllForList(projectIdx, object: CardRepository.LoadEnumCardsCallback {
+            override fun onCardLoaded(cards: List<CardEnumModel>) {
+                scrapedCardListAdapter.setList(cards)
+                textview_noscraped.visibility = View.GONE
+            }
 
-        if (data.isNotEmpty()) {
-            scrapedCardAdapter.clear()
-            scrapedCardAdapter.addAll(savedCardRepository.getAllScrapedCard(projectIdx))
-            textview_noscraped.visibility = View.GONE
-
-        } else {
-            textview_noscraped.visibility = View.VISIBLE
-        }
+            override fun onDataNotAvailable() {
+                textview_noscraped.visibility = View.VISIBLE
+            }
+        })
     }
 
 }

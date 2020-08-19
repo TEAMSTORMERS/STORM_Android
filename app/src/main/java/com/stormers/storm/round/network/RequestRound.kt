@@ -15,8 +15,8 @@ interface RequestRound {
     @POST("round/enter")
     fun interfaceRoundEnter(@Body body :RoundEnterModel):Call<SimpleResponse>
 
-    @GET("round/memberList/{round_idx}")
-    fun showRoundUser(@Path("round_idx") RoundIdx : Int) : Call<ResponseProjectUserListModel>
+    @GET("round/memberList/{project_idx}/{round_idx}")
+    fun showRoundUser(@Path("project_idx") projectIdx: Int, @Path("round_idx") roundIdx : Int) : Call<ResponseProjectUserListModel>
 
     @DELETE("round/leave")
     fun roundExit(

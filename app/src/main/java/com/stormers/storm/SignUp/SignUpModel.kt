@@ -13,5 +13,5 @@ data class SignUpModel(
     @SerializedName("user_password")
     val userPassword : String,
     @SerializedName("user_img_flag")
-    val USER_IMG_FLAG : Int
+    val UserImgeFlag : Int
 )
