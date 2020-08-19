@@ -41,6 +41,8 @@ class StormDialogBuilder(private var dialogImg: Int, private var title: String) 
 
     private var maxValue: Int? = null
 
+    private var callback: StormDialog.OnContentAttachedCallback? = null
+
     fun build() : StormDialog {
         val imageRes = when(dialogImg) {
 
@@ -62,7 +64,8 @@ class StormDialogBuilder(private var dialogImg: Int, private var title: String) 
             isCode,
             code,
             minValue,
-            maxValue
+            maxValue,
+            callback
         )
     }
 
@@ -104,6 +107,11 @@ class StormDialogBuilder(private var dialogImg: Int, private var title: String) 
     fun isCode(isCode: Boolean, code: String) : StormDialogBuilder {
         this.isCode = isCode
         this.code = code
+        return this
+    }
+
+    fun setOnContentAttachedCallback(callback: StormDialog.OnContentAttachedCallback) : StormDialogBuilder {
+        this.callback = callback
         return this
     }
 }
