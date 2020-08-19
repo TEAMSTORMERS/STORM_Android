@@ -96,12 +96,25 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
                         //서버로부터 받아온 user name 적용
                         edittext_user_name.setText(response.body()!!.data.user_name)
 
-                        //서버로부터 받아온 profile image 적용
                         //Todo: 서버로부터 받아온 이미지가 기본이미지인지, 앨범에서 선택한 이미지인지에 따라 처음으로 보여지는 뷰를 달리 해야 합니다!
-                        constraint_select_button.visibility = View.INVISIBLE
-                        textview_mypage_name_in_profile.visibility = View.INVISIBLE
+                        //서버로부터 받아온 profile image 적용: 앨범에서 사진을 설정했을 경우
+                        if (response.body()!!.data.user_img_flag == 1) {
+                            constraint_select_button.visibility = View.INVISIBLE
+                            textview_mypage_name_in_profile.visibility = View.INVISIBLE
 
-                        Glide.with(context!!).load(response.body()!!.data.user_img).into(imageview_mypage_default_image)
+                            Glide.with(context!!).load(response.body()!!.data.user_img)
+                                .into(imageview_mypage_default_image)
+                        }
+                        //서버로부터 받아온 profile image 적용: 기본 이미지일 경우
+                       else if (response.body()!!.data.user_img_flag == 0) {
+                            selectProfileColor()
+
+                            //초기 기본이미지 text 설정
+                            if (edittext_user_name.text.length >= 2) {
+                                var first_two_characters = edittext_user_name.text.substring(0,2)
+                                textview_mypage_name_in_profile.setText(first_two_characters)
+                            }
+                        }
 
                     } else {
                         Log.d("MypageProfileFragment", "통신실패")
@@ -113,15 +126,7 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
 
         })
 
-        selectProfileColor()
-
         edittext_user_name.isEnabled = false
-
-        //초기 기본이미지 text 설정
-        if (edittext_user_name.text.length >= 2){
-            var first_two_characters = edittext_user_name.text.substring(0,2)
-            textview_mypage_name_in_profile.setText(first_two_characters)
-        }
 
         edittext_user_name.filters = Array(1) {textSetFilter()}
 
