@@ -67,6 +67,12 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
 
     var userIdx = -1
 
+    //image flag를 나타내는 상수
+    companion object {
+        private const val USER_IMAGE = 1
+        private const val USER_DEFAULT_IMAGE = 0
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -103,7 +109,7 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
 
                         //서버로부터 받아온 profile image 적용: 앨범에서 사진을 설정했을 경우
                         //Todo: boolean 값으로 변경하기
-                        if (response.body()!!.data.user_img_flag == 1) {
+                        if (response.body()!!.data.user_img_flag == USER_IMAGE) {
                             constraint_select_button.visibility = View.INVISIBLE
                             textview_mypage_name_in_profile.visibility = View.INVISIBLE
 
