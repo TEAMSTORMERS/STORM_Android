@@ -38,6 +38,15 @@ class CardRepository {
         return result
     }
 
+    fun getContentsAll(projectIdx: Int, limit: Int): List<String> {
+        var result = dao.getContentsAll(projectIdx, limit)
+        Log.d(TAG, "getContentsAll: projectIdx: $projectIdx, numberOfCounts: $limit result : $result")
+        if (result == null) {
+            result = mutableListOf()
+        }
+        return result
+    }
+
     fun getAllForList(projectIdx: Int, roundIdx: Int, callback: LoadEnumCardsCallback) {
         val results = getAll(projectIdx, roundIdx)
 

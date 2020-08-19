@@ -11,9 +11,9 @@ import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.project.network.RequestProject
 import com.stormers.storm.project.network.response.ResponseJoinProjectUsingCode
 import com.stormers.storm.network.RetrofitClient
-import com.stormers.storm.project.adapter.ParticipatedProjectListAdapter
+import com.stormers.storm.project.ProjectRepository
+import com.stormers.storm.project.adapter.ProjectPreviewAdapter
 import com.stormers.storm.project.model.*
-import com.stormers.storm.project.network.response.ResponseParticipatedProject
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
@@ -21,8 +21,10 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : BaseActivity() {
-    private lateinit var recentProjectsAdapter: ParticipatedProjectListAdapter
-    val datas = mutableListOf<RecentProjectsModel>()
+    private lateinit var recentProjectsAdapter: ProjectPreviewAdapter
+
+    private val projectRepository: ProjectRepository by lazy { ProjectRepository.getInstance() }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +42,7 @@ class MainActivity : BaseActivity() {
 
         stormtoolbar_main.setMyPageButton()
 
-        recentProjectsAdapter = ParticipatedProjectListAdapter(true, object : ParticipatedProjectListAdapter.OnProjectClickListener {
+        recentProjectsAdapter = ProjectPreviewAdapter(true, object : ProjectPreviewAdapter.OnProjectClickListener {
             override fun onProjectClick(projectIdx: Int) {
                 val intent  = Intent(this@MainActivity,ParticipatedProjectDetailActivity::class.java)
                 intent.putExtra("projectIdx", projectIdx)
@@ -51,8 +53,6 @@ class MainActivity : BaseActivity() {
         recycler_participated_projects_list.adapter = recentProjectsAdapter
         recycler_participated_projects_list.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         recycler_participated_projects_list.addItemDecoration(MarginDecoration(baseContext,16,RecyclerView.HORIZONTAL))
-
-        loadProjectsDatas()
 
         moveToAddProject()
 
@@ -94,9 +94,9 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.toolbar_main, menu)
-        return super.onCreateOptionsMenu(menu)
+    override fun onResume() {
+        super.onResume()
+        loadProjectPreviews()
     }
 
 
@@ -108,34 +108,18 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    private fun loadProjectsDatas() {
+    private fun loadProjectPreviews() {
+        projectRepository.getPreviewAll(object: ProjectRepository.LoadProjectPreviewCallback {
+            override fun onPreviewLoaded(projects: List<ProjectPreviewModel>) {
+                recentProjectsAdapter.setList(projects)
+                group_main_noprojectlist.visibility = View.GONE
+                recycler_participated_projects_list.visibility = View.VISIBLE
+            }
 
-        RetrofitClient.create(RequestProject::class.java).requestParticipatedProject(preference.getUserIdx()!!)
-            .enqueue(object: Callback<ResponseParticipatedProject> {
-                override fun onFailure(call: Call<ResponseParticipatedProject>, t: Throwable) {
-                    Log.d("requestParticipatedPj", "fail : ${t.message}")
-                }
-
-                override fun onResponse(call: Call<ResponseParticipatedProject>, response: Response<ResponseParticipatedProject>) {
-                    if (response.isSuccessful) {
-                        if (response.body()!!.success) {
-                            val data = response.body()!!.data
-
-                            showProjectList(data)
-                        }
-                    }
-                }
-            })
-    }
-
-    private fun showProjectList(data: List<ParticipatedProjectModel>) {
-        if(data.isNotEmpty()){
-            recentProjectsAdapter.addAll(data)
-            group_main_noprojectlist.visibility = View.GONE
-            recycler_participated_projects_list.visibility = View.VISIBLE
-        } else {
-            group_main_noprojectlist.visibility = View.VISIBLE
-            recycler_participated_projects_list.visibility = View.GONE
-        }
+            override fun onDataNotAvailable() {
+                group_main_noprojectlist.visibility = View.VISIBLE
+                recycler_participated_projects_list.visibility = View.GONE
+            }
+        })
     }
 }

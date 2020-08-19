@@ -6,8 +6,8 @@ import com.stormers.storm.base.BaseViewHolder
 import com.stormers.storm.card.model.SimpleCardModel
 import com.stormers.storm.card.viewholder.CardPreviewViewHolder
 
-class CardPreviewAdapter : BaseAdapter<SimpleCardModel>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<SimpleCardModel> {
+class CardPreviewAdapter : BaseAdapter<String>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<String> {
         return CardPreviewViewHolder(parent)
     }
 
