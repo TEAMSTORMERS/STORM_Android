@@ -48,7 +48,7 @@ class MypageWithdrawalActivity : BaseActivity() {
                 )
                 .enqueue(object : Callback<Response>{
                     override fun onFailure(call: Call<Response>, t: Throwable) {
-
+                        Log.d("통신실패", "${t}")
                     }
                     override fun onResponse(
                         call: Call<Response>,

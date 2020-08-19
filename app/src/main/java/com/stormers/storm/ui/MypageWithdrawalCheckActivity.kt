@@ -2,6 +2,7 @@ package com.stormers.storm.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import com.stormers.storm.R
 import com.stormers.storm.UserWithdrawal.model.UserWithdrawalModel
 import com.stormers.storm.UserWithdrawal.network.RequestWithdrawal
@@ -36,7 +37,7 @@ class MypageWithdrawalCheckActivity : BaseActivity() {
                     )
                 ).enqueue(object : Callback<Response> {
                     override fun onFailure(call: Call<Response>, t: Throwable) {
-
+                        Log.d("통신실패", "${t}")
                     }
 
                     override fun onResponse(
@@ -50,7 +51,11 @@ class MypageWithdrawalCheckActivity : BaseActivity() {
                                 preference.setAutoLogIn(false)
                                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                 startActivity(intent)
+                            } else {
+                                Log.d("탈퇴실패", response.message())
                             }
+                        } else {
+                            Log.d("탈퇴실패", response.message())
                         }
                     }
                 })

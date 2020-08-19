@@ -83,9 +83,13 @@ class LoginActivity : BaseActivity() {
     fun autoLogIn() {
 
         if(preference.getAutoLogIn() == true) {
-            Log.d("userIdx", preference.getUserIdx().toString())
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
+            if(preference.getUserIdx() != null){
+                Log.d("userIdx", preference.getUserIdx().toString())
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            } else {
+                Log.d("userIdx없음", "userIdx없음")
+            }
         } else {
             initView()
         }
