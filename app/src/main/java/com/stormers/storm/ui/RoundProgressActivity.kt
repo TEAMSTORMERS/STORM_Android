@@ -3,29 +3,20 @@ package com.stormers.storm.ui
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
 import com.stormers.storm.R
 import com.stormers.storm.card.fragment.AddCardFragment
-import com.stormers.storm.base.BaseActivity
-import com.stormers.storm.card.model.SavedCardEntity
+import com.stormers.storm.card.model.CardEntity
+import com.stormers.storm.card.model.CardEnumModel
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
-import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.round.base.BaseRoundProgressActivity
-import com.stormers.storm.round.network.RequestRound
-import com.stormers.storm.round.network.response.ResponseRoundInfoModel
 import kotlinx.android.synthetic.main.activity_round_progress.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.lang.StringBuilder
-import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
 class RoundProgressActivity : BaseRoundProgressActivity() {
 
-    val cardList = mutableListOf<SavedCardEntity>()
+    val cardList = mutableListOf<CardEnumModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

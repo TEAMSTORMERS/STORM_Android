@@ -12,7 +12,7 @@ import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.canvas.fragment.CanvasDrawingFragment
 import com.stormers.storm.canvas.fragment.CanvasTextFragment
-import com.stormers.storm.card.repository.SavedCardRepository
+import com.stormers.storm.ui.GlobalApplication
 import com.stormers.storm.ui.RoundProgressActivity
 import kotlinx.android.synthetic.main.activity_round_progress.*
 import kotlinx.android.synthetic.main.fragment_round_canvas.*
@@ -27,6 +27,10 @@ abstract class BaseCanvasFragment(private val mode: Int, @LayoutRes private val 
 
     private lateinit var targetModeStr: String
     private lateinit var targetFragment: Class<*>
+
+    protected val userIdx = GlobalApplication.userIdx
+    protected val projectIdx = GlobalApplication.currentProject!!.projectIdx
+    protected val roundIdx = GlobalApplication.currentRound!!.roundIdx
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

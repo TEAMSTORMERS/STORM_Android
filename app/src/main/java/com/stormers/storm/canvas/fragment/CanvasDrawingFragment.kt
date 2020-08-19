@@ -11,11 +11,11 @@ import com.stormers.storm.R
 import com.stormers.storm.card.fragment.AddCardFragment
 import com.stormers.storm.canvas.base.BaseCanvasFragment
 import com.stormers.storm.canvas.network.RequestCard
-import com.stormers.storm.card.model.SavedCardEntity
+import com.stormers.storm.card.CardType
+import com.stormers.storm.card.model.CardEnumModel
 import com.stormers.storm.card.util.BitmapConverter
 import com.stormers.storm.network.Response
 import com.stormers.storm.network.RetrofitClient
-import com.stormers.storm.ui.GlobalApplication
 import com.stormers.storm.ui.RoundProgressActivity
 import kotlinx.android.synthetic.main.fragment_round_canvas.*
 import kotlinx.android.synthetic.main.view_draw.*
@@ -106,11 +106,11 @@ class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_dra
 
         val uploadFile = MultipartBody.Part.createFormData("card_img", drawingFile.name, requestFile)
 
-        val userIdx = RequestBody.create(MediaType.parse("text/plain"), GlobalApplication.userIdx.toString())
+        val userIdx = RequestBody.create(MediaType.parse("text/plain"), userIdx.toString())
 
-        val projectIdx = RequestBody.create(MediaType.parse("text/plain"), GlobalApplication.currentProject!!.projectIdx.toString())
+        val projectIdx = RequestBody.create(MediaType.parse("text/plain"), projectIdx.toString())
 
-        val roundIdx = RequestBody.create(MediaType.parse("text/plain"), GlobalApplication.currentRound!!.roundIdx.toString())
+        val roundIdx = RequestBody.create(MediaType.parse("text/plain"), roundIdx.toString())
 
         RetrofitClient.create(RequestCard::class.java).postCard(userIdx, projectIdx, roundIdx, uploadFile, null)
             .enqueue(object: Callback<Response> {
@@ -144,8 +144,8 @@ class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_dra
     }
 
     private fun saveCard(bitmap: Bitmap) {
-        val card = SavedCardEntity(null, null, null, null,
-            null, SavedCardEntity.DRAWING, BitmapConverter.bitmapToString(bitmap), null)
+        val card = CardEnumModel(0, userIdx, projectIdx, false,
+            CardType.DRAWING, BitmapConverter.bitmapToString(bitmap))
         (activity as RoundProgressActivity).cardList.add(card)
     }
 

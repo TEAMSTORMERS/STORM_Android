@@ -6,6 +6,7 @@ import android.view.View
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.card.fragment.RoundMeetingFragment
+import com.stormers.storm.card.model.CardEnumModel
 import com.stormers.storm.customview.dialog.StormDialog
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
@@ -84,14 +85,14 @@ class RoundFinishActivity : BaseRoundProgressActivity() {
     }
 
     private fun startNextRound() {
-        SocketClient.sendEvent("nextRound", preference.getProjectCode()!!)
+        SocketClient.sendEvent("nextRound", GlobalApplication.currentProject!!.projectCode!!)
 
         startActivity(Intent(this@RoundFinishActivity, RoundSettingActivity::class.java))
         finish()
     }
 
     private fun finishRound() {
-        SocketClient.sendEvent("finishProject", preference.getProjectCode()!!)
+        SocketClient.sendEvent("finishProject", GlobalApplication.currentProject!!.projectCode!!)
 
         startDetailActivity()
     }
@@ -109,7 +110,7 @@ class RoundFinishActivity : BaseRoundProgressActivity() {
 
     private fun startDetailActivity () {
         val intent = Intent(this@RoundFinishActivity, ParticipatedProjectDetailActivity::class.java)
-        intent.putExtra("projectIdx", preference.getProjectIdx())
+        intent.putExtra("projectIdx", GlobalApplication.currentProject!!.projectIdx)
 
         startActivity(intent)
         finish()

@@ -3,14 +3,12 @@ package com.stormers.storm.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.stormers.storm.R
-import com.stormers.storm.card.adapter.CardAdapter
-import com.stormers.storm.card.model.CardModel
-import com.stormers.storm.user.UserModel
+import com.stormers.storm.card.adapter.CardListAdapter
 import kotlinx.android.synthetic.main.activity_scrapcard_collecting.*
 
 class ScrapCardCollectingActivity : AppCompatActivity() {
 
-    lateinit var scrapCollectAdapter: CardAdapter
+    lateinit var scrapCollectListAdapter: CardListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

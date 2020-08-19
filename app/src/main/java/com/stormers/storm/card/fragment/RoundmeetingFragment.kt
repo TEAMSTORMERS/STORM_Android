@@ -6,14 +6,17 @@ import android.util.Log
 import android.view.View
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseFragment
-import com.stormers.storm.card.adapter.SavedCardAdapter
+import com.stormers.storm.card.CardType
+import com.stormers.storm.card.adapter.CardListAdapter
 import com.stormers.storm.card.model.ResponseCardModel
-import com.stormers.storm.card.model.SavedCardEntity
+import com.stormers.storm.card.model.CardEntity
+import com.stormers.storm.card.model.CardEnumModel
 import com.stormers.storm.card.network.RequestCard
 import com.stormers.storm.card.network.ResponseCardData
-import com.stormers.storm.card.repository.SavedCardRepository
+import com.stormers.storm.card.repository.CardRepository
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.ui.GlobalApplication
+import com.stormers.storm.ui.RoundFinishActivity
 import com.stormers.storm.ui.RoundMeetingExpandActivity
 import kotlinx.android.synthetic.main.fragment_roundmeeting.*
 import retrofit2.Call
@@ -22,8 +25,8 @@ import retrofit2.Response
 
 class RoundMeetingFragment : BaseFragment(R.layout.fragment_roundmeeting) {
 
-    private val savedCardRepository : SavedCardRepository by lazy { SavedCardRepository() }
-    private lateinit var roundMeetingAdapter: SavedCardAdapter
+    private val cardRepository : CardRepository by lazy { CardRepository() }
+    private lateinit var roundMeetingListAdapter: CardListAdapter
 
     private val projectIdx = GlobalApplication.currentProject!!.projectIdx
     private val roundIdx = GlobalApplication.currentRound!!.roundIdx
@@ -33,7 +36,7 @@ class RoundMeetingFragment : BaseFragment(R.layout.fragment_roundmeeting) {
 
         requestCards()
 
-        roundMeetingAdapter = SavedCardAdapter(true, object: SavedCardAdapter.OnCardClickListener {
+        roundMeetingListAdapter = CardListAdapter(true, object: CardListAdapter.OnCardClickListener {
             override fun onCardClick(projectIdx: Int, roundIdx: Int, cardId: Int) {
                 val intent = Intent(context, RoundMeetingExpandActivity::class.java)
                 intent.putExtra("projectIdx", projectIdx)
@@ -43,7 +46,7 @@ class RoundMeetingFragment : BaseFragment(R.layout.fragment_roundmeeting) {
             }
         })
 
-        RecyclerView_added_card_roundmeeting.adapter = roundMeetingAdapter
+        RecyclerView_added_card_roundmeeting.adapter = roundMeetingListAdapter
     }
 
     private fun requestCards() {
@@ -72,19 +75,19 @@ class RoundMeetingFragment : BaseFragment(R.layout.fragment_roundmeeting) {
 
     override fun onResume() {
         super.onResume()
-        showCard()
+        refreshCard()
     }
 
     private fun saveCard(cardList: List<ResponseCardModel>) {
         for (card in cardList) {
             val localCard = when {
                 card.card_txt != null -> {
-                    SavedCardEntity(card.card_idx, projectIdx, roundIdx, card.user_idx,
-                        SavedCardEntity.FALSE, SavedCardEntity.TEXT, card.card_txt, null)
+                    CardEntity(card.card_idx, projectIdx, roundIdx, card.user_idx,
+                        CardEntity.FALSE, CardEntity.TEXT, card.card_txt, null)
                 }
                 card.card_img != null -> {
-                    SavedCardEntity(card.card_idx, projectIdx, roundIdx, card.user_idx,
-                        SavedCardEntity.FALSE, SavedCardEntity.DRAWING, card.card_img, null)
+                    CardEntity(card.card_idx, projectIdx, roundIdx, card.user_idx,
+                        CardEntity.FALSE, CardEntity.DRAWING, card.card_img, null)
                 }
                 else -> {
                     null
@@ -95,19 +98,26 @@ class RoundMeetingFragment : BaseFragment(R.layout.fragment_roundmeeting) {
                 Log.d(TAG, "Wrong card")
                 return
             }
-            savedCardRepository.insert(localCard)
+            cardRepository.insert(localCard)
 
             //어뎁터에 추가
-            roundMeetingAdapter.add(localCard)
+            localCard.let {
+                val isScraped = CardType.scrapConverter(it.isScraped)
+                val cardType = CardType.typeConverter(it.cardType)
+                roundMeetingListAdapter.add(CardEnumModel(it.cardIdx, it.projectIdx, it.roundIdx, isScraped, cardType, it.content))
+            }
         }
     }
 
-    private fun showCard() {
-        val data = savedCardRepository.getAll(projectIdx, roundIdx)
-        if (data != null) {
-            roundMeetingAdapter.setList(data)
-        } else {
-            Log.d(TAG, "No card in DB")
-        }
+    private fun refreshCard() {
+        cardRepository.getAllForList(projectIdx, roundIdx, object: CardRepository.LoadEnumCardsCallback {
+            override fun onCardLoaded(cards: List<CardEnumModel>) {
+                roundMeetingListAdapter.setList(cards)
+            }
+
+            override fun onDataNotAvailable() {
+                Log.d(TAG, "No card in DB")
+            }
+        })
     }
 }

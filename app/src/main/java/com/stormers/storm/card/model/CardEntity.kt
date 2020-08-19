@@ -5,22 +5,22 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "scraped_card_entity")
-data class SavedCardEntity (
+data class CardEntity (
     @PrimaryKey
     @ColumnInfo(name = "card_idx")
-    val cardIdx: Int?,
+    val cardIdx: Int,
 
     @ColumnInfo(name = "project_idx")
-    val projectIdx: Int?,
+    val projectIdx: Int,
 
     @ColumnInfo(name = "round_idx")
-    val roundIdx: Int?,
+    val roundIdx: Int,
 
     @ColumnInfo(name = "user_idx")
-    val userIdx: Int?,
+    val userIdx: Int,
 
     @ColumnInfo(name = "scraped")
-    var isScraped: Int?,
+    var isScraped: Int,
 
     @ColumnInfo(name = "type")
     val cardType: Int,
@@ -37,5 +37,10 @@ data class SavedCardEntity (
 
         const val DRAWING = 0
         const val TEXT = 1
+    }
+
+    override fun toString(): String {
+        return "cardIdx: $cardIdx, projectIdx: $projectIdx, roundIdx: $roundIdx, isScraped: $isScraped, " +
+                "cardType: $cardType, content: ${content}, memo: $memo"
     }
 }

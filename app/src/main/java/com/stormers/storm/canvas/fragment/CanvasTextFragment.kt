@@ -6,7 +6,8 @@ import com.stormers.storm.R
 import com.stormers.storm.card.fragment.AddCardFragment
 import com.stormers.storm.canvas.base.BaseCanvasFragment
 import com.stormers.storm.canvas.network.RequestCard
-import com.stormers.storm.card.model.SavedCardEntity
+import com.stormers.storm.card.CardType
+import com.stormers.storm.card.model.CardEnumModel
 import com.stormers.storm.network.Response
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.ui.GlobalApplication
@@ -25,13 +26,13 @@ class CanvasTextFragment : BaseCanvasFragment(TEXT_MODE, R.layout.view_addcard_e
 
     override fun onApplied() {
         val content = edittext_addcard.text.toString()
-        if (!content.isNullOrBlank()) {
+        if (!content.isBlank()) {
 
-            val userIdx = RequestBody.create(MediaType.parse("text/plain"), GlobalApplication.userIdx.toString())
+            val userIdx = RequestBody.create(MediaType.parse("text/plain"), userIdx.toString())
 
-            val projectIdx = RequestBody.create(MediaType.parse("text/plain"), GlobalApplication.currentProject!!.projectIdx.toString())
+            val projectIdx = RequestBody.create(MediaType.parse("text/plain"), projectIdx.toString())
 
-            val roundIdx = RequestBody.create(MediaType.parse("text/plain"), GlobalApplication.currentRound!!.roundIdx.toString())
+            val roundIdx = RequestBody.create(MediaType.parse("text/plain"), roundIdx.toString())
 
             val cardText = RequestBody.create(MediaType.parse("text/plain"), content)
 
@@ -39,7 +40,7 @@ class CanvasTextFragment : BaseCanvasFragment(TEXT_MODE, R.layout.view_addcard_e
                 .postCard(userIdx, projectIdx, roundIdx, null, cardText).enqueue(object : Callback<Response> {
 
                     override fun onFailure(call: Call<Response>, t: Throwable) {
-                        Log.d("post_card", "onFailure : ${t.message}")
+                        Log.d(TAG, "postCard : Fail, ${t.message}")
                     }
 
                     override fun onResponse(call: Call<Response>, response: retrofit2.Response<Response>) {
@@ -53,10 +54,10 @@ class CanvasTextFragment : BaseCanvasFragment(TEXT_MODE, R.layout.view_addcard_e
                                 goToFragment(AddCardFragment::class.java, null)
 
                             } else {
-                                Log.d("post_card", "response.body().success : false // ${response.message()}")
+                                Log.d(TAG, "postCard: Not success, ${response.body()!!.message}")
                             }
                         } else {
-                            Log.d("post_card", "response.isSuccessful : false // ${response.message()}")
+                            Log.d(TAG, "postCard: Not success, ${response.message()}")
                         }
                     }
                 })
@@ -66,7 +67,6 @@ class CanvasTextFragment : BaseCanvasFragment(TEXT_MODE, R.layout.view_addcard_e
     }
 
     private fun saveCard(content: String) {
-        (activity as RoundProgressActivity).cardList.add(SavedCardEntity(null, null,
-            null, null, null, SavedCardEntity.TEXT, content, null))
+        (activity as RoundProgressActivity).cardList.add(CardEnumModel(0, projectIdx, roundIdx, false, CardType.TEXT, content))
     }
 }
