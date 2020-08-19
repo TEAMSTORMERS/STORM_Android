@@ -140,7 +140,6 @@ class SetEmailPasswordActivity : BaseActivity() {
                     ) {
                         if(response.isSuccessful){
                             if (response.body()!!.success){
-                                preference.setUserIdx(response.body()!!.data)
 
                                 val intent = Intent(this@SetEmailPasswordActivity, CompleteSignUpActivity::class.java)
                                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

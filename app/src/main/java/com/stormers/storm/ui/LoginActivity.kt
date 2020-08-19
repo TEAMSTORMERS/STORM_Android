@@ -59,6 +59,7 @@ class LoginActivity : BaseActivity() {
                             if (response.body()!!.success){
                                 Log.d("userIdx", response.body()!!.data.toString())
                                 preference.setUserIdx(response.body()!!.data)
+
                                 val intent = Intent(this@LoginActivity, MainActivity::class.java)
                                 startActivity(intent)
                                 finish()
