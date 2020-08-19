@@ -1,8 +1,6 @@
 package com.stormers.storm.canvas.fragment
 
 import android.graphics.Bitmap
-import android.graphics.ColorMatrix
-import android.graphics.ColorMatrixColorFilter
 import android.graphics.PorterDuff
 import android.util.Log
 import android.widget.ImageView
@@ -13,10 +11,12 @@ import com.stormers.storm.R
 import com.stormers.storm.card.fragment.AddCardFragment
 import com.stormers.storm.canvas.base.BaseCanvasFragment
 import com.stormers.storm.canvas.network.RequestCard
-import com.stormers.storm.card.model.SavedCardEntity
+import com.stormers.storm.card.CardType
+import com.stormers.storm.card.model.CardEnumModel
 import com.stormers.storm.card.util.BitmapConverter
 import com.stormers.storm.network.Response
 import com.stormers.storm.network.RetrofitClient
+import com.stormers.storm.ui.RoundProgressActivity
 import kotlinx.android.synthetic.main.fragment_round_canvas.*
 import kotlinx.android.synthetic.main.view_draw.*
 import okhttp3.MediaType
@@ -106,11 +106,11 @@ class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_dra
 
         val uploadFile = MultipartBody.Part.createFormData("card_img", drawingFile.name, requestFile)
 
-        val userIdx = RequestBody.create(MediaType.parse("text/plain"), preference.getUserIdx().toString())
+        val userIdx = RequestBody.create(MediaType.parse("text/plain"), userIdx.toString())
 
-        val projectIdx = RequestBody.create(MediaType.parse("text/plain"), preference.getProjectIdx().toString())
+        val projectIdx = RequestBody.create(MediaType.parse("text/plain"), projectIdx.toString())
 
-        val roundIdx = RequestBody.create(MediaType.parse("text/plain"), preference.getRoundIdx().toString())
+        val roundIdx = RequestBody.create(MediaType.parse("text/plain"), roundIdx.toString())
 
         RetrofitClient.create(RequestCard::class.java).postCard(userIdx, projectIdx, roundIdx, uploadFile, null)
             .enqueue(object: Callback<Response> {
@@ -123,7 +123,7 @@ class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_dra
                     if (response.isSuccessful) {
                         if (response.body()!!.success) {
 
-                            saveCardIntoDB(bitmap)
+                            saveCard(bitmap)
 
                             afterResponse()
 
@@ -143,14 +143,11 @@ class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_dra
         goToFragment(AddCardFragment::class.java, null)
     }
 
-    private fun saveCardIntoDB(bitmap: Bitmap) {
-        savedCardRepository.insert(
-            SavedCardEntity(preference.getProjectIdx()!!, preference.getRoundIdx()!!, SavedCardEntity.FALSE, SavedCardEntity.DRAWING,
-                BitmapConverter.bitmapToString(bitmap), null
-            )
-        )
+    private fun saveCard(bitmap: Bitmap) {
+        val card = CardEnumModel(0, userIdx, projectIdx, false,
+            CardType.DRAWING, BitmapConverter.bitmapToString(bitmap))
+        (activity as RoundProgressActivity).cardList.add(card)
     }
-
 
     private fun setEnableUndoButton(isEnable: Boolean) {
         setSaturationView(imagebutton_canvas_undo, !isEnable)

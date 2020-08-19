@@ -46,7 +46,7 @@ class RoundMeetingExpandActivity : BaseExpandCardActivity(false, R.layout.activi
 
         if (data != null) {
             for (i in data!!.indices) {
-                if (data!![i].cardId == cardId) {
+                if (data!![i].cardIdx == cardIdx) {
                     currentPage = i
 
                     textView.text = getCountString(allCardCount, currentPage)

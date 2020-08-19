@@ -6,9 +6,12 @@ import com.stormers.storm.R
 import com.stormers.storm.card.fragment.AddCardFragment
 import com.stormers.storm.canvas.base.BaseCanvasFragment
 import com.stormers.storm.canvas.network.RequestCard
-import com.stormers.storm.card.model.SavedCardEntity
+import com.stormers.storm.card.CardType
+import com.stormers.storm.card.model.CardEnumModel
 import com.stormers.storm.network.Response
 import com.stormers.storm.network.RetrofitClient
+import com.stormers.storm.ui.GlobalApplication
+import com.stormers.storm.ui.RoundProgressActivity
 import kotlinx.android.synthetic.main.view_addcard_edittext.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
@@ -22,43 +25,48 @@ class CanvasTextFragment : BaseCanvasFragment(TEXT_MODE, R.layout.view_addcard_e
     }
 
     override fun onApplied() {
-        if (!edittext_addcard.text.isNullOrBlank()) {
+        val content = edittext_addcard.text.toString()
+        if (!content.isBlank()) {
 
-            val userIdx = RequestBody.create(MediaType.parse("text/plain"), preference.getUserIdx().toString())
+            val userIdx = RequestBody.create(MediaType.parse("text/plain"), userIdx.toString())
 
-            val projectIdx = RequestBody.create(MediaType.parse("text/plain"), preference.getProjectIdx().toString())
+            val projectIdx = RequestBody.create(MediaType.parse("text/plain"), projectIdx.toString())
 
-            val roundIdx = RequestBody.create(MediaType.parse("text/plain"), preference.getRoundIdx().toString())
+            val roundIdx = RequestBody.create(MediaType.parse("text/plain"), roundIdx.toString())
 
-            val cardText = RequestBody.create(MediaType.parse("text/plain"), edittext_addcard.text.toString())
+            val cardText = RequestBody.create(MediaType.parse("text/plain"), content)
 
             RetrofitClient.create(RequestCard::class.java)
                 .postCard(userIdx, projectIdx, roundIdx, null, cardText).enqueue(object : Callback<Response> {
 
                     override fun onFailure(call: Call<Response>, t: Throwable) {
-                        Log.d("post_card", "onFailure : ${t.message}")
+                        Log.d(TAG, "postCard : Fail, ${t.message}")
                     }
 
                     override fun onResponse(call: Call<Response>, response: retrofit2.Response<Response>) {
                         if (response.isSuccessful) {
                             if (response.body()!!.success) {
-                                savedCardRepository.insert(SavedCardEntity(preference.getProjectIdx()!!, preference.getRoundIdx()!!,SavedCardEntity.FALSE,SavedCardEntity.TEXT,
-                                    edittext_addcard.text.toString(), null))
+
+                                saveCard(content)
 
                                 Toast.makeText(context, "카드가 추가되었습니다", Toast.LENGTH_SHORT).show()
 
                                 goToFragment(AddCardFragment::class.java, null)
 
                             } else {
-                                Log.d("post_card", "response.body().success : false // ${response.message()}")
+                                Log.d(TAG, "postCard: Not success, ${response.body()!!.message}")
                             }
                         } else {
-                            Log.d("post_card", "response.isSuccessful : false // ${response.message()}")
+                            Log.d(TAG, "postCard: Not success, ${response.message()}")
                         }
                     }
                 })
         } else {
             Toast.makeText(context, "카드를 입력해주세요", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun saveCard(content: String) {
+        (activity as RoundProgressActivity).cardList.add(CardEnumModel(0, projectIdx, roundIdx, false, CardType.TEXT, content))
     }
 }

@@ -25,48 +25,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
-                android:id="@+id/linearlayout_readystate"
+
+            <TextView
+                android:id="@+id/textview_readydone"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="29dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                android:text="ROUND 준비 완료"
+                android:textColor="@color/storm_gray"
+                android:textFontWeight="700"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toTopOf="@id/cardview_roundwaiting_rulereminder"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/cardview_roundwaiting_rulereminder">
-
-                <TextView
-                    android:id="@+id/textview_round_ready"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ROUND 준비중"
-                    android:textColor="@color/storm_gray"
-                    android:textFontWeight="700"
-                    android:textSize="15sp"/>
-
-                <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/lottieAnimationView"
-                    android:layout_width="45dp"
-                    android:layout_height="15dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_gravity="center"
-                    app:lottie_autoPlay="true"
-                    app:lottie_rawRes="@raw/loading_animation"
-                    app:lottie_loop="true" />
-
-                <TextView
-                    android:id="@+id/textview_readydone"
-                    android:visibility="gone"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textColor="@color/storm_gray"
-                    android:textFontWeight="700"
-                    android:textSize="15sp"
-                    android:text="ROUND 준비 완료"
-                    android:gravity="center"/>
-
-            </LinearLayout>
-
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardview_roundwaiting_rulereminder"
@@ -80,25 +52,25 @@
                 app:layout_constraintDimensionRatio="1:0.24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearlayout_readystate">
+                app:layout_constraintTop_toBottomOf="@+id/textview_readydone">
 
 
-                    <TextView
-                        android:id="@+id/textview_checkrules_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="브레인스토밍 룰 확인"
-                        android:textSize="11sp"
-                        android:layout_marginHorizontal="15dp"
-                        android:textColor="@color/storm_white"
-                        android:textFontWeight="700"
-                        android:layout_gravity="center" />
+                <TextView
+                    android:id="@+id/textview_checkrules_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="15dp"
+                    android:text="브레인스토밍 룰 확인"
+                    android:textColor="@color/storm_white"
+                    android:textFontWeight="700"
+                    android:textSize="11sp" />
 
 
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/round_subject"
+                android:id="@+id/round_purpose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -118,7 +90,7 @@
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/round_subject" />
+                app:layout_constraintTop_toBottomOf="@+id/round_purpose" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,33 +5,42 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "scraped_card_entity")
-data class SavedCardEntity (
+data class CardEntity (
+    @PrimaryKey
+    @ColumnInfo(name = "card_idx")
+    val cardIdx: Int,
+
     @ColumnInfo(name = "project_idx")
-    var projectIdx: Int,
+    val projectIdx: Int,
 
     @ColumnInfo(name = "round_idx")
-    var roundIdx: Int,
+    val roundIdx: Int,
+
+    @ColumnInfo(name = "user_idx")
+    val userIdx: Int,
 
     @ColumnInfo(name = "scraped")
     var isScraped: Int,
 
     @ColumnInfo(name = "type")
-    var cardType: Int,
+    val cardType: Int,
 
     @ColumnInfo(name = "content")
-    var content: String?,
+    val content: String,
 
     @ColumnInfo(name = "memo")
     var memo: String?
 ) {
-    @PrimaryKey(autoGenerate = true)
-    var cardId: Int = 0
-
     companion object {
         const val TRUE = 1
         const val FALSE = 0
 
         const val DRAWING = 0
         const val TEXT = 1
+    }
+
+    override fun toString(): String {
+        return "cardIdx: $cardIdx, projectIdx: $projectIdx, roundIdx: $roundIdx, isScraped: $isScraped, " +
+                "cardType: $cardType, content: ${content}, memo: $memo"
     }
 }

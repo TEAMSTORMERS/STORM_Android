@@ -5,7 +5,7 @@
     android:id="@+id/fragment_round_start"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".round.fragment.RoundStartFragment">
+    tools:context=".round.fragment.HostRoundWaitingFragment">
 
 
     <TextView
@@ -33,7 +33,7 @@
         app:cardBackgroundColor="@color/storm_red"
         app:cardCornerRadius="8dp"
         app:layout_constraintDimensionRatio="1:0.24"
-        app:layout_constraintBottom_toTopOf="@id/round_subject"
+        app:layout_constraintBottom_toTopOf="@id/round_purpose"
         app:layout_constraintEnd_toEndOf="@+id/textview_round_setting_complete"
         app:layout_constraintStart_toStartOf="@+id/textview_round_setting_complete"
         app:layout_constraintTop_toBottomOf="@+id/textview_round_setting_complete">
@@ -54,7 +54,7 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/round_subject"
+        android:id="@+id/round_purpose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -74,9 +74,9 @@
         android:textColor="@color/storm_gray"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@id/announce_click_startbutton"
-        app:layout_constraintEnd_toEndOf="@+id/round_subject"
-        app:layout_constraintStart_toStartOf="@+id/round_subject"
-        app:layout_constraintTop_toBottomOf="@+id/round_subject" />
+        app:layout_constraintEnd_toEndOf="@+id/round_purpose"
+        app:layout_constraintStart_toStartOf="@+id/round_purpose"
+        app:layout_constraintTop_toBottomOf="@+id/round_purpose" />
 
     <TextView
         android:id="@+id/announce_click_startbutton"

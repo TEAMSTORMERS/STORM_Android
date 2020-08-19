@@ -1,40 +1,31 @@
 package com.stormers.storm.round.fragment
 
-import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import com.stormers.storm.R
 import com.stormers.storm.customview.StormButton
-import com.stormers.storm.customview.dialog.StormDialog
-import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.network.SocketClient
 import com.stormers.storm.round.base.BaseWaitingFragment
-import com.stormers.storm.ui.RoundProgressActivity
+import com.stormers.storm.ui.GlobalApplication
 import com.stormers.storm.ui.RoundSettingActivity
+import com.stormers.storm.user.UserModel
 import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_round_setting.*
 
 
-class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
+class HostRoundWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
 
     private lateinit var activityButton: StormButton
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //라운드 정보 초기화
+        initRoundInfo(GlobalApplication.currentRound!!.roundPurpose!!, GlobalApplication.currentRound!!.roundTime!!)
 
-
-        //라운드 정보 받아오기
-        getRoundInfo()
-
-        showRoundUserLIst(preference.getRoundIdx()!!)
-
-        refreshParticipantSocket()
-    }
-
-    override fun afterGettingRoundInfo(roundIdx: Int) {
+        //확인 버튼 초기화
         initActivityButton()
     }
 
@@ -54,17 +45,6 @@ class RoundStartFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
         SocketClient.getInstance()
         SocketClient.connection()
 
-        SocketClient.sendEvent("roundStartHost", preference.getProjectCode()!!)
+        SocketClient.sendEvent("roundStartHost", GlobalApplication.currentProject!!.projectCode!!)
     }
-
-    private fun refreshParticipantSocket() {
-        SocketClient.getInstance()
-        SocketClient.connection()
-
-        SocketClient.responseEvent("roundComplete", Emitter.Listener {
-            Log.d("refresh_socket", "참가자가 들어왔습니다.")
-            showRoundUserLIst(preference.getRoundIdx()!!)
-        })
-    }
-
 }
