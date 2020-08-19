@@ -102,6 +102,7 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
                         edittext_user_name.setText(response.body()!!.data.user_name)
 
                         //서버로부터 받아온 profile image 적용: 앨범에서 사진을 설정했을 경우
+                        //Todo: boolean 값으로 변경하기
                         if (response.body()!!.data.user_img_flag == 1) {
                             constraint_select_button.visibility = View.INVISIBLE
                             textview_mypage_name_in_profile.visibility = View.INVISIBLE
@@ -110,7 +111,7 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
                                 .into(imageview_mypage_default_image)
                         }
                         //서버로부터 받아온 profile image 적용: 기본 이미지일 경우
-                       else if (response.body()!!.data.user_img_flag == 0) {
+                       else {
                             selectProfileColor()
 
                             //초기 기본이미지 text 설정
