@@ -5,9 +5,16 @@ import android.os.Bundle
 import android.view.View
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable.INFINITE
+import com.stormers.storm.LogIn.RequestLogIn
+import com.stormers.storm.LogIn.model.LogInModel
+import com.stormers.storm.LogIn.model.response.ResponseLogIn
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
+import com.stormers.storm.network.RetrofitClient
 import kotlinx.android.synthetic.main.activity_login.*
+import retrofit2.Call
+import retrofit2.Response
+import javax.security.auth.callback.Callback
 
 class LoginActivity : BaseActivity() {
 
@@ -28,6 +35,7 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun initView() {
+
         button_login.setOnClickListener{
             if (edittext_email_login.text.isNullOrBlank() || edittext_password_login.text.isNullOrBlank()){
                 textview_login_info.visibility = View.VISIBLE
@@ -37,8 +45,28 @@ class LoginActivity : BaseActivity() {
                 } else {
                     preference.setAutoLogIn(false)
                 }
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
+                RetrofitClient.create(RequestLogIn::class.java).requestLogIn(
+                    LogInModel(
+                        edittext_email_login.text.toString(),
+                        edittext_password_login.text.toString())
+                ).enqueue(object :retrofit2.Callback<ResponseLogIn>{
+                    override fun onFailure(call: Call<ResponseLogIn>, t: Throwable) {
+
+                    }
+
+                    override fun onResponse(
+                        call: Call<ResponseLogIn>,
+                        response: Response<ResponseLogIn>
+                    ) {
+                        if(response.isSuccessful){
+                            if (response.body()!!.success){
+                                val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            }
+                        }
+                    }
+                })
             }
         }
 
