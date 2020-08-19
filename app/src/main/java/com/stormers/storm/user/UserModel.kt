@@ -18,7 +18,10 @@ data class UserModel(
 
     @SerializedName("user_name")
     @ColumnInfo(name = "user_name")
-    val userName: String
+    val userName: String,
+
+    @SerializedName("user_host_flag")
+    val isHost: Int
 ) {
     override fun toString(): String {
         return "userIdx: $userIdx, userImg: $userImg, userName: $userName"

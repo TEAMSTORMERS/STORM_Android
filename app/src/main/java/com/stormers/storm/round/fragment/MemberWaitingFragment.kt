@@ -30,7 +30,7 @@ class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_settin
 
     private lateinit var activityButton: StormButton
 
-    private var currentRoundEntity: RoundEntity? = null
+    private val roundIdx = GlobalApplication.currentRound!!.roundIdx
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -84,28 +84,36 @@ class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_settin
 
     private fun getRoundInfo(){
 
-        RetrofitClient.create(RequestRound::class.java).responseRoundInfo(GlobalApplication.currentProject!!.projectIdx).enqueue(object : Callback<ResponseRoundInfoModel>{
+        RetrofitClient.create(RequestRound::class.java).responseRoundInfo(GlobalApplication.currentRound!!.roundIdx).enqueue(object : Callback<ResponseRoundInfoModel>{
             override fun onFailure(call: Call<ResponseRoundInfoModel>, t: Throwable) {
-                Log.d("RoundInfo 통신실패", "{$t}")
+                Log.d(TAG, "getRoundInfo: Fail, ${t.message}")
             }
             override fun onResponse(call: Call<ResponseRoundInfoModel>, response: Response<ResponseRoundInfoModel>) {
 
                 if(response.isSuccessful){
 
                     if(response.body()!!.success){
-                        Log.d("RoundInfo 통신성공","성공")
 
                         response.body()!!.data.let {
+                            Log.d(TAG, "getRoundInfo: Success, roundNumber: ${it.roundNumber}, roundPurpose: ${it.roundPurpose}, roundTime: ${it.roundTime}")
+
                             //받은 라운드 정보를 앱 전역에 저장
-                            GlobalApplication.currentRound = RoundModel(it.roundIdx, it.roundNumber, it.roundPurpose, it.roundTime, null)
+                            GlobalApplication.currentRound = RoundModel(roundIdx, it.roundNumber, it.roundPurpose, it.roundTime, null)
 
                             //라운드 정보를 뷰에 초기화
                             initRoundInfo(it.roundPurpose, it.roundTime)
 
                             //라운드에 참여
-                            enterRound(it.roundIdx)
+                            enterRound(roundIdx)
+
+                            //참여자 목록 갱신
+                            refreshParticipants(roundIdx)
                         }
+                    } else {
+                        Log.d(TAG, "getRoundInfo: Not success, ${response.body()!!.message}")
                     }
+                } else {
+                    Log.d(TAG, "getRoundInfo: Not successful, ${response.message()}")
                 }
             }
         })

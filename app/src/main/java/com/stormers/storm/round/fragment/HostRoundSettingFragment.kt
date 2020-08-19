@@ -128,8 +128,8 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
                                 //현재 라운드 앱 전역에 저장
                                 GlobalApplication.currentRound = RoundModel(roundIdx, roundCount, roundPurpose, roundTime, null)
 
-                                //소켓으로 방에 참가하기
-                                joinRoundRoom()
+                                //라운드 대기방 프래그먼트
+                                goToFragment(HostRoundWaitingFragment::class.java, null)
                             } else {
                                 Log.d(TAG, "createRound: not success, ${response.body()!!.message}")
                             }
@@ -174,23 +174,5 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
         round.append("ROUND ")
             .append(roundCount)
         textview_roundnumber.text = round.toString()
-    }
-
-    fun joinRoundRoom(){
-
-        SocketClient.getInstance()
-        SocketClient.connection()
-
-        SocketClient.sendEvent("joinRoom", GlobalApplication.currentProject!!.projectCode!!)
-        SocketClient.sendEvent("roundSetting", GlobalApplication.currentProject!!.projectCode!!)
-        
-        Log.d(TAG, "projectCode: ${GlobalApplication.currentProject!!.projectCode!!}")
-
-        SocketClient.responseEvent("roundComplete", Emitter.Listener {
-            Log.d("SocketJoinRoom", "Success.")
-
-            //방에 들어갔으면 프래그먼트 전환
-            goToFragment(HostRoundWaitingFragment::class.java, null)
-        })
     }
 }
