@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/constraintlayout_roundinfo_root"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/Cardview_roundinfo"
+        android:id="@+id/cardview_roundinfo"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="10dp"
@@ -21,59 +21,63 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/item_card"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingHorizontal="22dp"
             android:paddingVertical="18dp">
 
             <TextView
-                android:id="@+id/Textview_round_roundinfo"
+                android:id="@+id/textview_roundinfo_roundnumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
-                android:text="ROUND 1"
+                android:text="ROUND N"
                 android:textFontWeight="600"
                 android:textSize="13sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/Textview_round_goal_roundinfo"
+                android:id="@+id/textview_roundinfo_purpose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:includeFontPadding="false"
                 android:text="라운드 목표"
                 android:textSize="13sp"
-                app:layout_constraintStart_toStartOf="@+id/Textview_round_roundinfo"
-                app:layout_constraintTop_toBottomOf="@+id/Textview_round_roundinfo" />
-
-            <include
-                android:id="@+id/round_user_image_list"
-                layout="@layout/layout_list_user_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@id/item_card"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/Textview_time_roundinfo"
-                app:layout_constraintTop_toTopOf="@id/item_card"
-                app:layout_constraintVertical_bias="0.976" />
+                app:layout_constraintStart_toStartOf="@+id/textview_roundinfo_roundnumber"
+                app:layout_constraintTop_toBottomOf="@+id/textview_roundinfo_roundnumber" />
 
             <TextView
-                android:id="@+id/Textview_time_roundinfo"
+                android:id="@+id/textview_roundinfo_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
                 android:includeFontPadding="false"
                 android:text="총 10분 소요"
                 android:textSize="13sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/round_user_image_list"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="parent" />
 
+            <TextView
+                android:id="@+id/textview_roundinfo_projectname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:includeFontPadding="false"
+                android:text="프로젝트 제목입력칸"
+                android:textColor="@color/storm_red"
+                android:textFontWeight="600"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textview_roundinfo_roundnumber" />
+
+            <include
+                android:id="@+id/include_roundinfo_participants"
+                layout="@layout/layout_list_user_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/textview_roundinfo_time"
+                app:layout_constraintEnd_toEndOf="@+id/textview_roundinfo_projectname"
+                app:layout_constraintTop_toTopOf="@+id/textview_roundinfo_time"
+                app:layout_constraintVertical_bias="0.976" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

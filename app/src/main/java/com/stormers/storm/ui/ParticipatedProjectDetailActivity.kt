@@ -11,24 +11,24 @@ import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.card.adapter.CardListAdapter
 import com.stormers.storm.card.model.CardEnumModel
 import com.stormers.storm.card.repository.CardRepository
-import com.stormers.storm.network.RetrofitClient
-import com.stormers.storm.project.adapter.ProjectUserImageAdapter
+import com.stormers.storm.project.ProjectRepository
+import com.stormers.storm.project.adapter.ProjectParticipantsAdapter
+import com.stormers.storm.project.model.ProjectModel
 import com.stormers.storm.project.network.RequestProject
-import com.stormers.storm.project.network.response.ResponseProjectFinalInfoModel
 import com.stormers.storm.round.adapter.RoundListAdapter
 import com.stormers.storm.round.network.RequestRound
-import com.stormers.storm.round.network.response.ResponseFinalRoundData
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_participated_project_detail.*
 import kotlinx.android.synthetic.main.layout_list_user_profile.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class ParticipatedProjectDetailActivity : BaseActivity() {
 
+    companion object {
+        private const val TAG = "ProjectsDetailActivity"
+    }
+
     lateinit var scrapedCardListAdapter: CardListAdapter
-    lateinit var roundListAdapterForViewPager: RoundListAdapter
+    lateinit var roundListAdapter: RoundListAdapter
 
     private val cardRepository: CardRepository by lazy { CardRepository() }
 
@@ -39,13 +39,21 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
     private lateinit var retrofitClient_roundInfo: RequestRound
     private lateinit var retrofitClient: RequestProject
 
+    private val projectRepository: ProjectRepository by lazy { ProjectRepository.getInstance() }
+
+    private lateinit var projectParticipantsAdapter: ProjectParticipantsAdapter
+
+    private var currentProject: ProjectModel? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_participated_project_detail)
 
+        //필요한 세팅값 불러오기
         projectIdx = intent.getIntExtra("projectIdx", -1)
         isAfterProject = intent.getBooleanExtra("isAfterProject", false)
 
+        //상황에 따른 툴바 반경
         stormtoolbar_participateddetail.run {
             if (!isAfterProject) {
                 setBackButton()
@@ -57,87 +65,21 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
             }
         }
 
-        retrofitClient = RetrofitClient.create(RequestProject::class.java)
-        retrofitClient_roundInfo = RetrofitClient.create(RequestRound::class.java)
-
-        //fixme : 어댑터 적용 
-        val projectUserImageAdapter = ProjectUserImageAdapter()
+        //
+        projectParticipantsAdapter = ProjectParticipantsAdapter()
         recyclerview_user_profile.layoutManager = LinearLayoutManager(baseContext, LinearLayoutManager.HORIZONTAL,false)
         recyclerview_user_profile.addItemDecoration(MarginDecoration(baseContext, 9, RecyclerView.HORIZONTAL))
-        recyclerview_user_profile.adapter = projectUserImageAdapter
+        recyclerview_user_profile.adapter = projectParticipantsAdapter
 
-        retrofitClient_roundInfo.responseFinalRoundData(projectIdx).enqueue(object : Callback<ResponseFinalRoundData> {
-            override fun onFailure(call: Call<ResponseFinalRoundData>, t: Throwable) {
-                if (t.message != null){
-                    Log.d("PartProDetailRound", t.message!!)
-                } else {
-                    Log.d("PartProDetailRound", "통신실패")
-                }
-            }
-
-            override fun onResponse(call: Call<ResponseFinalRoundData>, response: Response<ResponseFinalRoundData>) {
-                if (response.isSuccessful) {
-                    if (response.body()!!.success) {
-                        for (i in response.body()!!.data.indices) {
-                            Log.d("PartProDetailRound", "받아온 라운드 정보 : ${response.body()!!.data[i].projectTitle}")
-                        }
-                        roundListAdapterForViewPager.addAll(response.body()!!.data)
-                    }
-                    else {
-                        Log.d("PartProDetailRound", "통신실패")
-                    }
-                } else {
-                    Log.d("PartProDetailRound", "${response.message()} , ${response.errorBody()}")
-                }
+        roundListAdapter = RoundListAdapter(object : RoundListAdapter.OnRoundClickListener {
+            override fun onRoundClick(roundIdx: Int, roundNo: Int) {
+                val intent = Intent(this@ParticipatedProjectDetailActivity, RoundListActivity::class.java)
+                intent.putExtra("roundIdx", roundIdx)
+                intent.putExtra("projectIdx", this@ParticipatedProjectDetailActivity.projectIdx)
+                intent.putExtra("roundNo", roundNo)
+                startActivity(intent)
             }
         })
-
-        retrofitClient.responseProjectData(projectIdx).enqueue(object : Callback<ResponseProjectFinalInfoModel> {
-            override fun onFailure(call: Call<ResponseProjectFinalInfoModel>, t: Throwable) {
-                if (t.message != null){
-                    Log.d("PartProDetailActivity", t.message!!)
-                } else {
-                    Log.d("PartProDetailActivity", "통신실패")
-                }
-            }
-
-            override fun onResponse(call: Call<ResponseProjectFinalInfoModel>, response: Response<ResponseProjectFinalInfoModel>) {
-                if (response.isSuccessful) {
-                    if (response.body()!!.success) {
-                        Log.d("PartProDetailActivity", "받아온 프로젝트 이름 : ${response.body()!!.data.projectName}")
-
-                        textview_projectcard_title.text = response.body()!!.data.projectName
-                        textView_date_part_detail.text = response.body()!!.data.projectDate
-                        projectUserImageAdapter.addAll(response.body()!!.data.projectParticipantsList)
-
-                        val participants_count = response.body()!!.data.projectParticipantsList.count()
-
-                        if( participants_count > 5 ){
-                            textview_extra_participants_info.setText("+${participants_count - 5}")
-                            textview_extra_participants_info.visibility = View.VISIBLE
-                        }
-
-                        val roundCount = StringBuilder()
-                        roundCount.append("ROUND 총 ")
-                            .append(response.body()!!.data.roundCount.toString())
-                            .append("회")
-
-                        textView_round_count_part_detail.text = roundCount
-                    }
-                    else {
-                        Log.d("PartProDetailActivity", "통신실패 ${response.message()}")
-                    }
-                } else {
-                    Log.d("PartProDetailActivity", "${response.message()} , ${response.errorBody()}")
-                }
-            }
-        })
-
-        constraintlayout_participatedproject_seemore.setOnClickListener {
-            val intent = Intent(this, ScrapCardCollectingActivity::class.java)
-            intent.putExtra("projectIdx", projectIdx)
-            startActivity(intent)
-        }
 
         scrapedCardListAdapter = CardListAdapter(true, object: CardListAdapter.OnCardClickListener {
             override fun onCardClick(projectIdx: Int, roundIdx: Int, cardId: Int) {
@@ -149,25 +91,61 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
             }
         })
 
+        projectRepository.get(projectIdx, object : ProjectRepository.GetProjectCallback {
+            override fun onProjectLoaded(project: ProjectModel) {
+                currentProject = project
+                projectParticipantsAdapter.setList(currentProject!!.projectParticipants!!)
+                roundListAdapter.setList(currentProject!!.projectRounds!!)
+                initProjectInfo(currentProject!!)
+            }
+
+            override fun onDataNotAvailable() {
+                Log.e(TAG, "Load Error: $projectIdx")
+            }
+        })
+
+        cardRepository.getScrapAllForList(projectIdx, object: CardRepository.LoadEnumCardsCallback {
+            override fun onCardLoaded(cards: List<CardEnumModel>) {
+                scrapedCardListAdapter.setList(cards)
+            }
+
+            override fun onDataNotAvailable() {
+                Log.e(TAG, "Load Error: $projectIdx")
+            }
+        })
+
+
+        constraintlayout_participatedproject_seemore.setOnClickListener {
+            val intent = Intent(this, ScrapCardCollectingActivity::class.java)
+            intent.putExtra("projectIdx", projectIdx)
+            startActivity(intent)
+        }
+
         rv_scrap_card_part_detail.adapter = scrapedCardListAdapter
         rv_scrap_card_part_detail.addItemDecoration(MarginDecoration(this, 15, RecyclerView.HORIZONTAL))
         rv_scrap_card_part_detail.addItemDecoration(MarginDecoration(this, 15, RecyclerView.VERTICAL))
 
+        rv_round_part_detail.adapter = roundListAdapter
 
+    }
 
+    private fun initProjectInfo(project: ProjectModel) {
+        project.let {
+            textview_projectcard_title.text = it.projectName
+            //Todo: ProjectDate 추가하기
+            textView_date_part_detail.text = "2020/08/18"
+            projectParticipantsAdapter.setList(it.projectParticipants!!)
 
-        roundListAdapterForViewPager = RoundListAdapter(object : RoundListAdapter.OnRoundClickListener {
-            override fun onRoundClick(projectIdx: Int, roundIdx: Int, roundNo: Int) {
-                val intent = Intent(this@ParticipatedProjectDetailActivity, RoundListActivity::class.java)
-                intent.putExtra("roundIdx", roundIdx)
-                intent.putExtra("projectIdx", this@ParticipatedProjectDetailActivity.projectIdx)
-                intent.putExtra("roundNo", roundNo)
-                startActivity(intent)
+            val numberOfParticipants = it.projectParticipants.size
+
+            if( numberOfParticipants > 5 ){
+                textview_extra_participants_info.text = StringBuilder("+").append(numberOfParticipants - 5)
+                textview_extra_participants_info.visibility = View.VISIBLE
             }
-        })
 
-        rv_round_part_detail.adapter = roundListAdapterForViewPager
-
+            textView_round_count_part_detail.text = StringBuilder("ROUND 총 ")
+                .append(it.projectRounds!!.size).append("회").toString()
+        }
     }
 
     override fun onResume() {
