@@ -155,8 +155,8 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
                         if (response.body()!!.success) {
                             Log.d(TAG, "getRoundCount : success, ${response.body()!!.data}")
 
-                            preference.setRoundCount(response.body()!!.data)
-                            setRoundCount(response.body()!!.data)
+                            roundCount = response.body()!!.data
+                            setRoundCount(roundCount)
                         } else {
                             Log.d(TAG, "getRoundCount : not success, ${response.message()}")
                         }
@@ -168,7 +168,12 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
 
     }
 
-    private fun setRoundCount(roundCount: Int) {
+    private fun setRoundCount(roundCount: Int?) {
+        if (roundCount == null) {
+            Log.e(TAG, "setRoundCount: roundCount is null.")
+            this.roundCount = 404
+        }
+
         this.roundCount = roundCount
         val round = StringBuilder()
         round.append("ROUND ")

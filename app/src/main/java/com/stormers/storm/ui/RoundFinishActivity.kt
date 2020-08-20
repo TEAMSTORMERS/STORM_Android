@@ -119,7 +119,7 @@ class RoundFinishActivity : BaseRoundProgressActivity() {
     private fun initDialog() {
         val round = StringBuilder()
         round.append("ROUND ")
-            .append(preference.getRoundCount())
+            .append(GlobalApplication.currentRound!!.roundNumber)
             .append(" 종료")
 
         dialog = StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, round.toString())

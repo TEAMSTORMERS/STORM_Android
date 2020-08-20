@@ -5,7 +5,7 @@ import com.stormers.storm.user.UserModel
 data class RoundModel(
     val roundIdx: Int,
 
-    val roundNumber: Int?,
+    var roundNumber: Int?,
 
     val roundPurpose: String?,
 
