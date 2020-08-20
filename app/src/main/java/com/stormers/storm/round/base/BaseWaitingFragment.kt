@@ -88,9 +88,8 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
         SocketClient.connection()
 
         SocketClient.sendEvent("joinRoom", GlobalApplication.currentProject!!.projectCode!!)
-        SocketClient.sendEvent("roundSetting", GlobalApplication.currentProject!!.projectCode!!)
 
-        Log.d(TAG, "[socket]joinRoom: projectCode: ${GlobalApplication.currentProject!!.projectCode!!}")
+        Log.d(TAG, "[socket] joinRoom: projectCode: ${GlobalApplication.currentProject!!.projectCode!!}")
     }
 
     private fun initView(view: View) {
@@ -120,12 +119,12 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
         SocketClient.getInstance()
         SocketClient.connection()
 
-        Log.d(TAG, "socket: roundComplete")
-
         SocketClient.responseEvent("roundComplete", Emitter.Listener {
-            Log.d("refresh_socket", "참가자가 들어왔습니다.")
+            Log.d(TAG, "[socket] roundComplete: 참가자가 들어왔습니다.")
             refreshParticipants(GlobalApplication.currentRound!!.roundIdx)
         })
+
+        Log.d(TAG, "[socket] roundComplete: set")
     }
 
     protected fun refreshParticipants(roundIdx: Int) {

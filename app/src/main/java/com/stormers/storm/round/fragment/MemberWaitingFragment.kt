@@ -84,11 +84,11 @@ class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_settin
         SocketClient.connection()
 
         SocketClient.responseEvent("roundStartMember", Emitter.Listener {
-            Log.d(TAG, "[socekt]roundStartMember: START ROUND!!!")
+            Log.d(TAG, "[socekt] roundStartMember: START ROUND!!!")
 
             startRound()
         })
-        Log.d(TAG, "[socket]roundStartMember: set")
+        Log.d(TAG, "[socket] roundStartMember: set")
     }
 
     private fun getRoundInfo(){
