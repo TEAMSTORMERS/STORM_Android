@@ -50,7 +50,7 @@ class RoundListActivity : BaseActivity() {
 
         cardListAdapter = CardListAdapter(true, object : CardListAdapter.OnCardClickListener {
             override fun onCardClick(projectIdx: Int, roundIdx: Int, cardId: Int) {
-                val intent = Intent(this@RoundListActivity, ScrapedCardDetailActivity::class.java)
+                val intent = Intent(this@RoundListActivity, ParticipatedCardDetailActivity::class.java)
                 intent.putExtra("projectIdx", projectIdx)
                 intent.putExtra("roundIdx", roundIdx)
                 intent.putExtra("cardId", cardId)
