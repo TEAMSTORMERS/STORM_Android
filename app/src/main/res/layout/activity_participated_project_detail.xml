@@ -47,7 +47,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/textView_date_part_detail"
+                        android:id="@+id/textview_participateddetail_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2020/00/00"
@@ -69,9 +69,9 @@
                         android:textColor="@color/storm_gray"
                         android:textSize="13sp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/textView_date_part_detail"
-                        app:layout_constraintStart_toStartOf="@+id/textView_date_part_detail"
-                        app:layout_constraintTop_toBottomOf="@+id/textView_date_part_detail" />
+                        app:layout_constraintEnd_toEndOf="@+id/textview_participateddetail_date"
+                        app:layout_constraintStart_toStartOf="@+id/textview_participateddetail_date"
+                        app:layout_constraintTop_toBottomOf="@+id/textview_participateddetail_date" />
 
                     <include
                         android:id="@+id/recyclerview_user_image"
@@ -82,7 +82,6 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView_round_count_part_detail" />
-
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -116,9 +115,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="프로젝트 제목입력칸"
+                        android:textColor="@color/storm_gray"
                         android:textFontWeight="700"
                         android:textSize="15sp"
-                        android:textColor="@color/storm_gray"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -137,7 +136,7 @@
                 android:textColor="@color/storm_white"
                 android:textFontWeight="600"
                 android:textSize="15sp"
-                app:layout_constraintBottom_toTopOf="@id/rv_scrap_card_part_detail"
+                app:layout_constraintBottom_toTopOf="@id/framelayout_participateddetail_scrapedcard"
                 app:layout_constraintStart_toStartOf="@+id/cardView_date_round_part_detail"
                 app:layout_constraintTop_toBottomOf="@+id/cardView_date_round_part_detail" />
 
@@ -145,7 +144,9 @@
                 android:id="@+id/constraintlayout_participatedproject_seemore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="25dp"
+                android:layout_marginEnd="15dp"
+                android:padding="10dp"
+                android:foreground="?android:selectableItemBackground"
                 app:layout_constraintBottom_toBottomOf="@+id/textView_scrap_card"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView_scrap_card">
@@ -174,54 +175,56 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_scrap_card_part_detail"
+            <FrameLayout
+                android:id="@+id/framelayout_participateddetail_scrapedcard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:orientation="horizontal"
-                android:paddingHorizontal="26dp"
-                android:paddingTop="10dp"
-                android:scrollbarAlwaysDrawHorizontalTrack="true"
-                android:scrollbarFadeDuration="0"
-                android:scrollbarStyle="insideInset"
-                android:scrollbarThumbHorizontal="@color/storm_white"
-                android:scrollbarTrackHorizontal="@color/pale_salmon"
-                android:scrollbars="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toTopOf="@id/rv_round_part_detail"
+                app:layout_constraintBottom_toTopOf="@id/recyclerview_participateddetail_roundlist"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView_scrap_card"
-                tools:listitem="@layout/item_heart_card" />
+                app:layout_constraintTop_toBottomOf="@+id/textView_scrap_card">
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview_participateddetail_scrapedcard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="26dp"
+                    android:paddingTop="10dp"
+                    android:scrollbarAlwaysDrawHorizontalTrack="true"
+                    android:scrollbarFadeDuration="0"
+                    android:scrollbarStyle="insideInset"
+                    android:scrollbarThumbHorizontal="@color/storm_white"
+                    android:scrollbarTrackHorizontal="@color/pale_salmon"
+                    android:scrollbars="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_heart_card" />
 
-            <TextView
-                android:id="@+id/textview_noscraped"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="스크랩한 카드가 없습니다 !"
-                android:textSize="15sp"
-                android:textColor="@color/storm_white"
-                android:visibility="gone"
-                android:layout_marginVertical="20dp"
-                app:layout_constraintBottom_toBottomOf="@+id/rv_scrap_card_part_detail"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView_scrap_card" />
+                <TextView
+                    android:id="@+id/textview_participateddetail_noscraped"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="71dp"
+                    android:gravity="center"
+                    android:text="아직 스크랩한 카드가 없어요!"
+                    android:visibility="gone"
+                    android:textColor="@color/storm_white"
+                    android:textSize="15sp" />
 
+            </FrameLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_round_part_detail"
+                android:id="@+id/recyclerview_participateddetail_roundlist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:paddingBottom="20dp"
                 android:layout_marginTop="29dp"
                 android:orientation="vertical"
+                android:paddingBottom="20dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rv_scrap_card_part_detail" />
+                app:layout_constraintTop_toBottomOf="@+id/framelayout_participateddetail_scrapedcard" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

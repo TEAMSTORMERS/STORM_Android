@@ -41,6 +41,7 @@ import com.stormers.storm.mypage.network.MypageInterface
 import com.stormers.storm.mypage.network.ResponseMypageData
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.network.SimpleResponse
+import com.stormers.storm.ui.LoginActivity
 import com.stormers.storm.ui.MypageWithdrawalActivity
 import com.stormers.storm.ui.SignUpActivity
 import kotlinx.android.synthetic.main.activity_sigin_up.*
@@ -295,7 +296,7 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
             buttonArray.add(
                 StormDialogButton("취소", true, object : StormDialogButton.OnClickListener {
                     override fun onClick() {
-                        //Todo: 다이얼로그의 취소 버튼을 눌렀을 때의 동작
+                        goToFragment(MypageProfileFragment::class.java, null)
                     }
                 })
             )
@@ -303,7 +304,12 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
             buttonArray.add(
                 StormDialogButton("확인", true, object : StormDialogButton.OnClickListener {
                     override fun onClick() {
-                        //Todo: 다이얼로그의 확인 버튼을 눌렀을 때의 동작
+                        preference.setAutoLogIn(false)
+                        preference.setUserIdx(-1)
+
+                        val intent = Intent(context,LoginActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
                     }
                 })
             )

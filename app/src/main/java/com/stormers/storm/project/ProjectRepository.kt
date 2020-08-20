@@ -80,7 +80,7 @@ class ProjectRepository {
 
     fun insert(projectModel: ProjectModel) {
         projectModel.let {
-            val projectEntity = ProjectEntity(it.projectIdx, it.projectName, it.projectCode, it.projectComment)
+            val projectEntity = ProjectEntity(it.projectIdx, it.projectDate, it.projectName, it.projectCode, it.projectComment)
 
             dao.insert(projectEntity)
             Log.d(TAG, "insert: $projectEntity")
@@ -92,7 +92,7 @@ class ProjectRepository {
             val rounds = roundRepository.getAll(it.projectIdx)
             val participants = projectParticipantRepository.getAll(it.projectIdx)
 
-            return ProjectModel(it.projectIdx, it.projectCode, it.projectName, it.projectComment, rounds, participants)
+            return ProjectModel(it.projectIdx, it.projectDate, it.projectCode, it.projectName, it.projectComment, rounds, participants)
         }
     }
 

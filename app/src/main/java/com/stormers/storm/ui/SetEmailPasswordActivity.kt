@@ -13,9 +13,13 @@ import com.stormers.storm.SignUp.InterfaceSignUp
 import com.stormers.storm.SignUp.ResponseSignUpModel
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.card.util.BitmapConverter
+import com.stormers.storm.customview.dialog.StormDialogBuilder
+import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.ui.SignUpActivity.Companion.IS_DEFAULT_IMAGE
 import kotlinx.android.synthetic.main.activity_set_email_password.*
+import kotlinx.android.synthetic.main.activity_set_email_password.button_back_signup
+import kotlinx.android.synthetic.main.activity_sigin_up.*
 import kotlinx.android.synthetic.main.fragment_mypage_profile.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -27,14 +31,16 @@ import retrofit2.Response
 
 class SetEmailPasswordActivity : BaseActivity() {
 
+    val buttonArray = ArrayList<StormDialogButton>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_set_email_password)
 
         signUpTextWatcher()
-        goBackActivity()
         checkVaildEmailType()
-        goCompleteSignUpActivity()
+        goSignUpActivity()
+        goBackActivity()
     }
 
     fun signUpTextWatcher() {
@@ -107,65 +113,18 @@ class SetEmailPasswordActivity : BaseActivity() {
 
     fun goBackActivity(){
         button_back_signup.setOnClickListener {
-            startActivity(Intent(this, SignUpActivity::class.java))
+            startActivity(Intent(this, LoginActivity::class.java))
         }
     }
 
-    fun goCompleteSignUpActivity() {
 
+
+    fun goSignUpActivity(){
         button_next_signup.setOnClickListener{
-            Log.d("버튼눌림", " 버튼눌림")
-
-            val fileUserImage = BitmapConverter.bitmapToFile(GlobalApplication.profileBitmap!! , this.cacheDir.toString())
-
-            val requestUserImageFile = RequestBody.create(MediaType.parse("multipart/form-data"), fileUserImage!!)
-
-            val sendUserImage = MultipartBody.Part.createFormData("user_img", fileUserImage.name, requestUserImageFile)
-
-            val userName = RequestBody.create(MediaType.parse("text/plain"), intent.getStringExtra("userName"))
-
-            val userEmail = RequestBody.create(MediaType.parse("text/plain"), edittext_input_email.text.toString())
-
-            val userPassword = RequestBody.create(MediaType.parse("text/plain"), edittext_input_password.text.toString())
-
-            val userImageFlag = RequestBody.create(MediaType.parse("text/plain"), intent.getIntExtra("userImageFlag", IS_DEFAULT_IMAGE).toString())
-
-                    //Todo : HTTP통신 수정
-            RetrofitClient.create(InterfaceSignUp::class.java).interfaceSignUp(sendUserImage, userName,userEmail,userPassword, userImageFlag)
-                .enqueue(object : Callback<ResponseSignUpModel>{
-                    override fun onFailure(call: Call<ResponseSignUpModel>, t: Throwable) {
-
-                    }
-
-                    override fun onResponse(
-                        call: Call<ResponseSignUpModel>,
-                        response: Response<ResponseSignUpModel>
-                    ) {
-                        if(response.isSuccessful){
-                            if (response.body()!!.success){
-                                Log.d("회원가입 성공", response.body()!!.success.toString())
-
-                                val intent = Intent(this@SetEmailPasswordActivity, CompleteSignUpActivity::class.java)
-                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                startActivity(intent)
-                            } else {
-                                if(response.body()!!.status == 400) {
-                                    Log.d("정보누락", response.body()!!.status.toString())
-                                } else {
-                                    if (response.body()!!.status == 600){
-                                        Log.d("중복이메일, DB오류", response.body()!!.status.toString())
-                                        textview_email_warning.setText("이미 사용중인 이메일입니다.")
-                                        textview_email_warning.visibility = View.VISIBLE
-                                    } else {
-                                        Log.d("서버오류", response.body()!!.status.toString())
-                                    }
-                                }
-                            }
-                        } else {
-                            Log.d("서버통신 오류", response.message())
-                        }
-                    }
-                })
+            val intent = Intent(this,SignUpActivity::class.java)
+            intent.putExtra("userEmail",edittext_input_email.text.toString())
+            intent.putExtra("userPassword",edittext_input_password.text.toString())
+            startActivity(intent)
         }
     }
 

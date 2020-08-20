@@ -11,71 +11,80 @@
         android:id="@+id/stormtoolbar_mypage_withdrawal_check"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="38dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.058" />
 
     <ImageView
         android:id="@+id/imageview_withdrawal_check_background"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="95dp"
         android:src="@drawable/background_mypage_white_radius"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1.65"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stormtoolbar_mypage_withdrawal_check" />
+        app:layout_constraintTop_toBottomOf="@+id/stormtoolbar_mypage_withdrawal_check"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textview_mypage_withdrawal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="218dp"
         android:fontFamily="@font/notosans_bold"
         android:text="회원 탈퇴"
         android:textColor="@color/storm_red"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintVertical_bias="0.063"
+        app:layout_constraintHorizontal_bias="0.117"
+        app:layout_constraintBottom_toBottomOf="@+id/imageview_withdrawal_check_background"
+        app:layout_constraintEnd_toEndOf="@+id/imageview_withdrawal_check_background"
+        app:layout_constraintStart_toStartOf="@+id/imageview_withdrawal_check_background"
+        app:layout_constraintTop_toTopOf="@+id/imageview_withdrawal_check_background" />
 
     <ImageView
         android:id="@+id/imageview_mypage_withdrawal_check"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="109dp"
         android:src="@drawable/mypage_withdrawal_symbol"
+        app:layout_constraintBottom_toBottomOf="@+id/imageview_withdrawal_check_background"
         app:layout_constraintDimensionRatio="h,1:1.805"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_mypage_withdrawal"
+        app:layout_constraintEnd_toEndOf="@+id/imageview_withdrawal_check_background"
+        app:layout_constraintStart_toStartOf="@+id/imageview_withdrawal_check_background"
+        app:layout_constraintTop_toTopOf="@+id/imageview_withdrawal_check_background"
+        app:layout_constraintVertical_bias="0.34"
         app:layout_constraintWidth_percent="0.1" />
 
     <TextView
         android:id="@+id/textview_withdrawal_question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
         android:fontFamily="@font/notosans_bold"
         android:text="탈퇴하시겠습니까?"
         android:textColor="@color/storm_gray"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageview_mypage_withdrawal_check" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageview_mypage_withdrawal_check"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="@+id/imageview_mypage_withdrawal_check"
+        app:layout_constraintTop_toBottomOf="@+id/imageview_mypage_withdrawal_check"
+        app:layout_constraintVertical_bias="0.092" />
 
     <TextView
         android:id="@+id/textview_withdrawal_notice1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/notosans_medium"
         android:text="계정을 탈퇴하면 회원님의 프로젝트 및"
         android:textColor="@color/storm_popup_line_gray"
         android:textSize="13sp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textview_withdrawal_question"
+        app:layout_constraintStart_toStartOf="@+id/textview_withdrawal_question"
         app:layout_constraintTop_toBottomOf="@+id/textview_withdrawal_question" />
 
     <TextView
@@ -86,20 +95,24 @@
         android:text="카드를 되돌릴 수 없게 됩니다."
         android:textColor="@color/storm_popup_line_gray"
         android:textSize="13sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_withdrawal_notice1" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageview_withdrawal_check_background"
+        app:layout_constraintEnd_toEndOf="@+id/textview_withdrawal_notice1"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="@+id/textview_withdrawal_notice1"
+        app:layout_constraintTop_toBottomOf="@+id/textview_withdrawal_notice1"
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.stormers.storm.customview.StormButton
         android:id="@+id/stormbutton_withdrawal_check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="55dp"
         android:elevation="10dp"
         android:text="확인"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/textview_withdrawal_notice2"
+        app:layout_constraintStart_toStartOf="@+id/textview_withdrawal_notice2"
+        app:layout_constraintTop_toBottomOf="@+id/textview_withdrawal_notice1"
+        app:layout_constraintVertical_bias="0.75" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
