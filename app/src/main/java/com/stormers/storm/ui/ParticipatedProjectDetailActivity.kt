@@ -14,9 +14,7 @@ import com.stormers.storm.card.repository.CardRepository
 import com.stormers.storm.project.ProjectRepository
 import com.stormers.storm.project.adapter.ProjectParticipantsAdapter
 import com.stormers.storm.project.model.ProjectModel
-import com.stormers.storm.project.network.RequestProject
 import com.stormers.storm.round.adapter.RoundListAdapter
-import com.stormers.storm.round.network.RequestRound
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_participated_project_detail.*
 import kotlinx.android.synthetic.main.layout_list_user_profile.*
@@ -35,9 +33,6 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
     private var projectIdx = -1
 
     private var isAfterProject = false
-
-    private lateinit var retrofitClient_roundInfo: RequestRound
-    private lateinit var retrofitClient: RequestProject
 
     private val projectRepository: ProjectRepository by lazy { ProjectRepository.getInstance() }
 
@@ -121,9 +116,9 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
             startActivity(intent)
         }
 
-        rv_scrap_card_part_detail.adapter = scrapedCardListAdapter
-        rv_scrap_card_part_detail.addItemDecoration(MarginDecoration(this, 15, RecyclerView.HORIZONTAL))
-        rv_scrap_card_part_detail.addItemDecoration(MarginDecoration(this, 15, RecyclerView.VERTICAL))
+        recyclerview_participateddetail_scrapedcard.adapter = scrapedCardListAdapter
+        recyclerview_participateddetail_scrapedcard.addItemDecoration(MarginDecoration(this, 15, RecyclerView.HORIZONTAL))
+        recyclerview_participateddetail_scrapedcard.addItemDecoration(MarginDecoration(this, 15, RecyclerView.VERTICAL))
 
         rv_round_part_detail.adapter = roundListAdapter
 
@@ -153,11 +148,12 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         cardRepository.getScrapAllForList(projectIdx, object: CardRepository.LoadEnumCardsCallback {
             override fun onCardLoaded(cards: List<CardEnumModel>) {
                 scrapedCardListAdapter.setList(cards)
-                textview_noscraped.visibility = View.GONE
+                textview_participateddetail_noscraped.visibility = View.GONE
             }
 
             override fun onDataNotAvailable() {
-                textview_noscraped.visibility = View.VISIBLE
+                recyclerview_participateddetail_scrapedcard.visibility = View.GONE
+                textview_participateddetail_noscraped.visibility = View.VISIBLE
             }
         })
     }
