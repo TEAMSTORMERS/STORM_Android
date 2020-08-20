@@ -132,8 +132,7 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
     private fun initProjectInfo(project: ProjectModel) {
         project.let {
             textview_projectcard_title.text = it.projectName
-            //Todo: ProjectDate 추가하기
-            textView_date_part_detail.text = "2020/08/18"
+            textview_participateddetail_date.text = it.projectDate
             projectParticipantsAdapter.setList(it.projectParticipants!!)
 
             val numberOfParticipants = it.projectParticipants.size

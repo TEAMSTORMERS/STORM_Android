@@ -10,6 +10,9 @@ data class ProjectEntity (
     @ColumnInfo(name = "project_idx")
     val projectIdx: Int,
 
+    @ColumnInfo(name = "project_date")
+    val projectDate: String,
+
     @ColumnInfo(name = "project_name")
     val projectName: String?,
 
