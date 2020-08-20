@@ -17,6 +17,7 @@ import com.stormers.storm.project.network.response.ResponseAddProject
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.project.model.AddProjectModel
 import com.stormers.storm.project.model.ProjectModel
+import com.stormers.storm.util.DateUtils
 import kotlinx.android.synthetic.main.activity_add_project.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -80,7 +81,7 @@ class AddProjectActivity : BaseActivity() {
 
                             //현재 프로젝트에 관한 정보를 앱 전역에 저장
                             response.body()!!.data.let {
-                                GlobalApplication.currentProject = ProjectModel(it.projectIdx, it.projectCode,
+                                GlobalApplication.currentProject = ProjectModel(it.projectIdx, DateUtils.getToday(), it.projectCode,
                                     projectName, projectComment, null, null)
                             }
                             GlobalApplication.isHost = true

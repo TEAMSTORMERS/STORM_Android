@@ -6,6 +6,8 @@ import com.stormers.storm.user.UserModel
 data class ProjectModel(
     val projectIdx: Int,
 
+    val projectDate: String,
+
     val projectCode: String?,
 
     var projectName: String?,

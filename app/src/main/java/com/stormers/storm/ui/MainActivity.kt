@@ -20,6 +20,7 @@ import com.stormers.storm.project.adapter.ProjectPreviewAdapter
 import com.stormers.storm.project.model.*
 import com.stormers.storm.project.network.response.ResponseLookupProject
 import com.stormers.storm.round.model.RoundModel
+import com.stormers.storm.util.DateUtils
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
@@ -209,7 +210,7 @@ class MainActivity : BaseActivity() {
                             val roundIdx = response.body()!!.data
                             Log.d(TAG, "enterProject: success, roundIdx : $roundIdx")
 
-                            GlobalApplication.currentProject = ProjectModel(projectIdx, projectCode,
+                            GlobalApplication.currentProject = ProjectModel(projectIdx, DateUtils.getToday(), projectCode,
                                 null, null, null, null)
 
                             GlobalApplication.currentRound = RoundModel(roundIdx, null, null, null, null)

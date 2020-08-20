@@ -60,7 +60,7 @@ class CardRepository {
     fun getScrapAllForList(projectIdx: Int, callback: LoadEnumCardsCallback) {
         val results = getAllScrapedCard(projectIdx)
 
-        if (results == null) {
+        if (results == null || results.isEmpty()) {
             callback.onDataNotAvailable()
         } else {
             callback.onCardLoaded(toEnumModels(results))
