@@ -41,20 +41,21 @@ class RoundListActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_project_cardlist)
 
+        //툴바 초기화
         stormtoolbar_roundlist_toolbar.setBackButton()
 
+        //해당 화면에 필요한 정보 뽑아내기
         projectIdx = intent.getIntExtra("projectIdx", -1)
         roundIdx = intent.getIntExtra("roundIdx", -1)
         roundNo = intent.getIntExtra("roundNo", -1)
         projectName = intent.getStringExtra("projectName")
 
+        //넘겨받은 값이 없으면 잘못된 접근
         if (projectIdx == -1 || roundIdx == -1 || roundNo == -1) {
             Log.e(TAG, "Wrong access. projectIdx: $projectIdx, roundIdx: $roundIdx, roundNo: $roundNo")
         }
 
-        roundListAdapterForViewPager = RoundListAdapter(null)
-        roundListAdapterForViewPager.projectName = projectName
-
+        //카드 리사이클러뷰 어댑터 초기화
         cardListAdapter = CardListAdapter(true, object : CardListAdapter.OnCardClickListener {
             override fun onCardClick(projectIdx: Int, roundIdx: Int, cardId: Int) {
                 val intent = Intent(this@RoundListActivity, ScrapedCardDetailActivity::class.java)
@@ -66,6 +67,17 @@ class RoundListActivity : BaseActivity() {
             }
         })
 
+        //카드 리사이클러뷰 초기화
+        recyclerview_roundlist_cardlist.run {
+            adapter = cardListAdapter
+            addItemDecoration(MarginDecoration(this@RoundListActivity, 2, 20, 20))
+        }
+
+        //라운드 뷰페이저 어댑터 초기화
+        roundListAdapterForViewPager = RoundListAdapter(null)
+        roundListAdapterForViewPager.projectName = projectName
+
+        //라운드 정보 DB에서 불러오기
         roundRepository.getAll(projectIdx, object : RoundRepository.LoadRoundsCallback {
             override fun onRoundsLoaded(rounds: List<RoundModel>) {
                 roundListAdapterForViewPager.addAll(rounds)
@@ -76,12 +88,7 @@ class RoundListActivity : BaseActivity() {
             }
         })
 
-
-        recyclerView_roundcardlist_cardlist.run {
-            adapter = cardListAdapter
-            addItemDecoration(MarginDecoration(this@RoundListActivity, 2, 20, 20))
-        }
-
+        //라운드 뷰페이저 초기화
         viewpager_roundcardlist_round.run {
             adapter = roundListAdapterForViewPager
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
@@ -90,13 +97,18 @@ class RoundListActivity : BaseActivity() {
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
-
-                    val roundIdx = roundListAdapterForViewPager.getItem(position).roundIdx
-
-                    setCardList(roundIdx)
+                    //선택된 라운드의 카드 리스트를 보여줌
+                    setCardList(roundListAdapterForViewPager.getItem(position).roundIdx)
                 }
             })
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        //스크랩한 카드가 변경될 수 있으므로 여기서 갱신
+        setCardList(roundIdx)
     }
 
     private fun setCardList(roundIdx: Int) {
@@ -109,12 +121,5 @@ class RoundListActivity : BaseActivity() {
                 Log.e(TAG, "No data in DB. projectIdx: $projectIdx, roundIdx: $roundIdx")
             }
         })
-    }
-
-
-    override fun onResume() {
-        super.onResume()
-
-        setCardList(roundIdx)
     }
 }
