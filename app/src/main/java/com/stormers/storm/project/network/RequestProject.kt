@@ -13,7 +13,7 @@ interface RequestProject {
     fun addProject(@Body body:AddProjectModel) :Call<ResponseAddProject>
 
     @POST("/project/enter")
-    fun joinProjectUsingCode(@Body body: JoinProjectUsingCodeModel) : Call<ResponseJoinProjectUsingCode>
+    fun enterProject(@Body body: EnterProjectModel) : Call<ResponseJoinProjectUsingCode>
 
     @GET("/project/{project_idx}")
     fun responseProjectinfo(@Path("project_idx") ProjectIdx : Int) :Call<ResponseProjectInfoModel>
@@ -26,4 +26,7 @@ interface RequestProject {
 
     @GET("/project/user/{user_idx}")
     fun requestParticipatedProject(@Path("user_idx") userIdx: Int) : Call<ResponseParticipatedProject>
+
+    @GET("/project/info/{project_code}")
+    fun lookupProject(@Path("project_code") projectCode: String) : Call<ResponseLookupProject>
 }

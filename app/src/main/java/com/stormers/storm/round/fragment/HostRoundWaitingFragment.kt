@@ -27,6 +27,9 @@ class HostRoundWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_sta
 
         //확인 버튼 초기화
         initActivityButton()
+
+        //참여자 목록 갱신
+        refreshParticipants(GlobalApplication.currentRound!!.roundIdx)
     }
 
     private fun initActivityButton() {

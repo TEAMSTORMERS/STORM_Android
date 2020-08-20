@@ -1,26 +1,46 @@
 package com.stormers.storm.ui
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 
 import com.stormers.storm.R
+import com.stormers.storm.SignUp.InterfaceSignUp
+import com.stormers.storm.SignUp.ResponseSignUpModel
 import com.stormers.storm.base.BaseActivity
+import com.stormers.storm.card.util.BitmapConverter
+import com.stormers.storm.customview.dialog.StormDialogBuilder
+import com.stormers.storm.customview.dialog.StormDialogButton
+import com.stormers.storm.network.RetrofitClient
+import com.stormers.storm.ui.SignUpActivity.Companion.IS_DEFAULT_IMAGE
 import kotlinx.android.synthetic.main.activity_set_email_password.*
+import kotlinx.android.synthetic.main.activity_set_email_password.button_back_signup
+import kotlinx.android.synthetic.main.activity_sigin_up.*
+import kotlinx.android.synthetic.main.fragment_mypage_profile.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.Request
+import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SetEmailPasswordActivity : BaseActivity() {
+
+    val buttonArray = ArrayList<StormDialogButton>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_set_email_password)
 
         signUpTextWatcher()
-        goBackActivity()
-        goCompleteSignUpActivity()
         checkVaildEmailType()
+        goSignUpActivity()
+        goBackActivity()
     }
 
     fun signUpTextWatcher() {
@@ -93,16 +113,17 @@ class SetEmailPasswordActivity : BaseActivity() {
 
     fun goBackActivity(){
         button_back_signup.setOnClickListener {
-            startActivity(Intent(this, SignUpActivity::class.java))
+            startActivity(Intent(this, LoginActivity::class.java))
         }
     }
 
-    fun goCompleteSignUpActivity() {
 
-        button_next_signup.setOnClickListener(){
 
-            val intent = Intent(this, CompleteSignUpActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+    fun goSignUpActivity(){
+        button_next_signup.setOnClickListener{
+            val intent = Intent(this,SignUpActivity::class.java)
+            intent.putExtra("userEmail",edittext_input_email.text.toString())
+            intent.putExtra("userPassword",edittext_input_password.text.toString())
             startActivity(intent)
         }
     }

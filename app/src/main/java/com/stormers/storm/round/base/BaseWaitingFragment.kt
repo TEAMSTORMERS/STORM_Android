@@ -20,7 +20,7 @@ import com.stormers.storm.network.SocketClient
 import com.stormers.storm.project.ProjectRepository
 import com.stormers.storm.project.network.response.ResponseProjectUserListModel
 import com.stormers.storm.round.RoundRepository
-import com.stormers.storm.round.model.RoundEntity
+import com.stormers.storm.round.fragment.HostRoundWaitingFragment
 import com.stormers.storm.round.network.RequestRound
 import com.stormers.storm.ui.GlobalApplication
 import com.stormers.storm.ui.RoundProgressActivity
@@ -64,6 +64,9 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
         //뷰 초기화
         initView(view)
 
+        //라운드에 입장
+        joinRoom()
+
         //참가자가 들어오면 갱신
         registerParticipantsSocket()
 
@@ -78,9 +81,16 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
 
         //룰 리마인더 초기화
         initRuleReminder(view)
+    }
 
-        //참가자 갱신
-        refreshParticipants(GlobalApplication.currentRound!!.roundIdx)
+    private fun joinRoom() {
+        SocketClient.getInstance()
+        SocketClient.connection()
+
+        SocketClient.sendEvent("joinRoom", GlobalApplication.currentProject!!.projectCode!!)
+        SocketClient.sendEvent("roundSetting", GlobalApplication.currentProject!!.projectCode!!)
+
+        Log.d(TAG, "[socket]joinRoom: projectCode: ${GlobalApplication.currentProject!!.projectCode!!}")
     }
 
     private fun initView(view: View) {
@@ -110,13 +120,15 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
         SocketClient.getInstance()
         SocketClient.connection()
 
+        Log.d(TAG, "socket: roundComplete")
+
         SocketClient.responseEvent("roundComplete", Emitter.Listener {
             Log.d("refresh_socket", "참가자가 들어왔습니다.")
             refreshParticipants(GlobalApplication.currentRound!!.roundIdx)
         })
     }
 
-    private fun refreshParticipants(roundIdx: Int) {
+    protected fun refreshParticipants(roundIdx: Int) {
         getParticipants(roundIdx, object: UserRepository.LoadUsersCallback {
             override fun onUsersLoaded(users: List<UserModel>) {
                 participantAdapter.setList(users)

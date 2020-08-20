@@ -1,6 +1,6 @@
-package com.stormers.storm.project.network.response
+package com.stormers.storm.LogIn.model.response
 
-data class ResponseJoinProjectUsingCode(
+data class ResponseLogIn(
     val status : Int,
     val success : Boolean,
     val message : String,

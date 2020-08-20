@@ -5,6 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context.CLIPBOARD_SERVICE
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -42,7 +43,7 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
                   @LayoutRes val contentRes: Int?, private val buttonArray: ArrayList<StormDialogButton>?,
                   private val horizontalButtonArray: ArrayList<StormDialogButton>?, private val isPicker: Boolean,
                   private val isCode: Boolean, private val code: String?, private val minValue: Int?,
-                  private val maxValue: Int?) : DialogFragment() {
+                  private val maxValue: Int?, private val callback: OnContentAttachedCallback?) : DialogFragment() {
 
     companion object {
         const val TAG = "storm_dialog"
@@ -81,7 +82,8 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
         //ContentView 적용
         contentRes?.let {
             view.textview_dialog_content.visibility = View.GONE
-            view.linearlayout_dialog_content.addView(inflater.inflate(contentRes, container))
+            val contentView = inflater.inflate(contentRes, view.linearlayout_dialog_content)
+            callback?.onContentAttached(contentView)
 
             if (isPicker) {
                 view.numberpicker_minute.run {
@@ -89,7 +91,9 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
                     minValue = this@StormDialog.minValue?: DEFAULT_MIN_VALUE_MINUTE
                     wrapSelectorWheel = false
                     descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
-                    textColor = context.getColor(R.color.storm_gray)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                        textColor = context.getColor(R.color.storm_gray)
+                    }
                 }
             }
 
@@ -183,5 +187,9 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
         if (contentText != null && contentRes != null) {
             throw IllegalArgumentException("ContentText cannot be used with ContentRes. Please choose one of the two.")
         }
+    }
+
+    interface OnContentAttachedCallback {
+        fun onContentAttached(view: View)
     }
 }
