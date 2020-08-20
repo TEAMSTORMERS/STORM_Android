@@ -60,22 +60,24 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
             }
         }
 
-        //
+        //스크랩한 카드 더 보기 버튼 초기화
+        constraintlayout_participatedproject_seemore.setOnClickListener {
+            val intent = Intent(this, ScrapCardCollectingActivity::class.java)
+            intent.putExtra("projectIdx", projectIdx)
+            startActivity(intent)
+        }
+
+        //참가자 리사이클러뷰 어댑터 초기화
         projectParticipantsAdapter = ProjectParticipantsAdapter()
-        recyclerview_user_profile.layoutManager = LinearLayoutManager(baseContext, LinearLayoutManager.HORIZONTAL,false)
-        recyclerview_user_profile.addItemDecoration(MarginDecoration(baseContext, 9, RecyclerView.HORIZONTAL))
-        recyclerview_user_profile.adapter = projectParticipantsAdapter
 
-        roundListAdapter = RoundListAdapter(object : RoundListAdapter.OnRoundClickListener {
-            override fun onRoundClick(roundIdx: Int, roundNo: Int) {
-                val intent = Intent(this@ParticipatedProjectDetailActivity, RoundListActivity::class.java)
-                intent.putExtra("roundIdx", roundIdx)
-                intent.putExtra("projectIdx", this@ParticipatedProjectDetailActivity.projectIdx)
-                intent.putExtra("roundNo", roundNo)
-                startActivity(intent)
-            }
-        })
+        //참가자 리사이클러뷰 초기화
+        recyclerview_user_profile.run {
+            layoutManager = LinearLayoutManager(baseContext, LinearLayoutManager.HORIZONTAL, false)
+            addItemDecoration(MarginDecoration(baseContext, 9, RecyclerView.HORIZONTAL))
+            adapter = projectParticipantsAdapter
+        }
 
+        //스크랩한 카드 리사이클러뷰 어댑터 초기화
         scrapedCardListAdapter = CardListAdapter(true, object: CardListAdapter.OnCardClickListener {
             override fun onCardClick(projectIdx: Int, roundIdx: Int, cardId: Int) {
                 val intent = Intent(this@ParticipatedProjectDetailActivity, ScrapedCardDetailActivity::class.java)
@@ -86,11 +88,38 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
             }
         })
 
+        //스크랩한 카드 리사이클러뷰 초기화
+        recyclerview_participateddetail_scrapedcard.run {
+            adapter = scrapedCardListAdapter
+            addItemDecoration(MarginDecoration(this@ParticipatedProjectDetailActivity, 15, RecyclerView.HORIZONTAL))
+            addItemDecoration(MarginDecoration(this@ParticipatedProjectDetailActivity, 15, RecyclerView.VERTICAL))
+        }
+
+        //라운드 리사이클러뷰 어댑터 초기화
+        roundListAdapter = RoundListAdapter(object : RoundListAdapter.OnRoundClickListener {
+            override fun onRoundClick(roundIdx: Int, roundNo: Int) {
+                val intent = Intent(this@ParticipatedProjectDetailActivity, RoundListActivity::class.java)
+                intent.putExtra("roundIdx", roundIdx)
+                intent.putExtra("projectIdx", this@ParticipatedProjectDetailActivity.projectIdx)
+                intent.putExtra("roundNo", roundNo)
+                startActivity(intent)
+            }
+        })
+
+        //라운드 리사이클러뷰 초기화
+        recyclerview_participateddetail_roundlist.adapter = roundListAdapter
+
+        //해당 프로젝트에 대한 정보 가져오기
         projectRepository.get(projectIdx, object : ProjectRepository.GetProjectCallback {
             override fun onProjectLoaded(project: ProjectModel) {
                 currentProject = project
+                //참가자 목록 초기화
                 projectParticipantsAdapter.setList(currentProject!!.projectParticipants!!)
+
+                //라운드 목록 초기화
                 roundListAdapter.setList(currentProject!!.projectRounds!!)
+
+                //프로젝트 정보를를 화면에 보여주기
                 initProjectInfo(currentProject!!)
             }
 
@@ -98,30 +127,24 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
                 Log.e(TAG, "Load Error: $projectIdx")
             }
         })
+    }
 
+    override fun onResume() {
+        super.onResume()
+
+        //스크랩한 카드는 변동이 있을 수 있으니 onResume()에서 목록을 초기화
         cardRepository.getScrapAllForList(projectIdx, object: CardRepository.LoadEnumCardsCallback {
             override fun onCardLoaded(cards: List<CardEnumModel>) {
                 scrapedCardListAdapter.setList(cards)
+                recyclerview_participateddetail_scrapedcard.visibility = View.VISIBLE
+                textview_participateddetail_noscraped.visibility = View.GONE
             }
 
             override fun onDataNotAvailable() {
-                Log.e(TAG, "Load Error: $projectIdx")
+                recyclerview_participateddetail_scrapedcard.visibility = View.GONE
+                textview_participateddetail_noscraped.visibility = View.VISIBLE
             }
         })
-
-
-        constraintlayout_participatedproject_seemore.setOnClickListener {
-            val intent = Intent(this, ScrapCardCollectingActivity::class.java)
-            intent.putExtra("projectIdx", projectIdx)
-            startActivity(intent)
-        }
-
-        recyclerview_participateddetail_scrapedcard.adapter = scrapedCardListAdapter
-        recyclerview_participateddetail_scrapedcard.addItemDecoration(MarginDecoration(this, 15, RecyclerView.HORIZONTAL))
-        recyclerview_participateddetail_scrapedcard.addItemDecoration(MarginDecoration(this, 15, RecyclerView.VERTICAL))
-
-        rv_round_part_detail.adapter = roundListAdapter
-
     }
 
     private fun initProjectInfo(project: ProjectModel) {
@@ -141,21 +164,4 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
                 .append(it.projectRounds!!.size).append("회").toString()
         }
     }
-
-    override fun onResume() {
-        super.onResume()
-
-        cardRepository.getScrapAllForList(projectIdx, object: CardRepository.LoadEnumCardsCallback {
-            override fun onCardLoaded(cards: List<CardEnumModel>) {
-                scrapedCardListAdapter.setList(cards)
-                textview_participateddetail_noscraped.visibility = View.GONE
-            }
-
-            override fun onDataNotAvailable() {
-                recyclerview_participateddetail_scrapedcard.visibility = View.GONE
-                textview_participateddetail_noscraped.visibility = View.VISIBLE
-            }
-        })
-    }
-
 }

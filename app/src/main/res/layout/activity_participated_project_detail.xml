@@ -144,7 +144,9 @@
                 android:id="@+id/constraintlayout_participatedproject_seemore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="25dp"
+                android:layout_marginEnd="15dp"
+                android:padding="10dp"
+                android:foreground="?android:selectableItemBackground"
                 app:layout_constraintBottom_toBottomOf="@+id/textView_scrap_card"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView_scrap_card">
@@ -177,7 +179,7 @@
                 android:id="@+id/framelayout_participateddetail_scrapedcard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@id/rv_round_part_detail"
+                app:layout_constraintBottom_toTopOf="@id/recyclerview_participateddetail_roundlist"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_scrap_card">
@@ -213,7 +215,7 @@
             </FrameLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_round_part_detail"
+                android:id="@+id/recyclerview_participateddetail_roundlist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
