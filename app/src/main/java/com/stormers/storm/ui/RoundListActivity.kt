@@ -3,22 +3,17 @@ package com.stormers.storm.ui
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.card.adapter.CardListAdapter
 import com.stormers.storm.card.model.CardEnumModel
 import com.stormers.storm.card.repository.CardRepository
-import com.stormers.storm.network.RetrofitClient
-import com.stormers.storm.round.adapter.RoundListAdapterForViewPager
-import com.stormers.storm.round.network.RequestRound
-import com.stormers.storm.round.network.response.ResponseFinalRoundData
+import com.stormers.storm.round.RoundRepository
+import com.stormers.storm.round.adapter.RoundListAdapter
+import com.stormers.storm.round.model.RoundModel
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_project_cardlist.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class RoundListActivity : BaseActivity() {
 
@@ -26,27 +21,39 @@ class RoundListActivity : BaseActivity() {
         private const val TAG = "RoundListActivity"
     }
 
-    private var roundIdx = -1
-    lateinit var roundListAdapterForViewPager: RoundListAdapterForViewPager
+    lateinit var roundListAdapterForViewPager: RoundListAdapter
 
     private lateinit var cardListAdapter: CardListAdapter
 
-    private val cardRepository : CardRepository by lazy { CardRepository() }
+    private var roundIdx = -1
 
     private var projectIdx = -1
 
     private var roundNo = -1
 
-    private lateinit var retrofitClient: RequestRound
+    private var projectName: String? = null
+
+    private val cardRepository : CardRepository by lazy { CardRepository.getInstance() }
+
+    private val roundRepository: RoundRepository by lazy { RoundRepository.getInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_project_cardlist)
-        projectIdx = intent.getIntExtra("projectIdx", 1)
-        roundIdx = intent.getIntExtra("roundIdx", 1)
-        roundNo = intent.getIntExtra("roundNo", 1)
 
-        roundListAdapterForViewPager = RoundListAdapterForViewPager()
+        stormtoolbar_roundlist_toolbar.setBackButton()
+
+        projectIdx = intent.getIntExtra("projectIdx", -1)
+        roundIdx = intent.getIntExtra("roundIdx", -1)
+        roundNo = intent.getIntExtra("roundNo", -1)
+        projectName = intent.getStringExtra("projectName")
+
+        if (projectIdx == -1 || roundIdx == -1 || roundNo == -1) {
+            Log.e(TAG, "Wrong access. projectIdx: $projectIdx, roundIdx: $roundIdx, roundNo: $roundNo")
+        }
+
+        roundListAdapterForViewPager = RoundListAdapter(null)
+        roundListAdapterForViewPager.projectName = projectName
 
         cardListAdapter = CardListAdapter(true, object : CardListAdapter.OnCardClickListener {
             override fun onCardClick(projectIdx: Int, roundIdx: Int, cardId: Int) {
@@ -59,35 +66,15 @@ class RoundListActivity : BaseActivity() {
             }
         })
 
-        retrofitClient = RetrofitClient.create(RequestRound::class.java)
-
-        retrofitClient.responseFinalRoundData(projectIdx).enqueue(object : Callback<ResponseFinalRoundData> {
-            override fun onFailure(call: Call<ResponseFinalRoundData>, t: Throwable) {
-                if (t.message != null){
-                    Log.d("RoundListActivity", t.message!!)
-                } else {
-                    Log.d("RoundListActivity", "통신실패")
-                }
+        roundRepository.getAll(projectIdx, object : RoundRepository.LoadRoundsCallback {
+            override fun onRoundsLoaded(rounds: List<RoundModel>) {
+                roundListAdapterForViewPager.addAll(rounds)
             }
 
-            override fun onResponse(call: Call<ResponseFinalRoundData>, response: Response<ResponseFinalRoundData>) {
-                if (response.isSuccessful) {
-                    if (response.body()!!.success) {
-                        for (i in response.body()!!.data.indices) {
-                            Log.d("RoundListActivity", "받아온 라운드 정보 : ${response.body()!!.data[i]}")
-                        }
-                        roundListAdapterForViewPager.addAll(response.body()!!.data)
-                        Log.d("roundIdx" , roundIdx.toString())
-                    }
-                    else {
-                        Log.d("RoundListActivity", "통신실패")
-                    }
-                } else {
-                    Log.d("RoundListActivity", "${response.message()} , ${response.errorBody()}")
-                }
+            override fun onDataNotAvailable() {
+                Log.e(TAG, "No round in the project ($projectIdx)")
             }
         })
-
 
 
         recyclerView_roundcardlist_cardlist.run {
