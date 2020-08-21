@@ -5,11 +5,17 @@ import android.util.Log
 import android.view.View
 import com.stormers.storm.R
 import com.stormers.storm.customview.StormButton
+import com.stormers.storm.network.RetrofitClient
+import com.stormers.storm.network.SimpleResponse
 import com.stormers.storm.network.SocketClient
+import com.stormers.storm.project.network.RequestProject
 import com.stormers.storm.round.base.BaseWaitingFragment
 import com.stormers.storm.ui.GlobalApplication
 import com.stormers.storm.ui.RoundSettingActivity
 import kotlinx.android.synthetic.main.activity_round_setting.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class HostRoundWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
@@ -42,6 +48,10 @@ class HostRoundWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_sta
 
         activityButton.setOnClickListener {
 
+            if (isFirstRound) {
+                requestStartProject()
+            }
+
             startRoundSocket()
 
             startRound()
@@ -51,5 +61,26 @@ class HostRoundWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_sta
     private fun startRoundSocket() {
         SocketClient.sendEvent(SocketClient.ROUND_START_HOST, GlobalApplication.currentProject!!.projectCode!!)
         Log.d(TAG, "[socket] roundStartHost: ${GlobalApplication.currentProject!!.projectCode!!}")
+    }
+
+    private fun requestStartProject() {
+        RetrofitClient.create(RequestProject::class.java).projectStart(GlobalApplication.currentProject!!.projectIdx)
+            .enqueue(object : Callback<SimpleResponse> {
+                override fun onFailure(call: Call<SimpleResponse>, t: Throwable) {
+                    Log.d(TAG, "requestStartProject: Fail. ${t.message}")
+                }
+
+                override fun onResponse(call: Call<SimpleResponse>, response: Response<SimpleResponse>) {
+                    if (response.isSuccessful) {
+                        if (response.body()!!.success) {
+                            Log.d(TAG, "requestStartProject: Success.")
+                        } else {
+                            Log.d(TAG, "requestStartProject: Not success, ${response.body()!!.message}")
+                        }
+                    } else {
+                        Log.d(TAG, "requestStartProject: Not successful, ${response.message()}")
+                    }
+                }
+            })
     }
 }
