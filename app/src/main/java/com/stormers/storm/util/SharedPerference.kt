@@ -14,6 +14,7 @@ class SharedPreference(context: Context) {
         const val PROJECT_CODE = "project_code"
         const val HOST = "is_host"
         const val AUTO_LOGIN = "auto_login"
+        const val PROFILE_COLOR = "profile_color"
 
     }
 
@@ -122,6 +123,14 @@ class SharedPreference(context: Context) {
 
     fun getAutoLogIn() : Boolean{
         return getBoolean(AUTO_LOGIN)
+    }
+
+    fun setProfileColor(profileColor: Int) {
+        setInt(PROFILE_COLOR, profileColor)
+    }
+
+    fun getProfileColor(): Int? {
+        return getInt(PROFILE_COLOR)
     }
 }
 

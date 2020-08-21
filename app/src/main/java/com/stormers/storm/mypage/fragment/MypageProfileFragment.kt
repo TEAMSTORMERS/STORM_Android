@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.ShapeDrawable
@@ -21,6 +22,7 @@ import android.view.contentcapture.ContentCaptureContext
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContentResolverCompat
 import androidx.core.content.ContextCompat
@@ -31,6 +33,7 @@ import com.gun0912.tedpermission.TedPermission
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseFragment
 import com.stormers.storm.canvas.network.RequestCard
+import com.stormers.storm.card.util.BitmapConverter
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.mypage.network.MypageData
@@ -44,6 +47,9 @@ import com.stormers.storm.ui.SignUpActivity
 import kotlinx.android.synthetic.main.activity_sigin_up.*
 import kotlinx.android.synthetic.main.bottomsheet_select_profile.*
 import kotlinx.android.synthetic.main.fragment_mypage_profile.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -53,8 +59,6 @@ import java.util.regex.Pattern
 
 class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
 
-    val FLAG_REQ_STORAGE = 102
-    val FLAG_PERM_STORAGE = 99
     val STORAGE_PERMISSION = arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE,
         android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
@@ -68,10 +72,25 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
 
     var userIdx = -1
 
-    //image flag를 나타내는 상수
+    lateinit var profileRootLayout : ConstraintLayout
+
+    lateinit var profileBitmap : Bitmap
+
+    var imgFlag = -1
+
     companion object {
+        //image flag를 나타내는 상수
         private const val USER_IMAGE = 1
         private const val USER_DEFAULT_IMAGE = 0
+
+        //갤러리 접근 권한 관련 상수
+        private const val FLAG_REQ_STORAGE = 102
+        private const val FLAG_PERM_STORAGE = 99
+
+        //선택된 버튼 색상 관련 상수
+        private const val SELECT_PURPLE_BUTTON = 10
+        private const val SELECT_RED_BUTTON = 11
+        private const val SELECT_YELLOW_BUTTON = 12
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -109,8 +128,9 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
                         edittext_user_name.setText(response.body()!!.data.user_name)
 
                         //서버로부터 받아온 profile image 적용: 앨범에서 사진을 설정했을 경우
-                        //Todo: boolean 값으로 변경하기
                         if (response.body()!!.data.user_img_flag == USER_IMAGE) {
+                            imgFlag = USER_IMAGE
+
                             constraint_select_button.visibility = View.INVISIBLE
                             textview_mypage_name_in_profile.visibility = View.INVISIBLE
 
@@ -119,6 +139,21 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
                         }
                         //서버로부터 받아온 profile image 적용: 기본 이미지일 경우
                        else {
+                            imgFlag = USER_DEFAULT_IMAGE
+
+                            when (preference.getProfileColor()) {
+                                SELECT_PURPLE_BUTTON -> {
+                                    selectPurpleButton()
+                                }
+                                SELECT_RED_BUTTON -> {
+                                    selectRedButton()
+                                }
+                                SELECT_YELLOW_BUTTON -> {
+                                    selectYellowButton()
+                                }
+                            }
+
+                            //세 버튼에 리스너 달아주기
                             selectProfileColor()
 
                             //초기 기본이미지 text 설정
@@ -174,6 +209,14 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
                 Toast.makeText(context, "사용자 이름이 변경되었습니다.", Toast.LENGTH_SHORT).show()
 
                 edittext_user_name.isEnabled = false
+
+                //기본 이미지일 때에만 사용자 이름/프로필 사진 둘 다 수정됨
+                if (imgFlag == USER_DEFAULT_IMAGE) {
+                    saveProfile()
+
+                    updateImage()
+                }
+
                 true
             }
             false
@@ -181,13 +224,13 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
 
         edittext_user_name.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                if (edittext_user_name.text.isNotEmpty()){
-                    if (edittext_user_name.text.length >= 2){
+                if (edittext_user_name.text.isNotEmpty()) {
+                    if (edittext_user_name.text.length >= 2) {
                         var first_two_characters = edittext_user_name.text.substring(0,2)
-                        textview_mypage_name_in_profile.setText(first_two_characters)
+                        textview_mypage_name_in_profile.text = first_two_characters
                     }
                     else {
-                        textview_mypage_name_in_profile.setText(edittext_user_name.text)
+                        textview_mypage_name_in_profile.text = edittext_user_name.text
                     }
                 }
             }
@@ -239,13 +282,19 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
 
             button_gallery.setOnClickListener{
                 if (checkPermission(STORAGE_PERMISSION, FLAG_PERM_STORAGE)) {
+
                     selectGallery()
+
+                    imgFlag = USER_IMAGE
+                    preference.setProfileColor(-1)
                 }
             }
 
 
             //bottomSheet에서 기본이미지로 변경 버튼 누를 경우
            button_change_default_image.setOnClickListener {
+               imgFlag = USER_DEFAULT_IMAGE
+
                constraint_select_button.visibility = View.VISIBLE
                textview_mypage_name_in_profile.visibility = View.VISIBLE
 
@@ -320,6 +369,10 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
                     constraint_select_button.visibility = View.INVISIBLE
 
                     imageview_mypage_default_image.setImageURI(uri)
+
+                    saveProfile()
+
+                    updateImage()
                 }
             }
         }
@@ -333,7 +386,7 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
         bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
     }
 
-    fun textSetFilter(): InputFilter {
+    private fun textSetFilter(): InputFilter {
         val pattern = Pattern.compile("^[a-zA-Z0-9ㄱ-ㅎ가-힣]*$")
         val filter = InputFilter { source, start, end, dest, dstart, dend ->
             if (!pattern.matcher(source).matches()) {
@@ -365,11 +418,15 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
         imagebutton_mypage_select_yellow.setBackgroundResource(R.drawable.join_profile_yellow)
         imagebutton_mypage_select_red.setBackgroundResource(R.drawable.join_profile_red)
 
+        preference.setProfileColor(SELECT_PURPLE_BUTTON)
+
         //라운딩 및 프로필 색 변환
-        constraint_mypage_default.background = ShapeDrawable(OvalShape())
-        constraint_mypage_default.clipToOutline = true
-        changeBackground.setColor(resources.getColor(R.color.storm_purple))
-        imageview_mypage_default_image.setImageDrawable(changeBackground)
+        purpleBackground()
+
+        //해당 버튼 클릭시 프로필 이미지 배경색 변경하여 서버로 전송
+        saveProfile()
+
+        updateImage()
     }
 
     private fun selectRedButton() {
@@ -377,10 +434,13 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
         imagebutton_mypage_select_yellow.setBackgroundResource(R.drawable.join_profile_yellow)
         imagebutton_mypage_select_red.setBackgroundResource(R.drawable.join_profile_selected_red)
 
-        constraint_mypage_default.background = ShapeDrawable(OvalShape())
-        constraint_mypage_default.clipToOutline = true
-        changeBackground.setColor(resources.getColor(R.color.storm_red))
-        imageview_mypage_default_image.setImageDrawable(changeBackground)
+        preference.setProfileColor(SELECT_RED_BUTTON)
+
+        redBackground()
+
+        saveProfile()
+
+        updateImage()
     }
 
     private fun selectYellowButton() {
@@ -388,26 +448,38 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
         imagebutton_mypage_select_yellow.setBackgroundResource(R.drawable.join_profile_selected_yellow)
         imagebutton_mypage_select_red.setBackgroundResource(R.drawable.join_profile_red)
 
+        preference.setProfileColor(SELECT_YELLOW_BUTTON)
+
+        yellowBackground()
+
+        saveProfile()
+
+        updateImage()
+    }
+
+    private fun purpleBackground() {
+        constraint_mypage_default.background = ShapeDrawable(OvalShape())
+        constraint_mypage_default.clipToOutline = true
+        changeBackground.setColor(resources.getColor(R.color.storm_purple))
+        imageview_mypage_default_image.setImageDrawable(changeBackground)
+    }
+
+    private fun redBackground() {
+        constraint_mypage_default.background = ShapeDrawable(OvalShape())
+        constraint_mypage_default.clipToOutline = true
+        changeBackground.setColor(resources.getColor(R.color.storm_red))
+        imageview_mypage_default_image.setImageDrawable(changeBackground)
+    }
+
+    private fun yellowBackground() {
         constraint_mypage_default.background = ShapeDrawable(OvalShape())
         constraint_mypage_default.clipToOutline = true
         changeBackground.setColor(resources.getColor(R.color.storm_yellow))
         imageview_mypage_default_image.setImageDrawable(changeBackground)
     }
 
-    private fun saveProfile() {
-
-        val profileRootLayout = constraintlayout_signup_profile
-        profileRootLayout.isDrawingCacheEnabled = true
-        profileRootLayout.buildDrawingCache()
-        val profileBitmap = profileRootLayout.drawingCache
-        textview_name_in_profile.visibility = View.INVISIBLE
-        imageview_signup_profilebackground.setImageDrawable(BitmapDrawable(resources, profileBitmap))
-
-        //Todo 비트맵 서버로 전송
-    }
-
     //권한처리 메서드
-    fun checkPermission(permissions: Array<out String>, flag: Int) :Boolean {
+    private fun checkPermission(permissions: Array<out String>, flag: Int) :Boolean {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             for(permission in permissions) {
                 if(ContextCompat.checkSelfPermission(context!!, permission) !=
@@ -438,7 +510,7 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
         }
     }
 
-    fun updateName(name : String) {
+    private fun updateName(name : String) {
         val user_idx = userIdx
         val user_name = name
 
@@ -469,5 +541,57 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
 
             })
 
+    }
+
+    private fun saveProfile() {
+        profileRootLayout = constraint_mypage_default
+        profileRootLayout.isDrawingCacheEnabled = true
+        profileRootLayout.buildDrawingCache()
+
+        profileBitmap = profileRootLayout.drawingCache
+
+        if (imgFlag == USER_IMAGE) {
+            textview_mypage_name_in_profile.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun updateImage() {
+        val user_idx = RequestBody.create(MediaType.parse("text/plain"), userIdx.toString())
+
+        val user_img_flag = RequestBody.create(MediaType.parse("text/plain"), imgFlag.toString())
+
+        val profileImageFile = BitmapConverter.bitmapToFile(profileBitmap, context!!.cacheDir.toString())
+
+        val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), profileImageFile!!)
+
+        val uploadFile = MultipartBody.Part.createFormData("user_img", profileImageFile.name, requestFile)
+
+        retrofitClient.updateMypageImage(user_idx, uploadFile, user_img_flag)
+            .enqueue(object : Callback<SimpleResponse> {
+                override fun onFailure(call: Call<SimpleResponse>, t: Throwable) {
+                    if (t.message != null) {
+                        Log.d("MypageProfileImgUpdate", t.message!!)
+                    } else {
+                        Log.d("MypageProfileImgUpdate", "통신실패")
+                    }
+                }
+
+                override fun onResponse(
+                    call: Call<SimpleResponse>,
+                    response: Response<SimpleResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        if (response.body()!!.success) {
+                            Log.d("MypageProfileImgUpdate", "success : ${response.body()!!}")
+
+                        } else {
+                            Log.d("MypageProfileImgUpdate", "통신실패")
+                        }
+                    } else {
+                        Log.d("MypageProfileImgUpdate", "${response.message()}, ${response.errorBody()}")
+                    }
+                }
+
+            })
     }
 }
