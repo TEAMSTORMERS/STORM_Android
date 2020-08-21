@@ -30,4 +30,7 @@ interface RequestProject {
 
     @PUT("/project/status/{project_idx}")
     fun projectStart(@Path("project_idx") projectIdx: Int) : Call<SimpleResponse>
+
+    @PUT("/project/finish/{project_idx}")
+    fun finishProject(@Path("project_idx") projectIdx: Int) : Call<SimpleResponse>
 }

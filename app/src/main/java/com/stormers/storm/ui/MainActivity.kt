@@ -54,12 +54,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        GlobalApplication.run {
-            userIdx = preference.getUserIdx()!!
-            currentRound = null
-            currentProject = null
-            isHost = false
-        }
+        GlobalApplication.userIdx = preference.getUserIdx()!!
 
         initView()
 
@@ -71,6 +66,12 @@ class MainActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
         loadProjectPreviews()
+
+        GlobalApplication.run {
+            currentRound = null
+            currentProject = null
+            isHost = false
+        }
     }
 
     private fun initView() {

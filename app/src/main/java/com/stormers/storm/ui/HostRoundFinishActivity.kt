@@ -7,8 +7,14 @@ import android.view.View
 import com.stormers.storm.customview.dialog.StormDialog
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
+import com.stormers.storm.network.RetrofitClient
+import com.stormers.storm.network.SimpleResponse
 import com.stormers.storm.network.SocketClient
+import com.stormers.storm.project.network.RequestProject
 import com.stormers.storm.round.base.BaseRoundFinishActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.lang.StringBuilder
 
 class HostRoundFinishActivity : BaseRoundFinishActivity() {
@@ -67,7 +73,30 @@ class HostRoundFinishActivity : BaseRoundFinishActivity() {
         SocketClient.sendEvent(SocketClient.FINISH_PROJECT, GlobalApplication.currentProject!!.projectCode!!)
         Log.d(TAG, "[socket] finishProject: ${GlobalApplication.currentProject!!.projectCode!!}")
 
+        requestFinishProject()
+
         startDetailActivity()
+    }
+
+    private fun requestFinishProject() {
+        RetrofitClient.create(RequestProject::class.java).finishProject(GlobalApplication.currentProject!!.projectIdx)
+            .enqueue(object: Callback<SimpleResponse> {
+                override fun onFailure(call: Call<SimpleResponse>, t: Throwable) {
+                    Log.d(TAG, "requestFinishProject: Fail, ${t.message}")
+                }
+
+                override fun onResponse(call: Call<SimpleResponse>, response: Response<SimpleResponse>) {
+                    if (response.isSuccessful) {
+                        if (response.body()!!.success) {
+                            Log.d(TAG, "requestFinishProject: Success")
+                        } else {
+                            Log.d(TAG, "requestFinishProject: Not success, ${response.body()!!.message}")
+                        }
+                    } else {
+                        Log.d(TAG, "requestFinishProject: Not successful, ${response.message()}")
+                    }
+                }
+            })
     }
 
     private fun initDialog() {
