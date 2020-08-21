@@ -63,6 +63,8 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
 
     private var mActivity: Activity? = null
 
+    private var cacheParticipants: List<UserModel>? = null
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         this.mActivity = context as Activity
@@ -139,6 +141,7 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
         getParticipants(roundIdx, object: UserRepository.LoadUsersCallback {
             override fun onUsersLoaded(users: List<UserModel>) {
                 participantAdapter.setList(users)
+                cacheParticipants = users
             }
 
             override fun onDataNotAvailable() {
@@ -193,24 +196,11 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
     protected fun startRound() {
         val handler = Handler(Looper.getMainLooper())
         val handlerTask = Runnable {
-            //입장 이벤트 그만 받기
-            SocketClient.offEvent(SocketClient.ROUND_COMPLETE)
-
             mActivity?.startActivity(Intent(mActivity, RoundProgressActivity::class.java))
             mActivity?.finish()
         }
 
         onRoundStart()
-
-        getParticipants(GlobalApplication.currentRound!!.roundIdx, object : UserRepository.LoadUsersCallback {
-            override fun onUsersLoaded(users: List<UserModel>) {
-                saveRoundInDB(users)
-            }
-
-            override fun onDataNotAvailable() {
-                Log.e(TAG, "Wrong participants")
-            }
-        })
 
         handler.postDelayed(handlerTask, START_DELAY)
 
@@ -229,6 +219,12 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
     }
 
     protected open fun onRoundStart() {
+        //입장 이벤트 그만 받기
+        SocketClient.offEvent(SocketClient.ROUND_COMPLETE)
+
+        //디비에 현재 참가자 목록 저장
+        cacheParticipants?.let { saveRoundInDB(it) } ?: Log.e(TAG, "Wrong participants")
+
         Log.d(TAG, "onRoundStart: Start round !!")
     }
 
