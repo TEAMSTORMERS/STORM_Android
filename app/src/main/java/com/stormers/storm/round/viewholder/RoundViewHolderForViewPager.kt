@@ -1,32 +1,21 @@
 package com.stormers.storm.round.viewholder
 
+import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import com.stormers.storm.R
-import com.stormers.storm.base.BaseViewHolder
-import com.stormers.storm.round.model.RoundDescriptionModel
-import java.lang.StringBuilder
+import com.stormers.storm.round.base.BaseRoundViewHolder
+import com.stormers.storm.round.model.RoundModel
+import kotlinx.android.synthetic.main.item_round_part_detail.view.*
 
-class RoundViewHolderForViewPager(parent: ViewGroup) : BaseViewHolder<RoundDescriptionModel>(R.layout.item_round_info_card, parent) {
-    private val textViewProjectTitleRoundInfo = itemView.findViewById<TextView>(R.id.textview_roundinfo_projectname)
-    private val TextviewRoundNumRoundinfo = itemView.findViewById<TextView>(R.id.textview_roundinfo_roundnumber)
-    private val TextviewRoundGoalRoundinfo = itemView.findViewById<TextView>(R.id.textview_roundinfo_purpose)
-    private val TextviewTimeRoundinfo = itemView.findViewById<TextView>(R.id.textview_roundinfo_time)
+class RoundViewHolderForViewPager(parent: ViewGroup, val projectName: String) :
+    BaseRoundViewHolder(parent, R.layout.item_round_info_card) {
 
-    override fun bind(data: RoundDescriptionModel) {
-        val roundNo = StringBuilder()
-        roundNo.append("Round")
-            .append(data.roundNo)
+    override fun bind(data: RoundModel) {
+        super.bind(data)
 
-        val roundTime = StringBuilder()
-        roundTime.append("총 ")
-            .append(data.time)
-            .append("분 소요")
-
-        textViewProjectTitleRoundInfo.text = data.projectTitle
-        TextviewRoundNumRoundinfo.text = roundNo.toString()
-        TextviewRoundGoalRoundinfo.text = data.roundGoal
-        TextviewTimeRoundinfo.text = roundTime.toString()
-
+        baseItemView.textview_roundinfo_projectname.run {
+            visibility = View.VISIBLE
+            text = projectName
+        }
     }
 }

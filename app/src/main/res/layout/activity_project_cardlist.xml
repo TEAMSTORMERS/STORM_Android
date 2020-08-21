@@ -12,13 +12,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/recyclerView_roundcardlist_cardlist"
+        app:layout_constraintBottom_toTopOf="@id/recyclerview_roundlist_cardlist"
         android:elevation="10dp"
         android:background="@color/storm_red">
 
-    <include
-        android:id="@+id/include_cardlist_toolbar"
-        layout="@layout/view_toolbar"
+    <com.stormers.storm.customview.StormToolbar
+        android:id="@+id/stormtoolbar_roundlist_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="49dp"
@@ -36,13 +35,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include_cardlist_toolbar"
+        app:layout_constraintTop_toBottomOf="@+id/stormtoolbar_roundlist_toolbar"
         app:layout_constraintVertical_bias="0.43" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView_roundcardlist_cardlist"
+        android:id="@+id/recyclerview_roundlist_cardlist"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"

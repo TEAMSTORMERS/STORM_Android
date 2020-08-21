@@ -40,6 +40,8 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
 
     private var currentProject: ProjectModel? = null
 
+    private var projectName: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_participated_project_detail)
@@ -102,6 +104,7 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
                 intent.putExtra("roundIdx", roundIdx)
                 intent.putExtra("projectIdx", this@ParticipatedProjectDetailActivity.projectIdx)
                 intent.putExtra("roundNo", roundNo)
+                intent.putExtra("projectName", projectName)
                 startActivity(intent)
             }
         })
@@ -149,7 +152,9 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
 
     private fun initProjectInfo(project: ProjectModel) {
         project.let {
+            projectName = it.projectName
             textview_projectcard_title.text = it.projectName
+
             textview_participateddetail_date.text = it.projectDate
             projectParticipantsAdapter.setList(it.projectParticipants!!)
 

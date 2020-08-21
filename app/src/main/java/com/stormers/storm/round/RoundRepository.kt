@@ -39,7 +39,7 @@ class RoundRepository {
 
         Log.d(TAG, "projectIdx : $projectIdx result : $results")
 
-        if (results == null) {
+        if (results == null || results.isEmpty()) {
             callback.onDataNotAvailable()
         } else {
             callback.onRoundsLoaded(getRoundModels(results))
