@@ -15,6 +15,7 @@ import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.project.network.RequestProject
 import com.stormers.storm.project.network.response.ResponseJoinProjectUsingCode
 import com.stormers.storm.network.RetrofitClient
+import com.stormers.storm.network.SocketClient
 import com.stormers.storm.project.ProjectRepository
 import com.stormers.storm.project.adapter.ProjectPreviewAdapter
 import com.stormers.storm.project.model.*
@@ -209,6 +210,9 @@ class MainActivity : BaseActivity() {
                         if (response.body()!!.success) {
                             val roundIdx = response.body()!!.data
                             Log.d(TAG, "enterProject: success, roundIdx : $roundIdx")
+
+                            SocketClient.getInstance()
+                            SocketClient.connection()
 
                             GlobalApplication.currentProject = ProjectModel(projectIdx, DateUtils.getToday(), projectCode,
                                 null, null, null, null)

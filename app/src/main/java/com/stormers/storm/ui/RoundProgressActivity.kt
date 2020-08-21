@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import com.stormers.storm.R
 import com.stormers.storm.card.fragment.AddCardFragment
-import com.stormers.storm.card.model.CardEntity
 import com.stormers.storm.card.model.CardEnumModel
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
@@ -23,7 +22,7 @@ class RoundProgressActivity : BaseRoundProgressActivity() {
 
         //Debug 용도로 라운드 목표를 터치하면 라운드가 종료되도록 함
         this.textView_round_goal.setOnClickListener {
-            startActivity(Intent(this, RoundFinishActivity::class.java))
+            startActivity(Intent(this, HostRoundFinishActivity::class.java))
             finish()
         }
 
@@ -54,8 +53,12 @@ class RoundProgressActivity : BaseRoundProgressActivity() {
             }
 
             override fun onFinish() {
-                startActivity(Intent(this@RoundProgressActivity, RoundFinishActivity::class.java))
-                finish()
+                if (GlobalApplication.isHost) {
+                    this@RoundProgressActivity.startActivity(Intent(this@RoundProgressActivity, HostRoundFinishActivity::class.java))
+                } else {
+                    this@RoundProgressActivity.startActivity(Intent(this@RoundProgressActivity, MemberRoundFinishActivity::class.java))
+                }
+                this@RoundProgressActivity.finish()
             }
         }
         countDownTimer.start()

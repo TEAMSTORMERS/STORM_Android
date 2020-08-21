@@ -1,6 +1,7 @@
 package com.stormers.storm.round.network
 
 import com.stormers.storm.network.BaseResponse
+import com.stormers.storm.network.Response
 import com.stormers.storm.network.SimpleResponse
 import com.stormers.storm.project.network.response.ResponseProjectUserListModel
 import com.stormers.storm.round.network.response.ResponseFinalRoundData
@@ -13,7 +14,7 @@ import retrofit2.http.*
 
 interface RequestRound {
     @POST("round/enter")
-    fun interfaceRoundEnter(@Body body :RoundEnterModel):Call<SimpleResponse>
+    fun enterNextRound(@Body body :RoundEnterModel) : Call<BaseResponse>
 
     @GET("round/memberList/{project_idx}/{round_idx}")
     fun showRoundUser(@Path("project_idx") projectIdx: Int, @Path("round_idx") roundIdx : Int) : Call<ResponseProjectUserListModel>

@@ -3,7 +3,7 @@ package com.stormers.storm.round.model
 import com.stormers.storm.user.UserModel
 
 data class RoundModel(
-    val roundIdx: Int,
+    var roundIdx: Int,
 
     var roundNumber: Int?,
 

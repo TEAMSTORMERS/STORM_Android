@@ -1,5 +1,7 @@
 package com.stormers.storm.round.base
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -20,7 +22,6 @@ import com.stormers.storm.network.SocketClient
 import com.stormers.storm.project.ProjectRepository
 import com.stormers.storm.project.network.response.ResponseProjectUserListModel
 import com.stormers.storm.round.RoundRepository
-import com.stormers.storm.round.fragment.HostRoundWaitingFragment
 import com.stormers.storm.round.network.RequestRound
 import com.stormers.storm.ui.GlobalApplication
 import com.stormers.storm.ui.RoundProgressActivity
@@ -58,17 +59,30 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
 
     private lateinit var roundPurposeTextView : TextView
 
+    protected var isFirstRound = true
+
+    private var mActivity: Activity? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        this.mActivity = context as Activity
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+         isFirstRound = arguments?.getBoolean("isFirstRound") ?: true
 
         //뷰 초기화
         initView(view)
 
-        //라운드에 입장
-        joinRoom()
-
         //참가자가 들어오면 갱신
         registerParticipantsSocket()
+
+        //라운드에 입장
+        if (isFirstRound) {
+            joinRoom()
+        }
 
         loadingDialog = StormDialogBuilder(StormDialogBuilder.LOADING_LOGO, "5초 후 라운드가 시작합니다").build()
 
@@ -84,10 +98,7 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
     }
 
     private fun joinRoom() {
-        SocketClient.getInstance()
-        SocketClient.connection()
-
-        SocketClient.sendEvent("joinRoom", GlobalApplication.currentProject!!.projectCode!!)
+        SocketClient.sendEvent(SocketClient.JOIN_ROOM, GlobalApplication.currentProject!!.projectCode!!)
 
         Log.d(TAG, "[socket] joinRoom: projectCode: ${GlobalApplication.currentProject!!.projectCode!!}")
     }
@@ -116,10 +127,7 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
     }
 
     private fun registerParticipantsSocket() {
-        SocketClient.getInstance()
-        SocketClient.connection()
-
-        SocketClient.responseEvent("roundComplete", Emitter.Listener {
+        SocketClient.responseEvent(SocketClient.ROUND_COMPLETE, Emitter.Listener {
             Log.d(TAG, "[socket] roundComplete: 참가자가 들어왔습니다.")
             refreshParticipants(GlobalApplication.currentRound!!.roundIdx)
         })
@@ -127,7 +135,7 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
         Log.d(TAG, "[socket] roundComplete: set")
     }
 
-    protected fun refreshParticipants(roundIdx: Int) {
+    private fun refreshParticipants(roundIdx: Int) {
         getParticipants(roundIdx, object: UserRepository.LoadUsersCallback {
             override fun onUsersLoaded(users: List<UserModel>) {
                 participantAdapter.setList(users)
@@ -185,20 +193,24 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
     protected fun startRound() {
         val handler = Handler(Looper.getMainLooper())
         val handlerTask = Runnable {
+            //입장 이벤트 그만 받기
+            SocketClient.offEvent(SocketClient.ROUND_COMPLETE)
 
-            getParticipants(GlobalApplication.currentRound!!.roundIdx, object : UserRepository.LoadUsersCallback {
-                override fun onUsersLoaded(users: List<UserModel>) {
-                    onStartRound(users)
-
-                    startActivity(Intent(activity, RoundProgressActivity::class.java))
-                    activity?.finish()
-                }
-
-                override fun onDataNotAvailable() {
-                    Log.e(TAG, "Wrong participants")
-                }
-            })
+            mActivity?.startActivity(Intent(mActivity, RoundProgressActivity::class.java))
+            mActivity?.finish()
         }
+
+        onRoundStart()
+
+        getParticipants(GlobalApplication.currentRound!!.roundIdx, object : UserRepository.LoadUsersCallback {
+            override fun onUsersLoaded(users: List<UserModel>) {
+                saveRoundInDB(users)
+            }
+
+            override fun onDataNotAvailable() {
+                Log.e(TAG, "Wrong participants")
+            }
+        })
 
         handler.postDelayed(handlerTask, START_DELAY)
 
@@ -207,12 +219,21 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
         }
     }
 
-    private fun onStartRound(participants: List<UserModel>) {
+    private fun saveRoundInDB(participants: List<UserModel>) {
         //저장해둔 현재 라운드와 프로젝트의 정보를 DB에 저장
         GlobalApplication.run {
             currentRound!!.participants = participants
             roundRepository.insert(currentProject!!.projectIdx, currentRound!!)
             projectRepository.insert(currentProject!!)
         }
+    }
+
+    protected open fun onRoundStart() {
+        Log.d(TAG, "onRoundStart: Start round !!")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        this.mActivity = null
     }
 }

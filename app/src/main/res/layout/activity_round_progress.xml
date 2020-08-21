@@ -107,7 +107,7 @@
         android:visibility="invisible"/>
 
     <Button
-        android:id="@+id/button_scrapcard_save_roundmeeting"
+        android:id="@+id/button_roundprogress_finish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/storm_white"

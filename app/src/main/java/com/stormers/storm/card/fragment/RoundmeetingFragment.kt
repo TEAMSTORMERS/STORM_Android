@@ -16,7 +16,6 @@ import com.stormers.storm.card.network.ResponseCardData
 import com.stormers.storm.card.repository.CardRepository
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.ui.GlobalApplication
-import com.stormers.storm.ui.RoundFinishActivity
 import com.stormers.storm.ui.RoundMeetingExpandActivity
 import kotlinx.android.synthetic.main.fragment_roundmeeting.*
 import retrofit2.Call
