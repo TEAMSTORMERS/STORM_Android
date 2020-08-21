@@ -25,11 +25,15 @@ class MemberRoundWaitingActivity: BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_round_setting)
 
+        val isFirstRound = intent.getBooleanExtra("isFirstRound", true)
+
         stormtoolbar_roundsetting.setExitButton(View.OnClickListener {
             //Todo: 프로젝트 나가기
         })
 
-        goToFragment(MemberWaitingFragment::class.java, null)
+        goToFragment(MemberWaitingFragment::class.java, Bundle().apply {
+            putBoolean("isFirstRound", isFirstRound)
+        })
 
         retrofitClient = RetrofitClient.create(RequestProject::class.java)
 

@@ -14,4 +14,5 @@
     <string name="ask_canvas_mode_change"> 모드로 변경하시겠습니까?</string>
     <string name="check_password">비밀번호가 일치하지 않습니다</string>
     <string name="input_password_more_char">8자 이상 입력해주세요</string>
+    <string name="prepare_next_round">다음 ROUND 준비 중</string>
 </resources>

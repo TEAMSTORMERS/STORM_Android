@@ -15,6 +15,7 @@ import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.project.network.RequestProject
 import com.stormers.storm.project.network.response.ResponseAddProject
 import com.stormers.storm.network.RetrofitClient
+import com.stormers.storm.network.SocketClient
 import com.stormers.storm.project.model.AddProjectModel
 import com.stormers.storm.project.model.ProjectModel
 import com.stormers.storm.util.DateUtils
@@ -85,6 +86,10 @@ class AddProjectActivity : BaseActivity() {
                                     projectName, projectComment, null, null)
                             }
                             GlobalApplication.isHost = true
+
+                            //소켓 연결 시작
+                            SocketClient.getInstance()
+                            SocketClient.connection()
                         }
                     } else {
                         Log.d("AddProjectActivity", response.message())

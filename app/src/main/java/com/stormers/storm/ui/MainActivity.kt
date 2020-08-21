@@ -15,6 +15,7 @@ import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.project.network.RequestProject
 import com.stormers.storm.project.network.response.ResponseJoinProjectUsingCode
 import com.stormers.storm.network.RetrofitClient
+import com.stormers.storm.network.SocketClient
 import com.stormers.storm.project.ProjectRepository
 import com.stormers.storm.project.adapter.ProjectPreviewAdapter
 import com.stormers.storm.project.model.*
@@ -53,12 +54,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        GlobalApplication.run {
-            userIdx = preference.getUserIdx()!!
-            currentRound = null
-            currentProject = null
-            isHost = false
-        }
+        GlobalApplication.userIdx = preference.getUserIdx()!!
 
         initView()
 
@@ -70,6 +66,12 @@ class MainActivity : BaseActivity() {
     override fun onResume() {
         super.onResume()
         loadProjectPreviews()
+
+        GlobalApplication.run {
+            currentRound = null
+            currentProject = null
+            isHost = false
+        }
     }
 
     private fun initView() {
@@ -209,6 +211,9 @@ class MainActivity : BaseActivity() {
                         if (response.body()!!.success) {
                             val roundIdx = response.body()!!.data
                             Log.d(TAG, "enterProject: success, roundIdx : $roundIdx")
+
+                            SocketClient.getInstance()
+                            SocketClient.connection()
 
                             GlobalApplication.currentProject = ProjectModel(projectIdx, DateUtils.getToday(), projectCode,
                                 null, null, null, null)

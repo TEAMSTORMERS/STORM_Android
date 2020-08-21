@@ -1,12 +1,10 @@
 package com.stormers.storm.project.network
 
+import com.stormers.storm.network.SimpleResponse
 import com.stormers.storm.project.model.*
 import com.stormers.storm.project.network.response.*
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface RequestProject {
     @POST("/project")
@@ -29,4 +27,10 @@ interface RequestProject {
 
     @GET("/project/info/{project_code}")
     fun lookupProject(@Path("project_code") projectCode: String) : Call<ResponseLookupProject>
+
+    @PUT("/project/status/{project_idx}")
+    fun projectStart(@Path("project_idx") projectIdx: Int) : Call<SimpleResponse>
+
+    @PUT("/project/finish/{project_idx}")
+    fun finishProject(@Path("project_idx") projectIdx: Int) : Call<SimpleResponse>
 }

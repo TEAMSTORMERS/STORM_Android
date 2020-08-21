@@ -1,9 +1,12 @@
 package com.stormers.storm.round.base
 
+import android.content.Intent
 import android.os.Bundle
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
+import com.stormers.storm.network.SocketClient
 import com.stormers.storm.ui.GlobalApplication
+import com.stormers.storm.ui.ParticipatedProjectDetailActivity
 import kotlinx.android.synthetic.main.activity_round_progress.*
 import java.lang.StringBuilder
 
@@ -32,5 +35,16 @@ open class BaseRoundProgressActivity : BaseActivity() {
         textView_round.text = roundNumber
 
         textView_project_name.text = GlobalApplication.currentProject!!.projectName
+    }
+
+    protected fun startDetailActivity () {
+        val intent = Intent(this, ParticipatedProjectDetailActivity::class.java)
+        intent.putExtra("projectIdx", GlobalApplication.currentProject!!.projectIdx)
+        intent.putExtra("isAfterProject", true)
+
+        SocketClient.disconnectionAndClose()
+
+        startActivity(intent)
+        finish()
     }
 }
