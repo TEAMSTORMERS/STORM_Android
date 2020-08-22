@@ -48,47 +48,18 @@ class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_settin
         waitingRoundStart()
     }
 
-    //라운드 참여
-    //Todo: 라운드가 종료되고 다음 라운드를 새롭게 시작할 때 수행되어야 함. 파라미터도 변경해야함.
-    private fun enterRound(roundIdx: Int){
-        Log.d(TAG, "enterRound: userIdx: ${GlobalApplication.userIdx}")
-        Log.d(TAG, "enterRound: projectIdx: ${GlobalApplication.currentProject!!.projectIdx}")
-        Log.d(TAG, "enterRound: roundIdx: $roundIdx")
-
-        RetrofitClient.create(RequestRound::class.java).interfaceRoundEnter((RoundEnterModel(preference.getUserIdx()!!, roundIdx)))
-            .enqueue(object  : Callback<SimpleResponse> {
-
-                override fun onFailure(call: Call<SimpleResponse>, t: Throwable) {
-                    Log.d(TAG, "enterRound: fail, ${t.message}")
-                }
-
-                override fun onResponse(call: Call<SimpleResponse>, response: Response<SimpleResponse>) {
-                    if (response.isSuccessful) {
-                        if (response.body()!!.success) {
-                            Log.d(TAG, "enterRound: success")
-
-                            //라운드 시작을 기다림
-                            waitingRoundStart()
-                        } else {
-                            Log.d(TAG, "enterRound: Not success, ${response.body()!!.message}")
-                        }
-                    } else {
-                        Log.d(TAG, "enterRound: Not successful, ${response.message()}")
-                    }
-                }
-            })
+    override fun onRoundStart() {
+        super.onRoundStart()
+        SocketClient.offEvent(SocketClient.ROUND_START_MEMBER)
     }
 
     private fun waitingRoundStart() {
-        SocketClient.getInstance()
-        SocketClient.connection()
-
-        SocketClient.responseEvent("roundStartMember", Emitter.Listener {
-            Log.d(TAG, "[socekt]roundStartMember: START ROUND!!!")
+        SocketClient.responseEvent(SocketClient.ROUND_START_MEMBER, Emitter.Listener {
+            Log.d(TAG, "[socekt] roundStartMember: START ROUND!!!")
 
             startRound()
         })
-        Log.d(TAG, "[socket]roundStartMember: set")
+        Log.d(TAG, "[socket] roundStartMember: set")
     }
 
     private fun getRoundInfo(){
@@ -111,9 +82,6 @@ class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_settin
 
                             //라운드 정보를 뷰에 초기화
                             initRoundInfo(it.roundPurpose, it.roundTime)
-
-                            //참여자 목록 갱신
-                            refreshParticipants(roundIdx)
                         }
                     } else {
                         Log.d(TAG, "getRoundInfo: Not success, ${response.body()!!.message}")

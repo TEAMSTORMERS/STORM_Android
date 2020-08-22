@@ -1,5 +1,7 @@
 package com.stormers.storm.card.fragment
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
@@ -16,10 +18,17 @@ class AddCardFragment : BaseFragment(R.layout.fragment_add_card) {
 
     private lateinit var addedCardListAdapter: CardListAdapter
 
+    private var mActivity: Activity? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        this.mActivity = context as Activity
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as RoundProgressActivity).stormtoolbar_roundprogress.clearButton()
+        mActivity?.stormtoolbar_roundprogress?.clearButton()
 
         addedCardListAdapter = CardListAdapter(false, null)
         recyclerview_addcard_card.layoutManager = GridLayoutManager(context, 2)
@@ -41,5 +50,10 @@ class AddCardFragment : BaseFragment(R.layout.fragment_add_card) {
         cardview_addcard_add.setOnClickListener {
             goToFragment(CanvasDrawingFragment::class.java, null)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mActivity = null
     }
 }

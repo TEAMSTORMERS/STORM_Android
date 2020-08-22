@@ -19,9 +19,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         toos:replace="android:label">
-        <activity android:name=".ui.CompleteSignUpActivity">
-
-        </activity>
+        <activity android:name=".ui.MemberRoundFinishActivity"></activity>
+        <activity android:name=".ui.CompleteSignUpActivity" />
         <activity
             android:name=".ui.SetEmailPasswordActivity"
             android:theme="@style/loginTheme"
@@ -44,11 +43,11 @@
         <activity android:name=".ui.AddProjectActivity" />
         <activity
             android:name=".ui.MainActivity"
-            android:windowSoftInputMode="adjustNothing"/>
+            android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".ui.MemberRoundWaitingActivity" />
         <activity android:name=".ui.ParticipatedProjectListActivity" />
         <activity android:name=".ui.ParticipatedProjectDetailActivity" />
-        <activity android:name=".ui.RoundFinishActivity" />
+        <activity android:name=".ui.HostRoundFinishActivity" />
         <activity android:name=".ui.RoundListActivity" />
         <activity android:name=".ui.RoundMeetingExpandActivity" />
         <activity android:name=".ui.RoundProgressActivity" />
@@ -57,8 +56,9 @@
         <activity android:name=".ui.ScrapCardCollectingActivity" />
         <activity android:name=".ui.ScrapedCardDetailActivity" />
         <activity android:name=".ui.MypageActivity" />
-        <activity android:name=".ui.MypageWithdrawalActivity"
-            android:windowSoftInputMode="adjustNothing"/>
+        <activity
+            android:name=".ui.MypageWithdrawalActivity"
+            android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".ui.MypageWithdrawalCheckActivity" />
         <activity
             android:name=".ui.SignUpActivity"

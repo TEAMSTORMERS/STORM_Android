@@ -14,13 +14,11 @@ import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.round.network.RequestRound
 import com.stormers.storm.network.*
 import com.stormers.storm.round.network.response.ResponseRoundCountModel
-import com.stormers.storm.round.model.RoundEnterModel
 import com.stormers.storm.round.model.RoundModel
 import com.stormers.storm.round.model.RoundSettingModel
 import com.stormers.storm.ui.GlobalApplication
 import kotlinx.android.synthetic.main.activity_round_setting.*
 import com.stormers.storm.ui.RoundSettingActivity
-import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.fragment_host_round_setting.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -129,7 +127,9 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
                                 GlobalApplication.currentRound = RoundModel(roundIdx, roundCount, roundPurpose, roundTime, null)
 
                                 //라운드 대기방 프래그먼트
-                                goToFragment(HostRoundWaitingFragment::class.java, null)
+                                goToFragment(HostRoundWaitingFragment::class.java, Bundle().apply {
+                                    putBoolean("isFirstRound", roundCount == 1)
+                                })
                             } else {
                                 Log.d(TAG, "createRound: not success, ${response.body()!!.message}")
                             }
@@ -155,8 +155,8 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
                         if (response.body()!!.success) {
                             Log.d(TAG, "getRoundCount : success, ${response.body()!!.data}")
 
-                            preference.setRoundCount(response.body()!!.data)
-                            setRoundCount(response.body()!!.data)
+                            roundCount = response.body()!!.data
+                            setRoundCount(roundCount)
                         } else {
                             Log.d(TAG, "getRoundCount : not success, ${response.message()}")
                         }
@@ -168,7 +168,12 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
 
     }
 
-    private fun setRoundCount(roundCount: Int) {
+    private fun setRoundCount(roundCount: Int?) {
+        if (roundCount == null) {
+            Log.e(TAG, "setRoundCount: roundCount is null.")
+            this.roundCount = 404
+        }
+
         this.roundCount = roundCount
         val round = StringBuilder()
         round.append("ROUND ")

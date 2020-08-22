@@ -11,9 +11,21 @@ import java.net.URISyntaxException
 
 
 object SocketClient {
-    private val TAG = javaClass.name
+    private const val TAG = "SocketClient"
 
-    //Todo: URL 받으면 추가하기
+    const val JOIN_ROOM = "joinRoom"
+    const val ROUND_COMPLETE = "roundComplete"
+    const val LEAVE_ROOM = "leaveRoom"
+    const val ROUND_START_HOST = "roundStartHost"
+    const val ROUND_START_MEMBER = "roundStartMember"
+    const val PREPARE_NEXT_ROUND = "prepareNextRound"
+    const val WAIT_NEXT_ROUND = "waitNextRound"
+    const val NEXT_ROUND = "nextRound"
+    const val MEMBER_NEXT_ROUND = "memberNextRound"
+    const val ENTER_NEXT_ROUND = "enterNextRound"
+    const val FINISH_PROJECT = "finishProject"
+    const val MEMBER_FINISH_PROJECT = "memberFinishProject"
+
     private const val SERVER_URL = "http://3.34.179.75:3000"
     private var socket: Socket? = null
 
@@ -26,6 +38,21 @@ object SocketClient {
     }
     fun connection(){
         socket?.connect()
+        Log.d(TAG, "[socket] connect")
+    }
+
+    fun disconnection() {
+        socket?.disconnect()
+    }
+
+    fun close() {
+        socket?.close()
+    }
+
+    fun disconnectionAndClose() {
+        disconnection()
+        close()
+        Log.d(TAG, "[socket] disconnect and close")
     }
 
     private fun init(): Socket? {
@@ -65,4 +92,12 @@ object SocketClient {
         }
     }
 
+    fun offEvent(event: String) {
+        if (init() != null) {
+            socket!!.off(event)
+            Log.d(TAG, "offEvent: $event")
+        } else {
+            Log.d(TAG, "initial is failed")
+        }
+    }
 }

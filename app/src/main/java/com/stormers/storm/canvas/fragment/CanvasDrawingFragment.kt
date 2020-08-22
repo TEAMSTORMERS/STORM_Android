@@ -146,7 +146,7 @@ class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_dra
     private fun saveCard(bitmap: Bitmap) {
         val card = CardEnumModel(0, userIdx, projectIdx, false,
             CardType.DRAWING, BitmapConverter.bitmapToString(bitmap))
-        (activity as RoundProgressActivity).cardList.add(card)
+        (mActivity as RoundProgressActivity).cardList.add(card)
     }
 
     private fun setEnableUndoButton(isEnable: Boolean) {
