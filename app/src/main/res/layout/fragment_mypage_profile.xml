@@ -151,7 +151,6 @@
         android:includeFontPadding="false"
         android:lines="1"
         android:singleLine="true"
-        android:text="강희원"
         android:textColor="@color/storm_gray"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/constraint_mypage_edit"
