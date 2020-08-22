@@ -66,6 +66,7 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         constraintlayout_participatedproject_seemore.setOnClickListener {
             val intent = Intent(this, ScrapCardCollectingActivity::class.java)
             intent.putExtra("projectIdx", projectIdx)
+            intent.putExtra("projectName", projectName)
             startActivity(intent)
         }
 
