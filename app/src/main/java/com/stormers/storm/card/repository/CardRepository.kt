@@ -101,6 +101,16 @@ class CardRepository {
         return result
     }
 
+    fun get(cardIdx: Int, callback: GetCardModel<CardEntity>) {
+        val result = get(cardIdx)
+
+        if (result == null) {
+            callback.onDataNotAvailable()
+        } else {
+            callback.onCardLoaded(result)
+        }
+    }
+
     fun delete(projectIdx: Int, roundIdx: Int) {
         dao.deleteAll(projectIdx, roundIdx)
     }
@@ -182,6 +192,12 @@ class CardRepository {
     interface LoadCardModel<T> {
         fun onCardsLoaded(cards: List<T>)
         
+        fun onDataNotAvailable()
+    }
+
+    interface GetCardModel<T> {
+        fun onCardLoaded(card: T)
+
         fun onDataNotAvailable()
     }
 }

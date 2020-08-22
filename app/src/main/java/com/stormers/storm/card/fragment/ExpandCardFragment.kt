@@ -95,6 +95,8 @@ class ExpandCardFragment: BaseFragment(R.layout.fragment_expand_card) {
         }
     }
 
+
+
     private fun initViewPager(data: List<CardModel>) {
         cardViewPager.run {
             adapter = expandCardAdapter
@@ -106,7 +108,7 @@ class ExpandCardFragment: BaseFragment(R.layout.fragment_expand_card) {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     currentPage = position
-                    cardChangeCallback?.onCardPageChanged(position, expandCardAdapter.itemCount)
+                    cardChangeCallback?.onCardPageChanged(position, expandCardAdapter.itemCount, data[position])
                     setMemo(position, data)
                 }
             })
@@ -132,6 +134,6 @@ class ExpandCardFragment: BaseFragment(R.layout.fragment_expand_card) {
     }
 
     interface OnCardPageChangeCallback {
-        fun onCardPageChanged(position: Int, totalCount: Int)
+        fun onCardPageChanged(position: Int, totalCount: Int, cardModel: CardModel)
     }
 }

@@ -81,11 +81,11 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
 
         //스크랩한 카드 리사이클러뷰 어댑터 초기화
         scrapedCardListAdapter = CardListAdapter(true, object: CardListAdapter.OnCardClickListener {
-            override fun onCardClick(projectIdx: Int, roundIdx: Int, cardId: Int) {
-                val intent = Intent(this@ParticipatedProjectDetailActivity, ScrapedCardDetailActivity::class.java)
+            override fun onCardClick(projectIdx: Int, roundIdx: Int, cardIdx: Int) {
+                val intent = Intent(this@ParticipatedProjectDetailActivity, ScrapedCardExpandActivity::class.java)
                 intent.putExtra("projectIdx", projectIdx)
-                intent.putExtra("roundIdx", roundIdx)
-                intent.putExtra("cardId", cardId)
+                intent.putExtra("cardIdx", cardIdx)
+                intent.putExtra("projectName", projectName)
                 startActivity(intent)
             }
         })

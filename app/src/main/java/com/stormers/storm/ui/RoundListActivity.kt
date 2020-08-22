@@ -58,7 +58,7 @@ class RoundListActivity : BaseActivity() {
         //카드 리사이클러뷰 어댑터 초기화
         cardListAdapter = CardListAdapter(true, object : CardListAdapter.OnCardClickListener {
             override fun onCardClick(projectIdx: Int, roundIdx: Int, cardId: Int) {
-                val intent = Intent(this@RoundListActivity, ParticipatedCardDetailActivity::class.java)
+                val intent = Intent(this@RoundListActivity, ScrapedCardExpandActivity::class.java)
                 intent.putExtra("projectIdx", projectIdx)
                 intent.putExtra("roundIdx", roundIdx)
                 intent.putExtra("cardId", cardId)

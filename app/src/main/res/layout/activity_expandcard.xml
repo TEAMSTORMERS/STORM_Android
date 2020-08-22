@@ -32,18 +32,68 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="10dp"
-        android:fontFamily="@font/notosans_bold"
-        android:letterSpacing="-0.03"
-        android:lineSpacingExtra="8sp"
+        style="@style/project_round_info"
         android:text="(10/30)"
-        android:textColor="@color/storm_white"
         android:textSize="16sp"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.13" />
+    
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintlayout_expandcard_roundinfo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:elevation="10dp"
+        android:paddingHorizontal="27dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/stormtoolbar_expandcard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/framelayout_expandcard_fragment">
+
+        <TextView
+            android:id="@+id/textview_expandcard_projectname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="프로젝트 명"
+            style="@style/project_round_info"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/textview_expandcard_roundpurpose"/>
+
+        <TextView
+            android:id="@+id/textview_expandcard_roundpurpose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="라운드 목표"
+            style="@style/project_round_info"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_expandcard_projectname"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/textview_expandcard_roundnumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ROUND N"
+            style="@style/project_round_info"
+            app:layout_constraintTop_toTopOf="@id/textview_expandcard_projectname"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/textview_expandcard_projectname"/>
+
+        <TextView
+            android:id="@+id/textview_expandcard_roundtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="총 00:00 소요"
+            style="@style/project_round_info"
+            app:layout_constraintTop_toTopOf="@id/textview_expandcard_roundpurpose"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/textview_expandcard_roundpurpose"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
         android:id="@+id/framelayout_expandcard_fragment"
