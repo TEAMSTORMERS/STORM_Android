@@ -30,16 +30,17 @@
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />
 
-        <activity
-            android:name=".ui.LoginActivity"
-            android:theme="@style/loginTheme"
-            android:windowSoftInputMode="adjustPan">
+        <activity android:name=".ui.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.LoginActivity"
+            android:theme="@style/loginTheme"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui.AddProjectActivity" />
         <activity
             android:name=".ui.MainActivity"

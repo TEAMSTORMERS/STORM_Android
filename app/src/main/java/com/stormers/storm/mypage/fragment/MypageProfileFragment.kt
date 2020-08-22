@@ -298,6 +298,8 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
                constraint_select_button.visibility = View.VISIBLE
                textview_mypage_name_in_profile.visibility = View.VISIBLE
 
+               selectProfileColor()
+
                selectPurpleButton()
 
                bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
