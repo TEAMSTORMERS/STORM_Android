@@ -16,7 +16,7 @@ import com.stormers.storm.card.network.ResponseCardData
 import com.stormers.storm.card.repository.CardRepository
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.ui.GlobalApplication
-import com.stormers.storm.ui.RoundMeetingExpandActivity
+import com.stormers.storm.ui.RoundFinishCardExpandActivity
 import kotlinx.android.synthetic.main.fragment_roundmeeting.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -36,11 +36,10 @@ class RoundMeetingFragment : BaseFragment(R.layout.fragment_roundmeeting) {
         requestCards()
 
         roundMeetingListAdapter = CardListAdapter(true, object: CardListAdapter.OnCardClickListener {
-            override fun onCardClick(projectIdx: Int, roundIdx: Int, cardId: Int) {
-                val intent = Intent(context, RoundMeetingExpandActivity::class.java)
-                intent.putExtra("projectIdx", projectIdx)
+            override fun onCardClick(projectIdx: Int, roundIdx: Int, cardIdx: Int) {
+                val intent = Intent(context, RoundFinishCardExpandActivity::class.java)
                 intent.putExtra("roundIdx", roundIdx)
-                intent.putExtra("cardId", cardId)
+                intent.putExtra("cardIdx", cardIdx)
                 startActivity(intent)
             }
         })
@@ -109,8 +108,8 @@ class RoundMeetingFragment : BaseFragment(R.layout.fragment_roundmeeting) {
     }
 
     private fun refreshCard() {
-        cardRepository.getAllForList(projectIdx, roundIdx, object: CardRepository.LoadEnumCardsCallback {
-            override fun onCardLoaded(cards: List<CardEnumModel>) {
+        cardRepository.getAllForList(roundIdx, object: CardRepository.LoadCardModel<CardEnumModel> {
+            override fun onCardsLoaded(cards: List<CardEnumModel>) {
                 roundMeetingListAdapter.setList(cards)
             }
 

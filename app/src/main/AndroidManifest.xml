@@ -19,7 +19,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         toos:replace="android:label">
-        <activity android:name=".ui.MemberRoundFinishActivity"></activity>
+        <activity android:name=".ui.RoundCardExpandActivity"></activity>
+        <activity android:name=".ui.ScrapedCardExpandActivity" />
+        <activity android:name=".ui.MemberRoundFinishActivity" />
         <activity android:name=".ui.CompleteSignUpActivity" />
         <activity
             android:name=".ui.SetEmailPasswordActivity"
@@ -55,8 +57,8 @@
         <activity android:name=".ui.RoundSettingActivity" />
         <activity android:name=".ui.RoundStartActivity" />
         <activity android:name=".ui.ScrapCardCollectingActivity" />
-        <activity android:name=".ui.ScrapedCardDetailActivity" />
         <activity android:name=".ui.MypageActivity" />
+        <activity android:name=".ui.RoundFinishCardExpandActivity" />
         <activity
             android:name=".ui.MypageWithdrawalActivity"
             android:windowSoftInputMode="adjustNothing" />

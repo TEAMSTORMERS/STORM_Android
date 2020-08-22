@@ -11,14 +11,14 @@ abstract class CardDao : BaseDao<CardEntity> {
     @Query("SELECT * FROM scraped_card_entity")
     abstract fun getAll(): List<CardEntity>?
 
-    @Query("SELECT * FROM scraped_card_entity WHERE project_idx = :projectIdx")
-    abstract fun getAll(projectIdx: Int): List<CardEntity>?
-
     @Query("SELECT * FROM scraped_card_entity WHERE project_idx = :projectIdx AND round_idx = :roundIdx")
     abstract fun getAll(projectIdx: Int, roundIdx: Int): List<CardEntity>?
 
+    @Query("SELECT * FROM scraped_card_entity WHERE round_idx = :roundIdx")
+    abstract fun getAll(roundIdx: Int): List<CardEntity>
+
     @Query("SELECT * FROM scraped_card_entity WHERE project_idx = :projectIdx AND scraped = ${CardEntity.TRUE}")
-    abstract fun getAllScrapedCard(projectIdx: Int): List<CardEntity>?
+    abstract fun getAllScrapedCard(projectIdx: Int): List<CardEntity>
 
     @Query("SELECT * FROM scraped_card_entity WHERE card_idx = :cardIdx")
     abstract fun get(cardIdx: Int): CardEntity?

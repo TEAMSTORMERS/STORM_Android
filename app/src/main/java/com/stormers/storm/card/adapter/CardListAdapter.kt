@@ -12,6 +12,6 @@ class CardListAdapter(private val showHeart: Boolean, private val listener: OnCa
     }
 
     interface OnCardClickListener {
-        fun onCardClick(projectIdx: Int, roundIdx: Int, cardId: Int)
+        fun onCardClick(projectIdx: Int, roundIdx: Int, cardIdx: Int)
     }
 }

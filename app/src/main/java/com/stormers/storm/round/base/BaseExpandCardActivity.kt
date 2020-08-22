@@ -62,18 +62,18 @@ abstract class BaseExpandCardActivity(private val isScraped: Boolean, @LayoutRes
 
         viewpager = includeLayout.findViewById(onCreateViewpager())
 
-        data = initData(projectIdx, roundIdx, cardIdx)
+        //ata = initData(projectIdx, roundIdx, cardIdx)
 
         initCurrentPage(cardIdx)
 
-        expandCardAdapter.addAll(data)
+        //expandCardAdapter.addAll(data)
 
         initViewPager()
 
         applyButton.setOnClickListener {
 
             val updatedCard = expandCardAdapter.getItem(currentPage)
-            updatedCard.memo = memoEditText.text.toString()
+            //updatedCard.memo = memoEditText.text.toString()
             cardRepository.update(updatedCard)
 
             Toast.makeText(application, "메모가 저장되었습니다.", Toast.LENGTH_SHORT).show()
@@ -122,13 +122,13 @@ abstract class BaseExpandCardActivity(private val isScraped: Boolean, @LayoutRes
         }
     }
 
-    private fun initData(projectIdx: Int, roundIdx: Int, cardId: Int): List<CardEntity>? {
-        return  if (isScraped) {
-            cardRepository.getAllScrapedCard(projectIdx)
-        } else {
-            cardRepository.getAll(projectIdx, roundIdx)
-        }
-    }
+//    private fun initData(projectIdx: Int, roundIdx: Int, cardId: Int): List<CardEntity>? {
+//        return  if (isScraped) {
+//            cardRepository.getScrapAll(projectIdx)
+//        } else {
+//            cardRepository.getAll(projectIdx, roundIdx)
+//        }
+//    }
 
     abstract fun onCreateToolbar() : Int
 

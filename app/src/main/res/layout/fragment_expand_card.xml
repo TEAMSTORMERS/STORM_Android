@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:elevation="10dp"
@@ -25,18 +24,18 @@
         android:background="@null"
         android:elevation="10dp"
         android:src="@drawable/all_roundmeeting_next"
-        app:layout_constraintBottom_toBottomOf="@+id/viewpager_fragment_card_expand"
+        app:layout_constraintBottom_toBottomOf="@+id/viewpager_expandcard"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/viewpager_fragment_card_expand" />
+        app:layout_constraintTop_toTopOf="@+id/viewpager_expandcard" />
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewpager_fragment_card_expand"
+        android:id="@+id/viewpager_expandcard"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:clipChildren="false"
         android:elevation="10dp"
+        app:layout_constraintHeight_percent="0.71"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintDimensionRatio="1:1.094"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -51,18 +50,21 @@
         android:textSize="13sp"
         app:cardCornerRadius="15dp"
         app:cardElevation="7dp"
-        app:layout_constraintDimensionRatio="1:0.52"
-        app:layout_constraintEnd_toEndOf="@+id/viewpager_fragment_card_expand"
-        app:layout_constraintStart_toStartOf="@+id/viewpager_fragment_card_expand"
-        app:layout_constraintTop_toBottomOf="@+id/viewpager_fragment_card_expand">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintWidth_percent="0.75"
+        app:layout_constraintEnd_toEndOf="@+id/viewpager_expandcard"
+        app:layout_constraintHeight_percent="0.20"
+        app:layout_constraintStart_toStartOf="@+id/viewpager_expandcard"
+        app:layout_constraintTop_toBottomOf="@+id/viewpager_expandcard"
+        app:layout_constraintVertical_bias="0.0">
 
         <EditText
             android:id="@+id/edittext_expandcard_memo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@null"
             android:gravity="top|start"
             android:hint="Memo"
-            android:background="@null"
             android:lineSpacingExtra="7sp"
             android:paddingHorizontal="19dp"
             android:paddingVertical="13dp"
@@ -79,7 +81,6 @@
         android:text="저장"
         app:layout_constraintBottom_toBottomOf="@+id/edittext_scrarapview_memo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edittext_scrarapview_memo" />
 

@@ -25,13 +25,18 @@ class UserRepository {
     private val dao: UserDao by lazy { GlobalApplication.databaseManager.userDao() }
 
     fun get(userIdx: Int, callback: GetUserCallback) {
-        val result = dao.get(userIdx)
-        Log.d(TAG, "get: $result")
+        val result = get(userIdx)
         if (result == null) {
             callback.onDataNotAvailable()
         } else {
             callback.onUserLoaded(result)
         }
+    }
+
+    fun get(userIdx: Int): UserModel? {
+        val result = dao.get(userIdx)
+        Log.d(TAG, "get: $result")
+        return result
     }
 
     fun getAll(usersIdx: List<Int>): List<UserModel> {
