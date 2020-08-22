@@ -28,6 +28,6 @@ class ParticipatedCardDetailActivity : BaseExpandCardActivity(false, R.layout.ac
     }
 
     override fun onCreateViewpager(): Int {
-        return R.id.viewpager_fragment_card_expand
+        return R.id.viewpager_expandcard
     }
 }

@@ -56,6 +56,7 @@
         <activity android:name=".ui.ScrapCardCollectingActivity" />
         <activity android:name=".ui.ScrapedCardDetailActivity" />
         <activity android:name=".ui.MypageActivity" />
+        <activity android:name=".ui.RoundFinishCardExpandActivity"/>
         <activity
             android:name=".ui.MypageWithdrawalActivity"
             android:windowSoftInputMode="adjustNothing" />

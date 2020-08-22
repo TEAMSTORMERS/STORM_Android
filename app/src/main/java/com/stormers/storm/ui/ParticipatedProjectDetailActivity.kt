@@ -136,8 +136,8 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         super.onResume()
 
         //스크랩한 카드는 변동이 있을 수 있으니 onResume()에서 목록을 초기화
-        cardRepository.getScrapAllForList(projectIdx, object: CardRepository.LoadEnumCardsCallback {
-            override fun onCardLoaded(cards: List<CardEnumModel>) {
+        cardRepository.getScrapAllForList(projectIdx, object: CardRepository.LoadCardModel<CardEnumModel> {
+            override fun onCardsLoaded(cards: List<CardEnumModel>) {
                 scrapedCardListAdapter.setList(cards)
                 recyclerview_participateddetail_scrapedcard.visibility = View.VISIBLE
                 textview_participateddetail_noscraped.visibility = View.GONE

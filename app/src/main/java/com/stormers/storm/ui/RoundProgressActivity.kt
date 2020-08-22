@@ -17,11 +17,14 @@ class RoundProgressActivity : BaseRoundProgressActivity() {
 
     val cardList = mutableListOf<CardEnumModel>()
 
+    private lateinit var countDownTimer: CountDownTimer
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         //Debug 용도로 라운드 목표를 터치하면 라운드가 종료되도록 함
         this.textView_round_goal.setOnClickListener {
+            countDownTimer.cancel()
             startActivity(Intent(this, HostRoundFinishActivity::class.java))
             finish()
         }
@@ -38,7 +41,7 @@ class RoundProgressActivity : BaseRoundProgressActivity() {
     }
 
     private fun countDown(time:Long) {
-        val countDownTimer = object : CountDownTimer(time, 1000) {
+        countDownTimer = object : CountDownTimer(time, 1000) {
             override fun onTick(p0: Long) {
                 val millis: Long = p0
                 val hms = String.format(

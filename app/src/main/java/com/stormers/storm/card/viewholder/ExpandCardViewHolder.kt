@@ -5,57 +5,59 @@ import android.graphics.drawable.shapes.OvalShape
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseViewHolder
+import com.stormers.storm.card.CardType
 import com.stormers.storm.card.model.CardEntity
+import com.stormers.storm.card.model.CardModel
 import com.stormers.storm.card.repository.CardRepository
 import kotlinx.android.synthetic.main.item_expandcard_card.view.*
 
-class ExpandCardViewHolder(parent: ViewGroup) : BaseViewHolder<CardEntity>(R.layout.item_expandcard_card, parent) {
+class ExpandCardViewHolder(parent: ViewGroup) : BaseViewHolder<CardModel>(R.layout.item_expandcard_card, parent) {
 
     private val cardRepository: CardRepository by lazy { CardRepository() }
 
-    private var isScraped = false
+    override fun bind(data: CardModel) {
 
-    override fun bind(data: CardEntity) {
-
-        //배경 둥글게 자르기
+        //카드 소유자 프로필 나타내기
         itemView.imageview_expandcard_profile.run {
             background = ShapeDrawable(OvalShape())
             clipToOutline = true
+            Glide.with(itemView).load(data.cardOwner.userImg).into(this)
         }
 
-        isScraped = data.isScraped == CardEntity.TRUE
+        //하트 유무 적용
+        applyHeart(data.isScraped)
 
-        applyHeart(isScraped, data)
-
+        //하트 리스너 초기화
         itemView.imagebutton_expandcard_heart.setOnClickListener {
             switchHeart(data)
         }
 
-        if (data.cardType == CardEntity.DRAWING) {
-            Glide.with(itemView).load(data.content).into(itemView.imageview_expandcard_content)
+        //카드 컨텐츠 초기화
+        if (data.cardType == CardType.DRAWING) {
+            Glide.with(itemView).load(data.cardContent).into(itemView.imageview_expandcard_content)
             itemView.textview_expandcard_content.visibility = View.INVISIBLE
         } else {
-            itemView.textview_expandcard_content.text = data.content
+            itemView.textview_expandcard_content.text = data.cardContent
             itemView.imageview_expandcard_content.visibility = View.INVISIBLE
         }
     }
 
-    private fun switchHeart(data: CardEntity) {
-        isScraped = !isScraped
-
-        applyHeart(isScraped, data)
+    private fun switchHeart(data: CardModel) {
+        data.run {
+            isScraped = !isScraped
+            applyHeart(isScraped)
+            cardRepository.update(this)
+        }
     }
 
-    private fun applyHeart(isScraped: Boolean, data: CardEntity) {
+    private fun applyHeart(isScraped: Boolean) {
         if (isScraped) {
             itemView.imagebutton_expandcard_heart.setImageResource(R.drawable.scrapcard_btn_heart_1)
-            data.isScraped = CardEntity.TRUE
         } else {
             itemView.imagebutton_expandcard_heart.setImageResource(R.drawable.h_roundmeeting_btn_heart4)
-            data.isScraped = CardEntity.FALSE
         }
-        cardRepository.update(data)
     }
 }

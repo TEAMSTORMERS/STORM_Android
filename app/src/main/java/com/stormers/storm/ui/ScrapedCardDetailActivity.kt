@@ -3,7 +3,6 @@ package com.stormers.storm.ui
 import android.os.Bundle
 import com.stormers.storm.R
 import com.stormers.storm.round.base.BaseExpandCardActivity
-import kotlinx.android.synthetic.main.activity_scrapcard.*
 
 class ScrapedCardDetailActivity : BaseExpandCardActivity(true, R.layout.activity_scrapcard) {
 
@@ -29,6 +28,6 @@ class ScrapedCardDetailActivity : BaseExpandCardActivity(true, R.layout.activity
     }
 
     override fun onCreateViewpager(): Int {
-        return R.id.viewpager_fragment_card_expand
+        return R.id.viewpager_expandcard
     }
 }

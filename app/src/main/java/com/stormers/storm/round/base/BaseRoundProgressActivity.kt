@@ -36,15 +36,4 @@ open class BaseRoundProgressActivity : BaseActivity() {
 
         textView_project_name.text = GlobalApplication.currentProject!!.projectName
     }
-
-    protected fun startDetailActivity () {
-        val intent = Intent(this, ParticipatedProjectDetailActivity::class.java)
-        intent.putExtra("projectIdx", GlobalApplication.currentProject!!.projectIdx)
-        intent.putExtra("isAfterProject", true)
-
-        SocketClient.disconnectionAndClose()
-
-        startActivity(intent)
-        finish()
-    }
 }

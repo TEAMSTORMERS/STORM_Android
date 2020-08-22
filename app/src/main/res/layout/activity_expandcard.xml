@@ -20,31 +20,42 @@
         android:id="@+id/stormtoolbar_expandcard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="49dp"
         android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.02" />
 
     <TextView
-        android:id="@+id/textview_card_number"
+        android:id="@+id/textview_expandcard_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:elevation="10dp"
         android:fontFamily="@font/notosans_bold"
+        android:letterSpacing="-0.03"
+        android:lineSpacingExtra="8sp"
         android:text="(10/30)"
         android:textColor="@color/storm_white"
-        android:textSize="15sp"
-        android:elevation="10dp"
+        android:textSize="16sp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stormtoolbar_expandcard" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.13" />
 
-    <include
-        android:id="@+id/include_expandcard_viewpager"
-        layout="@layout/view_scrap_card"
+    <FrameLayout
+        android:id="@+id/framelayout_expandcard_fragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="35dp"
-        app:layout_constraintTop_toBottomOf="@+id/textview_card_number" />
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.77"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.87" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

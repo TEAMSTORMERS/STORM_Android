@@ -15,8 +15,8 @@ class RoundMeetingExpandActivity : BaseExpandCardActivity(false, R.layout.activi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        selectedCardCount(textview_card_number)
-        currentCardCount(textview_card_number)
+        selectedCardCount(textview_expandcard_count)
+        currentCardCount(textview_expandcard_count)
     }
 
     override fun onCreateToolbar(): Int {
@@ -24,7 +24,7 @@ class RoundMeetingExpandActivity : BaseExpandCardActivity(false, R.layout.activi
     }
 
     override fun onCreateViewPagerLayout(): Int {
-        return R.id.include_expandcard_viewpager
+        return 0//R.id.include_expandcard_viewpager
     }
 
     override fun onCreateApplyButton(): Int {
@@ -36,7 +36,7 @@ class RoundMeetingExpandActivity : BaseExpandCardActivity(false, R.layout.activi
     }
 
     override fun onCreateViewpager(): Int {
-        return R.id.viewpager_fragment_card_expand
+        return R.id.viewpager_expandcard
     }
 
     var allCardCount = 0

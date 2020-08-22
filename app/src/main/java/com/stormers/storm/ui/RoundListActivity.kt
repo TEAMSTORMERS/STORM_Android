@@ -112,8 +112,8 @@ class RoundListActivity : BaseActivity() {
     }
 
     private fun setCardList(roundIdx: Int) {
-        cardRepository.getAllForList(projectIdx, roundIdx, object: CardRepository.LoadEnumCardsCallback {
-            override fun onCardLoaded(cards: List<CardEnumModel>) {
+        cardRepository.getAllForList(roundIdx, object: CardRepository.LoadCardModel<CardEnumModel> {
+            override fun onCardsLoaded(cards: List<CardEnumModel>) {
                 cardListAdapter.setList(cards)
             }
 
