@@ -19,7 +19,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         toos:replace="android:label">
-        <activity android:name=".ui.ScrapedCardExpandActivity"></activity>
+        <activity android:name=".ui.RoundCardExpandActivity"></activity>
+        <activity android:name=".ui.ScrapedCardExpandActivity" />
         <activity android:name=".ui.MemberRoundFinishActivity" />
         <activity android:name=".ui.CompleteSignUpActivity" />
         <activity

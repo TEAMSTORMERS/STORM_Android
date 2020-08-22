@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.viewpager2.widget.ViewPager2
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseFragment
@@ -91,6 +92,8 @@ class ExpandCardFragment: BaseFragment(R.layout.fragment_expand_card) {
             if (currentMemo != currentCard.cardMemo) {
                 currentCard.cardMemo = currentMemo
                 cardRepository.update(currentCard)
+
+                Toast.makeText(context, "메모가 저장되었습니다.", Toast.LENGTH_SHORT).show()
             }
         }
     }
