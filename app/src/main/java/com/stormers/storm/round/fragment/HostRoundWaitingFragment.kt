@@ -11,7 +11,7 @@ import com.stormers.storm.network.SocketClient
 import com.stormers.storm.project.network.RequestProject
 import com.stormers.storm.round.base.BaseWaitingFragment
 import com.stormers.storm.ui.GlobalApplication
-import com.stormers.storm.ui.RoundSettingActivity
+import com.stormers.storm.ui.HostRoundSettingActivity
 import kotlinx.android.synthetic.main.activity_round_setting.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -44,7 +44,7 @@ class HostRoundWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_sta
 
     private fun initActivityButton() {
 
-        activityButton = (activity as RoundSettingActivity).stormButton_ok_host_round_setting
+        activityButton = (activity as HostRoundSettingActivity).stormButton_ok_host_round_setting
 
         activityButton.setOnClickListener {
 

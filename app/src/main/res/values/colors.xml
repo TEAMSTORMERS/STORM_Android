@@ -21,4 +21,6 @@
     <color name="storm_lightyellow">#fff4dd</color>
 
     <color name="gray_copy_button">#d5d5d5</color>
+
+    <color name="storm_copy_code_background">#c9c9c9</color>
 </resources>

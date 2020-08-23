@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.RoundSettingActivity">
+    tools:context=".ui.HostRoundSettingActivity">
 
     <ImageView
         android:id="@+id/imageView_background_red_radius"
@@ -76,8 +76,10 @@
         app:layout_constraintTop_toTopOf="@+id/constraintLayout_fragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintlayout_roundsetting_projectcard"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:foreground="?android:selectableItemBackground"
             android:background="@drawable/card_rectangular">
 
             <TextView
@@ -87,18 +89,22 @@
                 android:text="프로젝트 제목이 들어갑니다"
                 android:textFontWeight="700"
                 android:textSize="15sp"
-                app:layout_constraintBottom_toTopOf="@id/textview_projectcard_describe"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.47"
                 app:layout_constraintVertical_chainStyle="packed" />
 
             <TextView
                 android:id="@+id/textview_projectcard_describe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="탭하여 참여코드 복사하기"
-                android:textSize="8sp"
+                android:text="참여 코드 복사"
+                android:textSize="12sp"
+                android:lineHeight="18sp"
+                android:paddingHorizontal="10dp"
+                android:background="@drawable/background_textview_codecopy"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
