@@ -10,6 +10,8 @@ import android.view.View
 import android.widget.Toast
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
+import com.stormers.storm.customview.dialog.StormDialogBuilder
+import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.network.SimpleResponse
 import com.stormers.storm.network.SocketClient
@@ -26,12 +28,14 @@ open class BaseRoundWaitingActivity : BaseActivity() {
         private const val TAG = "BaseRoundWaitingActivity"
     }
 
+    private val exitDialogButtons: ArrayList<StormDialogButton> by lazy { ArrayList<StormDialogButton>() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_round_setting)
 
         stormtoolbar_roundsetting.setExitButton(View.OnClickListener {
-            exitRound()
+            showExitDialog()
         })
 
         //상단 카드 설정
@@ -48,6 +52,7 @@ open class BaseRoundWaitingActivity : BaseActivity() {
         }
     }
 
+    //라운드 나가기 통신
     private fun exitRound() {
         RetrofitClient.create(RequestRound::class.java).exitRound(GlobalApplication.userIdx,
             GlobalApplication.currentProject!!.projectIdx, GlobalApplication.currentRound!!.roundIdx)
@@ -64,6 +69,7 @@ open class BaseRoundWaitingActivity : BaseActivity() {
                         if (response.body()!!.success) {
                             Log.d(TAG, "exitRound: Success.")
 
+                            //소켓으로 나감을 알림
                             leaveSocket()
 
                             //종료
@@ -76,6 +82,24 @@ open class BaseRoundWaitingActivity : BaseActivity() {
                     }
                 }
             })
+    }
+
+    //나가기 다이얼로그 띄우기
+    private fun showExitDialog() {
+        if (exitDialogButtons.isEmpty()) {
+            exitDialogButtons.add(StormDialogButton("취소", true, null))
+            exitDialogButtons.add(StormDialogButton("확인", true, object : StormDialogButton.OnClickListener {
+                override fun onClick() {
+                    exitRound()
+                }
+            }))
+        }
+
+        StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, "프로젝트를 나가시겠습니까?")
+            .setHorizontalArray(exitDialogButtons)
+            .build()
+            .show(supportFragmentManager, "exit_round")
+
     }
 
     private fun leaveSocket() {
