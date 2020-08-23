@@ -8,6 +8,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseViewHolder
+import java.lang.StringBuilder
 
 class ParticipantViewHolder(parent: ViewGroup): BaseViewHolder<UserModel>(R.layout.item_participant_with_profile, parent) {
     private val imageViewParticipantItemProfile = itemView.findViewById<ImageView>(
@@ -24,6 +25,13 @@ class ParticipantViewHolder(parent: ViewGroup): BaseViewHolder<UserModel>(R.layo
         Glide.with(itemView).load(data.userImg).into(imageViewParticipantItemProfile)
 
         //이름 적용
-        textViewParticipantItemName.text = data.userName
+        val name = StringBuilder(data.userName)
+
+        //호스트라면
+        if (data.isHost == 1) {
+            name.append(" (HOST)")
+        }
+        //반영
+        textViewParticipantItemName.text = name.toString()
     }
 }
