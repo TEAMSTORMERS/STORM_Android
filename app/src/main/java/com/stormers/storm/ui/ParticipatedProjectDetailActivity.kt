@@ -146,6 +146,7 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
 
             override fun onDataNotAvailable() {
                 recyclerview_participateddetail_scrapedcard.visibility = View.GONE
+                constraintlayout_participatedproject_seemore.visibility = View.GONE
                 textview_participateddetail_noscraped.visibility = View.VISIBLE
             }
         })
