@@ -9,10 +9,10 @@
 
 
     <TextView
-        android:id="@+id/textview_round_setting_complete"
+        android:id="@+id/textview_hostwaiting_roundnumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ROUND 설정완료"
+        android:text="ROUND n 설정완료"
         android:textColor="@color/storm_gray"
         android:textFontWeight="700"
         android:textSize="15sp"
@@ -26,57 +26,56 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview_roundwaiting_rulereminder"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="22dp"
-        android:clickable="true"
         android:foreground="?android:selectableItemBackground"
         app:cardBackgroundColor="@color/storm_red"
         app:cardCornerRadius="8dp"
-        app:layout_constraintDimensionRatio="1:0.24"
-        app:layout_constraintBottom_toTopOf="@id/round_purpose"
-        app:layout_constraintEnd_toEndOf="@+id/textview_round_setting_complete"
-        app:layout_constraintStart_toStartOf="@+id/textview_round_setting_complete"
-        app:layout_constraintTop_toBottomOf="@+id/textview_round_setting_complete">
+        app:layout_constraintDimensionRatio="1:0.27"
+        app:layout_constraintBottom_toTopOf="@id/textview_hostwaiting_roundpurpose"
+        app:layout_constraintEnd_toEndOf="@+id/textview_hostwaiting_roundnumber"
+        app:layout_constraintStart_toStartOf="@+id/textview_hostwaiting_roundnumber"
+        app:layout_constraintTop_toBottomOf="@+id/textview_hostwaiting_roundnumber">
 
 
         <TextView
             android:id="@+id/textview_checkrules_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="15dp"
             android:text="브레인스토밍 룰 확인"
-            android:textSize="11sp"
-            android:layout_margin="15dp"
             android:textColor="@color/storm_white"
             android:textFontWeight="700"
-            android:layout_gravity="center" />
+            android:textSize="11sp" />
 
 
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/round_purpose"
+        android:id="@+id/textview_hostwaiting_roundpurpose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="ROUND 목표"
         android:textColor="@color/storm_gray"
         android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@id/round_time"
+        app:layout_constraintBottom_toTopOf="@id/textview_hostwaiting_roundtime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardview_roundwaiting_rulereminder" />
 
     <TextView
-        android:id="@+id/round_time"
+        android:id="@+id/textview_hostwaiting_roundtime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="총 10분 예정"
         android:textColor="@color/storm_gray"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@id/announce_click_startbutton"
-        app:layout_constraintEnd_toEndOf="@+id/round_purpose"
-        app:layout_constraintStart_toStartOf="@+id/round_purpose"
-        app:layout_constraintTop_toBottomOf="@+id/round_purpose" />
+        app:layout_constraintEnd_toEndOf="@+id/textview_hostwaiting_roundpurpose"
+        app:layout_constraintStart_toStartOf="@+id/textview_hostwaiting_roundpurpose"
+        app:layout_constraintTop_toBottomOf="@+id/textview_hostwaiting_roundpurpose" />
 
     <TextView
         android:id="@+id/announce_click_startbutton"
@@ -88,7 +87,7 @@
         app:layout_constraintBottom_toTopOf="@id/include_waitingproject_participant"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/round_time" />
+        app:layout_constraintTop_toBottomOf="@id/textview_hostwaiting_roundtime" />
 
 
     <include

@@ -30,7 +30,7 @@ import com.stormers.storm.user.UserModel
 import com.stormers.storm.user.UserRepository
 import com.stormers.storm.util.MarginDecoration
 import io.socket.emitter.Emitter
-import kotlinx.android.synthetic.main.fragment_round_setting_waiting_member.view.*
+import kotlinx.android.synthetic.main.fragment_memberwaiting.view.*
 import kotlinx.android.synthetic.main.layout_list_of_participant.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -55,10 +55,6 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
 
     private lateinit var loadingDialog: StormDialog
 
-    private lateinit var roundTimeTextView : TextView
-
-    private lateinit var roundPurposeTextView : TextView
-
     protected var isFirstRound = true
 
     private var mActivity: Activity? = null
@@ -74,9 +70,6 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
         super.onViewCreated(view, savedInstanceState)
 
          isFirstRound = arguments?.getBoolean("isFirstRound") ?: true
-
-        //뷰 초기화
-        initView(view)
 
         //참가자가 들어오면 갱신
         registerParticipantsSocket()
@@ -103,11 +96,6 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
         SocketClient.sendEvent(SocketClient.JOIN_ROOM, GlobalApplication.currentProject!!.projectCode!!)
 
         Log.d(TAG, "[socket] joinRoom: projectCode: ${GlobalApplication.currentProject!!.projectCode!!}")
-    }
-
-    private fun initView(view: View) {
-        roundPurposeTextView = view.findViewById(R.id.round_purpose)
-        roundTimeTextView = view.findViewById(R.id.round_time)
     }
 
     private fun initRuleReminder(view: View) {
@@ -181,16 +169,6 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
                     }
                 }
             })
-    }
-
-    protected fun initRoundInfo(roundPurpose: String, roundTime: Int) {
-        val time = StringBuilder()
-        time.append("총 ")
-            .append(roundTime)
-            .append("분 예정")
-
-        roundTimeTextView.text = time.toString()
-        roundPurposeTextView.text = roundPurpose
     }
 
     protected fun startRound() {
