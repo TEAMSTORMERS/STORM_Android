@@ -83,9 +83,6 @@ class MemberRoundFinishActivity : BaseRoundFinishActivity() {
     }
 
     private fun goToNextRound() {
-        SocketClient.sendEvent(SocketClient.ENTER_NEXT_ROUND, GlobalApplication.currentProject!!.projectCode!!)
-        Log.d(TAG, "[socket] enterNextRound: ${GlobalApplication.currentProject!!.projectCode!!}")
-
         val intent = Intent(this@MemberRoundFinishActivity, MemberRoundWaitingActivity::class.java)
         intent.putExtra("isFirstRound", false)
         startActivity(intent)

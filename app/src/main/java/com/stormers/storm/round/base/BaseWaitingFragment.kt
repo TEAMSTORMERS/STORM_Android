@@ -84,6 +84,8 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
         //라운드에 입장
         if (isFirstRound) {
             joinRoom()
+        } else {
+            enterNextRound()
         }
 
         loadingDialog = StormDialogBuilder(StormDialogBuilder.LOADING_LOGO, "5초 후 라운드가 시작합니다").build()
@@ -97,6 +99,11 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
 
         //룰 리마인더 초기화
         initRuleReminder(view)
+    }
+
+    private fun enterNextRound() {
+        SocketClient.sendEvent(SocketClient.ENTER_NEXT_ROUND, GlobalApplication.currentProject!!.projectCode!!)
+        Log.d(TAG, "[socket] enterNextRound: ${GlobalApplication.currentProject!!.projectCode!!}")
     }
 
     private fun joinRoom() {
