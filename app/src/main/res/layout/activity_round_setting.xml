@@ -76,8 +76,10 @@
         app:layout_constraintTop_toTopOf="@+id/constraintLayout_fragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintlayout_roundsetting_projectcard"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:foreground="?android:selectableItemBackground"
             android:background="@drawable/card_rectangular">
 
             <TextView
