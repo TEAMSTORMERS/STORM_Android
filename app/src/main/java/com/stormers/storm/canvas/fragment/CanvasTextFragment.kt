@@ -67,6 +67,9 @@ class CanvasTextFragment : BaseCanvasFragment(TEXT_MODE, R.layout.view_addcard_e
     }
 
     private fun saveCard(content: String) {
-        (mActivity as RoundProgressActivity).cardList.add(CardEnumModel(0, projectIdx, roundIdx, false, CardType.TEXT, content))
+        val card = CardEnumModel(0, projectIdx, roundIdx, false, CardType.TEXT, content)
+        if (mActivity != null) {
+            (mActivity as RoundProgressActivity).cardList.add(card)
+        }
     }
 }
