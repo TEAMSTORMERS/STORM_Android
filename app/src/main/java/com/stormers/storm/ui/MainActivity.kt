@@ -108,7 +108,7 @@ class MainActivity : BaseActivity() {
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
                 showLookupProject(edittext_input_participate_code.text.toString())
             }
-            return@setOnKeyListener true
+            return@setOnKeyListener false
         }
     }
 
