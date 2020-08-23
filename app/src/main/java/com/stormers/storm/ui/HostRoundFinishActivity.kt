@@ -65,7 +65,7 @@ class HostRoundFinishActivity : BaseRoundFinishActivity() {
         SocketClient.sendEvent(SocketClient.PREPARE_NEXT_ROUND, GlobalApplication.currentProject!!.projectCode!!)
         Log.d(TAG, "[socket] prepareNextRound: ${GlobalApplication.currentProject!!.projectCode!!}")
 
-        startActivity(Intent(this@HostRoundFinishActivity, RoundSettingActivity::class.java))
+        startActivity(Intent(this@HostRoundFinishActivity, HostRoundSettingActivity::class.java))
         finish()
     }
 

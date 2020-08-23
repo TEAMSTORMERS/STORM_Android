@@ -27,11 +27,11 @@
 
 
             <TextView
-                android:id="@+id/textview_readydone"
+                android:id="@+id/textview_memberwaiting_roundnumber"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="29dp"
-                android:text="ROUND 준비 완료"
+                android:text="ROUND N"
                 android:textColor="@color/storm_gray"
                 android:textFontWeight="700"
                 android:textSize="15sp"
@@ -45,14 +45,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginTop="22dp"
-                android:clickable="true"
                 android:foreground="?android:selectableItemBackground"
                 app:cardBackgroundColor="@color/storm_red"
                 app:cardCornerRadius="8dp"
-                app:layout_constraintDimensionRatio="1:0.24"
+                app:layout_constraintDimensionRatio="1:0.27"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textview_readydone">
+                app:layout_constraintTop_toBottomOf="@+id/textview_memberwaiting_roundnumber">
 
 
                 <TextView
@@ -70,11 +69,11 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/round_purpose"
+                android:id="@+id/textview_memberwaiting_roundpurpose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="호스트가 설정을 완료하면,"
+                android:text="Round 목표"
                 android:textColor="@color/storm_gray"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -82,15 +81,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/cardview_roundwaiting_rulereminder" />
 
             <TextView
-                android:id="@+id/round_time"
+                android:id="@+id/textview_memberwaiting_roundtime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ROUND 정보를 확인할 수 있습니다."
+                android:text="총 n분 예정"
                 android:textColor="@color/storm_gray"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/round_purpose" />
+                app:layout_constraintTop_toBottomOf="@+id/textview_memberwaiting_roundpurpose" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

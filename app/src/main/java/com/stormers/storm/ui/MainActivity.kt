@@ -162,7 +162,7 @@ class MainActivity : BaseActivity() {
 
             lookupDialogListener = object : StormDialogButton.OnClickListener {
                 override fun onClick() {
-                    enterProject(projectIdx, projectCode)
+                    enterProject(projectIdx, projectName, projectComment, projectCode)
                 }
             }
         }
@@ -196,7 +196,7 @@ class MainActivity : BaseActivity() {
             .show(supportFragmentManager, "lookup_dialog")
     }
 
-    private fun enterProject(projectIdx: Int, projectCode: String) {
+    private fun enterProject(projectIdx: Int, projectName: String, projectComment: String, projectCode: String) {
         Log.d(TAG, "enterProject: userIdx: ${GlobalApplication.userIdx}, projectIdx: $projectIdx")
         requestProject.enterProject(EnterProjectModel(GlobalApplication.userIdx, projectIdx))
             .enqueue(object : Callback<ResponseJoinProjectUsingCode> {
@@ -216,7 +216,7 @@ class MainActivity : BaseActivity() {
                             SocketClient.connection()
 
                             GlobalApplication.currentProject = ProjectModel(projectIdx, DateUtils.getToday(), projectCode,
-                                null, null, null, null)
+                                projectName, projectComment, null, null)
 
                             GlobalApplication.currentRound = RoundModel(roundIdx, null, null, null, null)
 

@@ -3,30 +3,26 @@ package com.stormers.storm.round.fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.TextView
-import com.airbnb.lottie.LottieAnimationView
 import com.stormers.storm.R
 import com.stormers.storm.customview.StormButton
 import com.stormers.storm.network.RetrofitClient
-import com.stormers.storm.network.SimpleResponse
 import com.stormers.storm.network.SocketClient
 import com.stormers.storm.round.base.BaseWaitingFragment
-import com.stormers.storm.round.model.RoundEnterModel
-import com.stormers.storm.round.model.RoundEntity
 import com.stormers.storm.round.model.RoundModel
 import com.stormers.storm.round.network.RequestRound
 import com.stormers.storm.round.network.response.ResponseRoundInfoModel
 import com.stormers.storm.ui.GlobalApplication
 import com.stormers.storm.ui.MemberRoundWaitingActivity
-import com.stormers.storm.user.UserModel
 import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_round_setting.*
+import kotlinx.android.synthetic.main.fragment_memberwaiting.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.StringBuilder
 
 
-class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_setting_waiting_member) {
+class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_memberwaiting) {
 
     private lateinit var activityButton: StormButton
 
@@ -81,7 +77,7 @@ class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_settin
                             GlobalApplication.currentRound = RoundModel(roundIdx, it.roundNumber, it.roundPurpose, it.roundTime, null)
 
                             //라운드 정보를 뷰에 초기화
-                            initRoundInfo(it.roundPurpose, it.roundTime)
+                            initRoundInfo(it.roundPurpose, it.roundTime, it.roundNumber)
                         }
                     } else {
                         Log.d(TAG, "getRoundInfo: Not success, ${response.body()!!.message}")
@@ -91,5 +87,11 @@ class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_settin
                 }
             }
         })
+    }
+
+    private fun initRoundInfo(roundPurpose: String, roundTime: Int, roundNumber: Int) {
+        textview_memberwaiting_roundpurpose.text = StringBuilder("총 ").append(roundTime).append("분 예정").toString()
+        textview_memberwaiting_roundtime.text = roundPurpose
+        textview_memberwaiting_roundnumber.text = StringBuilder("Round ").append(roundNumber).toString()
     }
 }

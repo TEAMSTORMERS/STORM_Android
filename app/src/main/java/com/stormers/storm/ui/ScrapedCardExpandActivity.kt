@@ -35,7 +35,9 @@ class ScrapedCardExpandActivity : BaseActivity(), ExpandCardFragment.OnCardPageC
         val selectedProjectIdx = intent.getIntExtra("projectIdx", -1)
         val selectedProjectName = intent.getStringExtra("projectName")
 
-        initView(selectedProjectName)
+        initProjectInfo(selectedProjectName)
+
+        initRoundInfoOfCard(selectedCardIdx)
 
         goToFragment(ExpandCardFragment::class.java, Bundle().apply {
             if (selectedCardIdx != -1) {
@@ -49,30 +51,33 @@ class ScrapedCardExpandActivity : BaseActivity(), ExpandCardFragment.OnCardPageC
     }
 
     override fun onCardPageChanged(position: Int, totalCount: Int, cardModel: CardModel) {
-        cardRepository.get(cardModel.cardIdx, object : CardRepository.GetCardModel<CardEntity> {
-            override fun onCardLoaded(card: CardEntity) {
-                getRoundData(card.roundIdx)
-            }
-
-            @SuppressLint("LongLogTag")
-            override fun onDataNotAvailable() {
-                Log.e(TAG, "onCardPageChanged: No card data. cardIdx (${cardModel.cardIdx}")
-            }
-        })
-
+        initRoundInfoOfCard(cardModel.cardIdx)
     }
 
     override fun initFragmentId(): Int? {
         return R.id.framelayout_expandcard_fragment
     }
 
-    private fun initView(projectName: String?) {
+    private fun initProjectInfo(projectName: String?) {
         textview_expandcard_count.visibility = View.GONE
 
         textview_expandcard_projectname.text = projectName
     }
 
-    private fun getRoundData(roundIdx: Int) {
+    private fun initRoundInfoOfCard(cardIdx: Int) {
+        cardRepository.get(cardIdx, object : CardRepository.GetCardModel<CardEntity> {
+            override fun onCardLoaded(card: CardEntity) {
+                initRoundInfo(card.roundIdx)
+            }
+
+            @SuppressLint("LongLogTag")
+            override fun onDataNotAvailable() {
+                Log.e(TAG, "onCardPageChanged: No card data. cardIdx (${cardIdx}")
+            }
+        })
+    }
+
+    private fun initRoundInfo(roundIdx: Int) {
         if (cacheRoundData.containsKey(roundIdx)) {
             setRoundData(cacheRoundData[roundIdx]!!)
             return
