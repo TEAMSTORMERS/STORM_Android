@@ -18,7 +18,7 @@ import com.stormers.storm.round.model.RoundModel
 import com.stormers.storm.round.model.RoundSettingModel
 import com.stormers.storm.ui.GlobalApplication
 import kotlinx.android.synthetic.main.activity_round_setting.*
-import com.stormers.storm.ui.RoundSettingActivity
+import com.stormers.storm.ui.HostRoundSettingActivity
 import kotlinx.android.synthetic.main.fragment_host_round_setting.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -92,7 +92,7 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
     }
 
     private fun initActivityButton() {
-        activityButton = (activity as RoundSettingActivity).stormButton_ok_host_round_setting
+        activityButton = (activity as HostRoundSettingActivity).stormButton_ok_host_round_setting
 
         activityButton.setText("확인")
 

@@ -4,20 +4,23 @@ import android.os.Bundle
 import android.view.View
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
-import com.stormers.storm.round.fragment.HostRoundWaitingFragment
+import com.stormers.storm.round.fragment.HostRoundSettingFragment
 import kotlinx.android.synthetic.main.activity_round_setting.*
 
-class RoundStartActivity : BaseActivity() {
+class HostRoundSettingActivity : BaseActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_round_setting)
 
         stormtoolbar_roundsetting.setExitButton(View.OnClickListener {
-            //Todo: 라운드 나가기
+            //Todo: 프로젝트 나가기
         })
 
-        goToFragment(HostRoundWaitingFragment::class.java, null)
+        //상단 카드 설정
+        textview_projectcard_title.text = GlobalApplication.currentProject!!.projectName
 
+        goToFragment(HostRoundSettingFragment::class.java, null)
     }
 
     override fun initFragmentId(): Int? {
