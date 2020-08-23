@@ -80,7 +80,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:foreground="?android:selectableItemBackground"
-            android:background="@drawable/card_rectangular">
+            android:background="@drawable/card_asset">
+            
 
             <TextView
                 android:id="@+id/textview_projectcard_title"
