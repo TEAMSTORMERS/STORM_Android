@@ -46,13 +46,12 @@ class ScrapCardCollectingActivity : AppCompatActivity() {
 
         //불러온 세팅값 반영
         textView_project_name_scrap_collect.text = projectName
-        initScrapedCardCountInfo()
 
-        getScrapedCard()
+        initRecyclerView()
 
     }
 
-    private fun getScrapedCard() {
+    private fun initRecyclerView() {
         //카드 리사이클러뷰 어댑터 초기화
         scrapCollectListAdapter = CardListAdapter(true, object: CardListAdapter.OnCardClickListener {
             override fun onCardClick(projectIdx: Int, roundIdx: Int, cardIdx: Int) {
@@ -81,8 +80,14 @@ class ScrapCardCollectingActivity : AppCompatActivity() {
 
     private fun setScrapedCardList() {
         cardRepository.getScrapAllForList(projectIdx, object: CardRepository.LoadCardModel<CardEnumModel> {
+            //카드를 성공적으로 불러왔을 때
             override fun onCardsLoaded(cards: List<CardEnumModel>) {
+                //어댑터에 들어갈 데이터를 초기화
                 scrapCollectListAdapter.setList(cards)
+
+                //총 몇개의 카드인지 초기화
+                textView_card_count_scrap_collect.text = StringBuilder("총 ")
+                    .append(cards.size).append("개의 카드").toString()
             }
 
             @SuppressLint("LongLogTag")
@@ -90,12 +95,6 @@ class ScrapCardCollectingActivity : AppCompatActivity() {
                 Log.e(TAG, "No data in DB. projectIdx: $projectIdx")
             }
         })
-    }
-
-    private fun initScrapedCardCountInfo() {
-        val cardCount = cardRepository.getScrapAll(projectIdx).size
-        textView_card_count_scrap_collect.text = StringBuilder("총 ")
-            .append(cardCount).append("개의 카드").toString()
     }
 
 }
