@@ -61,7 +61,7 @@
         <activity android:name=".ui.RoundFinishCardExpandActivity" />
         <activity
             android:name=".ui.MypageWithdrawalActivity"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui.MypageWithdrawalCheckActivity" />
         <activity
             android:name=".ui.SignUpActivity"
