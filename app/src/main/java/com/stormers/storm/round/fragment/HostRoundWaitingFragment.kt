@@ -13,12 +13,14 @@ import com.stormers.storm.round.base.BaseWaitingFragment
 import com.stormers.storm.ui.GlobalApplication
 import com.stormers.storm.ui.RoundSettingActivity
 import kotlinx.android.synthetic.main.activity_round_setting.*
+import kotlinx.android.synthetic.main.fragment_hostwaiting.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.StringBuilder
 
 
-class HostRoundWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_start) {
+class HostRoundWaitingFragment : BaseWaitingFragment(R.layout.fragment_hostwaiting) {
 
     private lateinit var activityButton: StormButton
 
@@ -31,10 +33,18 @@ class HostRoundWaitingFragment : BaseWaitingFragment(R.layout.fragment_round_sta
         }
 
         //라운드 정보 초기화
-        initRoundInfo(GlobalApplication.currentRound!!.roundPurpose!!, GlobalApplication.currentRound!!.roundTime!!)
+        GlobalApplication.currentRound?.let {
+            initRoundInfo(it.roundPurpose!!, it.roundTime!!, it.roundNumber!!)
+        }
 
         //확인 버튼 초기화
         initActivityButton()
+    }
+
+    private fun initRoundInfo(roundPurpose: String, roundTime: Int, roundNumber: Int) {
+        textview_hostwaiting_roundpurpose.text = StringBuilder("총 ").append(roundTime).append("분 예정").toString()
+        textview_hostwaiting_roundtime.text = roundPurpose
+        textview_hostwaiting_roundnumber.text = StringBuilder("Round ").append(roundNumber).append(" 설정 완료").toString()
     }
 
     private fun startRoundAgain() {
