@@ -1,15 +1,20 @@
 package com.stormers.storm.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.network.RetrofitClient
+import com.stormers.storm.project.ProjectRepository
 import com.stormers.storm.project.adapter.ProjectPreviewAdapter
+import com.stormers.storm.project.model.ProjectPreviewModel
 import com.stormers.storm.project.network.response.ResponseParticipatedProject
 import com.stormers.storm.project.network.RequestProject
 import com.stormers.storm.util.MarginDecoration
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_participated_project_list.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -17,16 +22,19 @@ import retrofit2.Response
 
 class ParticipatedProjectListActivity : BaseActivity() {
 
+    companion object {
+        private const val TAG = "ParticipatedProjectListActivity"
+    }
+
     private lateinit var projectPreviewAdapter : ProjectPreviewAdapter
+
+    private val projectRepository: ProjectRepository by lazy { ProjectRepository.getInstance() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_participated_project_list)
 
-        stormtoolbar_participatedproject.run {
-            setBackButton()
-            setMyPageButton()
-        }
+        stormtoolbar_participatedproject.setBackButton()
         
         projectPreviewAdapter = ProjectPreviewAdapter(false, object:
             ProjectPreviewAdapter.OnProjectClickListener {
@@ -47,21 +55,15 @@ class ParticipatedProjectListActivity : BaseActivity() {
     }
 
     private fun loadProjectsDatas() {
-        RetrofitClient.create(RequestProject::class.java).requestParticipatedProject(preference.getUserIdx()!!)
-            .enqueue(object: Callback<ResponseParticipatedProject> {
-                override fun onFailure(call: Call<ResponseParticipatedProject>, t: Throwable) {
-                    Log.d("requestParticipatedPj", "fail : ${t.message}")
-                }
+        projectRepository.getPreviewAll(object: ProjectRepository.LoadProjectPreviewCallback {
+            override fun onPreviewLoaded(projects: List<ProjectPreviewModel>) {
+                projectPreviewAdapter.setList(projects)
+            }
 
-                override fun onResponse(call: Call<ResponseParticipatedProject>, response: Response<ResponseParticipatedProject>) {
-                    if (response.isSuccessful) {
-                        if (response.body()!!.success) {
-                            val data = response.body()!!.data
-
-                            //projectPreviewAdapter.addAll(data)
-                        }
-                    }
-                }
-            })
+            @SuppressLint("LongLogTag")
+            override fun onDataNotAvailable() {
+                Log.e(TAG, "No project data.")
+            }
+        })
     }
 }
