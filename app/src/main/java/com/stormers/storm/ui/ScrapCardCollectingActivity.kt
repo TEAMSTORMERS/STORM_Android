@@ -1,14 +1,35 @@
 package com.stormers.storm.ui
 
+import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.stormers.storm.R
 import com.stormers.storm.card.adapter.CardListAdapter
+import com.stormers.storm.card.model.CardEnumModel
+import com.stormers.storm.card.repository.CardRepository
+import com.stormers.storm.customview.dialog.StormDialog.Companion.TAG
+import com.stormers.storm.util.MarginDecoration
+import kotlinx.android.synthetic.main.activity_participated_project_detail.*
 import kotlinx.android.synthetic.main.activity_scrapcard_collecting.*
 
 class ScrapCardCollectingActivity : AppCompatActivity() {
 
+    companion object {
+        private const val TAG = "ScrapCardCollectingActivity"
+    }
+
     lateinit var scrapCollectListAdapter: CardListAdapter
+
+    private val cardRepository: CardRepository by lazy { CardRepository() }
+
+    private var projectIdx = -1
+
+    private var projectName: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,71 +40,61 @@ class ScrapCardCollectingActivity : AppCompatActivity() {
             setMyPageButton()
         }
 
-        //scrapCollectAdapter = CardAdapter()
-        //RecyclerView_scrap_collect.adapter = scrapCollectAdapter
-        //scrapCollectAdapter.addAll(loadCardDataOfRound())
+        //필요한 세팅값 불러오기
+        projectIdx = intent.getIntExtra("projectIdx", -1)
+        projectName = intent.getStringExtra("projectName")
+
+        //불러온 세팅값 반영
+        textView_project_name_scrap_collect.text = projectName
+
+        initRecyclerView()
 
     }
 
-//    private fun loadCardDataOfRound(): MutableList<CardModel> {
-//        val data = mutableListOf<CardModel>()
-//        val gyu = UserModel(
-//            "https://avatars2.githubusercontent.com/u/57310034?s=460&u=3b6de8b863bdc2b902bf6cfe080bc8d34e93c348&v=4",
-//            "성규"
-//        )
-//        val piece = UserModel(
-//            "https://avatars0.githubusercontent.com/u/56873136?s=460&v=4",
-//            "평화"
-//        )
-//        val one = UserModel(
-//            "https://avatars2.githubusercontent.com/u/52772787?s=460&u=4a9f12ef174f88ec143b70f4fcaaa8f1b2d87b43&v=4",
-//            "희원"
-//        )
-//
-//
-//        data.apply {
-//            add(
-//                CardModel(
-//                    "https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4",
-//                    true,
-//                    gyu,
-//                    null
-//                )
-//            )
-//            add(
-//                CardModel(
-//                    "https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4",
-//                    true,
-//                    piece,
-//                    null
-//                )
-//            )
-//            add(
-//                CardModel(
-//                    "https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4",
-//                    true,
-//                    one,
-//                    null
-//                )
-//            )
-//            add(
-//                CardModel(
-//                    "https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4",
-//                    true,
-//                    gyu,
-//                    null
-//                )
-//            )
-//            add(
-//                CardModel(
-//                    "https://avatars2.githubusercontent.com/u/67626159?s=400&u=ec57a4e02436867cedb86350cc9e4d33d694b2f4&v=4",
-//                    true,
-//                    piece,
-//                    null
-//                )
-//            )
-//        }
-//
-//        return data
-//    }
+    private fun initRecyclerView() {
+        //카드 리사이클러뷰 어댑터 초기화
+        scrapCollectListAdapter = CardListAdapter(true, object: CardListAdapter.OnCardClickListener {
+            override fun onCardClick(projectIdx: Int, roundIdx: Int, cardIdx: Int) {
+                val intent = Intent(this@ScrapCardCollectingActivity, ScrapedCardExpandActivity::class.java)
+                intent.putExtra("projectIdx", projectIdx)
+                intent.putExtra("cardIdx", cardIdx)
+                intent.putExtra("projectName", projectName)
+
+                startActivity(intent)
+            }
+        })
+
+        //스크랩한 카드 리사이클러뷰 초기화
+        RecyclerView_scrap_collect.run {
+            adapter = scrapCollectListAdapter
+            addItemDecoration(MarginDecoration(this@ScrapCardCollectingActivity, 2, 20, 20))
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        //스크랩한 카드가 변경될 수 있으므로 여기서 갱신
+        setScrapedCardList()
+    }
+
+    private fun setScrapedCardList() {
+        cardRepository.getScrapAllForList(projectIdx, object: CardRepository.LoadCardModel<CardEnumModel> {
+            //카드를 성공적으로 불러왔을 때
+            override fun onCardsLoaded(cards: List<CardEnumModel>) {
+                //어댑터에 들어갈 데이터를 초기화
+                scrapCollectListAdapter.setList(cards)
+
+                //총 몇개의 카드인지 초기화
+                textView_card_count_scrap_collect.text = StringBuilder("총 ")
+                    .append(cards.size).append("개의 카드").toString()
+            }
+
+            @SuppressLint("LongLogTag")
+            override fun onDataNotAvailable() {
+                Log.e(TAG, "No data in DB. projectIdx: $projectIdx")
+            }
+        })
+    }
+
 }
