@@ -74,11 +74,7 @@ class StormEditText : ConstraintLayout {
         val showRemoveAll = typedArray.getBoolean(R.styleable.StormEditText_showRemoveAll, false)
 
         //전체 삭제 버튼
-        if (showRemoveAll) {
-            this.imagebutton_customedittext.visibility = View.VISIBLE
-        } else {
-            this.imagebutton_customedittext.visibility = View.GONE
-        }
+        showRemoveAll(showRemoveAll)
 
         val strHint = typedArray.getString(R.styleable.StormEditText_android_hint)
 
@@ -142,6 +138,15 @@ class StormEditText : ConstraintLayout {
     fun removeTextChangedListener(watcher: TextWatcher) {
         this.edittext_customedittext.removeTextChangedListener(watcher)
     }
+
+    fun showRemoveAll(isShow: Boolean) {
+        if (isShow) {
+            this.imagebutton_customedittext.visibility = View.VISIBLE
+        } else {
+            this.imagebutton_customedittext.visibility = View.GONE
+        }
+    }
+
 
     companion object {
         private const val TAG = "StormEditText"
