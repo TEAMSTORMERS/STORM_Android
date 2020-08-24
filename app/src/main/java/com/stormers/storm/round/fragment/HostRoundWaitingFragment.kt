@@ -27,6 +27,16 @@ class HostRoundWaitingFragment : BaseWaitingFragment(R.layout.fragment_hostwaiti
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val isPromotion = arguments?.getBoolean("isPromotion")
+
+        //확인 버튼 초기화
+        initActivityButton()
+
+        //호스트로 승급한 경우에는 아래 초기화 코드들을 실행하지 않음
+        if (isPromotion != null && isPromotion) {
+            return
+        }
+
         //첫 번째 라운드가 아니라면 라운드가 시작됨을 소켓으로 알림
         if (!isFirstRound) {
             startRoundAgain()
@@ -36,9 +46,6 @@ class HostRoundWaitingFragment : BaseWaitingFragment(R.layout.fragment_hostwaiti
         GlobalApplication.currentRound?.let {
             initRoundInfo(it.roundPurpose!!, it.roundTime!!, it.roundNumber!!)
         }
-
-        //확인 버튼 초기화
-        initActivityButton()
     }
 
     private fun initRoundInfo(roundPurpose: String, roundTime: Int, roundNumber: Int) {
