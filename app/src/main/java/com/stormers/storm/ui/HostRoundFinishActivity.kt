@@ -12,6 +12,7 @@ import com.stormers.storm.network.SimpleResponse
 import com.stormers.storm.network.SocketClient
 import com.stormers.storm.project.network.RequestProject
 import com.stormers.storm.round.base.BaseRoundFinishActivity
+import com.stormers.storm.ui.GlobalApplication.Companion.currentRound
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -44,21 +45,31 @@ class HostRoundFinishActivity : BaseRoundFinishActivity() {
     }
 
     private fun initDialogButton() {
-        buttonArray.add(
-            StormDialogButton("다음 ROUND 진행", true, object : StormDialogButton.OnClickListener {
-                override fun onClick() {
-                    startNextRound()
-                }
-            })
-        )
-        buttonArray.add(
-            StormDialogButton("프로젝트 종료 후 최종 정리", true, object : StormDialogButton.OnClickListener {
-                override fun onClick() {
-                    finishRound()
-                }
-            })
-        )
 
+        if(currentRound!!.roundNumber == 9) {
+            buttonArray.add(
+                StormDialogButton("프로젝트 종료", true, object : StormDialogButton.OnClickListener {
+                    override fun onClick() {
+                        finishRound()
+                    }
+                })
+            )
+        } else {
+            buttonArray.add(
+                StormDialogButton("다음 ROUND 진행", true, object : StormDialogButton.OnClickListener {
+                    override fun onClick() {
+                        startNextRound()
+                    }
+                })
+            )
+            buttonArray.add(
+                StormDialogButton("프로젝트 종료 후 최종 정리", true, object : StormDialogButton.OnClickListener {
+                    override fun onClick() {
+                        finishRound()
+                    }
+                })
+            )
+        }
     }
 
     private fun startNextRound() {
