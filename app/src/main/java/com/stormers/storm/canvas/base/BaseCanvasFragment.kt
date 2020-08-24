@@ -46,7 +46,7 @@ abstract class BaseCanvasFragment(private val mode: Int, @LayoutRes private val 
 
         LayoutInflater.from(context).inflate(canvasLayout, cardview_roundcanvas_canvas)
 
-        (activity as RoundProgressActivity).stormtoolbar_roundprogress.setBackButton(View.OnClickListener {
+        (mActivity as RoundProgressActivity).stormtoolbar_roundprogress.setBackButton(View.OnClickListener {
             goToFragment(AddCardFragment::class.java, null)
         })
 
