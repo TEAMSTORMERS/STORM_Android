@@ -1,10 +1,13 @@
 package com.stormers.storm.card.viewholder
 
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.DrawableContainer
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseViewHolder
@@ -12,6 +15,7 @@ import com.stormers.storm.card.CardType
 import com.stormers.storm.card.model.CardEntity
 import com.stormers.storm.card.model.CardModel
 import com.stormers.storm.card.repository.CardRepository
+import com.stormers.storm.card.util.BitmapConverter
 import kotlinx.android.synthetic.main.item_expandcard_card.view.*
 
 class ExpandCardViewHolder(parent: ViewGroup) : BaseViewHolder<CardModel>(R.layout.item_expandcard_card, parent) {
@@ -19,12 +23,15 @@ class ExpandCardViewHolder(parent: ViewGroup) : BaseViewHolder<CardModel>(R.layo
     private val cardRepository: CardRepository by lazy { CardRepository() }
 
     override fun bind(data: CardModel) {
+        val requestOptions = RequestOptions.bitmapTransform(RoundedCorners(20))
 
         //카드 소유자 프로필 나타내기
         itemView.imageview_expandcard_profile.run {
             background = ShapeDrawable(OvalShape())
             clipToOutline = true
-            Glide.with(itemView).load(data.cardOwner.userImg).into(this)
+
+            Glide.with(itemView).load(data.cardOwner.userImg).circleCrop().into(this)
+
         }
 
         //하트 유무 적용
