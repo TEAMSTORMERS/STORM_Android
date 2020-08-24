@@ -31,7 +31,9 @@ class HostRoundFinishActivity : BaseRoundFinishActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        restrictRoundNumber()
+        initDialogButton()
+
+        initDialog()
 
         finishButton.run {
             visibility = View.VISIBLE
@@ -43,21 +45,31 @@ class HostRoundFinishActivity : BaseRoundFinishActivity() {
     }
 
     private fun initDialogButton() {
-        buttonArray.add(
-            StormDialogButton("다음 ROUND 진행", true, object : StormDialogButton.OnClickListener {
-                override fun onClick() {
-                    startNextRound()
-                }
-            })
-        )
-        buttonArray.add(
-            StormDialogButton("프로젝트 종료 후 최종 정리", true, object : StormDialogButton.OnClickListener {
-                override fun onClick() {
-                    finishRound()
-                }
-            })
-        )
 
+        if(currentRound!!.roundNumber == 9) {
+            buttonArray.add(
+                StormDialogButton("프로젝트 종료", true, object : StormDialogButton.OnClickListener {
+                    override fun onClick() {
+                        finishRound()
+                    }
+                })
+            )
+        } else {
+            buttonArray.add(
+                StormDialogButton("다음 ROUND 진행", true, object : StormDialogButton.OnClickListener {
+                    override fun onClick() {
+                        startNextRound()
+                    }
+                })
+            )
+            buttonArray.add(
+                StormDialogButton("프로젝트 종료 후 최종 정리", true, object : StormDialogButton.OnClickListener {
+                    override fun onClick() {
+                        finishRound()
+                    }
+                })
+            )
+        }
     }
 
     private fun startNextRound() {
@@ -107,31 +119,5 @@ class HostRoundFinishActivity : BaseRoundFinishActivity() {
         dialog = StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, round.toString())
             .setButtonArray(buttonArray)
             .build()
-    }
-
-    fun restrictRoundNumber(){
-
-        if(currentRound!!.roundNumber == 9){
-            buttonArray.add(
-                StormDialogButton("프로젝트 종료", true, object : StormDialogButton.OnClickListener{
-                    override fun onClick() {
-                        finishRound()
-                    }
-                })
-            )
-
-            val round = StringBuilder()
-            round.append("ROUND")
-                .append(currentRound!!.roundNumber)
-                .append("종료")
-
-            dialog = StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, round.toString())
-                .setButtonArray(buttonArray)
-                .build()
-        } else {
-            initDialogButton()
-
-            initDialog()
-        }
     }
 }

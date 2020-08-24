@@ -55,11 +55,13 @@
         <activity android:name=".ui.RoundProgressActivity" />
         <activity android:name=".ui.HostRoundSettingActivity" />
         <activity android:name=".ui.ScrapCardCollectingActivity" />
-        <activity android:name=".ui.MypageActivity" />
+        <activity
+            android:name=".ui.MypageActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".ui.RoundFinishCardExpandActivity" />
         <activity
             android:name=".ui.MypageWithdrawalActivity"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui.MypageWithdrawalCheckActivity" />
         <activity
             android:name=".ui.SignUpActivity"

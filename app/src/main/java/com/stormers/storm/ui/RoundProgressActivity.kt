@@ -69,18 +69,7 @@ class RoundProgressActivity : BaseRoundProgressActivity() {
 
     override fun onBackPressed() {
         if (supportFragmentManager.fragments[0] is AddCardFragment) {
-            val buttonList = ArrayList<StormDialogButton>()
-            buttonList.add(StormDialogButton("취소", true, null))
-            buttonList.add(StormDialogButton("확인", true, object : StormDialogButton.OnClickListener {
-                override fun onClick() {
-                    //Todo: 프로젝트 나가기
-                    finish()
-                }
-            }))
-            StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, "프로젝트에서 나가시겠습니까?")
-                .setHorizontalArray(buttonList)
-                .build()
-                .show(supportFragmentManager, "exit")
+            return
         } else {
             goToFragment(AddCardFragment::class.java, null)
         }

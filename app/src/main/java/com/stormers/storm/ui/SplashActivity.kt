@@ -20,7 +20,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun initSplashAnimation() {
         val animationView = findViewById<LottieAnimationView>(R.id.lottieanimation_splash)
-        animationView.setAnimation("splash_real.json")
+        animationView.setAnimation("splash_0824.json")
         animationView.playAnimation()
 
         animationView.addAnimatorListener(object: Animator.AnimatorListener {

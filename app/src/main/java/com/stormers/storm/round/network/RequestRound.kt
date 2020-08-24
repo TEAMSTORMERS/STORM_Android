@@ -17,7 +17,8 @@ interface RequestRound {
     fun enterNextRound(@Body body :RoundEnterModel) : Call<BaseResponse>
 
     @GET("round/memberList/{project_idx}/{round_idx}")
-    fun showRoundUser(@Path("project_idx") projectIdx: Int, @Path("round_idx") roundIdx : Int) : Call<ResponseProjectUserListModel>
+    fun showRoundUser(@Path("project_idx") projectIdx: Int,
+                      @Path("round_idx") roundIdx : Int) : Call<ResponseProjectUserListModel>
 
     @DELETE("round/leave")
     fun roundExit(
@@ -38,4 +39,9 @@ interface RequestRound {
 
     @GET("/round/count/{project_idx}")
     fun getRoundCount(@Path ("project_idx")projectIdx : String) : Call<ResponseRoundCountModel>
+
+    @DELETE("round/leave/{user_idx}/{project_idx}/{round_idx}")
+    fun exitRound(@Path("user_idx") userIdx: Int, @Path("project_idx") projectIdx: Int,
+                  @Path("round_idx") roundIdx: Int) : Call<SimpleResponse>
+
 }

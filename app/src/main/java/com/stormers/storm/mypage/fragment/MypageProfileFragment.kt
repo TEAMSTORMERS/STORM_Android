@@ -389,7 +389,7 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
     }
 
     private fun textSetFilter(): InputFilter {
-        val pattern = Pattern.compile("^[a-zA-Z0-9ㄱ-ㅎ가-힣]*$")
+        val pattern = Pattern.compile("^[a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣ\\u318D\\u119E\\u11A2\\u2022\\u2025a\\u00B7\\uFE55]*\$")
         val filter = InputFilter { source, start, end, dest, dstart, dend ->
             if (!pattern.matcher(source).matches()) {
                 Toast.makeText(context, "특수문자는 입력불가", Toast.LENGTH_SHORT).show()

@@ -69,17 +69,9 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-         isFirstRound = arguments?.getBoolean("isFirstRound") ?: true
+        isFirstRound = arguments?.getBoolean("isFirstRound") ?: true
 
-        //참가자가 들어오면 갱신
-        registerParticipantsSocket()
-
-        //라운드에 입장
-        if (isFirstRound) {
-            joinRoom()
-        } else {
-            enterNextRound()
-        }
+        val isPromotion = arguments?.getBoolean("isPromotion") ?: false
 
         loadingDialog = StormDialogBuilder(StormDialogBuilder.LOADING_LOGO, "5초 후 라운드가 시작합니다").build()
 
@@ -92,6 +84,22 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
 
         //룰 리마인더 초기화
         initRuleReminder(view)
+
+        //호스트로 승격한 경우 참가자만 초기화하고 이 외 초기화는 하지 않음
+        if (isPromotion) {
+            refreshParticipants(GlobalApplication.currentRound!!.roundIdx)
+            return
+        }
+
+        //참가자가 들어오면 갱신
+        registerParticipantsSocket()
+
+        //라운드에 입장
+        if (isFirstRound) {
+            joinRoom()
+        } else {
+            enterNextRound()
+        }
     }
 
     private fun enterNextRound() {
@@ -137,12 +145,27 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
             override fun onUsersLoaded(users: List<UserModel>) {
                 participantAdapter.setList(users)
                 cacheParticipants = users
+
+                //원래 호스트가 아니었고, 갱신한 참가자 목록에서 내가 호스트라면
+                if (checkIsHost(users) && !GlobalApplication.isHost) {
+                    //호스트가 되어라
+                    beHost()
+                }
             }
 
             override fun onDataNotAvailable() {
                 Log.e(TAG, "Wrong participant")
             }
         })
+    }
+
+    private fun checkIsHost(participants: List<UserModel>): Boolean {
+        for (participant in participants) {
+            if (participant.isHost == 1) {
+                return participant.userIdx == GlobalApplication.userIdx
+            }
+        }
+        return false
     }
 
     private fun getParticipants(roundIdx: Int, callback: UserRepository.LoadUsersCallback) {
@@ -211,6 +234,10 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
         cacheParticipants?.let { saveRoundInDB(it) } ?: Log.e(TAG, "Wrong participants")
 
         Log.d(TAG, "onRoundStart: Start round !!")
+    }
+
+    protected open fun beHost() {
+        Log.d(TAG, "beHost : I'm Host")
     }
 
     override fun onDestroy() {
