@@ -100,6 +100,8 @@ class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_dra
     }
 
     private fun sendBitmap(bitmap: Bitmap) {
+        showLoadingDialog()
+
         val drawingFile = BitmapConverter.bitmapToFile(bitmap, context!!.cacheDir.toString())
 
         val requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), drawingFile!!)
@@ -116,10 +118,12 @@ class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_dra
             .enqueue(object: Callback<Response> {
 
                 override fun onFailure(call: Call<Response>, t: Throwable) {
+                    dismissLoadingDialog()
                     Log.d("postCard", t.message)
                 }
 
                 override fun onResponse(call: Call<Response>, response: retrofit2.Response<Response>) {
+                    dismissLoadingDialog()
                     if (response.isSuccessful) {
                         if (response.body()!!.success) {
 
@@ -140,7 +144,6 @@ class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_dra
     private fun afterResponse() {
         drawview.clearDrawAndHistory()
         Toast.makeText(context, "카드가 추가되었습니다", Toast.LENGTH_SHORT).show()
-        goToFragment(AddCardFragment::class.java, null)
     }
 
     private fun saveCard(bitmap: Bitmap) {

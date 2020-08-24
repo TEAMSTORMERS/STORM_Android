@@ -34,8 +34,8 @@ abstract class BaseFragment() : Fragment() {
         (activity as? BaseActivity)?.showLoadingDialog()
     }
 
-    fun hideLoadingDialog() {
-        (activity as? BaseActivity)?.hideLoadingDialog()
+    fun dismissLoadingDialog() {
+        (activity as? BaseActivity)?.dismissLoadingDialog()
     }
 
 }
