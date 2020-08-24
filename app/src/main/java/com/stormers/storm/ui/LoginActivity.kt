@@ -43,12 +43,15 @@ class LoginActivity : BaseActivity() {
                     preference.setAutoLogIn(false)
                 }
 
+                showLoadingDialog()
+
                 RetrofitClient.create(RequestLogIn::class.java).requestLogIn(
                     LogInModel(
                         edittext_email_login.text.toString(),
                         edittext_password_login.text.toString())
                 ).enqueue(object :retrofit2.Callback<ResponseLogIn>{
                     override fun onFailure(call: Call<ResponseLogIn>, t: Throwable) {
+                        dismissLoadingDialog()
                         Log.d("로그인 실패", t.message)
                     }
 
@@ -56,6 +59,7 @@ class LoginActivity : BaseActivity() {
                         call: Call<ResponseLogIn>,
                         response: Response<ResponseLogIn>
                     ) {
+                        dismissLoadingDialog()
                         if(response.isSuccessful){
                             if (response.body()!!.success){
                                 Log.d("userIdx", response.body()!!.data.toString())

@@ -47,16 +47,16 @@
         <activity
             android:name=".ui.MainActivity"
             android:windowSoftInputMode="adjustNothing" />
-        <activity android:name=".ui.MemberRoundWaitingActivity" />
+        <activity android:name=".ui.MemberRoundWaitingActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
         <activity android:name=".ui.ParticipatedProjectListActivity" />
         <activity android:name=".ui.ParticipatedProjectDetailActivity" />
         <activity android:name=".ui.HostRoundFinishActivity" />
         <activity android:name=".ui.RoundListActivity" />
         <activity android:name=".ui.RoundProgressActivity" />
         <activity android:name=".ui.HostRoundSettingActivity"
-            android:windowSoftInputMode="adjustPan">
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
 
-        </activity>
         <activity android:name=".ui.ScrapCardCollectingActivity" />
         <activity
             android:name=".ui.MypageActivity"

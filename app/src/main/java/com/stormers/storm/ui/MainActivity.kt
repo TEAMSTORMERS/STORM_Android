@@ -40,15 +40,7 @@ class MainActivity : BaseActivity() {
 
     private val requestProject: RequestProject by lazy { RetrofitClient.create(RequestProject::class.java) }
 
-    private var lookupDialogButtons = ArrayList<StormDialogButton>()
-
     private val errorDialogButton = ArrayList<StormDialogButton>()
-
-    private var lookupDialogListener: StormDialogButton.OnClickListener? = null
-
-    private var lookupDialogCallback: StormDialog.OnContentAttachedCallback? = null
-
-    private var cacheCode: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -157,35 +149,27 @@ class MainActivity : BaseActivity() {
 
     private fun showLookupDialog(projectIdx: Int, projectName: String, projectComment: String, projectCode: String) {
         //확인 버튼을 눌렀을 때
-        if (lookupDialogListener == null || cacheCode == null || cacheCode != projectCode) {
-            cacheCode = projectCode
-
-            lookupDialogListener = object : StormDialogButton.OnClickListener {
-                override fun onClick() {
-                    enterProject(projectIdx, projectName, projectComment, projectCode)
-                }
+        val lookupDialogListener = object : StormDialogButton.OnClickListener {
+            override fun onClick() {
+                enterProject(projectIdx, projectName, projectComment, projectCode)
             }
         }
+
 
         //프로젝트 이름, 호스트 한마디 설정
-        if (lookupDialogCallback == null || cacheCode == null || cacheCode != projectCode) {
-            lookupDialogCallback = object : StormDialog.OnContentAttachedCallback {
-                override fun onContentAttached(view: View) {
-                    (view.findViewById(R.id.textview_lookupproject_name) as TextView).text = projectName
-                    (view.findViewById(R.id.textview_lookupproject_comment) as TextView).text = projectComment
-                }
+        val lookupDialogCallback = object : StormDialog.OnContentAttachedCallback {
+            override fun onContentAttached(view: View) {
+                (view.findViewById(R.id.textview_lookupproject_name) as TextView).text = projectName
+                (view.findViewById(R.id.textview_lookupproject_comment) as TextView).text = projectComment
             }
         }
 
-        //다이얼로그 버튼이 만들어진 적이 없으면 생성
-        if (lookupDialogButtons.isEmpty()) {
-            lookupDialogButtons.run {
-                add(StormDialogButton("취소", true, null))
-                add(StormDialogButton("확인", true, lookupDialogListener))
-            }
-        //있으면 재사용
-        } else {
-            lookupDialogButtons[1].listener = lookupDialogListener
+        //다이얼로그 버튼 생성
+        val lookupDialogButtons = ArrayList<StormDialogButton>()
+
+        lookupDialogButtons.run {
+            add(StormDialogButton("취소", true, null))
+            add(StormDialogButton("확인", true, lookupDialogListener))
         }
 
         StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, "프로젝트에 참여하시겠습니까?")

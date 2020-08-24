@@ -39,13 +39,14 @@ open class BaseRoundViewHolder (parent: ViewGroup, @LayoutRes val layoutRes: Int
                 recyclerview_user_profile.adapter = projectParticipantsAdapter
 
                 projectParticipantsAdapter.setList(data.participants!!)
+            }
 
-                val numberOfParticipants = data.participants!!.size
-                if( numberOfParticipants > 5 ) {
-                    textview_extra_participants_info.run {
-                        visibility = View.VISIBLE
-                        text = StringBuilder("+").append(numberOfParticipants - 5).toString()
-                    }
+            val numberOfParticipants = data.participants!!.size
+
+            if( numberOfParticipants > 5 ) {
+                textview_extra_participants_info.run {
+                    visibility = View.VISIBLE
+                    text = StringBuilder("+").append(numberOfParticipants - 5).toString()
                 }
             }
         }

@@ -5,16 +5,19 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import com.stormers.storm.R
+import com.stormers.storm.customview.dialog.StormLoadingDialog
 import com.stormers.storm.ui.GlobalApplication
 import com.stormers.storm.util.SharedPreference
 
 abstract class BaseActivity : AppCompatActivity() {
 
     private var fragmentId: Int? = null
-    
+
     protected val preference: SharedPreference by lazy { GlobalApplication.prefs }
+
+    private val loadingDialog: DialogFragment by lazy { StormLoadingDialog() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,16 +25,16 @@ abstract class BaseActivity : AppCompatActivity() {
         fragmentId = initFragmentId()
     }
 
-    protected open fun initFragmentId() : Int? {
+    protected open fun initFragmentId(): Int? {
         return null
     }
 
     fun showLoadingDialog() {
-        //Todo: 로딩 다이얼로그 띄우기
+        loadingDialog.show(supportFragmentManager, "loading_dialog")
     }
 
-    fun hideLoadingDialog() {
-        //Todo: 로딩 다이얼로그 닫기
+    fun dismissLoadingDialog() {
+        loadingDialog.dismiss()
     }
 
     fun goToFragment(cls: Class<*>, args: Bundle?) {
@@ -44,6 +47,7 @@ abstract class BaseActivity : AppCompatActivity() {
             e.printStackTrace()
         }
     }
+
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         if (currentFocus != null) {
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
