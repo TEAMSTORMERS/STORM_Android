@@ -209,8 +209,9 @@
         app:layout_constraintTop_toBottomOf="@+id/view_mypage"
         android:visibility="invisible" />
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint_qna"
+        android:id="@+id/constraint_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="37dp"
@@ -219,45 +220,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_mypage"
-        android:clickable="true">
-
-        <TextView
-            android:id="@+id/textview_qna"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/notosans_bold"
-            android:text="문의사항"
-            android:textSize="16sp"
-            android:textColor="@color/selector_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:duplicateParentState="true" />
-
-        <ImageButton
-            android:id="@+id/imagebutton_qna"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/selector_image"
-            app:layout_constraintBottom_toBottomOf="@+id/textview_qna"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textview_qna"
-            android:duplicateParentState="true"
-            android:clickable="false"
-            android:focusable="false"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint_logout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="37dp"
-        android:paddingRight="39dp"
-        android:layout_marginTop="26dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraint_qna"
         android:clickable="true">
 
         <TextView
@@ -338,7 +300,7 @@
 
     <include
         android:id="@+id/bottomsheet_profile_select_mypage"
-        layout="@layout/bottomsheet_select_profile"/>
+        layout="@layout/bottomsheet_select_profile" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
