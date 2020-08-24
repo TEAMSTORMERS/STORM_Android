@@ -12,6 +12,7 @@ import com.stormers.storm.network.SimpleResponse
 import com.stormers.storm.network.SocketClient
 import com.stormers.storm.project.network.RequestProject
 import com.stormers.storm.round.base.BaseRoundFinishActivity
+import com.stormers.storm.ui.GlobalApplication.Companion.currentRound
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,9 +31,7 @@ class HostRoundFinishActivity : BaseRoundFinishActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initDialogButton()
-
-        initDialog()
+        restrictRoundNumber()
 
         finishButton.run {
             visibility = View.VISIBLE
@@ -108,5 +107,31 @@ class HostRoundFinishActivity : BaseRoundFinishActivity() {
         dialog = StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, round.toString())
             .setButtonArray(buttonArray)
             .build()
+    }
+
+    fun restrictRoundNumber(){
+
+        if(currentRound!!.roundNumber == 9){
+            buttonArray.add(
+                StormDialogButton("프로젝트 종료", true, object : StormDialogButton.OnClickListener{
+                    override fun onClick() {
+                        finishRound()
+                    }
+                })
+            )
+
+            val round = StringBuilder()
+            round.append("ROUND")
+                .append(currentRound!!.roundNumber)
+                .append("종료")
+
+            dialog = StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, round.toString())
+                .setButtonArray(buttonArray)
+                .build()
+        } else {
+            initDialogButton()
+
+            initDialog()
+        }
     }
 }
