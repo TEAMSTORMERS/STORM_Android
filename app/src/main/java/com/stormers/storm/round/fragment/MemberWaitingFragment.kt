@@ -1,5 +1,8 @@
 package com.stormers.storm.round.fragment
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,6 +15,7 @@ import com.stormers.storm.round.model.RoundModel
 import com.stormers.storm.round.network.RequestRound
 import com.stormers.storm.round.network.response.ResponseRoundInfoModel
 import com.stormers.storm.ui.GlobalApplication
+import com.stormers.storm.ui.HostRoundSettingActivity
 import com.stormers.storm.ui.MemberRoundWaitingActivity
 import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_round_setting.*
@@ -28,10 +32,17 @@ class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_memberwaitin
 
     private val roundIdx = GlobalApplication.currentRound!!.roundIdx
 
+    private var mActivity: Activity? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mActivity = context as MemberRoundWaitingActivity
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        activityButton = (activity as MemberRoundWaitingActivity).stormButton_ok_host_round_setting
+        activityButton = (mActivity as MemberRoundWaitingActivity).stormButton_ok_host_round_setting
 
         activityButton.run {
             visibility = View.GONE
@@ -47,6 +58,26 @@ class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_memberwaitin
     override fun onRoundStart() {
         super.onRoundStart()
         SocketClient.offEvent(SocketClient.ROUND_START_MEMBER)
+    }
+
+    override fun beHost() {
+        super.beHost()
+        //호스트의 라운드 시작을 기다리던 소켓을 해제
+        SocketClient.offEvent(SocketClient.ROUND_START_MEMBER)
+
+        //호스트를 기록
+        GlobalApplication.isHost = true
+
+        Log.d(TAG, "be host: Member is prompted")
+
+        val intent = Intent(mActivity, HostRoundSettingActivity::class.java)
+
+        intent.putExtra("isPromotion", true)
+
+        mActivity?.let {
+            it.startActivity(intent)
+            it.finish()
+        } ?: Log.e(TAG, "beHost: mActivity is null.")
     }
 
     private fun waitingRoundStart() {
