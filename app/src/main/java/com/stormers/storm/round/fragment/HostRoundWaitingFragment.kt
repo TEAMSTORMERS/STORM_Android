@@ -32,6 +32,11 @@ class HostRoundWaitingFragment : BaseWaitingFragment(R.layout.fragment_hostwaiti
         //확인 버튼 초기화
         initActivityButton()
 
+        //라운드 정보 초기화
+        GlobalApplication.currentRound?.let {
+            initRoundInfo(it.roundPurpose!!, it.roundTime!!, it.roundNumber!!)
+        }
+
         //호스트로 승급한 경우에는 아래 초기화 코드들을 실행하지 않음
         if (isPromotion != null && isPromotion) {
             return
@@ -40,11 +45,6 @@ class HostRoundWaitingFragment : BaseWaitingFragment(R.layout.fragment_hostwaiti
         //첫 번째 라운드가 아니라면 라운드가 시작됨을 소켓으로 알림
         if (!isFirstRound) {
             startRoundAgain()
-        }
-
-        //라운드 정보 초기화
-        GlobalApplication.currentRound?.let {
-            initRoundInfo(it.roundPurpose!!, it.roundTime!!, it.roundNumber!!)
         }
     }
 
