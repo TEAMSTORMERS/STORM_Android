@@ -69,6 +69,8 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        showLoadingDialog()
+
         isFirstRound = arguments?.getBoolean("isFirstRound") ?: true
 
         val isPromotion = arguments?.getBoolean("isPromotion") ?: false
@@ -174,10 +176,12 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
             .enqueue(object : Callback<ResponseProjectUserListModel> {
 
                 override fun onFailure(call: Call<ResponseProjectUserListModel>, t: Throwable) {
+                    dismissLoadingDialog()
                     Log.d(TAG, "getParticipants : fail, ${t.message}")
                     callback.onDataNotAvailable()
                 }
                 override fun onResponse(call: Call<ResponseProjectUserListModel>, response: Response<ResponseProjectUserListModel>) {
+                    dismissLoadingDialog()
                     if (response.isSuccessful) {
                         if (response.body()!!.success) {
                             val result = response.body()!!.data
