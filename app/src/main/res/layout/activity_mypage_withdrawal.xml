@@ -103,6 +103,7 @@
         android:layout_height="0dp"
         android:hint="비밀번호를 입력하세요"
         android:inputType="textPassword"
+        android:lines="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:0.146"
         app:layout_constraintEnd_toEndOf="@+id/textview_withdrawal_pwd"
@@ -110,8 +111,7 @@
         app:layout_constraintStart_toStartOf="@+id/textview_withdrawal_pwd"
         app:layout_constraintTop_toBottomOf="@+id/textview_withdrawal_pwd"
         app:layout_constraintVertical_bias="0.06"
-        app:layout_constraintWidth_percent="0.78"
-        app:showRemoveAll="true" />
+        app:layout_constraintWidth_percent="0.78" />
 
     <TextView
         android:id="@+id/textview_withdrawal_pwd_notice"
