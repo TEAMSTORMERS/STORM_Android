@@ -3,6 +3,7 @@ package com.stormers.storm.round.fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.Window
 import android.widget.Toast
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseFragment
@@ -19,6 +20,7 @@ import com.stormers.storm.round.model.RoundSettingModel
 import com.stormers.storm.ui.GlobalApplication
 import kotlinx.android.synthetic.main.activity_round_setting.*
 import com.stormers.storm.ui.HostRoundSettingActivity
+import com.stormers.storm.util.KeyBoardVisibilityUtils
 import kotlinx.android.synthetic.main.fragment_host_round_setting.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -59,6 +61,7 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
 
         //라운드 목표 시간 다이어그램 초기화
         initDialog()
+
 
         //라운드 목표 시간 버튼 초기화
         textview_roundsetting_time.setOnClickListener {

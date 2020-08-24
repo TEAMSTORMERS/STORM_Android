@@ -53,7 +53,10 @@
         <activity android:name=".ui.HostRoundFinishActivity" />
         <activity android:name=".ui.RoundListActivity" />
         <activity android:name=".ui.RoundProgressActivity" />
-        <activity android:name=".ui.HostRoundSettingActivity" />
+        <activity android:name=".ui.HostRoundSettingActivity"
+            android:windowSoftInputMode="adjustPan">
+
+        </activity>
         <activity android:name=".ui.ScrapCardCollectingActivity" />
         <activity
             android:name=".ui.MypageActivity"

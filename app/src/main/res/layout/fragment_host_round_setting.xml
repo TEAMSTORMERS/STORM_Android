@@ -1,83 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!-- fixme: activity_round_setting.xml과 함께 수정되어야 합니다.-->
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_round_setting"
+    android:id="@+id/scrollview_fragment_round_setting"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    android:fillViewport="true">
 
 
-    <TextView
-        android:id="@+id/textview_round_setting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/notosans_bold"
-        android:text="ROUND 설정"
-        android:textColor="@color/storm_gray"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.173" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintlayout_round_setting_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageview_symbol"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/host_b_1_symbol"
-        app:layout_constraintBottom_toTopOf="@+id/textview_roundnumber"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.158"
-        app:layout_constraintHorizontal_bias="0.500"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_round_setting"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintWidth_percent="0.144" />
+        <TextView
+            android:id="@+id/textview_round_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_bold"
+            android:text="ROUND 설정"
+            android:textColor="@color/storm_gray"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.173" />
 
-    <TextView
-        android:id="@+id/textview_roundnumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="38dp"
-        android:fontFamily="@font/notosans_bold"
-        android:text="ROUND 1"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/textview_round_goal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageview_symbol" />
+        <ImageView
+            android:id="@+id/imageview_symbol"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/host_b_1_symbol"
+            app:layout_constraintBottom_toTopOf="@+id/textview_roundnumber"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.158"
+            app:layout_constraintHorizontal_bias="0.500"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_round_setting"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintWidth_percent="0.144" />
 
-    <TextView
-        android:id="@+id/textview_roundsetting_time"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:hint="라운드 소요 시간"
-        style="@style/custom_editText"
-        android:focusable="false"
-        android:foreground="?android:selectableItemBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textview_round_goal"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textview_round_goal"
-        app:layout_constraintTop_toBottomOf="@+id/textview_round_goal" />
+        <TextView
+            android:id="@+id/textview_roundnumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="38dp"
+            android:fontFamily="@font/notosans_bold"
+            android:text="ROUND 1"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@+id/textview_round_goal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageview_symbol" />
 
-    <com.stormers.storm.customview.StormEditText
-        android:id="@+id/textview_round_goal"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="23dp"
-        android:layout_marginTop="13dp"
-        android:hint="라운드 목표"
-        app:layout_constraintBottom_toTopOf="@+id/textview_roundsetting_time"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.866"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_roundnumber"
-        app:showRemoveAll="true" />
+        <TextView
+            android:id="@+id/textview_roundsetting_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:hint="라운드 소요 시간"
+            style="@style/custom_editText"
+            android:focusable="false"
+            android:foreground="?android:selectableItemBackground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textview_round_goal"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textview_round_goal"
+            app:layout_constraintTop_toBottomOf="@+id/textview_round_goal" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.stormers.storm.customview.StormEditText
+            android:id="@+id/textview_round_goal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="23dp"
+            android:layout_marginTop="13dp"
+            android:hint="라운드 목표"
+            android:inputType="text"
+            app:layout_constraintBottom_toTopOf="@+id/textview_roundsetting_time"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.866"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textview_roundnumber"
+            app:showRemoveAll="true" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</ScrollView>
