@@ -6,13 +6,7 @@ import android.content.SharedPreferences
 class SharedPreference(context: Context) {
 
     companion object {
-        const val PROJECT_IDX = "projectIdx"
-        const val ROUND_IDX = "roundIdx"
-        const val PROJECT_NAME = "projectName"
-        const val ROUND_COUNT = "roundCount"
         const val USER_IDX = "user_idx"
-        const val PROJECT_CODE = "project_code"
-        const val HOST = "is_host"
         const val AUTO_LOGIN = "auto_login"
         const val PROFILE_COLOR = "profile_color"
 
@@ -61,60 +55,12 @@ class SharedPreference(context: Context) {
         }
     }
 
-    fun getProjectIdx(): Int? {
-        return getInt(PROJECT_IDX)
-    }
-
-    fun setProjectIdx(projectIdx: Int?) {
-        setInt(PROJECT_IDX, projectIdx)
-    }
-
-    fun getRoundIdx(): Int? {
-        return getInt(ROUND_IDX)
-    }
-
-    fun setRoundIdx(roundIdx: Int?) {
-        setInt(ROUND_IDX, roundIdx)
-    }
-
-    fun setProjectName(projectName: String?) {
-        setString(PROJECT_NAME, projectName)
-    }
-
-    fun getProjectName(): String? {
-        return getString(PROJECT_NAME)
-    }
-
-    fun getRoundCount(): Int? {
-        return getInt(ROUND_COUNT)
-    }
-
-    fun setRoundCount(roundCount: Int?) {
-        setInt(ROUND_COUNT, roundCount)
-    }
-
     fun setUserIdx(userIdx:Int)  {
       setInt(USER_IDX, userIdx)
     }
 
     fun getUserIdx(): Int? {
         return getInt(USER_IDX)
-    }
-
-    fun setProjectCode(code: String?)  {
-        setString(PROJECT_CODE, code)
-    }
-
-    fun getProjectCode(): String? {
-        return getString(PROJECT_CODE)
-    }
-
-    fun setHost(isHost: Boolean)  {
-        setBoolean(HOST, isHost)
-    }
-
-    fun isHost(): Boolean {
-        return getBoolean(HOST)
     }
 
     fun setAutoLogIn(auto_login : Boolean) {
