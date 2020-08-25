@@ -56,7 +56,7 @@
         <activity android:name=".ui.RoundProgressActivity" />
         <activity android:name=".ui.HostRoundSettingActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustResize"/>
 
         <activity android:name=".ui.ScrapCardCollectingActivity" />
         <activity
