@@ -3,7 +3,6 @@ package com.stormers.storm.card.viewholder
 import android.view.ViewGroup
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseViewHolder
-import com.stormers.storm.card.CardType
 import com.stormers.storm.card.adapter.CardListAdapter
 import com.stormers.storm.card.model.CardEnumModel
 import com.stormers.storm.card.data.source.CardRepository

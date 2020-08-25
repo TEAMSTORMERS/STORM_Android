@@ -8,10 +8,8 @@ import android.widget.Toast
 import com.rm.freedrawview.FreeDrawView
 import com.rm.freedrawview.PathRedoUndoCountChangeListener
 import com.stormers.storm.R
-import com.stormers.storm.card.fragment.AddCardFragment
 import com.stormers.storm.canvas.base.BaseCanvasFragment
 import com.stormers.storm.canvas.network.RequestCard
-import com.stormers.storm.card.CardType
 import com.stormers.storm.card.model.CardEnumModel
 import com.stormers.storm.card.util.BitmapConverter
 import com.stormers.storm.network.Response

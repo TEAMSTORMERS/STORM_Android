@@ -10,7 +10,7 @@ import com.kakao.auth.KakaoSDK
 import com.stormers.storm.kakao.KakaoSDKAdapter
 import com.stormers.storm.project.model.ProjectModel
 import com.stormers.storm.round.model.RoundModel
-import com.stormers.storm.util.DatabaseManager
+//import com.stormers.storm.util.DatabaseManager
 import com.stormers.storm.util.SharedPreference
 
 class GlobalApplication : Application() {
@@ -22,7 +22,7 @@ class GlobalApplication : Application() {
         KakaoSDK.init(KakaoSDKAdapter())
 
         prefs = SharedPreference(applicationContext)
-        databaseManager = DatabaseManager.getInstance(this)
+        //databaseManager = DatabaseManager.getInstance(this)
 
         registerActivityLifecycleCallbacks(object: ActivityLifecycleCallbacks {
             override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
@@ -68,7 +68,7 @@ class GlobalApplication : Application() {
     companion object {
         var instance: GlobalApplication? = null
 
-        lateinit var databaseManager: DatabaseManager
+        //lateinit var databaseManager: DatabaseManager
 
         lateinit var prefs: SharedPreference
 

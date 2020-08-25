@@ -66,4 +66,9 @@ class CardRepository (
         cardLocalDataSource.scrapCard(scrapedCardRelationModel)
         cardRemoteDataSource.scrapCard(scrapedCardRelationModel)
     }
+
+    override fun unScrapCard(scrapedCardRelationModel: ScrapedCardRelationModel) {
+        cardLocalDataSource.unScrapCard(scrapedCardRelationModel)
+        cardRemoteDataSource.unScrapCard(scrapedCardRelationModel)
+    }
 }

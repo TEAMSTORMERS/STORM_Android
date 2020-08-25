@@ -1,7 +1,5 @@
 package com.stormers.storm.card.model
 
-import com.stormers.storm.card.CardType
-
 data class CardEnumModel (
     val cardIdx: Int,
     val projectIdx: Int,

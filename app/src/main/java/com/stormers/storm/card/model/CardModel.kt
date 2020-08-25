@@ -1,6 +1,5 @@
 package com.stormers.storm.card.model
 
-import com.stormers.storm.card.CardType
 import com.stormers.storm.user.User
 
 data class CardModel(

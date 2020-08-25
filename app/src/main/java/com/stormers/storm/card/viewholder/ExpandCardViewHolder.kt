@@ -9,7 +9,6 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseViewHolder
-import com.stormers.storm.card.CardType
 import com.stormers.storm.card.model.CardModel
 import com.stormers.storm.card.data.source.CardRepository
 import kotlinx.android.synthetic.main.item_expandcard_card.view.*

@@ -6,9 +6,9 @@ import com.stormers.storm.user.UserDao
 import com.stormers.storm.util.AppExecutors
 
 class RoundsLocalDataSource private constructor(
-    val appExecutors: AppExecutors,
-    val roundDao: RoundDao,
-    val userDao: UserDao
+//    val appExecutors: AppExecutors,
+//    val roundDao: RoundDao,
+//    val userDao: UserDao
 ) : RoundDataSource {
 
     override fun getRoundsInfo(
@@ -16,20 +16,21 @@ class RoundsLocalDataSource private constructor(
         userIdx: Int,
         callback: RoundDataSource.LoadRoundsCallback<RoundDescriptionModel>
     ) {
-        appExecutors.diskIO.execute {
-            val roundInfoList = roundDao.getRoundInfo(projectIdx, userIdx)
-            for (roundInfo in roundInfoList) {
-                roundInfo.roundParticipant =
-                    userDao.getParticipant(projectIdx, roundInfo.roundNumber)
-            }
-            appExecutors.mainThread.execute {
-                if (roundInfoList.isEmpty()) {
-                    callback.onDataNotAvailable()
-                } else {
-                    callback.onRoundsLoaded(roundInfoList)
-                }
-            }
-        }
+//        appExecutors.diskIO.execute {
+//            val roundInfoList = roundDao.getRoundInfo(projectIdx, userIdx)
+//            for (roundInfo in roundInfoList) {
+//                roundInfo.roundParticipant =
+//                    userDao.getParticipant(projectIdx, roundInfo.roundNumber)
+//            }
+//            appExecutors.mainThread.execute {
+//                if (roundInfoList.isEmpty()) {
+//                    callback.onDataNotAvailable()
+//                } else {
+//                    callback.onRoundsLoaded(roundInfoList)
+//                }
+//            }
+//        }
+        callback.onDataNotAvailable()
     }
 
     override fun saveRoundsInfo(roundsInfo: List<RoundDescriptionModel>) {

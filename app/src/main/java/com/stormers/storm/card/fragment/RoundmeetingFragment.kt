@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.View
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseFragment
-import com.stormers.storm.card.CardType
 import com.stormers.storm.card.adapter.CardListAdapter
 import com.stormers.storm.card.model.ResponseCardModel
 import com.stormers.storm.card.data.Card

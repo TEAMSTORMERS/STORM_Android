@@ -9,10 +9,10 @@ import com.stormers.storm.round.data.source.local.RoundDao
 import com.stormers.storm.util.AppExecutors
 
 class CardLocalDataSource private constructor(
-    val appExecutors: AppExecutors,
-    val projectDao: ProjectDao,
-    val roundDao: RoundDao,
-    val cardDao: CardDao
+//    val appExecutors: AppExecutors,
+//    val projectDao: ProjectDao,
+//    val roundDao: RoundDao,
+//    val cardDao: CardDao
 ): CardDataSource {
 
     override fun getScrapedCardsWithInfo(
@@ -20,41 +20,42 @@ class CardLocalDataSource private constructor(
         userIdx: Int,
         callback: CardDataSource.GetCardCallback<ScrapedCardModel>
     ) {
-        appExecutors.diskIO.execute {
-            val projectName = projectDao.getProjectNameOfScrapedCard(projectIdx, userIdx)
-            val scrapedCards = cardDao.getScrapedCard(projectIdx, userIdx)
-            val scrapedCardInfo = mutableListOf<ScrapCardWithRoundInfo>()
-
-            appExecutors.mainThread.execute {
-                if (projectName == null) {
-                    callback.onDataNotAvailable()
-                }
-            }
-
-            if (projectName == null) {
-                return@execute
-            }
-
-            for (i in 0 until projectName.scrapCount) {
-                val roundInfo = roundDao.getRoundInfoOfScrapedCard(scrapedCards[i].cardIdx)
-
-                scrapedCardInfo.add(
-                    ScrapCardWithRoundInfo(
-                    roundInfo.roundNumber,
-                    roundInfo.roundPurpose,
-                    roundInfo.roundTime,
-                    scrapedCards[i].cardIdx,
-                    scrapedCards[i].cardImage!!,
-                    scrapedCards[i].cardText!!)
-                )
-            }
-
-            val result = ScrapedCardModel(projectName.projectName, projectName.scrapCount, scrapedCardInfo)
-
-            appExecutors.mainThread.execute {
-                callback.onCardLoaded(result)
-            }
-        }
+//        appExecutors.diskIO.execute {
+//            val projectName = projectDao.getProjectNameOfScrapedCard(projectIdx, userIdx)
+//            val scrapedCards = cardDao.getScrapedCard(projectIdx, userIdx)
+//            val scrapedCardInfo = mutableListOf<ScrapCardWithRoundInfo>()
+//
+//            appExecutors.mainThread.execute {
+//                if (projectName == null) {
+//                    callback.onDataNotAvailable()
+//                }
+//            }
+//
+//            if (projectName == null) {
+//                return@execute
+//            }
+//
+//            for (i in 0 until projectName.scrapCount) {
+//                val roundInfo = roundDao.getRoundInfoOfScrapedCard(scrapedCards[i].cardIdx)
+//
+//                scrapedCardInfo.add(
+//                    ScrapCardWithRoundInfo(
+//                    roundInfo.roundNumber,
+//                    roundInfo.roundPurpose,
+//                    roundInfo.roundTime,
+//                    scrapedCards[i].cardIdx,
+//                    scrapedCards[i].cardImage!!,
+//                    scrapedCards[i].cardText!!)
+//                )
+//            }
+//
+//            val result = ScrapedCardModel(projectName.projectName, projectName.scrapCount, scrapedCardInfo)
+//
+//            appExecutors.mainThread.execute {
+//                callback.onCardLoaded(result)
+//            }
+//        }
+        callback.onDataNotAvailable()
     }
 
     override fun saveScrapedCardsWithInfo(card: ScrapedCardModel) {
