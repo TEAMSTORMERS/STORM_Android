@@ -1,15 +1,15 @@
 package com.stormers.storm.project.data.source.local
 
-import androidx.room.*
-import com.stormers.storm.base.BaseDao
-import com.stormers.storm.project.data.Project
-import com.stormers.storm.project.model.ProjectDetailInfo
-import com.stormers.storm.project.data.ProjectParticipant
-import com.stormers.storm.project.model.ProjectNameWithScrapedCardCount
-import com.stormers.storm.project.model.ProjectPreviewModel
-
-@Dao
-abstract class ProjectDao: BaseDao<Project> {
+//import androidx.room.*
+//import com.stormers.storm.base.BaseDao
+//import com.stormers.storm.project.data.Project
+//import com.stormers.storm.project.model.ProjectDetailInfo
+//import com.stormers.storm.project.data.ProjectParticipant
+//import com.stormers.storm.project.model.ProjectNameWithScrapedCardCount
+//import com.stormers.storm.project.model.ProjectPreviewModel
+//
+//@Dao
+//abstract class ProjectDao: BaseDao<Project> {
 
 //    @Query("SELECT * FROM project_entity")
 //    abstract fun getAll(): List<Project>

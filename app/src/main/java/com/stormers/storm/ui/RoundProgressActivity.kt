@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import com.stormers.storm.R
 import com.stormers.storm.card.fragment.AddCardFragment
+import com.stormers.storm.card.model.CacheCardModel
 import com.stormers.storm.card.model.CardEnumModel
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
@@ -15,7 +16,7 @@ import kotlin.collections.ArrayList
 
 class RoundProgressActivity : BaseRoundProgressActivity() {
 
-    val cardList = mutableListOf<CardEnumModel>()
+    val cardList = mutableListOf<CacheCardModel>()
 
     private lateinit var countDownTimer: CountDownTimer
 

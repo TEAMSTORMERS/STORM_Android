@@ -6,5 +6,5 @@ data class CardEnumModel (
     val roundIdx: Int,
     var isScraped: Boolean,
     val cardType: CardType,
-    val cardContent: String
+    val cardContent: Strin
 )

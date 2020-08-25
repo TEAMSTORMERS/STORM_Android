@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseFragment
 import com.stormers.storm.canvas.fragment.CanvasDrawingFragment
+import com.stormers.storm.card.adapter.CacheCardListAdapter
 import com.stormers.storm.card.adapter.CardListAdapter
 import com.stormers.storm.ui.RoundProgressActivity
 import com.stormers.storm.util.MarginDecoration
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_add_card.*
 
 class AddCardFragment : BaseFragment(R.layout.fragment_add_card) {
 
-    private lateinit var addedCardListAdapter: CardListAdapter
+    private lateinit var addedCardListAdapter: CacheCardListAdapter
 
     private var mActivity: Activity? = null
 
@@ -30,10 +31,12 @@ class AddCardFragment : BaseFragment(R.layout.fragment_add_card) {
 
         mActivity?.stormtoolbar_roundprogress?.clearButton()
 
-        addedCardListAdapter = CardListAdapter(false, null)
-        recyclerview_addcard_card.layoutManager = GridLayoutManager(context, 2)
-        recyclerview_addcard_card.addItemDecoration(MarginDecoration(context!!, 2, 20, 20))
-        recyclerview_addcard_card.adapter = addedCardListAdapter
+        addedCardListAdapter = CacheCardListAdapter()
+        recyclerview_addcard_card.run {
+            layoutManager = GridLayoutManager(context, 2)
+            addItemDecoration(MarginDecoration(context!!, 2, 20, 20))
+            adapter = addedCardListAdapter
+        }
 
         val cards = (activity as RoundProgressActivity).cardList
 

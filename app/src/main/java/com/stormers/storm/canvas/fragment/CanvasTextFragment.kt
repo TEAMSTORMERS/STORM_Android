@@ -5,6 +5,7 @@ import android.widget.Toast
 import com.stormers.storm.R
 import com.stormers.storm.canvas.base.BaseCanvasFragment
 import com.stormers.storm.canvas.network.RequestCard
+import com.stormers.storm.card.model.CacheCardModel
 import com.stormers.storm.card.model.CardEnumModel
 import com.stormers.storm.network.Response
 import com.stormers.storm.network.RetrofitClient
@@ -64,9 +65,8 @@ class CanvasTextFragment : BaseCanvasFragment(TEXT_MODE, R.layout.view_addcard_e
     }
 
     private fun saveCard(content: String) {
-        val card = CardEnumModel(0, projectIdx, roundIdx, false, CardType.TEXT, content)
         if (mActivity != null) {
-            (mActivity as RoundProgressActivity).cardList.add(card)
+            (mActivity as RoundProgressActivity).cardList.add(CacheCardModel(false, content))
         }
     }
 }
