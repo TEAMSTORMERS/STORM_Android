@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
@@ -18,33 +17,31 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.KeyEvent.KEYCODE_ENTER
 import android.view.View
-import android.view.contentcapture.ContentCaptureContext
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContentResolverCompat
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.gun0912.tedpermission.PermissionListener
-import com.gun0912.tedpermission.TedPermission
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseFragment
-import com.stormers.storm.canvas.network.RequestCard
 import com.stormers.storm.card.util.BitmapConverter
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
-import com.stormers.storm.mypage.network.MypageData
 import com.stormers.storm.mypage.network.MypageInterface
 import com.stormers.storm.mypage.network.ResponseMypageData
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.network.SimpleResponse
 import com.stormers.storm.ui.LoginActivity
 import com.stormers.storm.ui.MypageWithdrawalActivity
-import com.stormers.storm.ui.SignUpActivity
-import kotlinx.android.synthetic.main.activity_sigin_up.*
+import com.stormers.storm.util.ProfileCompanion.FLAG_PERM_STORAGE
+import com.stormers.storm.util.ProfileCompanion.FLAG_REQ_STORAGE
+import com.stormers.storm.util.ProfileCompanion.SELECT_PURPLE_BUTTON
+import com.stormers.storm.util.ProfileCompanion.SELECT_RED_BUTTON
+import com.stormers.storm.util.ProfileCompanion.SELECT_YELLOW_BUTTON
+import com.stormers.storm.util.ProfileCompanion.USER_DEFAULT_IMAGE
+import com.stormers.storm.util.ProfileCompanion.USER_IMAGE
 import kotlinx.android.synthetic.main.bottomsheet_select_profile.*
 import kotlinx.android.synthetic.main.fragment_mypage_profile.*
 import okhttp3.MediaType
@@ -54,7 +51,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
-import java.util.jar.Manifest
 import java.util.regex.Pattern
 
 class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
@@ -72,26 +68,11 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
 
     var userIdx = -1
 
-    lateinit var profileRootLayout : ConstraintLayout
+    private lateinit var profileRootLayout : ConstraintLayout
 
-    lateinit var profileBitmap : Bitmap
+    private lateinit var profileBitmap : Bitmap
 
     var imgFlag = -1
-
-    companion object {
-        //image flag를 나타내는 상수
-        private const val USER_IMAGE = 1
-        private const val USER_DEFAULT_IMAGE = 0
-
-        //갤러리 접근 권한 관련 상수
-        private const val FLAG_REQ_STORAGE = 102
-        private const val FLAG_PERM_STORAGE = 99
-
-        //선택된 버튼 색상 관련 상수
-        private const val SELECT_PURPLE_BUTTON = 10
-        private const val SELECT_RED_BUTTON = 11
-        private const val SELECT_YELLOW_BUTTON = 12
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -144,12 +125,15 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
                             when (preference.getProfileColor()) {
                                 SELECT_PURPLE_BUTTON -> {
                                     selectPurpleButton()
+                                    purpleBackground()
                                 }
                                 SELECT_RED_BUTTON -> {
                                     selectRedButton()
+                                    redBackground()
                                 }
                                 SELECT_YELLOW_BUTTON -> {
                                     selectYellowButton()
+                                    yellowBackground()
                                 }
                             }
 
@@ -300,7 +284,7 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
 
                selectProfileColor()
 
-               selectPurpleButton()
+               selectPurpleProfile()
 
                bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
             }
@@ -327,7 +311,7 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
             buttonArray.add(
                 StormDialogButton("취소", true, object : StormDialogButton.OnClickListener {
                     override fun onClick() {
-                        goToFragment(MypageProfileFragment::class.java, null)
+                        Log.d("logoutDialog", "취소")
                     }
                 })
             )
@@ -401,26 +385,22 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
     }
 
     private fun selectProfileColor() {
-
         imagebutton_mypage_select_purple.setOnClickListener{
-            selectPurpleButton()
+            selectPurpleProfile()
         }
 
         imagebutton_mypage_select_red.setOnClickListener{
-            selectRedButton()
+            selectRedProfile()
         }
 
         imagebutton_mypage_select_yellow.setOnClickListener{
-            selectYellowButton()
+            selectYellowProfile()
         }
     }
 
-    private fun selectPurpleButton() {
-        imagebutton_mypage_select_purple.setBackgroundResource(R.drawable.join_profile_selected_purple)
-        imagebutton_mypage_select_yellow.setBackgroundResource(R.drawable.join_profile_yellow)
-        imagebutton_mypage_select_red.setBackgroundResource(R.drawable.join_profile_red)
-
-        preference.setProfileColor(SELECT_PURPLE_BUTTON)
+    private fun selectPurpleProfile() {
+        //보라색 버튼이 선택된 모양으로 변경
+        selectPurpleButton()
 
         //라운딩 및 프로필 색 변환
         purpleBackground()
@@ -431,12 +411,9 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
         updateImage()
     }
 
-    private fun selectRedButton() {
-        imagebutton_mypage_select_purple.setBackgroundResource(R.drawable.join_profile_purple)
-        imagebutton_mypage_select_yellow.setBackgroundResource(R.drawable.join_profile_yellow)
-        imagebutton_mypage_select_red.setBackgroundResource(R.drawable.join_profile_selected_red)
-
-        preference.setProfileColor(SELECT_RED_BUTTON)
+    private fun selectRedProfile() {
+        //빨간색 버튼이 선택된 모양으로 변경
+        selectRedButton()
 
         redBackground()
 
@@ -445,12 +422,9 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
         updateImage()
     }
 
-    private fun selectYellowButton() {
-        imagebutton_mypage_select_purple.setBackgroundResource(R.drawable.join_profile_purple)
-        imagebutton_mypage_select_yellow.setBackgroundResource(R.drawable.join_profile_selected_yellow)
-        imagebutton_mypage_select_red.setBackgroundResource(R.drawable.join_profile_red)
-
-        preference.setProfileColor(SELECT_YELLOW_BUTTON)
+    private fun selectYellowProfile() {
+        //노란색 버튼이 선택된 모양으로 변경
+        selectYellowButton()
 
         yellowBackground()
 
@@ -478,6 +452,30 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
         constraint_mypage_default.clipToOutline = true
         changeBackground.setColor(resources.getColor(R.color.storm_yellow))
         imageview_mypage_default_image.setImageDrawable(changeBackground)
+    }
+
+    private fun selectPurpleButton() {
+        imagebutton_mypage_select_purple.setBackgroundResource(R.drawable.join_profile_selected_purple)
+        imagebutton_mypage_select_yellow.setBackgroundResource(R.drawable.join_profile_yellow)
+        imagebutton_mypage_select_red.setBackgroundResource(R.drawable.join_profile_red)
+
+        preference.setProfileColor(SELECT_PURPLE_BUTTON)
+    }
+
+    private fun selectRedButton() {
+        imagebutton_mypage_select_purple.setBackgroundResource(R.drawable.join_profile_purple)
+        imagebutton_mypage_select_yellow.setBackgroundResource(R.drawable.join_profile_yellow)
+        imagebutton_mypage_select_red.setBackgroundResource(R.drawable.join_profile_selected_red)
+
+        preference.setProfileColor(SELECT_RED_BUTTON)
+    }
+
+    private fun selectYellowButton() {
+        imagebutton_mypage_select_purple.setBackgroundResource(R.drawable.join_profile_purple)
+        imagebutton_mypage_select_yellow.setBackgroundResource(R.drawable.join_profile_selected_yellow)
+        imagebutton_mypage_select_red.setBackgroundResource(R.drawable.join_profile_red)
+
+        preference.setProfileColor(SELECT_YELLOW_BUTTON)
     }
 
     //권한처리 메서드
