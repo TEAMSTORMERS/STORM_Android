@@ -63,6 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:layout_marginTop="40dp"
+            android:fontFamily="@font/notosans_bold"
             android:text="프로젝트 명"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -85,6 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="37dp"
+            android:fontFamily="@font/notosans_bold"
             android:text="프로젝트 소개"
             app:layout_constraintStart_toStartOf="@id/textview2"
             app:layout_constraintTop_toBottomOf="@id/edittext_addproject_projectname" />
@@ -96,7 +98,7 @@
             android:layout_marginTop="12dp"
             android:background="@drawable/box_roundcorner"
             android:ems="10"
-            android:hint="대기방의 참가자들에게 보여집니다."
+            android:hint="대기방의 참가자들에게 보여집니다"
             android:inputType="textMultiLine"
             android:textColor="@color/storm_gray"
             android:textSize="13sp"
@@ -125,7 +127,7 @@
             android:backgroundTint="@color/storm_yellow"
             android:paddingHorizontal="44dp"
             android:paddingVertical="13dp"
-            android:text="추가하기"
+            android:text="추가"
             android:layout_margin="5dp"/>
 
     </LinearLayout>

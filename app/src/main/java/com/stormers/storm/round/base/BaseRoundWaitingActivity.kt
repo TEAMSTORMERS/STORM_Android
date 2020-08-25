@@ -33,7 +33,6 @@ open class BaseRoundWaitingActivity : BaseActivity() {
 
     private val exitDialogButtons: ArrayList<StormDialogButton> by lazy { ArrayList<StormDialogButton>() }
 
-    private lateinit var keyboardVisibilityUtils: KeyBoardVisibilityUtils
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
@@ -42,8 +41,6 @@ open class BaseRoundWaitingActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_round_setting)
-
-
 
         stormtoolbar_roundsetting.setExitButton(View.OnClickListener {
             showExitDialog()
@@ -120,10 +117,5 @@ open class BaseRoundWaitingActivity : BaseActivity() {
 
     override fun initFragmentId(): Int? {
         return R.id.constraint_host_round
-    }
-
-    override fun onDestroy() {
-        keyboardVisibilityUtils.detachKeyboardListeners()
-        super.onDestroy()
     }
 }

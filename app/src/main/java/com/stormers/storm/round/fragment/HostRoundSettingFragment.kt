@@ -80,7 +80,7 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
     }
 
     private fun initDialogButton() {
-        val button = StormDialogButton("입력", true, null)
+        val button = StormDialogButton("확인", true, null)
 
         button.pickerListener = object : StormDialogButton.OnPickerClickListener {
             override fun onClick(minute: Int) {
@@ -190,7 +190,8 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
         val round = StringBuilder()
         round.append("ROUND ")
             .append(roundCount)
-        textview_roundnumber.text = round.toString()
+            .append(" 설정")
+        textview_round_setting.text = round.toString()
     }
 
     private fun setTextWatcher(editText: StormEditText) {
