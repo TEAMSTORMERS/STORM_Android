@@ -6,42 +6,42 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
-import android.provider.Settings
 import android.text.Editable
-import android.text.Layout
 import android.text.TextWatcher
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.gun0912.tedpermission.PermissionListener
-import com.gun0912.tedpermission.TedPermission
 import com.stormers.storm.R
 import com.stormers.storm.SignUp.InterfaceSignUp
 import com.stormers.storm.SignUp.ResponseSignUpModel
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.card.util.BitmapConverter
+import com.stormers.storm.customview.StormEditText
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.network.RetrofitClient
+import com.stormers.storm.util.ProfileCompanion.FLAG_PERM_STORAGE
+import com.stormers.storm.util.ProfileCompanion.FLAG_REQ_STORAGE
+import com.stormers.storm.util.ProfileCompanion.SELECT_PURPLE_BUTTON
+import com.stormers.storm.util.ProfileCompanion.SELECT_RED_BUTTON
+import com.stormers.storm.util.ProfileCompanion.SELECT_YELLOW_BUTTON
+import com.stormers.storm.util.ProfileCompanion.USER_DEFAULT_IMAGE
+import com.stormers.storm.util.ProfileCompanion.USER_IMAGE
 import kotlinx.android.synthetic.main.activity_set_email_password.*
 import kotlinx.android.synthetic.main.activity_sigin_up.*
 import kotlinx.android.synthetic.main.activity_sigin_up.button_back_signup
@@ -52,20 +52,8 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.File
-import java.io.FileNotFoundException
-import java.io.FileOutputStream
-import java.io.IOException
 
 class SignUpActivity : BaseActivity() {
-
-    companion object {
-        private const val TAG = "SignUpActivity"
-        private const val FLAG_REQ_STORAGE = 102
-        private const val FLAG_PERM_STORAGE = 99
-        const val IS_DEFAULT_IMAGE = 0
-        const val USER_IMAGE = 1
-    }
 
     val STORAGE_PERMISSION = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
@@ -79,7 +67,7 @@ class SignUpActivity : BaseActivity() {
 
     lateinit var profileBitmap : Bitmap
 
-    var userImageFlag = IS_DEFAULT_IMAGE
+    var userImageFlag = USER_DEFAULT_IMAGE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,17 +90,23 @@ class SignUpActivity : BaseActivity() {
             imagebutton_select_profile_purple.setOnClickListener{
                 changeProfileResources(imagebutton_select_profile_purple)
                 keepBackgroundShapeAndSetColor(R.color.storm_purple)
+
+                //사용자가 선택한 배경 색상 sharedPreference에 저장
+                preference.setProfileColor(SELECT_PURPLE_BUTTON)
             }
 
             imagebutton_select_profile_red.setOnClickListener{
                 changeProfileResources(imagebutton_select_profile_red)
                 keepBackgroundShapeAndSetColor(R.color.storm_red)
 
+                preference.setProfileColor(SELECT_RED_BUTTON)
             }
 
             imagebutton_select_profile_yellow.setOnClickListener{
                 changeProfileResources(imagebutton_select_profile_yellow)
                 keepBackgroundShapeAndSetColor(R.color.storm_yellow)
+
+                preference.setProfileColor(SELECT_YELLOW_BUTTON)
             }
         }
     fun keepBackgroundShapeAndSetColor(colorId: Int) {
@@ -202,7 +196,7 @@ class SignUpActivity : BaseActivity() {
             imagebutton_select_profile_yellow.visibility = View.VISIBLE
             imagebutton_select_profile_red.visibility = View.VISIBLE
 
-            userImageFlag = IS_DEFAULT_IMAGE
+            userImageFlag = USER_DEFAULT_IMAGE
             changeProfileDefaultBackground()
         }
 
@@ -308,6 +302,9 @@ class SignUpActivity : BaseActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
         })
+
+        //전체 지우기 버튼 활성화/비활성화
+        edittext_name_signup.setRemoveAllTextWatcher()
     }
 
     private fun saveProfile() {
@@ -391,20 +388,20 @@ class SignUpActivity : BaseActivity() {
                                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                 startActivity(intent)
                             } else {
-                                if(response.body()!!.status == 400) {
-                                    Log.d("정보누락", response.body()!!.status.toString())
-                                } else {
-                                    if (response.body()!!.status == 600){
-                                        Log.d("중복이메일, DB오류", response.body()!!.status.toString())
-                                        textview_email_warning.setText("이미 사용중인 이메일입니다.")
-                                        textview_email_warning.visibility = View.VISIBLE
-                                    } else {
-                                        Log.d("서버오류", response.body()!!.status.toString())
-                                    }
-                                }
+                                Log.d("서버통신 오류", response.message())
                             }
                         } else {
-                            Log.d("서버통신 오류", response.message())
+                            if(response.code() == 400) {
+                                Log.d("정보누락", response.code().toString())
+                            } else {
+                                if (response.code() == 600){
+                                    Log.d("중복이메일, DB오류", response.code().toString())
+                                    textview_email_warning.setText("이미 사용중인 이메일입니다.")
+                                    textview_email_warning.visibility = View.VISIBLE
+                                } else {
+                                    Log.d("서버오류", response.code().toString())
+                                }
+                            }
                         }
                     }
                 })

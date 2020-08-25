@@ -2,8 +2,11 @@ package com.stormers.storm.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable.INFINITE
 import com.stormers.storm.LogIn.RequestLogIn
@@ -11,8 +14,10 @@ import com.stormers.storm.LogIn.model.LogInModel
 import com.stormers.storm.LogIn.model.response.ResponseLogIn
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
+import com.stormers.storm.customview.StormEditText
 import com.stormers.storm.network.RetrofitClient
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_mypage_withdrawal.*
 import retrofit2.Call
 import retrofit2.Response
 import javax.security.auth.callback.Callback
@@ -31,6 +36,9 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun initView() {
+        //전체 지우기 버튼 활성화/비활성화
+        edittext_email_login.setRemoveAllTextWatcher()
+        edittext_password_login.setRemoveAllTextWatcher()
 
         button_login.setOnClickListener{
             if (edittext_email_login.text.isNullOrBlank() || edittext_password_login.text.isNullOrBlank()){

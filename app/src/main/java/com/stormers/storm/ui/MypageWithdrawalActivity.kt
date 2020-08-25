@@ -29,7 +29,8 @@ class MypageWithdrawalActivity : BaseActivity() {
             startActivity(nextIntent)
         }
 
-        setTextWatcher()
+        //전체 지우기 버튼 활성화/비활성화
+        edittext_withdrawal_pwd.setRemoveAllTextWatcher()
 
         stormtoolbar_mypage_withdrawal.setBackButton()
 
@@ -75,27 +76,5 @@ class MypageWithdrawalActivity : BaseActivity() {
                     }
                 })
         }
-    }
-
-    private fun setTextWatcher() {
-        edittext_withdrawal_pwd.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                //공백이 아니면 전체 지우기 버튼 활성화
-                if (s.toString().isNotEmpty()) {
-                    edittext_withdrawal_pwd.showRemoveAll(true)
-                } else {
-                    //입력란이 공백일 때는 버튼 띄워주지 않음
-                    edittext_withdrawal_pwd.showRemoveAll(false)
-                }
-            }
-        })
     }
 }

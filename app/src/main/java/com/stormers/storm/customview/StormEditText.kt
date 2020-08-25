@@ -147,6 +147,27 @@ class StormEditText : ConstraintLayout {
         }
     }
 
+    fun setRemoveAllTextWatcher() {
+        this.edittext_customedittext.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                //공백이 아니면 전체 지우기 버튼 활성화
+                if (s.toString().isNotEmpty()) {
+                    showRemoveAll(true)
+                } else {
+                    //입력란이 공백일 때는 버튼 띄워주지 않음
+                    showRemoveAll(false)
+                }
+            }
+        })
+    }
 
     companion object {
         private const val TAG = "StormEditText"

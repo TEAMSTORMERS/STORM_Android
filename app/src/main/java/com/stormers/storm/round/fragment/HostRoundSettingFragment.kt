@@ -1,6 +1,8 @@
 package com.stormers.storm.round.fragment
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.Window
@@ -8,6 +10,7 @@ import android.widget.Toast
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseFragment
 import com.stormers.storm.customview.StormButton
+import com.stormers.storm.customview.StormEditText
 import com.stormers.storm.customview.dialog.StormDialog
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
@@ -67,6 +70,12 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
         textview_roundsetting_time.setOnClickListener {
             timePickerDialog.show(fragmentManager!!, "timepicker")
         }
+
+        //전체 지우기 버튼 활성화/비활성화
+        textview_round_goal.setRemoveAllTextWatcher()
+
+        //라운드 목표 글자수 제한
+        setTextWatcher(textview_round_goal)
 
     }
 
@@ -182,5 +191,25 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
         round.append("ROUND ")
             .append(roundCount)
         textview_roundnumber.text = round.toString()
+    }
+
+    private fun setTextWatcher(editText: StormEditText) {
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                //23자 제한
+                if (count > 23) {
+                    //Todo: 23자 글자 수 제한
+                    editText.text = s?.dropLast(1) as Editable?
+                }
+            }
+        })
     }
 }
