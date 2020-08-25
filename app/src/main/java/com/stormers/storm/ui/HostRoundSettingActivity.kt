@@ -13,6 +13,8 @@ import kotlinx.android.synthetic.main.fragment_host_round_setting.*
 
 class HostRoundSettingActivity : BaseRoundWaitingActivity() {
 
+    private lateinit var keyboardVisibilityUtils: KeyBoardVisibilityUtils
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

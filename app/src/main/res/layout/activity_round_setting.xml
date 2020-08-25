@@ -1,155 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scrollview_round_setting"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
     tools:context=".ui.HostRoundSettingActivity">
 
-    <FrameLayout
-        android:id="@+id/framelayout_round_setting"
+    <ImageView
+        android:id="@+id/imageView_background_red_radius"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/background_red_radius"
+        android:elevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.52"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.stormers.storm.customview.StormToolbar
+        android:id="@+id/stormtoolbar_roundsetting"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:layout_marginTop="49dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/constraintLayout_fragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/background_white_radius"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.60"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stormtoolbar_roundsetting"
+        app:layout_constraintVertical_bias="0.6"
+        app:layout_constraintWidth_percent="0.86">
+
+        <!--Todo: 뷰페이저 있던 자리-->
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_host_round"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/imageView_background_red_radius"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@drawable/background_red_radius"
-                android:elevation="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_percent="0.52"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.stormers.storm.customview.StormToolbar
-                android:id="@+id/stormtoolbar_roundsetting"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:elevation="10dp"
-                android:layout_marginTop="49dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/constraintLayout_fragment"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@drawable/background_white_radius"
-                app:cardCornerRadius="25dp"
-                app:cardElevation="10dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_percent="0.60"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/stormtoolbar_roundsetting"
-                app:layout_constraintVertical_bias="0.6"
-                app:layout_constraintWidth_percent="0.86">
-
-                <!--Todo: 뷰페이저 있던 자리-->
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraint_host_round"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingTop="30dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <!--Todo: 커스텀 뷰로 만들어 사용하기-->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/constraintlayout_setting_projectcard"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:cardCornerRadius="15dp"
-                app:cardElevation="20dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?android:selectableItemBackground"
-                app:layout_constraintBottom_toTopOf="@+id/constraintLayout_fragment"
-                app:layout_constraintDimensionRatio="1:0.63"
-                app:layout_constraintEnd_toEndOf="@+id/imageView_background_red_radius"
-                app:layout_constraintHeight_percent="0.21"
-                app:layout_constraintStart_toStartOf="@+id/imageView_background_red_radius"
-                app:layout_constraintTop_toTopOf="@+id/constraintLayout_fragment">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintlayout_roundsetting_projectcard"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:foreground="?android:selectableItemBackground"
-                    android:background="@drawable/card_asset">
-
-
-                    <TextView
-                        android:id="@+id/textview_projectcard_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="프로젝트 제목이 들어갑니다"
-                        android:textFontWeight="700"
-                        android:textSize="15sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.47"
-                        app:layout_constraintVertical_chainStyle="packed" />
-
-                    <TextView
-                        android:id="@+id/textview_projectcard_describe"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="참여 코드 복사"
-                        android:textSize="12sp"
-                        android:lineHeight="18sp"
-                        android:paddingHorizontal="10dp"
-                        android:background="@drawable/background_textview_codecopy"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textview_projectcard_title" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.cardview.widget.CardView>
-
-
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/constraintLayout_fragment"
-                android:elevation="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout_fragment">
-
-                <com.stormers.storm.customview.StormButton
-                    android:id="@+id/stormButton_ok_host_round_setting"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="확인"
-                    android:elevation="10dp"
-                    android:layout_margin="20dp" />
-
-            </FrameLayout>
+            android:layout_height="match_parent"
+            android:paddingTop="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </androidx.cardview.widget.CardView>
+
+    <!--Todo: 커스텀 뷰로 만들어 사용하기-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/constraintlayout_setting_projectcard"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="20dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:selectableItemBackground"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout_fragment"
+        app:layout_constraintDimensionRatio="1:0.63"
+        app:layout_constraintEnd_toEndOf="@+id/imageView_background_red_radius"
+        app:layout_constraintHeight_percent="0.21"
+        app:layout_constraintStart_toStartOf="@+id/imageView_background_red_radius"
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout_fragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintlayout_roundsetting_projectcard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:foreground="?android:selectableItemBackground"
+            android:background="@drawable/card_asset">
+
+
+            <TextView
+                android:id="@+id/textview_projectcard_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="프로젝트 제목이 들어갑니다"
+                android:textFontWeight="700"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.47"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/textview_projectcard_describe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="참여 코드 복사"
+                android:textSize="12sp"
+                android:lineHeight="18sp"
+                android:paddingHorizontal="10dp"
+                android:background="@drawable/background_textview_codecopy"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textview_projectcard_title" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout_fragment"
+        android:elevation="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout_fragment">
+
+        <com.stormers.storm.customview.StormButton
+            android:id="@+id/stormButton_ok_host_round_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="확인"
+            android:elevation="10dp"
+            android:layout_margin="20dp"
+            />
+
     </FrameLayout>
 
-
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
