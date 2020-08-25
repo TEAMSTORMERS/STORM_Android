@@ -347,6 +347,8 @@ class SignUpActivity : BaseActivity() {
 
         button_complete_signup.setOnClickListener{
 
+            showLoadingDialog()
+
             saveProfile()
             GlobalApplication.profileBitmap = profileBitmap
 
@@ -367,13 +369,14 @@ class SignUpActivity : BaseActivity() {
             RetrofitClient.create(InterfaceSignUp::class.java).interfaceSignUp(sendUserImage, userName,userEmail,userPassword, userImageFlag)
                 .enqueue(object : Callback<ResponseSignUpModel> {
                     override fun onFailure(call: Call<ResponseSignUpModel>, t: Throwable) {
-
+                        dismissLoadingDialog()
                     }
 
                     override fun onResponse(
                         call: Call<ResponseSignUpModel>,
                         response: Response<ResponseSignUpModel>
                     ) {
+                        dismissLoadingDialog()
                         if(response.isSuccessful){
                             if (response.body()!!.success){
 

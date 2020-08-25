@@ -31,8 +31,6 @@ class AddProjectActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_project)
 
-        preference.setProjectCode(null)
-
         stormtoolbar_addproject.run {
             setBackButton()
             setMyPageButton()

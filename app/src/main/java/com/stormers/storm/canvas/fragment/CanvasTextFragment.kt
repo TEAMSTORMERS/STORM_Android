@@ -27,6 +27,7 @@ class CanvasTextFragment : BaseCanvasFragment(TEXT_MODE, R.layout.view_addcard_e
     override fun onApplied() {
         val content = edittext_addcard.text.toString()
         if (!content.isBlank()) {
+            showLoadingDialog()
 
             val userIdx = RequestBody.create(MediaType.parse("text/plain"), userIdx.toString())
 
@@ -40,19 +41,18 @@ class CanvasTextFragment : BaseCanvasFragment(TEXT_MODE, R.layout.view_addcard_e
                 .postCard(userIdx, projectIdx, roundIdx, null, cardText).enqueue(object : Callback<Response> {
 
                     override fun onFailure(call: Call<Response>, t: Throwable) {
+                        dismissLoadingDialog()
                         Log.d(TAG, "postCard : Fail, ${t.message}")
                     }
 
                     override fun onResponse(call: Call<Response>, response: retrofit2.Response<Response>) {
+                        dismissLoadingDialog()
                         if (response.isSuccessful) {
                             if (response.body()!!.success) {
 
                                 saveCard(content)
 
                                 Toast.makeText(context, "카드가 추가되었습니다", Toast.LENGTH_SHORT).show()
-
-                                goToFragment(AddCardFragment::class.java, null)
-
                             } else {
                                 Log.d(TAG, "postCard: Not success, ${response.body()!!.message}")
                             }
