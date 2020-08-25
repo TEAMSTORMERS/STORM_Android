@@ -31,6 +31,7 @@ import com.stormers.storm.SignUp.InterfaceSignUp
 import com.stormers.storm.SignUp.ResponseSignUpModel
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.card.util.BitmapConverter
+import com.stormers.storm.customview.StormEditText
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.network.RetrofitClient
@@ -301,6 +302,9 @@ class SignUpActivity : BaseActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
         })
+
+        //전체 지우기 버튼 활성화/비활성화
+        edittext_name_signup.setRemoveAllTextWatcher()
     }
 
     private fun saveProfile() {
