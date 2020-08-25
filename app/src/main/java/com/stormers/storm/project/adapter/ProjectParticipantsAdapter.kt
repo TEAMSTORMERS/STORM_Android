@@ -4,10 +4,10 @@ import android.view.ViewGroup
 import com.stormers.storm.base.BaseAdapter
 import com.stormers.storm.base.BaseViewHolder
 import com.stormers.storm.project.viewholder.UserImageViewHolder
-import com.stormers.storm.user.UserModel
+import com.stormers.storm.user.User
 
-class ProjectParticipantsAdapter() : BaseAdapter<UserModel>(){
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<UserModel> {
+class ProjectParticipantsAdapter() : BaseAdapter<User>(){
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<User> {
         return UserImageViewHolder(parent)
 
     }

@@ -8,13 +8,13 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseViewHolder
-import com.stormers.storm.user.UserModel
+import com.stormers.storm.user.User
 
-class UserImageViewHolder (parent:ViewGroup) : BaseViewHolder<UserModel>(R.layout.item_user_profile, parent){
+class UserImageViewHolder (parent:ViewGroup) : BaseViewHolder<User>(R.layout.item_user_profile, parent){
 
     private val imageViewUserProfile = itemView.findViewById<ImageView>(R.id.imageview_user_profile)
 
-    override fun bind(data: UserModel) {
+    override fun bind(data: User) {
 
         imageViewUserProfile.background = ShapeDrawable(OvalShape())
         imageViewUserProfile.clipToOutline = true

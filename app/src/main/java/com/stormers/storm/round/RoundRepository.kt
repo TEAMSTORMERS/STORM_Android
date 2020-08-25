@@ -1,12 +1,11 @@
 package com.stormers.storm.round
 
 import android.util.Log
-import com.stormers.storm.project.model.ProjectEntity
 import com.stormers.storm.round.model.RoundEntity
 import com.stormers.storm.round.model.RoundModel
 import com.stormers.storm.roundparticipant.RoundParticipantRepository
 import com.stormers.storm.ui.GlobalApplication
-import com.stormers.storm.user.UserModel
+import com.stormers.storm.user.User
 
 class RoundRepository {
 
@@ -100,7 +99,7 @@ class RoundRepository {
     private fun getRoundModel(roundEntity: RoundEntity): RoundModel {
         var roundModel: RoundModel
 
-        var participants: List<UserModel>
+        var participants: List<User>
 
 
         roundEntity.let {

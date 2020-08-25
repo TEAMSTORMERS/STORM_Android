@@ -1,20 +1,20 @@
-package com.stormers.storm.project.model
+package com.stormers.storm.project.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "project_entity")
-data class ProjectEntity (
+data class Project(
     @PrimaryKey
     @ColumnInfo(name = "project_idx")
     val projectIdx: Int,
 
     @ColumnInfo(name = "project_date")
-    val projectDate: String,
+    var projectDate: String?,
 
     @ColumnInfo(name = "project_name")
-    val projectName: String?,
+    var projectName: String?,
 
     @ColumnInfo(name = "project_code")
     val projectCode: String?,

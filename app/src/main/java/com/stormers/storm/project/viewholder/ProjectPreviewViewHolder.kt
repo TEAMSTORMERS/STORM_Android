@@ -5,9 +5,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseViewHolder
 import com.stormers.storm.card.adapter.CardPreviewAdapter
-import com.stormers.storm.card.model.SimpleCardModel
 import com.stormers.storm.project.adapter.ProjectPreviewAdapter
-import com.stormers.storm.project.model.ParticipatedProjectModel
 import com.stormers.storm.project.model.ProjectPreviewModel
 import com.stormers.storm.util.MetricsUtil
 import com.stormers.storm.util.MiddleDividerItemDecoration

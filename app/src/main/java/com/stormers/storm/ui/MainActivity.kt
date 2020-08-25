@@ -16,7 +16,7 @@ import com.stormers.storm.project.network.RequestProject
 import com.stormers.storm.project.network.response.ResponseJoinProjectUsingCode
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.network.SocketClient
-import com.stormers.storm.project.ProjectRepository
+import com.stormers.storm.project.data.source.ProjectRepository
 import com.stormers.storm.project.adapter.ProjectPreviewAdapter
 import com.stormers.storm.project.model.*
 import com.stormers.storm.project.network.response.ResponseLookupProject

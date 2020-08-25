@@ -1,6 +1,6 @@
 package com.stormers.storm.round.model
 
-import com.stormers.storm.user.UserModel
+import com.stormers.storm.user.User
 
 data class RoundModel(
     var roundIdx: Int,
@@ -11,5 +11,5 @@ data class RoundModel(
 
     val roundTime: Int?,
 
-    var participants: List<UserModel>?
+    var participants: List<User>?
 )

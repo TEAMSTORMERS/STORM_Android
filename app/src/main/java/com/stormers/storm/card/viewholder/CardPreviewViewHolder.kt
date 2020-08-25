@@ -2,11 +2,9 @@ package com.stormers.storm.card.viewholder
 
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseViewHolder
-import com.stormers.storm.card.model.SimpleCardModel
 import kotlinx.android.synthetic.main.item_card_preview.view.*
 
 class CardPreviewViewHolder(parent: ViewGroup) : BaseViewHolder<String>(R.layout.item_card_preview, parent) {

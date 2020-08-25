@@ -11,7 +11,7 @@ import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.card.adapter.CardListAdapter
 import com.stormers.storm.card.model.CardEnumModel
 import com.stormers.storm.card.repository.CardRepository
-import com.stormers.storm.project.ProjectRepository
+import com.stormers.storm.project.data.source.ProjectRepository
 import com.stormers.storm.project.adapter.ProjectParticipantsAdapter
 import com.stormers.storm.project.model.ProjectModel
 import com.stormers.storm.round.adapter.RoundListAdapter

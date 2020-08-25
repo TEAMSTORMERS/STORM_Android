@@ -10,13 +10,13 @@ import com.stormers.storm.R
 import com.stormers.storm.base.BaseViewHolder
 import java.lang.StringBuilder
 
-class ParticipantViewHolder(parent: ViewGroup): BaseViewHolder<UserModel>(R.layout.item_participant_with_profile, parent) {
+class ParticipantViewHolder(parent: ViewGroup): BaseViewHolder<User>(R.layout.item_participant_with_profile, parent) {
     private val imageViewParticipantItemProfile = itemView.findViewById<ImageView>(
         R.id.imageview_participantitem_profile
     )
     private val textViewParticipantItemName = itemView.findViewById<TextView>(R.id.textview_participantitem_name)
 
-    override fun bind(data: UserModel) {
+    override fun bind(data: User) {
         //배경 둥글게 자르기
         imageViewParticipantItemProfile.background = ShapeDrawable(OvalShape())
         imageViewParticipantItemProfile.clipToOutline = true

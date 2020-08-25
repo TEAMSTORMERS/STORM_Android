@@ -3,7 +3,7 @@ package com.stormers.storm.roundparticipant
 import android.util.Log
 import com.stormers.storm.project.ProjectParticipantRepository
 import com.stormers.storm.ui.GlobalApplication
-import com.stormers.storm.user.UserModel
+import com.stormers.storm.user.User
 import com.stormers.storm.user.UserRepository
 
 class RoundParticipantRepository  {
@@ -31,7 +31,7 @@ class RoundParticipantRepository  {
 
     private val projectParticipantRepository: ProjectParticipantRepository by lazy { ProjectParticipantRepository.getInstance() }
 
-    fun getAll(roundIdx: Int) : List<UserModel> {
+    fun getAll(roundIdx: Int) : List<User> {
         val result = dao.getAll(roundIdx)
         Log.d(TAG, "getAll : $result")
 
@@ -42,7 +42,7 @@ class RoundParticipantRepository  {
         }
     }
 
-    fun insert(projectIdx: Int, roundIdx: Int, participants: List<UserModel>) {
+    fun insert(projectIdx: Int, roundIdx: Int, participants: List<User>) {
         for (participant in participants) {
             dao.insert(RoundParticipantEntity(roundIdx, participant.userIdx))
             //유저 정보에 삽입

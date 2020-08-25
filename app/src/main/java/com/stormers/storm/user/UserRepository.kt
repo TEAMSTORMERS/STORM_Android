@@ -33,14 +33,14 @@ class UserRepository {
         }
     }
 
-    fun get(userIdx: Int): UserModel? {
+    fun get(userIdx: Int): User? {
         val result = dao.get(userIdx)
         Log.d(TAG, "get: $result")
         return result
     }
 
-    fun getAll(usersIdx: List<Int>): List<UserModel> {
-        val users = mutableListOf<UserModel>()
+    fun getAll(usersIdx: List<Int>): List<User> {
+        val users = mutableListOf<User>()
         for (userIdx in usersIdx) {
             val user = dao.get(userIdx)
 
@@ -53,21 +53,21 @@ class UserRepository {
         return users
     }
 
-    fun insert(user: UserModel) {
+    fun insert(user: User) {
         dao.insert(user)
         Log.d(TAG, "insert: $user")
     }
 
     interface LoadUsersCallback {
 
-        fun onUsersLoaded(users: List<UserModel>)
+        fun onUsersLoaded(users: List<User>)
 
         fun onDataNotAvailable()
     }
 
     interface GetUserCallback {
 
-        fun onUserLoaded(user: UserModel)
+        fun onUserLoaded(user: User)
 
         fun onDataNotAvailable()
     }

@@ -2,9 +2,8 @@ package com.stormers.storm.project
 
 import android.util.Log
 import com.stormers.storm.project.model.ProjectParticipantEntity
-import com.stormers.storm.roundparticipant.RoundParticipantRepository
 import com.stormers.storm.ui.GlobalApplication
-import com.stormers.storm.user.UserModel
+import com.stormers.storm.user.User
 import com.stormers.storm.user.UserRepository
 
 class ProjectParticipantRepository {
@@ -30,7 +29,7 @@ class ProjectParticipantRepository {
 
     private val userRepository: UserRepository by lazy { UserRepository.getInstance() }
 
-    fun getAll(projectIdx: Int): List<UserModel> {
+    fun getAll(projectIdx: Int): List<User> {
         val results = dao.getAll(projectIdx)
         Log.d(TAG, "getAll : result")
 
@@ -41,7 +40,7 @@ class ProjectParticipantRepository {
         }
     }
 
-    fun insert(projectIdx: Int, participants: List<UserModel>) {
+    fun insert(projectIdx: Int, participants: List<User>) {
         val previousParticipantIdx = dao.getAll(projectIdx)
 
         for (participant in participants) {

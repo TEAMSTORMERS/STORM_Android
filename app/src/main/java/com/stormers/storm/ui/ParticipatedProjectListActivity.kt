@@ -4,21 +4,13 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
-import com.stormers.storm.network.RetrofitClient
-import com.stormers.storm.project.ProjectRepository
+import com.stormers.storm.project.data.source.ProjectRepository
 import com.stormers.storm.project.adapter.ProjectPreviewAdapter
 import com.stormers.storm.project.model.ProjectPreviewModel
-import com.stormers.storm.project.network.response.ResponseParticipatedProject
-import com.stormers.storm.project.network.RequestProject
 import com.stormers.storm.util.MarginDecoration
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_participated_project_list.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class ParticipatedProjectListActivity : BaseActivity() {
 

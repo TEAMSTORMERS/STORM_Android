@@ -8,7 +8,6 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import com.kakao.auth.KakaoSDK
 import com.stormers.storm.kakao.KakaoSDKAdapter
-import com.stormers.storm.project.model.ProjectEntity
 import com.stormers.storm.project.model.ProjectModel
 import com.stormers.storm.round.model.RoundModel
 import com.stormers.storm.util.DatabaseManager

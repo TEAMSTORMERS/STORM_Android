@@ -101,8 +101,8 @@ class RoundMeetingFragment : BaseFragment(R.layout.fragment_roundmeeting) {
             //어뎁터에 추가
             localCard.let {
                 val isScraped = CardType.scrapConverter(it.isScraped)
-                val cardType = CardType.typeConverter(it.cardType)
-                roundMeetingListAdapter.add(CardEnumModel(it.cardIdx, it.projectIdx, it.roundIdx, isScraped, cardType, it.content))
+                val cardType = CardType.typeConverter(it.cardImage)
+                roundMeetingListAdapter.add(CardEnumModel(it.cardIdx, it.projectIdx, it.roundIdx, isScraped, cardType, it.cardText))
             }
         }
     }

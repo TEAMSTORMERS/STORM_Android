@@ -51,7 +51,7 @@ class CardRepository {
     }
 
     fun getContentsAll(projectIdx: Int, limit: Int): List<String> {
-        var result = dao.getContentsAll(projectIdx, limit)
+        var result = dao.getCardPreviews(projectIdx, limit)
         Log.d(TAG, "getContentsAll: projectIdx: $projectIdx, numberOfCounts: $limit result : $result")
         if (result == null) {
             result = mutableListOf()
@@ -168,8 +168,8 @@ class CardRepository {
     private fun toEnumModels(cardEntities: List<CardEntity>): List<CardEnumModel> {
         return List(cardEntities.size) { i ->
             val isScraped = CardType.scrapConverter(cardEntities[i].isScraped)
-            val cardType = CardType.typeConverter(cardEntities[i].cardType)
-            CardEnumModel(cardEntities[i].cardIdx, cardEntities[i].projectIdx, cardEntities[i].roundIdx, isScraped, cardType, cardEntities[i].content)
+            val cardType = CardType.typeConverter(cardEntities[i].cardImage)
+            CardEnumModel(cardEntities[i].cardIdx, cardEntities[i].projectIdx, cardEntities[i].roundIdx, isScraped, cardType, cardEntities[i].cardText)
         }
     }
 
@@ -177,14 +177,14 @@ class CardRepository {
         return List(cardEntities.size) { i ->
             cardEntities[i].let {
                 val isScraped = CardType.scrapConverter(it.isScraped)
-                val cardType = CardType.typeConverter(it.cardType)
+                val cardType = CardType.typeConverter(it.cardImage)
                 val owner = userRepository.get(it.userIdx)
 
                 if (owner == null) {
                     Log.e(TAG, "getAll: Wrong card. no owner(${it.userIdx}))")
                     return null
                 }
-                CardModel(it.cardIdx, isScraped, cardType, it.content, it.memo, owner)
+                CardModel(it.cardIdx, isScraped, cardType, it.cardText, it.memo, owner)
             }
         }
     }
