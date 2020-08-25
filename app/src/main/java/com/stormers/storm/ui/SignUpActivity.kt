@@ -391,20 +391,20 @@ class SignUpActivity : BaseActivity() {
                                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                 startActivity(intent)
                             } else {
-                                if(response.body()!!.status == 400) {
-                                    Log.d("정보누락", response.body()!!.status.toString())
-                                } else {
-                                    if (response.body()!!.status == 600){
-                                        Log.d("중복이메일, DB오류", response.body()!!.status.toString())
-                                        textview_email_warning.setText("이미 사용중인 이메일입니다.")
-                                        textview_email_warning.visibility = View.VISIBLE
-                                    } else {
-                                        Log.d("서버오류", response.body()!!.status.toString())
-                                    }
-                                }
+                                Log.d("서버통신 오류", response.message())
                             }
                         } else {
-                            Log.d("서버통신 오류", response.message())
+                            if(response.code() == 400) {
+                                Log.d("정보누락", response.code().toString())
+                            } else {
+                                if (response.code() == 600){
+                                    Log.d("중복이메일, DB오류", response.code().toString())
+                                    textview_email_warning.setText("이미 사용중인 이메일입니다.")
+                                    textview_email_warning.visibility = View.VISIBLE
+                                } else {
+                                    Log.d("서버오류", response.code().toString())
+                                }
+                            }
                         }
                     }
                 })
