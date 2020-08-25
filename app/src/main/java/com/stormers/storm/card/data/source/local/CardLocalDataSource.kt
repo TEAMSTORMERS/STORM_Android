@@ -1,12 +1,14 @@
 package com.stormers.storm.card.data.source.local
 
 import com.stormers.storm.card.data.source.CardDataSource
+import com.stormers.storm.card.data.source.CardRepository
+import com.stormers.storm.card.model.RoundInfoWithCardsModel
 import com.stormers.storm.card.model.ScrapCardWithRoundInfo
 import com.stormers.storm.card.model.ScrapedCardModel
 import com.stormers.storm.card.model.ScrapedCardRelationModel
-import com.stormers.storm.project.data.source.local.ProjectDao
+//import com.stormers.storm.project.data.source.local.ProjectDao
 import com.stormers.storm.round.data.source.local.RoundDao
-import com.stormers.storm.util.AppExecutors
+//import com.stormers.storm.util.AppExecutors
 
 class CardLocalDataSource private constructor(
 //    val appExecutors: AppExecutors,
@@ -14,6 +16,17 @@ class CardLocalDataSource private constructor(
 //    val roundDao: RoundDao,
 //    val cardDao: CardDao
 ): CardDataSource {
+
+    companion object {
+        private const val TAG = "CardLocalDataSource"
+
+        private var instance: CardLocalDataSource? = null
+
+        @JvmStatic fun getInstance(/*appExecutors: AppExecutors, cardDao: CardDao*/): CardLocalDataSource {
+            return instance ?: CardLocalDataSource(/*appExecutors, cardDao*/)
+                .apply { instance = this }
+        }
+    }
 
     override fun getScrapedCardsWithInfo(
         projectIdx: Int,
@@ -68,5 +81,14 @@ class CardLocalDataSource private constructor(
 
     override fun unScrapCard(scrapedCardRelationModel: ScrapedCardRelationModel) {
         //Todo: DB에 저장할 수 있도록 서버와 맞추기
+    }
+
+    override fun getCardWithProjectAndRoundInfo(
+        projectIdx: Int,
+        roundIdx: Int,
+        userIdx: Int,
+        callback: CardDataSource.GetCardCallback<RoundInfoWithCardsModel>
+    ) {
+        callback.onDataNotAvailable()
     }
 }

@@ -2,12 +2,15 @@ package com.stormers.storm.card.data.source.remote
 
 import android.util.Log
 import com.stormers.storm.card.data.source.CardDataSource
+import com.stormers.storm.card.model.RoundInfoWithCardsModel
 import com.stormers.storm.card.model.ScrapedCardModel
 import com.stormers.storm.card.model.ScrapedCardRelationModel
 import com.stormers.storm.card.network.RequestCard
+import com.stormers.storm.card.network.ResponseCardData
 import com.stormers.storm.network.ResponseData
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.network.SimpleResponse
+import com.stormers.storm.ui.GlobalApplication
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -102,5 +105,37 @@ object CardRemoteDataSource : CardDataSource {
                     }
                 })
         }
+    }
+
+    override fun getCardWithProjectAndRoundInfo(
+        projectIdx: Int,
+        roundIdx: Int,
+        userIdx: Int,
+        callback: CardDataSource.GetCardCallback<RoundInfoWithCardsModel>
+    ) {
+        Log.d(TAG, "requestCards: projectIdx: $projectIdx, roundIdx: $roundIdx, userIdx: $userIdx")
+
+        RetrofitClient.create(RequestCard::class.java).requestCard(projectIdx, roundIdx, GlobalApplication.userIdx)
+            .enqueue(object : Callback<ResponseCardData> {
+                override fun onFailure(call: Call<ResponseCardData>, t: Throwable) {
+                    Log.d(TAG, "requestCards: fail : ${t.message}")
+                    callback.onDataNotAvailable()
+                }
+
+                override fun onResponse(call: Call<ResponseCardData>, response: Response<ResponseCardData>) {
+                    if (response.isSuccessful) {
+                        if (response.body()!!.success) {
+                            Log.d(TAG, "requestCards: Success, ${response.body()!!.data.cardWithOwnerList}")
+                            callback.onCardLoaded(response.body()!!.data)
+                        } else {
+                            Log.d(TAG, "requestCards: Not success, ${response.body()!!.message}")
+                            callback.onDataNotAvailable()
+                        }
+                    } else {
+                        Log.d(TAG, "requestCards: Not success, ${response.message()}")
+                        callback.onDataNotAvailable()
+                    }
+                }
+            })
     }
 }

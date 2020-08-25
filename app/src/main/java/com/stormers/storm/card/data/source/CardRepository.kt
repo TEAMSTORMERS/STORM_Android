@@ -1,5 +1,6 @@
 package com.stormers.storm.card.data.source
 
+import com.stormers.storm.card.model.RoundInfoWithCardsModel
 import com.stormers.storm.card.model.ScrapedCardModel
 import com.stormers.storm.card.model.ScrapedCardRelationModel
 
@@ -37,6 +38,23 @@ class CardRepository (
         })
     }
 
+    override fun getCardWithProjectAndRoundInfo(
+        projectIdx: Int,
+        roundIdx: Int,
+        userIdx: Int,
+        callback: CardDataSource.GetCardCallback<RoundInfoWithCardsModel>
+    ) {
+        cardLocalDataSource.getCardWithProjectAndRoundInfo(projectIdx, roundIdx, userIdx, object : CardDataSource.GetCardCallback<RoundInfoWithCardsModel> {
+            override fun onCardLoaded(card: RoundInfoWithCardsModel) {
+                callback.onCardLoaded(card)
+            }
+
+            override fun onDataNotAvailable() {
+                getCardWithProjectAndRoundInfoFromRemote(projectIdx, roundIdx, userIdx, callback)
+            }
+        })
+    }
+
     private fun getScrapedCardsFromRemote(
         projectIdx: Int,
         userIdx: Int,
@@ -46,6 +64,24 @@ class CardRepository (
             override fun onCardLoaded(card: ScrapedCardModel) {
                 callback.onCardLoaded(card)
                 refreshLocalScrapedCards(card)
+            }
+
+            override fun onDataNotAvailable() {
+                callback.onDataNotAvailable()
+            }
+        })
+    }
+
+    private fun getCardWithProjectAndRoundInfoFromRemote(
+        projectIdx: Int,
+        roundIdx: Int,
+        userIdx: Int,
+        callback: CardDataSource.GetCardCallback<RoundInfoWithCardsModel>
+    ) {
+        cardRemoteDataSource.getCardWithProjectAndRoundInfo(projectIdx, roundIdx, userIdx, object : CardDataSource.GetCardCallback<RoundInfoWithCardsModel> {
+            override fun onCardLoaded(card: RoundInfoWithCardsModel) {
+                //Todo: 로컬 디비 갱신
+                callback.onCardLoaded(card)
             }
 
             override fun onDataNotAvailable() {

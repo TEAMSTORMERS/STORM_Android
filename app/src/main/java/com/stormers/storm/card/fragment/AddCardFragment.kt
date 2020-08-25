@@ -9,7 +9,6 @@ import com.stormers.storm.R
 import com.stormers.storm.base.BaseFragment
 import com.stormers.storm.canvas.fragment.CanvasDrawingFragment
 import com.stormers.storm.card.adapter.CacheCardListAdapter
-import com.stormers.storm.card.adapter.CardListAdapter
 import com.stormers.storm.ui.RoundProgressActivity
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_round_progress.*
