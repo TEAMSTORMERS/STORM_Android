@@ -3,15 +3,7 @@ package com.stormers.storm.SignUp
 import com.google.gson.annotations.SerializedName
 import java.io.File
 
-data class SignUpModel(
-    @SerializedName("user_img")
-    val userImage : File,
-    @SerializedName("user_name")
-    val userName : String,
+data class CheckEmailDuplicationModel(
     @SerializedName("user_email")
-    val userEmail : String,
-    @SerializedName("user_password")
-    val userPassword : String,
-    @SerializedName("user_img_flag")
-    val UserImgeFlag : Int
+    val userEmail : String
 )
