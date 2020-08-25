@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.view.View
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
+import com.stormers.storm.customview.StormEditText
 import com.stormers.storm.customview.dialog.StormDialogButton
 import kotlinx.android.synthetic.main.activity_set_email_password.*
 import kotlinx.android.synthetic.main.activity_set_email_password.button_back_signup
@@ -87,6 +88,12 @@ class SetEmailPasswordActivity : BaseActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
         })
+
+        //전체 지우기 버튼 활성화/비활성화
+        edittext_input_email.setRemoveAllTextWatcher()
+        edittext_input_password.setRemoveAllTextWatcher()
+        edittext_password_check.setRemoveAllTextWatcher()
+
     }
 
     fun isEmailValid(email: String): Boolean {
