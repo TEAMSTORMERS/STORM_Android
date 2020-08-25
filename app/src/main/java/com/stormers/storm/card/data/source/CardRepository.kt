@@ -1,0 +1,69 @@
+package com.stormers.storm.card.data.source
+
+import com.stormers.storm.card.model.ScrapedCardModel
+import com.stormers.storm.card.model.ScrapedCardRelationModel
+
+
+class CardRepository (
+    val cardRemoteDataSource: CardDataSource,
+    val cardLocalDataSource: CardDataSource) : CardDataSource {
+
+    companion object {
+        private const val TAG = "CardRepository"
+
+        private var instance: CardRepository? = null
+
+        @JvmStatic fun getInstance(cardRemoteDataSource: CardDataSource,
+                                   cardLocalDataSource: CardDataSource
+        ): CardRepository {
+            return instance ?: CardRepository(cardRemoteDataSource, cardLocalDataSource)
+                .apply { instance = this }
+        }
+    }
+
+    override fun getScrapedCardsWithInfo(
+        projectIdx: Int,
+        userIdx: Int,
+        callback: CardDataSource.GetCardCallback<ScrapedCardModel>
+    ) {
+        cardLocalDataSource.getScrapedCardsWithInfo(projectIdx, userIdx, object : CardDataSource.GetCardCallback<ScrapedCardModel> {
+            override fun onCardLoaded(card: ScrapedCardModel) {
+                callback.onCardLoaded(card)
+            }
+
+            override fun onDataNotAvailable() {
+                getScrapedCardsFromRemote(projectIdx, userIdx, callback)
+            }
+        })
+    }
+
+    private fun getScrapedCardsFromRemote(
+        projectIdx: Int,
+        userIdx: Int,
+        callback: CardDataSource.GetCardCallback<ScrapedCardModel>
+    ) {
+        cardRemoteDataSource.getScrapedCardsWithInfo(projectIdx, userIdx, object : CardDataSource.GetCardCallback<ScrapedCardModel> {
+            override fun onCardLoaded(card: ScrapedCardModel) {
+                callback.onCardLoaded(card)
+                refreshLocalScrapedCards(card)
+            }
+
+            override fun onDataNotAvailable() {
+                callback.onDataNotAvailable()
+            }
+        })
+    }
+
+    private fun refreshLocalScrapedCards(card: ScrapedCardModel) {
+        cardLocalDataSource.saveScrapedCardsWithInfo(card)
+    }
+
+    override fun saveScrapedCardsWithInfo(card: ScrapedCardModel) {
+        //아무것도 할 수 없음
+    }
+
+    override fun scrapCard(scrapedCardRelationModel: ScrapedCardRelationModel) {
+        cardLocalDataSource.scrapCard(scrapedCardRelationModel)
+        cardRemoteDataSource.scrapCard(scrapedCardRelationModel)
+    }
+}

@@ -9,11 +9,11 @@ import com.stormers.storm.base.BaseFragment
 import com.stormers.storm.card.CardType
 import com.stormers.storm.card.adapter.CardListAdapter
 import com.stormers.storm.card.model.ResponseCardModel
-import com.stormers.storm.card.model.CardEntity
+import com.stormers.storm.card.data.Card
 import com.stormers.storm.card.model.CardEnumModel
 import com.stormers.storm.card.network.RequestCard
 import com.stormers.storm.card.network.ResponseCardData
-import com.stormers.storm.card.repository.CardRepository
+import com.stormers.storm.card.data.source.CardRepository
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.ui.GlobalApplication
 import com.stormers.storm.ui.RoundFinishCardExpandActivity
@@ -80,12 +80,28 @@ class RoundMeetingFragment : BaseFragment(R.layout.fragment_roundmeeting) {
         for (card in cardList) {
             val localCard = when {
                 card.card_txt != null -> {
-                    CardEntity(card.card_idx, projectIdx, roundIdx, card.user_idx,
-                        CardEntity.FALSE, CardEntity.TEXT, card.card_txt, null)
+                    Card(
+                        card.card_idx,
+                        projectIdx,
+                        roundIdx,
+                        card.user_idx,
+                        Card.FALSE,
+                        Card.TEXT,
+                        card.card_txt,
+                        null
+                    )
                 }
                 card.card_img != null -> {
-                    CardEntity(card.card_idx, projectIdx, roundIdx, card.user_idx,
-                        CardEntity.FALSE, CardEntity.DRAWING, card.card_img, null)
+                    Card(
+                        card.card_idx,
+                        projectIdx,
+                        roundIdx,
+                        card.user_idx,
+                        Card.FALSE,
+                        Card.DRAWING,
+                        card.card_img,
+                        null
+                    )
                 }
                 else -> {
                     null

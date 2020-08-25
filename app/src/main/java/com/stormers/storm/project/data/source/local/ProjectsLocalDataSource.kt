@@ -1,7 +1,7 @@
 package com.stormers.storm.project.data.source.local
 
-import com.stormers.storm.card.dao.CardDao
-import com.stormers.storm.card.model.CardEntity
+import com.stormers.storm.card.data.source.local.CardDao
+import com.stormers.storm.card.data.Card
 import com.stormers.storm.project.data.Project
 import com.stormers.storm.project.data.source.ProjectsDataSource
 import com.stormers.storm.project.model.ProjectDetailInfo
@@ -58,7 +58,15 @@ class ProjectsLocalDataSource private constructor(
                 val project = Project(projectIdx, null, projectName, null, null)
                 val cards = List(projectCardPreview.size) { i ->
                     projectCardPreview.let {
-                        CardEntity(it[i].cardIdx, projectIdx, null, null, it[i].cardImage, it[i].cardText, null)
+                        Card(
+                            it[i].cardIdx,
+                            projectIdx,
+                            null,
+                            null,
+                            it[i].cardImage,
+                            it[i].cardText,
+                            null
+                        )
                     }
                 }
                 appExecutors.diskIO.execute {

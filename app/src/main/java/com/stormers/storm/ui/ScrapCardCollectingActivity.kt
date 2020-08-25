@@ -1,20 +1,15 @@
 package com.stormers.storm.ui
 
 import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.stormers.storm.R
 import com.stormers.storm.card.adapter.CardListAdapter
 import com.stormers.storm.card.model.CardEnumModel
-import com.stormers.storm.card.repository.CardRepository
-import com.stormers.storm.customview.dialog.StormDialog.Companion.TAG
+import com.stormers.storm.card.data.source.CardRepository
 import com.stormers.storm.util.MarginDecoration
-import kotlinx.android.synthetic.main.activity_participated_project_detail.*
 import kotlinx.android.synthetic.main.activity_scrapcard_collecting.*
 
 class ScrapCardCollectingActivity : AppCompatActivity() {

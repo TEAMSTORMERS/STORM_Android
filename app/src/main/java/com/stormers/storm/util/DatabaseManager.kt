@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.stormers.storm.card.dao.CardDao
-import com.stormers.storm.card.model.CardEntity
+import com.stormers.storm.card.data.source.local.CardDao
+import com.stormers.storm.card.data.Card
 import com.stormers.storm.project.data.source.local.ProjectDao
 import com.stormers.storm.project.ProjectParticipantDao
 import com.stormers.storm.project.data.Project
@@ -17,7 +17,7 @@ import com.stormers.storm.round.data.RoundParticipant
 import com.stormers.storm.user.UserDao
 import com.stormers.storm.user.User
 
-@Database(entities = [CardEntity::class, Round::class, Project::class, User::class,
+@Database(entities = [Card::class, Round::class, Project::class, User::class,
 RoundParticipant::class, ProjectParticipant::class], version = 1)
 abstract class DatabaseManager : RoomDatabase() {
     abstract fun savedCardDao() : CardDao

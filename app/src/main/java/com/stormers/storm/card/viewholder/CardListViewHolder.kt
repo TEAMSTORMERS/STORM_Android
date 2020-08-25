@@ -6,7 +6,7 @@ import com.stormers.storm.base.BaseViewHolder
 import com.stormers.storm.card.CardType
 import com.stormers.storm.card.adapter.CardListAdapter
 import com.stormers.storm.card.model.CardEnumModel
-import com.stormers.storm.card.repository.CardRepository
+import com.stormers.storm.card.data.source.CardRepository
 import com.stormers.storm.card.util.BitmapConverter
 import com.stormers.storm.customview.StormCard
 import kotlinx.android.synthetic.main.item_heart_card.view.*

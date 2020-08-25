@@ -1,33 +1,33 @@
 package com.stormers.storm.card
 
-import com.stormers.storm.card.model.CardEntity
+import com.stormers.storm.card.data.Card
 
 enum class CardType {
     DRAWING, TEXT;
 
     companion object {
         fun scrapConverter(isScraped: Int): Boolean {
-            return isScraped == CardEntity.TRUE
+            return isScraped == Card.TRUE
         }
 
         fun scrapConverter(isScraped: Boolean): Int {
             return if (isScraped) {
-                CardEntity.TRUE
+                Card.TRUE
             } else {
-                CardEntity.FALSE
+                Card.FALSE
             }
         }
 
         fun typeConverter(cardType: CardType): Int {
             return if (cardType == DRAWING) {
-                CardEntity.DRAWING
+                Card.DRAWING
             } else {
-                CardEntity.TEXT
+                Card.TEXT
             }
         }
 
         fun typeConverter(cardType: Int): CardType {
-            return if (cardType == CardEntity.DRAWING) {
+            return if (cardType == Card.DRAWING) {
                 DRAWING
             } else {
                 TEXT

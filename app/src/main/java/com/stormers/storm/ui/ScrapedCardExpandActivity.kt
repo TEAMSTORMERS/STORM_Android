@@ -7,9 +7,9 @@ import android.view.View
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.card.fragment.ExpandCardFragment
-import com.stormers.storm.card.model.CardEntity
+import com.stormers.storm.card.data.Card
 import com.stormers.storm.card.model.CardModel
-import com.stormers.storm.card.repository.CardRepository
+import com.stormers.storm.card.data.source.CardRepository
 import com.stormers.storm.round.data.source.RoundRepository
 import com.stormers.storm.round.model.RoundModel
 import kotlinx.android.synthetic.main.activity_expandcard.*
@@ -65,8 +65,8 @@ class ScrapedCardExpandActivity : BaseActivity(), ExpandCardFragment.OnCardPageC
     }
 
     private fun initRoundInfoOfCard(cardIdx: Int) {
-        cardRepository.get(cardIdx, object : CardRepository.GetCardModel<CardEntity> {
-            override fun onCardLoaded(card: CardEntity) {
+        cardRepository.get(cardIdx, object : CardRepository.GetCardModel<Card> {
+            override fun onCardLoaded(card: Card) {
                 initRoundInfo(card.roundIdx)
             }
 

@@ -1,7 +1,5 @@
 package com.stormers.storm.card.viewholder
 
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.DrawableContainer
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
 import android.view.View
@@ -12,10 +10,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseViewHolder
 import com.stormers.storm.card.CardType
-import com.stormers.storm.card.model.CardEntity
 import com.stormers.storm.card.model.CardModel
-import com.stormers.storm.card.repository.CardRepository
-import com.stormers.storm.card.util.BitmapConverter
+import com.stormers.storm.card.data.source.CardRepository
 import kotlinx.android.synthetic.main.item_expandcard_card.view.*
 
 class ExpandCardViewHolder(parent: ViewGroup) : BaseViewHolder<CardModel>(R.layout.item_expandcard_card, parent) {

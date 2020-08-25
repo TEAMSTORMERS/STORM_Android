@@ -8,8 +8,8 @@ import androidx.annotation.LayoutRes
 import androidx.viewpager2.widget.ViewPager2
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.card.adapter.ExpandCardAdapter
-import com.stormers.storm.card.model.CardEntity
-import com.stormers.storm.card.repository.CardRepository
+import com.stormers.storm.card.data.Card
+import com.stormers.storm.card.data.source.CardRepository
 import com.stormers.storm.customview.StormButton
 import com.stormers.storm.customview.StormToolbar
 import com.stormers.storm.util.DepthPageTransformer
@@ -21,7 +21,7 @@ abstract class BaseExpandCardActivity(private val isScraped: Boolean, @LayoutRes
 
     protected var currentPage = 0
 
-    protected var data: List<CardEntity>? = null
+    protected var data: List<Card>? = null
 
     private lateinit var toolbar: StormToolbar
 

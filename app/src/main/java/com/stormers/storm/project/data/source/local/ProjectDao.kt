@@ -5,6 +5,7 @@ import com.stormers.storm.base.BaseDao
 import com.stormers.storm.project.data.Project
 import com.stormers.storm.project.model.ProjectDetailInfo
 import com.stormers.storm.project.data.ProjectParticipant
+import com.stormers.storm.project.model.ProjectNameWithScrapedCardCount
 import com.stormers.storm.project.model.ProjectPreviewModel
 
 @Dao
@@ -27,4 +28,8 @@ abstract class ProjectDao: BaseDao<Project> {
 
     @Query("SELECT * FROM project_entity WHERE project_idx = :projectIdx")
     abstract fun get(projectIdx: Int): Project?
+
+    @Query("SELECT project_name, COUNT(scrap_idx) AS scrap_count FROM project_entity JOIN card_entity ON project_entity.project_idx = card_entity.project_idx JOIN scrap ON scrap.card_idx = card_entity.card_idx WHERE project_entity.project_idx = :projectIdx AND scrap.user_idx = :userIdx")
+    abstract fun getProjectNameOfScrapedCard(projectIdx: Int, userIdx: Int) : ProjectNameWithScrapedCardCount?
+
 }

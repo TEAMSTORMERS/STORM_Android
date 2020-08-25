@@ -1,4 +1,4 @@
-package com.stormers.storm.card.model
+package com.stormers.storm.card.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -7,7 +7,7 @@ import androidx.room.ForeignKey
 import com.stormers.storm.project.data.Project
 
 @Entity(
-    tableName = "scraped_card_entity",
+    tableName = "card_entity",
     primaryKeys = ["card_idx"],
     foreignKeys = [
         ForeignKey(
@@ -17,7 +17,7 @@ import com.stormers.storm.project.data.Project
             onDelete = ForeignKey.CASCADE
         )]
 )
-data class CardEntity(
+data class Card(
     @PrimaryKey
     @ColumnInfo(name = "card_idx")
     val cardIdx: Int,

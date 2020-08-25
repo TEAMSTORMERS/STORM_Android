@@ -8,7 +8,7 @@ import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.card.adapter.CardListAdapter
 import com.stormers.storm.card.model.CardEnumModel
-import com.stormers.storm.card.repository.CardRepository
+import com.stormers.storm.card.data.source.CardRepository
 import com.stormers.storm.round.data.source.RoundRepository
 import com.stormers.storm.round.adapter.RoundListAdapter
 import com.stormers.storm.round.model.RoundModel

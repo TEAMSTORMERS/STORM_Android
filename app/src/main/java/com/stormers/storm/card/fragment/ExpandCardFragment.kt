@@ -10,7 +10,7 @@ import com.stormers.storm.R
 import com.stormers.storm.base.BaseFragment
 import com.stormers.storm.card.adapter.ExpandCardAdapter
 import com.stormers.storm.card.model.CardModel
-import com.stormers.storm.card.repository.CardRepository
+import com.stormers.storm.card.data.source.CardRepository
 import com.stormers.storm.util.DepthPageTransformer
 import kotlinx.android.synthetic.main.fragment_expand_card.*
 
