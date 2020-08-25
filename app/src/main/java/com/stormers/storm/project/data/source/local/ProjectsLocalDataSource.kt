@@ -1,13 +1,12 @@
 package com.stormers.storm.project.data.source.local
 
-import com.stormers.storm.card.data.source.local.CardDao
-import com.stormers.storm.card.data.Card
-import com.stormers.storm.project.data.Project
+//import com.stormers.storm.card.data.Card
+//import com.stormers.storm.project.data.Project
 import com.stormers.storm.project.data.source.ProjectsDataSource
 import com.stormers.storm.project.model.ProjectDetailInfo
 import com.stormers.storm.project.model.ProjectPreviewModel
-import com.stormers.storm.user.UserDao
-import com.stormers.storm.util.AppExecutors
+//import com.stormers.storm.user.UserDao
+//import com.stormers.storm.util.AppExecutors
 
 class ProjectsLocalDataSource private constructor(
     //val appExecutors: AppExecutors,
@@ -15,6 +14,20 @@ class ProjectsLocalDataSource private constructor(
     //val cardDao: CardDao,
     //val userDao: UserDao
 ) : ProjectsDataSource {
+
+    companion object {
+        private var instance: ProjectsLocalDataSource? = null
+
+        @JvmStatic
+        fun getInstance(/*appExecutors: AppExecutors, projectDao: ProjectDao*/): ProjectsLocalDataSource {
+            if (instance == null) {
+                synchronized(ProjectsLocalDataSource::javaClass) {
+                    instance = ProjectsLocalDataSource(/*appExecutors, projectDao*/)
+                }
+            }
+            return instance!!
+        }
+    }
 
     //Todo: CardDao 를 거치지 않고 쿼리 하나로 카드까지 받아올 수 있도록 수정해야함.
     override fun getProjectPreviews(userIdx: Int, callback: ProjectsDataSource.LoadProjectsCallback<ProjectPreviewModel>) {
