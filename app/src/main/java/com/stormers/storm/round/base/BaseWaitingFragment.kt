@@ -26,6 +26,7 @@ import com.stormers.storm.ui.GlobalApplication
 import com.stormers.storm.ui.RoundProgressActivity
 import com.stormers.storm.user.ParticipantAdapter
 import com.stormers.storm.user.User
+import com.stormers.storm.user.UserDataSource
 import com.stormers.storm.user.UserRepository
 import com.stormers.storm.util.MarginDecoration
 import io.socket.emitter.Emitter
@@ -42,10 +43,6 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
     }
 
     private val participantAdapter: ParticipantAdapter by lazy { ParticipantAdapter() }
-
-    private val roundRepository: RoundRepository by lazy { RoundRepository.getInstance() }
-
-    private val projectRepository: ProjectRepository by lazy { ProjectRepository.getInstance() }
 
     private val buttonArray = ArrayList<StormDialogButton>()
 
@@ -141,7 +138,7 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
     }
 
     private fun refreshParticipants(roundIdx: Int) {
-        getParticipants(roundIdx, object: UserRepository.LoadUsersCallback {
+        getParticipants(roundIdx, object: UserDataSource.LoadUsersCallback<User> {
             override fun onUsersLoaded(users: List<User>) {
                 participantAdapter.setList(users)
                 cacheParticipants = users
@@ -168,7 +165,7 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
         return false
     }
 
-    private fun getParticipants(roundIdx: Int, callback: UserRepository.LoadUsersCallback) {
+    private fun getParticipants(roundIdx: Int, callback: UserDataSource.LoadUsersCallback<User>) {
         Log.d(TAG, "getParticipants: projectIdx: ${GlobalApplication.currentProject!!.projectIdx}, roundIdx: $roundIdx")
         RetrofitClient.create(RequestRound::class.java).showRoundUser(GlobalApplication.currentProject!!.projectIdx, roundIdx)
             .enqueue(object : Callback<ResponseParticipant> {
@@ -219,13 +216,9 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
         }
     }
 
-    private fun saveRoundInDB(participants: List<User>) {
+    private fun saveRoundToCache(participants: List<User>) {
         //저장해둔 현재 라운드와 프로젝트의 정보를 DB에 저장
-        GlobalApplication.run {
-            currentRound!!.participants = participants
-            roundRepository.insert(currentProject!!.projectIdx, currentRound!!)
-            projectRepository.insert(currentProject!!)
-        }
+        GlobalApplication.currentRound!!.participants = participants
     }
 
     protected open fun onRoundStart() {
@@ -233,7 +226,7 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
         SocketClient.offEvent(SocketClient.ROUND_COMPLETE)
 
         //디비에 현재 참가자 목록 저장
-        cacheParticipants?.let { saveRoundInDB(it) } ?: Log.e(TAG, "Wrong participants")
+        cacheParticipants?.let { saveRoundToCache(it) } ?: Log.e(TAG, "Wrong participants")
 
         Log.d(TAG, "onRoundStart: Start round !!")
     }

@@ -1,8 +1,8 @@
 package com.stormers.storm.util
 
-import com.stormers.storm.project.data.Project
-import com.stormers.storm.round.data.Round
-import com.stormers.storm.user.UserDao
+//import com.stormers.storm.project.data.Project
+//import com.stormers.storm.round.data.Round
+//import com.stormers.storm.user.UserDao
 
 //@Database(entities = [Card::class, Round::class, Project::class, User::class,
 //RoundParticipant::class, ProjectParticipant::class], version = 1)
