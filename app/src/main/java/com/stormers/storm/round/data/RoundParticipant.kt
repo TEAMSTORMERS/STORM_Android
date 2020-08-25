@@ -1,19 +1,19 @@
-package com.stormers.storm.project.model
+package com.stormers.storm.round.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import com.stormers.storm.project.data.Project
-import com.stormers.storm.user.User
+import androidx.room.PrimaryKey
+import com.kakao.usermgmt.response.model.User
 
 @Entity(
-    tableName = "project_participant_entity",
-    primaryKeys = ["project_idx", "user_idx"],
+    tableName = "round_participant_entity",
+    primaryKeys = ["round_idx", "user_idx"],
     foreignKeys = [
         ForeignKey(
-            entity = Project::class,
-            parentColumns = ["project_idx"],
-            childColumns = ["project_idx"],
+            entity = Round::class,
+            parentColumns = ["round_idx"],
+            childColumns = ["round_idx"],
             onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(
@@ -24,9 +24,9 @@ import com.stormers.storm.user.User
         )
     ]
 )
-class ProjectParticipantEntity {
-    @ColumnInfo(name = "project_idx")
-    val projectIdx: Int = 0
+class RoundParticipant {
+    @ColumnInfo(name = "round_idx")
+    val roundIdx: Int = 0
 
     @ColumnInfo(name = "user_idx")
     val userIdx: Int = 0

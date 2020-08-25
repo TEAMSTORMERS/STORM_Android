@@ -19,8 +19,8 @@ import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.network.SocketClient
 import com.stormers.storm.project.data.source.ProjectRepository
-import com.stormers.storm.project.network.response.ResponseProjectUserListModel
-import com.stormers.storm.round.RoundRepository
+import com.stormers.storm.project.network.response.ResponseParticipant
+import com.stormers.storm.round.data.source.RoundRepository
 import com.stormers.storm.round.network.RequestRound
 import com.stormers.storm.ui.GlobalApplication
 import com.stormers.storm.ui.RoundProgressActivity
@@ -171,14 +171,14 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
     private fun getParticipants(roundIdx: Int, callback: UserRepository.LoadUsersCallback) {
         Log.d(TAG, "getParticipants: projectIdx: ${GlobalApplication.currentProject!!.projectIdx}, roundIdx: $roundIdx")
         RetrofitClient.create(RequestRound::class.java).showRoundUser(GlobalApplication.currentProject!!.projectIdx, roundIdx)
-            .enqueue(object : Callback<ResponseProjectUserListModel> {
+            .enqueue(object : Callback<ResponseParticipant> {
 
-                override fun onFailure(call: Call<ResponseProjectUserListModel>, t: Throwable) {
+                override fun onFailure(call: Call<ResponseParticipant>, t: Throwable) {
                     dismissLoadingDialog()
                     Log.d(TAG, "getParticipants : fail, ${t.message}")
                     callback.onDataNotAvailable()
                 }
-                override fun onResponse(call: Call<ResponseProjectUserListModel>, response: Response<ResponseProjectUserListModel>) {
+                override fun onResponse(call: Call<ResponseParticipant>, response: Response<ResponseParticipant>) {
                     dismissLoadingDialog()
                     if (response.isSuccessful) {
                         if (response.body()!!.success) {

@@ -4,7 +4,7 @@ import androidx.room.*
 import com.stormers.storm.base.BaseDao
 import com.stormers.storm.project.data.Project
 import com.stormers.storm.project.model.ProjectDetailInfo
-import com.stormers.storm.project.model.ProjectParticipantEntity
+import com.stormers.storm.project.data.ProjectParticipant
 import com.stormers.storm.project.model.ProjectPreviewModel
 
 @Dao
@@ -14,7 +14,7 @@ abstract class ProjectDao: BaseDao<Project> {
     abstract fun getAll(): List<Project>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    abstract fun takePartInProject(projectParticipantEntity: ProjectParticipantEntity)
+    abstract fun takePartInProject(projectParticipant: ProjectParticipant)
 
     @Query("SELECT p.project_idx, p.project_name FROM project_participant_entity pp JOIN project_entity p ON pp.project_idx = p.project_idx WHERE pp.user_idx = :userIdx")
     abstract fun getProjectPreviews(userIdx: Int): List<ProjectPreviewModel>

@@ -1,11 +1,11 @@
-package com.stormers.storm.round.model
+package com.stormers.storm.round.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "round_entity")
-data class RoundEntity(
+data class Round(
     @PrimaryKey
     @ColumnInfo(name = "round_idx")
     val roundIdx: Int,

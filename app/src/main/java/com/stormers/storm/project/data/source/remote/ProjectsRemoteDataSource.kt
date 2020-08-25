@@ -84,4 +84,12 @@ object ProjectsRemoteDataSource : ProjectsDataSource {
             }
         })
     }
+
+    override fun saveProjectPreviews(projectPreviewModels: List<ProjectPreviewModel>) {
+        //Not required
+    }
+
+    override fun saveProjectDetailInfo(projectDetailInfo: ProjectDetailInfo) {
+        //Not required
+    }
 }

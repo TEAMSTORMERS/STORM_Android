@@ -70,18 +70,20 @@ class ProjectsLocalDataSource private constructor(
     }
 
     override fun saveProjectDetailInfo(projectDetailInfo: ProjectDetailInfo) {
-        appExecutors.diskIO.execute {
-            projectDetailInfo.run {
-                var project = projectDao.get(projectIdx)
-                if (project != null) {
-                    project.projectName = projectName
-                    project.projectDate = projectDate
-                    projectDao.update(project)
-                } else {
-                    project = Project(projectIdx, projectDate, projectName, null, null)
-                    projectDao.insert(project)
-                }
-            }
-        }
+//        appExecutors.diskIO.execute {
+//            projectDetailInfo.run {
+//                var project = projectDao.get(projectIdx)
+//                if (project != null) {
+//                    project.projectName = projectName
+//                    project.projectDate = projectDate
+//                    projectDao.update(project)
+//                } else {
+//                    project = Project(projectIdx, projectDate, projectName, null, null)
+//                    projectDao.insert(project)
+//                }
+//            }
+//        }
+        //아직 사용할 수 없음.
+        //Todo: 참가자 정보를 디비에 저장할 수 있도록 해야 함.
     }
 }

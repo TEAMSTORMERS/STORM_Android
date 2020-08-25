@@ -1,22 +1,20 @@
 package com.stormers.storm.round.model
 
-import androidx.room.Ignore
+import androidx.room.ColumnInfo
 import com.google.gson.annotations.SerializedName
+import com.stormers.storm.user.User
 
 class RoundDescriptionModel (
-    //Todo: primitive 자료형으로 변경한 뒤, getter setter 등으로 데이터 가공할 수 있도록 변경
-    @Ignore
-    val projectTitle : String,
-    @SerializedName("round_number")
-    val roundNo : Int,
-    @SerializedName("round_purpose")
-    val roundGoal : String,
-    @SerializedName("round_time")
-    val time : Int,
-    @SerializedName("round_participant")
-    val round_User_participant : List<RoundUserData>,
     @SerializedName("round_idx")
+    @ColumnInfo(name = "round_idx")
     val roundIdx : Int,
-    @Ignore
-    val projectIdx: Int
+    @SerializedName("round_number")
+    @ColumnInfo(name = "round_number")
+    val roundNumber : Int,
+    @SerializedName("round_purpose")
+    val roundPurpose : String,
+    @SerializedName("round_time")
+    val roundTime : Int,
+    @SerializedName("round_participant")
+    var roundParticipant : List<User>
 )

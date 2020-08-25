@@ -1,16 +1,13 @@
 package com.stormers.storm.ui
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.card.fragment.ExpandCardFragment
-import com.stormers.storm.card.model.CardEntity
-import com.stormers.storm.card.repository.CardRepository
-import com.stormers.storm.round.RoundRepository
+import com.stormers.storm.round.data.source.RoundRepository
 import com.stormers.storm.round.model.RoundModel
 import kotlinx.android.synthetic.main.activity_expandcard.*
 import java.lang.StringBuilder

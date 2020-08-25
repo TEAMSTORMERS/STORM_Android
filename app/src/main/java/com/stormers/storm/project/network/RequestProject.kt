@@ -17,7 +17,7 @@ interface RequestProject {
     fun responseProjectinfo(@Path("project_idx") ProjectIdx : Int) :Call<ResponseProjectInfoModel>
 
     @GET("/project/enter/{project_idx}")
-    fun getProjectUserList(@Path("project_idx") projectIdx : Int ):Call<ResponseProjectUserListModel>
+    fun getProjectUserList(@Path("project_idx") projectIdx : Int ):Call<ResponseParticipant>
 
     @GET("project/finalInfo/{project_idx}")
     fun getProjectDetailInfo(@Path("project_idx") projectIdx : Int) : Call<ResponseProjectDetialInfo>

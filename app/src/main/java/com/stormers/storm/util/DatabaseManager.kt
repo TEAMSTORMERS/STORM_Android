@@ -9,16 +9,16 @@ import com.stormers.storm.card.model.CardEntity
 import com.stormers.storm.project.data.source.local.ProjectDao
 import com.stormers.storm.project.ProjectParticipantDao
 import com.stormers.storm.project.data.Project
-import com.stormers.storm.project.model.ProjectParticipantEntity
-import com.stormers.storm.round.RoundDao
-import com.stormers.storm.round.model.RoundEntity
+import com.stormers.storm.project.data.ProjectParticipant
+import com.stormers.storm.round.data.source.local.RoundDao
+import com.stormers.storm.round.data.Round
 import com.stormers.storm.roundparticipant.RoundParticipantDao
-import com.stormers.storm.roundparticipant.RoundParticipantEntity
+import com.stormers.storm.round.data.RoundParticipant
 import com.stormers.storm.user.UserDao
 import com.stormers.storm.user.User
 
-@Database(entities = [CardEntity::class, RoundEntity::class, Project::class, User::class,
-RoundParticipantEntity::class, ProjectParticipantEntity::class], version = 1)
+@Database(entities = [CardEntity::class, Round::class, Project::class, User::class,
+RoundParticipant::class, ProjectParticipant::class], version = 1)
 abstract class DatabaseManager : RoomDatabase() {
     abstract fun savedCardDao() : CardDao
     abstract fun roundDao() : RoundDao

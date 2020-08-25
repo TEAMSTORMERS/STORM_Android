@@ -3,14 +3,14 @@ package com.stormers.storm.project
 import androidx.room.Dao
 import androidx.room.Query
 import com.stormers.storm.base.BaseDao
-import com.stormers.storm.project.model.ProjectParticipantEntity
+import com.stormers.storm.project.data.ProjectParticipant
 
 @Dao
-abstract class ProjectParticipantDao: BaseDao<ProjectParticipantEntity> {
+abstract class ProjectParticipantDao: BaseDao<ProjectParticipant> {
 
     @Query("SELECT user_idx FROM project_participant_entity WHERE project_idx = :projectIdx")
     abstract fun getAll(projectIdx: Int): List<Int>?
 
     @Query("SELECT * FROM project_participant_entity WHERE project_idx = :projectIdx AND user_idx = :userIdx")
-    abstract fun get(projectIdx: Int, userIdx: Int): ProjectParticipantEntity?
+    abstract fun get(projectIdx: Int, userIdx: Int): ProjectParticipant?
 }

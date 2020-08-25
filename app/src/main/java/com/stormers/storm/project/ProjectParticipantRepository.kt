@@ -1,7 +1,7 @@
 package com.stormers.storm.project
 
 import android.util.Log
-import com.stormers.storm.project.model.ProjectParticipantEntity
+import com.stormers.storm.project.data.ProjectParticipant
 import com.stormers.storm.ui.GlobalApplication
 import com.stormers.storm.user.User
 import com.stormers.storm.user.UserRepository
@@ -47,7 +47,12 @@ class ProjectParticipantRepository {
             if (previousParticipantIdx != null && previousParticipantIdx.contains(participant.userIdx)) {
                 continue
             }
-            dao.insert(ProjectParticipantEntity(projectIdx, participant.userIdx))
+            dao.insert(
+                ProjectParticipant(
+                    projectIdx,
+                    participant.userIdx
+                )
+            )
             Log.d(TAG, "insert: projectIdx: $projectIdx, user: $participant")
         }
     }
