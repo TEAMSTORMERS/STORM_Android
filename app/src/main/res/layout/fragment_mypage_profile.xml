@@ -106,14 +106,12 @@
         android:id="@+id/circleImageView_camera_button"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="4dp"
         android:elevation="10dp"
         android:src="@color/storm_gray2"
         app:layout_constraintBottom_toBottomOf="@+id/constraint_mypage_default"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="@+id/constraint_mypage_default"
-        app:layout_constraintWidth_percent="0.083" />
+        app:layout_constraintWidth_percent="0.111" />
 
     <ImageView
         android:id="@+id/imageview_camera_icon"
