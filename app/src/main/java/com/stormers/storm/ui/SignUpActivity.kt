@@ -305,6 +305,9 @@ class SignUpActivity : BaseActivity() {
 
         //전체 지우기 버튼 활성화/비활성화
         edittext_name_signup.setRemoveAllTextWatcher()
+
+        //사용자 이름 특수문자 입력 방지
+        edittext_name_signup.setTextFilter()
     }
 
     private fun saveProfile() {
