@@ -3,6 +3,7 @@ package com.stormers.storm.card.adapter
 import android.view.ViewGroup
 import com.stormers.storm.base.BaseAdapter
 import com.stormers.storm.base.BaseViewHolder
+import com.stormers.storm.card.model.CacheCardModel
 import com.stormers.storm.project.viewholder.CacheCardViewHolder
 
 class CacheCardListAdapter : BaseAdapter<CacheCardModel>() {

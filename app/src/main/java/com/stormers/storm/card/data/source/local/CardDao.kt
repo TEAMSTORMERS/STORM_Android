@@ -1,13 +1,13 @@
 package com.stormers.storm.card.data.source.local
 
-import androidx.room.Dao
-import androidx.room.Query
-import com.stormers.storm.base.BaseDao
-import com.stormers.storm.card.data.Card
-import com.stormers.storm.card.model.CardPreviewModel
+//import androidx.room.Dao
+//import androidx.room.Query
+//import com.stormers.storm.base.BaseDao
+//import com.stormers.storm.card.data.Card
+//import com.stormers.storm.card.model.CardPreviewModel
 
-@Dao
-abstract class CardDao : BaseDao<Card> {
+//@Dao
+//abstract class CardDao : BaseDao<Card> {
 
 //    @Query("SELECT * FROM card_entity")
 //    abstract fun getAll(): List<Card>?
@@ -38,4 +38,4 @@ abstract class CardDao : BaseDao<Card> {
 //
 //    @Query("DELETE FROM card_entity WHERE project_idx = :projectIdx AND round_idx = :roundIdx")
 //    abstract fun deleteAll(projectIdx: Int, roundIdx: Int)
-}
+//}

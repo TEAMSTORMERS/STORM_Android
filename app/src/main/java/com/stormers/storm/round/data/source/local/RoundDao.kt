@@ -1,14 +1,14 @@
 package com.stormers.storm.round.data.source.local
 
-import androidx.room.Dao
-import androidx.room.Query
-import com.stormers.storm.base.BaseDao
-import com.stormers.storm.round.data.Round
-import com.stormers.storm.round.model.RoundDescriptionModel
-import com.stormers.storm.round.model.RoundInfoModel
-
-@Dao
-abstract class RoundDao : BaseDao<Round> {
+//import androidx.room.Dao
+//import androidx.room.Query
+//import com.stormers.storm.base.BaseDao
+//import com.stormers.storm.round.data.Round
+//import com.stormers.storm.round.model.RoundDescriptionModel
+//import com.stormers.storm.round.model.RoundInfoModel
+//
+//@Dao
+//abstract class RoundDao : BaseDao<Round> {
 
 //    @Query("SELECT * FROM round_entity WHERE project_idx = :projectIdx")
 //    abstract fun getAll(projectIdx: Int): List<Round>?
@@ -25,4 +25,4 @@ abstract class RoundDao : BaseDao<Round> {
 //    @Query("DELETE FROM round_entity")
 //    abstract fun deleteAll()
 
-}
+//}

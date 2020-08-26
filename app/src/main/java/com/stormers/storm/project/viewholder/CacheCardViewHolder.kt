@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.ViewGroup
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseViewHolder
+import com.stormers.storm.card.model.CacheCardModel
 import com.stormers.storm.card.util.BitmapConverter
 import kotlinx.android.synthetic.main.item_heart_card.view.*
 

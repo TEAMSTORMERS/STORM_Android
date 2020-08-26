@@ -10,6 +10,7 @@ import com.rm.freedrawview.PathRedoUndoCountChangeListener
 import com.stormers.storm.R
 import com.stormers.storm.canvas.base.BaseCanvasFragment
 import com.stormers.storm.canvas.network.RequestCard
+import com.stormers.storm.card.model.CacheCardModel
 import com.stormers.storm.card.util.BitmapConverter
 import com.stormers.storm.network.Response
 import com.stormers.storm.network.RetrofitClient
