@@ -7,10 +7,17 @@ import androidx.viewpager2.widget.ViewPager2
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.card.adapter.CardListAdapter
+import com.stormers.storm.card.data.source.CardDataSource
 import com.stormers.storm.card.data.source.CardRepository
+import com.stormers.storm.card.data.source.local.CardLocalDataSource
+import com.stormers.storm.card.data.source.remote.CardRemoteDataSource
+import com.stormers.storm.card.model.RoundInfoWithCardsModel
 import com.stormers.storm.round.data.source.RoundRepository
 import com.stormers.storm.round.adapter.RoundListAdapter
-import com.stormers.storm.round.model.RoundModel
+import com.stormers.storm.round.data.source.RoundDataSource
+import com.stormers.storm.round.data.source.local.RoundsLocalDataSource
+import com.stormers.storm.round.data.source.remote.RoundsRemoteDataSource
+import com.stormers.storm.round.model.RoundDescriptionModel
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_project_cardlist.*
 
@@ -30,11 +37,19 @@ class RoundListActivity : BaseActivity() {
 
     private var roundNo = -1
 
+    private var roundPurpose = ""
+
+    private var roundTime = -1
+
     private var projectName: String? = null
 
-    private val cardRepository : CardRepository by lazy { CardRepository.getInstance() }
+    private val userIdx = GlobalApplication.userIdx
 
-    private val roundRepository: RoundRepository by lazy { RoundRepository.getInstance() }
+    private val cardRepository : CardRepository by lazy {
+        CardRepository.getInstance(CardRemoteDataSource, CardLocalDataSource.getInstance()) }
+
+    private val roundRepository : RoundRepository by lazy {
+        RoundRepository.getInstance(RoundsRemoteDataSource, RoundsLocalDataSource.getInstance()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,16 +67,19 @@ class RoundListActivity : BaseActivity() {
         //넘겨받은 값이 없으면 잘못된 접근
         if (projectIdx == -1 || roundIdx == -1 || roundNo == -1) {
             Log.e(TAG, "Wrong access. projectIdx: $projectIdx, roundIdx: $roundIdx, roundNo: $roundNo")
+            return
         }
 
         //카드 리사이클러뷰 어댑터 초기화
-        cardListAdapter = CardListAdapter(true, object : CardListAdapter.OnCardClickListener {
-            override fun onCardClick(projectIdx: Int, roundIdx: Int, cardIdx: Int) {
+        cardListAdapter = CardListAdapter(object : CardListAdapter.OnCardClickListener {
+
+            override fun onCardClick(cardIdx: Int) {
                 val intent = Intent(this@RoundListActivity, RoundCardExpandActivity::class.java)
-                intent.putExtra("roundIdx", roundIdx)
                 intent.putExtra("cardIdx", cardIdx)
                 intent.putExtra("projectName", projectName)
-
+                intent.putExtra("roundNumber", roundNo)
+                intent.putExtra("roundPurpose", roundPurpose)
+                intent.putExtra("roundTime", roundTime)
                 startActivity(intent)
             }
         })
@@ -77,8 +95,8 @@ class RoundListActivity : BaseActivity() {
         roundListAdapterForViewPager.projectName = projectName
 
         //라운드 정보 DB에서 불러오기
-        roundRepository.getAll(projectIdx, object : RoundRepository.LoadRoundsCallback {
-            override fun onRoundsLoaded(rounds: List<RoundModel>) {
+        roundRepository.getRoundsInfo(projectIdx, userIdx,  object : RoundDataSource.LoadRoundsCallback<RoundDescriptionModel> {
+            override fun onRoundsLoaded(rounds: List<RoundDescriptionModel>) {
                 roundListAdapterForViewPager.addAll(rounds)
             }
 
@@ -111,9 +129,14 @@ class RoundListActivity : BaseActivity() {
     }
 
     private fun setCardList(roundIdx: Int) {
-        cardRepository.getAllForList(roundIdx, object: CardRepository.LoadCardModel<CardEnumModel> {
-            override fun onCardsLoaded(cards: List<CardEnumModel>) {
-                cardListAdapter.setList(cards)
+        cardRepository.getCardWithProjectAndRoundInfo(projectIdx, roundIdx, userIdx,
+            object: CardDataSource.GetCardCallback<RoundInfoWithCardsModel> {
+
+            override fun onCardLoaded(card: RoundInfoWithCardsModel) {
+                roundTime = card.roundTime
+                roundPurpose = card.roundPurpose
+
+                cardListAdapter.setList(card.cardWithOwnerList)
             }
 
             override fun onDataNotAvailable() {

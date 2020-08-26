@@ -1,14 +1,10 @@
 package com.stormers.storm.ui
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.card.fragment.ExpandRoundCardFragment
-import com.stormers.storm.round.data.source.RoundRepository
-import com.stormers.storm.round.model.RoundModel
 import kotlinx.android.synthetic.main.activity_expandcard.*
 import java.lang.StringBuilder
 
@@ -18,8 +14,6 @@ class RoundCardExpandActivity : BaseActivity() {
         private const val TAG = "RoundCardExpandActivity"
     }
 
-    private val roundRepository: RoundRepository by lazy { RoundRepository.getInstance() }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_expandcard)
@@ -27,6 +21,13 @@ class RoundCardExpandActivity : BaseActivity() {
         val selectedCardIdx = intent.getIntExtra("cardIdx", -1)
         val selectedProjectName = intent.getStringExtra("projectName")
         val selectedRoundIdx = intent.getIntExtra("roundIdx", -1)
+        val selectedProjectIdx = intent.getIntExtra("projectIdx", -1)
+
+        val roundNumber = intent.getIntExtra("roundIdx", -1)
+        val roundPurpose = intent.getStringExtra("roundPurpose")
+        val roundTime = intent.getIntExtra("roundTime", -1)
+
+        setRoundData(roundNumber, roundPurpose, roundTime)
 
         initView(selectedProjectName)
 
@@ -37,16 +38,8 @@ class RoundCardExpandActivity : BaseActivity() {
             if (selectedRoundIdx != -1) {
                 putInt("roundIdx", selectedRoundIdx)
             }
-        })
-
-        roundRepository.get(selectedRoundIdx, object : RoundRepository.GetRoundCallback {
-            override fun onRoundLoaded(round: RoundModel) {
-                setRoundData(round)
-            }
-
-            @SuppressLint("LongLogTag")
-            override fun onDataNotAvailable() {
-                Log.e(TAG, "getRoundData: No round data. roundIdx ($selectedRoundIdx)")
+            if (selectedCardIdx != -1) {
+                putInt("projectIdx", selectedProjectIdx)
             }
         })
     }
@@ -61,13 +54,13 @@ class RoundCardExpandActivity : BaseActivity() {
         textview_expandcard_projectname.text = projectName
     }
 
-    private fun setRoundData(roundModel: RoundModel) {
+    private fun setRoundData(roundNumber: Int, roundPurpose: String, roundTime: Int) {
         textview_expandcard_roundnumber.text = StringBuilder("Round ")
-            .append(roundModel.roundNumber).toString()
+            .append(roundNumber).toString()
 
-        textview_expandcard_roundpurpose.text = roundModel.roundPurpose
+        textview_expandcard_roundpurpose.text = roundPurpose
 
         textview_expandcard_roundtime.text = StringBuilder("총 ")
-            .append(roundModel.roundTime).append("분 소요").toString()
+            .append(roundTime).append("분 소요").toString()
     }
 }

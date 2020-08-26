@@ -1,5 +1,6 @@
 package com.stormers.storm.round.data.source.local
 
+import com.stormers.storm.project.data.source.local.ProjectsLocalDataSource
 import com.stormers.storm.round.data.source.RoundDataSource
 import com.stormers.storm.round.model.RoundDescriptionModel
 //import com.stormers.storm.user.UserDao
@@ -10,6 +11,20 @@ class RoundsLocalDataSource private constructor(
 //    val roundDao: RoundDao,
 //    val userDao: UserDao
 ) : RoundDataSource {
+
+    companion object {
+        private var instance: RoundsLocalDataSource? = null
+
+        @JvmStatic
+        fun getInstance(/*appExecutors: AppExecutors, roundDao: RoundDao*/): RoundsLocalDataSource {
+            if (instance == null) {
+                synchronized(RoundsLocalDataSource::javaClass) {
+                    instance = RoundsLocalDataSource(/*appExecutors, roundDao*/)
+                }
+            }
+            return instance!!
+        }
+    }
 
     override fun getRoundsInfo(
         projectIdx: Int,

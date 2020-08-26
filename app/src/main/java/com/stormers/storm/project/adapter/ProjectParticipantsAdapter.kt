@@ -6,8 +6,8 @@ import com.stormers.storm.base.BaseViewHolder
 import com.stormers.storm.project.viewholder.UserImageViewHolder
 import com.stormers.storm.user.User
 
-class ProjectParticipantsAdapter() : BaseAdapter<User>(){
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<User> {
+class ProjectParticipantsAdapter() : BaseAdapter<String>(){
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<String> {
         return UserImageViewHolder(parent)
 
     }

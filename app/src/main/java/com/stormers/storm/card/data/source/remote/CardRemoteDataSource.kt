@@ -42,7 +42,11 @@ object CardRemoteDataSource : CardDataSource {
                 if (response.isSuccessful) {
                     if (response.body()!!.success) {
                         Log.d(TAG, "getScrapedCard: Success.")
-                        callback.onCardLoaded(response.body()!!.data)
+                        if (response.body()!!.data.cardItem.isEmpty()) {
+                            callback.onDataNotAvailable()
+                        } else {
+                            callback.onCardLoaded(response.body()!!.data)
+                        }
                     } else {
                         Log.d(TAG, "getScrapedCard: Not success. ${response.body()!!.message}")
                         callback.onDataNotAvailable()

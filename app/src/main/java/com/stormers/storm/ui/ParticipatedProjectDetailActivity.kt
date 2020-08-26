@@ -9,11 +9,25 @@ import androidx.recyclerview.widget.RecyclerView
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.card.adapter.CardListAdapter
+import com.stormers.storm.card.adapter.ScrapedCardListAdapter
+import com.stormers.storm.card.data.source.CardDataSource
 import com.stormers.storm.card.data.source.CardRepository
+import com.stormers.storm.card.data.source.local.CardLocalDataSource
+import com.stormers.storm.card.data.source.remote.CardRemoteDataSource
+import com.stormers.storm.card.model.ScrapedCardModel
 import com.stormers.storm.project.data.source.ProjectRepository
 import com.stormers.storm.project.adapter.ProjectParticipantsAdapter
+import com.stormers.storm.project.data.source.ProjectsDataSource
+import com.stormers.storm.project.data.source.local.ProjectsLocalDataSource
+import com.stormers.storm.project.data.source.remote.ProjectsRemoteDataSource
+import com.stormers.storm.project.model.ProjectDetailInfo
 import com.stormers.storm.project.model.ProjectModel
 import com.stormers.storm.round.adapter.RoundListAdapter
+import com.stormers.storm.round.data.source.RoundDataSource
+import com.stormers.storm.round.data.source.RoundRepository
+import com.stormers.storm.round.data.source.local.RoundsLocalDataSource
+import com.stormers.storm.round.data.source.remote.RoundsRemoteDataSource
+import com.stormers.storm.round.model.RoundDescriptionModel
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_participated_project_detail.*
 import kotlinx.android.synthetic.main.layout_list_user_profile.*
@@ -24,22 +38,27 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         private const val TAG = "ProjectsDetailActivity"
     }
 
-    lateinit var scrapedCardListAdapter: CardListAdapter
+    lateinit var scrapedCardListAdapter: ScrapedCardListAdapter
     lateinit var roundListAdapter: RoundListAdapter
-
-    private val cardRepository: CardRepository by lazy { CardRepository() }
 
     private var projectIdx = -1
 
     private var isAfterProject = false
 
-    private val projectRepository: ProjectRepository by lazy { ProjectRepository.getInstance() }
+    private val projectRepository: ProjectRepository by lazy {
+        ProjectRepository.getInstance(ProjectsRemoteDataSource, ProjectsLocalDataSource.getInstance()) }
+
+    private val cardRepository : CardRepository by lazy {
+        CardRepository.getInstance(CardRemoteDataSource, CardLocalDataSource.getInstance()) }
+
+    private val roundRepository : RoundRepository by lazy {
+        RoundRepository.getInstance(RoundsRemoteDataSource, RoundsLocalDataSource.getInstance()) }
 
     private lateinit var projectParticipantsAdapter: ProjectParticipantsAdapter
 
-    private var currentProject: ProjectModel? = null
-
     private var projectName: String? = null
+
+    private val userIdx = GlobalApplication.userIdx
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,11 +99,11 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         }
 
         //스크랩한 카드 리사이클러뷰 어댑터 초기화
-        scrapedCardListAdapter = CardListAdapter(true, object: CardListAdapter.OnCardClickListener {
-            override fun onCardClick(projectIdx: Int, roundIdx: Int, cardIdx: Int) {
+        scrapedCardListAdapter = ScrapedCardListAdapter(object: ScrapedCardListAdapter.OnCardClickListener {
+            override fun onCardClick(cardIdx: Int) {
                 val intent = Intent(this@ParticipatedProjectDetailActivity, ScrapedRoundCardExpandActivity::class.java)
-                intent.putExtra("projectIdx", projectIdx)
                 intent.putExtra("cardIdx", cardIdx)
+                intent.putExtra("projectIdx", projectIdx)
                 intent.putExtra("projectName", projectName)
                 startActivity(intent)
             }
@@ -113,21 +132,23 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         recyclerview_participateddetail_roundlist.adapter = roundListAdapter
 
         //해당 프로젝트에 대한 정보 가져오기
-        projectRepository.get(projectIdx, object : ProjectRepository.GetProjectCallback {
-            override fun onProjectLoaded(project: ProjectModel) {
-                currentProject = project
-                //참가자 목록 초기화
-                projectParticipantsAdapter.setList(currentProject!!.projectParticipants!!)
-
-                //라운드 목록 초기화
-                roundListAdapter.setList(currentProject!!.projectRounds!!)
-
-                //프로젝트 정보를를 화면에 보여주기
-                initProjectInfo(currentProject!!)
+        projectRepository.getProjectDetailInfo(projectIdx, object : ProjectsDataSource.GetProjectCallback<ProjectDetailInfo> {
+            override fun onProjectLoaded(project: ProjectDetailInfo) {
+                initProjectInfo(project)
             }
 
             override fun onDataNotAvailable() {
                 Log.e(TAG, "Load Error: $projectIdx")
+            }
+        })
+
+        roundRepository.getRoundsInfo(projectIdx, userIdx, object: RoundDataSource.LoadRoundsCallback<RoundDescriptionModel> {
+            override fun onRoundsLoaded(rounds: List<RoundDescriptionModel>) {
+                roundListAdapter.setList(rounds)
+            }
+
+            override fun onDataNotAvailable() {
+                Log.d(TAG, "getRoundInfo: No round data")
             }
         })
     }
@@ -136,9 +157,9 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         super.onResume()
 
         //스크랩한 카드는 변동이 있을 수 있으니 onResume()에서 목록을 초기화
-        cardRepository.getScrapAllForList(projectIdx, object: CardRepository.LoadCardModel<CardEnumModel> {
-            override fun onCardsLoaded(cards: List<CardEnumModel>) {
-                scrapedCardListAdapter.setList(cards)
+        cardRepository.getScrapedCardsWithInfo(projectIdx, userIdx, object: CardDataSource.GetCardCallback<ScrapedCardModel> {
+            override fun onCardLoaded(card: ScrapedCardModel) {
+                scrapedCardListAdapter.setList(card.cardItem)
                 recyclerview_participateddetail_scrapedcard.visibility = View.VISIBLE
                 textview_participateddetail_noscraped.visibility = View.GONE
             }
@@ -151,15 +172,15 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         })
     }
 
-    private fun initProjectInfo(project: ProjectModel) {
-        project.let {
-            projectName = it.projectName
-            textview_projectcard_title.text = it.projectName
+    private fun initProjectInfo(project: ProjectDetailInfo) {
+        project.run {
+            this@ParticipatedProjectDetailActivity.projectName = projectName
+            textview_projectcard_title.text = projectName
 
-            textview_participateddetail_date.text = it.projectDate
-            projectParticipantsAdapter.setList(it.projectParticipants!!)
+            textview_participateddetail_date.text = projectDate
+            projectParticipantsAdapter.setList(projectParticipantsList)
 
-            val numberOfParticipants = it.projectParticipants.size
+            val numberOfParticipants = projectParticipantsList.size
 
             if( numberOfParticipants > 5 ){
                 textview_extra_participants_info.text = StringBuilder("+").append(numberOfParticipants - 5)
@@ -167,7 +188,7 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
             }
 
             textView_round_count_part_detail.text = StringBuilder("ROUND 총 ")
-                .append(it.projectRounds!!.size).append("회").toString()
+                .append(roundCount).append("회").toString()
         }
     }
 }
