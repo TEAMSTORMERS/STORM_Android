@@ -55,7 +55,7 @@ class ScrapCardCollectingActivity : AppCompatActivity() {
     private fun initRecyclerView() {
 
         //카드 리사이클러뷰 어댑터 초기화
-        scrapCollectListAdapter = ScrapedCardListAdapter(object: ScrapedCardListAdapter.OnCardClickListener {
+        scrapCollectListAdapter = ScrapedCardListAdapter(true, object: ScrapedCardListAdapter.OnCardClickListener {
             override fun onCardClick(cardIdx: Int) {
                 val intent = Intent(this@ScrapCardCollectingActivity, ScrapedRoundCardExpandActivity::class.java)
                 intent.putExtra("projectIdx", projectIdx)

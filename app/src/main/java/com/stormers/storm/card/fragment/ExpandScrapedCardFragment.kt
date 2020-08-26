@@ -80,18 +80,19 @@ class ExpandScrapedCardFragment: BaseFragment(R.layout.fragment_expand_card) {
                 return@setOnClickListener
             }
 
-            val currentCard = expandScrapedCardAdapter.getItem(currentPage)
             val currentMemo = edittext_expandcard_memo.text.toString()
+            val currentCard = expandScrapedCardAdapter.getItem(currentPage)
             val cardMemoModel = CardMemoModel(userIdx, currentCard.cardIdx, currentMemo)
 
             if (currentCard.cardMemo == null) {
                 currentCard.cardMemo = currentMemo
                 cardRepository.createMemo(cardMemoModel)
-            } else {
+                Toast.makeText(context, "메모가 저장되었습니다.", Toast.LENGTH_SHORT).show()
+            } else if (currentCard.cardMemo != currentMemo) {
                 currentCard.cardMemo = currentMemo
                 cardRepository.updateMemo(cardMemoModel)
+                Toast.makeText(context, "메모가 저장되었습니다.", Toast.LENGTH_SHORT).show()
             }
-            Toast.makeText(context, "메모가 저장되었습니다.", Toast.LENGTH_SHORT).show()
         }
     }
 

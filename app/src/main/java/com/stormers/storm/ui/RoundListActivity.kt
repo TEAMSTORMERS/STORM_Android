@@ -25,6 +25,10 @@ class RoundListActivity : BaseActivity() {
 
     companion object {
         private const val TAG = "RoundListActivity"
+
+        private const val REQUEST_EXPAND = 100
+
+        const val RESULT_DIRTY = 10
     }
 
     lateinit var roundListAdapterForViewPager: RoundListAdapter
@@ -50,6 +54,10 @@ class RoundListActivity : BaseActivity() {
 
     private val roundRepository : RoundRepository by lazy {
         RoundRepository.getInstance(RoundsRemoteDataSource, RoundsLocalDataSource.getInstance()) }
+
+    private val cacheRounds = HashMap<Int, RoundInfoWithCardsModel>()
+
+    private val cacheDirty = HashMap<Int, Boolean>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,7 +88,10 @@ class RoundListActivity : BaseActivity() {
                 intent.putExtra("roundNumber", roundNo)
                 intent.putExtra("roundPurpose", roundPurpose)
                 intent.putExtra("roundTime", roundTime)
-                startActivity(intent)
+                intent.putExtra("roundIdx", roundIdx)
+                intent.putExtra("projectIdx", projectIdx)
+
+                startActivityForResult(intent, REQUEST_EXPAND)
             }
         })
 
@@ -115,33 +126,51 @@ class RoundListActivity : BaseActivity() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     //선택된 라운드의 카드 리스트를 보여줌
-                    setCardList(roundListAdapterForViewPager.getItem(position).roundIdx)
+                    getRoundAndCardsInfo(roundListAdapterForViewPager.getItem(position).roundIdx)
                 }
             })
         }
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
-        //스크랩한 카드가 변경될 수 있으므로 여기서 갱신
-        setCardList(roundIdx)
+        if (requestCode == REQUEST_EXPAND && resultCode == RESULT_DIRTY) {
+            val roundIdx = data?.getIntExtra("roundIdx", -1)
+
+            if (roundIdx == null || roundIdx == -1) {
+                return
+            }
+
+            cacheDirty[roundIdx] = true
+            getRoundAndCardsInfo(roundIdx)
+        }
     }
 
-    private fun setCardList(roundIdx: Int) {
-        cardRepository.getCardWithProjectAndRoundInfo(projectIdx, roundIdx, userIdx,
-            object: CardDataSource.GetCardCallback<RoundInfoWithCardsModel> {
+    private fun getRoundAndCardsInfo(roundIdx: Int) {
+        if (cacheRounds.containsKey(roundIdx) && !cacheDirty[roundIdx]!!) {
+            setRoundAndCardsInfo(cacheRounds[roundIdx]!!)
+        } else {
+            cardRepository.getCardWithProjectAndRoundInfo(projectIdx, roundIdx, userIdx,
+                object : CardDataSource.GetCardCallback<RoundInfoWithCardsModel> {
 
-            override fun onCardLoaded(card: RoundInfoWithCardsModel) {
-                roundTime = card.roundTime
-                roundPurpose = card.roundPurpose
+                    override fun onCardLoaded(card: RoundInfoWithCardsModel) {
+                        setRoundAndCardsInfo(card)
+                        cacheRounds[roundIdx] = card
+                        cacheDirty[roundIdx] = false
+                    }
 
-                cardListAdapter.setList(card.cardWithOwnerList)
-            }
+                    override fun onDataNotAvailable() {
+                        Log.e(TAG, "No data in DB. projectIdx: $projectIdx, roundIdx: $roundIdx")
+                    }
+                })
+        }
+    }
 
-            override fun onDataNotAvailable() {
-                Log.e(TAG, "No data in DB. projectIdx: $projectIdx, roundIdx: $roundIdx")
-            }
-        })
+    private fun setRoundAndCardsInfo(info: RoundInfoWithCardsModel) {
+        roundTime = info.roundTime
+        roundPurpose = info.roundPurpose
+
+        cardListAdapter.setList(info.cardWithOwnerList)
     }
 }

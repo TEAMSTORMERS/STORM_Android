@@ -21,7 +21,7 @@ abstract class BaseExpandCardViewHolder<T>(parent: ViewGroup) : BaseViewHolder<T
 
     override fun bind(data: T) {
 
-        onClickHeart(data)
+        onCreateCardView(data)
 
         itemView.imageview_expandcard_profile.run {
             background = ShapeDrawable(OvalShape())
@@ -33,7 +33,6 @@ abstract class BaseExpandCardViewHolder<T>(parent: ViewGroup) : BaseViewHolder<T
         itemView.imagebutton_expandcard_heart.setOnClickListener {
             applyHeart(onClickHeart(data))
         }
-
     }
 
     abstract fun onClickHeart(data: T) : Boolean
@@ -42,7 +41,7 @@ abstract class BaseExpandCardViewHolder<T>(parent: ViewGroup) : BaseViewHolder<T
 
     abstract fun onCreateCardView(data: T)
 
-    private fun applyHeart(isScraped: Boolean) {
+    protected fun applyHeart(isScraped: Boolean) {
         if (isScraped) {
             itemView.imagebutton_expandcard_heart.setImageResource(R.drawable.scrapcard_btn_heart_1)
         } else {

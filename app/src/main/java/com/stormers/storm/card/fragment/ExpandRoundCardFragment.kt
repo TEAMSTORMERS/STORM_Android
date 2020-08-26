@@ -25,13 +25,15 @@ class ExpandRoundCardFragment: BaseFragment(R.layout.fragment_expand_card) {
     private val cardRepository : CardRepository by lazy { CardRepository.getInstance(
         CardRemoteDataSource, CardLocalDataSource.getInstance()) }
 
-    private val expandRoundCardAdapter: ExpandRoundCardAdapter by lazy { ExpandRoundCardAdapter() }
+    private lateinit var expandRoundCardAdapter: ExpandRoundCardAdapter
 
     private var currentPage = 0
 
     private lateinit var cardViewPager: ViewPager2
 
     private var roundCardChangeCallback: OnRoundCardPageChangeCallback? = null
+
+    private var scrapChangedCallback: ExpandRoundCardAdapter.OnScrapChangedCallback? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -41,12 +43,23 @@ class ExpandRoundCardFragment: BaseFragment(R.layout.fragment_expand_card) {
         } catch (e: ClassCastException) {
             Log.d(TAG, "onAttach: Activity doesn't have CardPageCallback")
         }
+        try {
+            scrapChangedCallback = context as ExpandRoundCardAdapter.OnScrapChangedCallback
+        } catch (e: java.lang.ClassCastException) {
+            Log.d(TAG, "onAttach: Activity doesn't have ScrapChangedCallback")
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         cardViewPager = viewpager_expandcard
+
+        expandRoundCardAdapter = ExpandRoundCardAdapter()
+
+        if (scrapChangedCallback != null) {
+            expandRoundCardAdapter.setOnScrapChangedListener(scrapChangedCallback!!)
+        }
 
         //필요한 값들 받아오기
         val selectedCardIdx = arguments?.getInt("cardIdx")
@@ -83,18 +96,19 @@ class ExpandRoundCardFragment: BaseFragment(R.layout.fragment_expand_card) {
                 return@setOnClickListener
             }
 
-            val currentCard = expandRoundCardAdapter.getItem(currentPage)
             val currentMemo = edittext_expandcard_memo.text.toString()
+            val currentCard = expandRoundCardAdapter.getItem(currentPage)
             val cardMemoModel = CardMemoModel(userIdx, currentCard.cardIdx, currentMemo)
 
             if (currentCard.cardMemo == null) {
                 currentCard.cardMemo = currentMemo
                 cardRepository.createMemo(cardMemoModel)
-            } else {
+                Toast.makeText(context, "메모가 저장되었습니다.", Toast.LENGTH_SHORT).show()
+            } else if (currentCard.cardMemo != currentMemo) {
                 currentCard.cardMemo = currentMemo
                 cardRepository.updateMemo(cardMemoModel)
+                Toast.makeText(context, "메모가 저장되었습니다.", Toast.LENGTH_SHORT).show()
             }
-            Toast.makeText(context, "메모가 저장되었습니다.", Toast.LENGTH_SHORT).show()
         }
     }
 

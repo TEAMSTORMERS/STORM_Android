@@ -18,7 +18,7 @@ class CardPreviewViewHolder(parent: ViewGroup) : BaseViewHolder<CardPreviewModel
         } else {
             if (data.cardImage != null) {
                 itemView.imageview_cardpreview_img.visibility = View.VISIBLE
-                Glide.with(itemView).load(data).into(itemView.imageview_cardpreview_img)
+                Glide.with(itemView).load(data.cardImage).into(itemView.imageview_cardpreview_img)
                 itemView.textview_cardpreview_txt.visibility = View.GONE
             } else {
                 itemView.textview_cardpreview_txt.visibility = View.VISIBLE
