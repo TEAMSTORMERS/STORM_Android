@@ -1,11 +1,9 @@
 package com.stormers.storm.ui
 
 import android.os.Bundle
-import android.text.Layout
 import com.stormers.storm.round.base.BaseRoundWaitingActivity
 import com.stormers.storm.round.fragment.HostRoundSettingFragment
 import com.stormers.storm.round.fragment.HostRoundWaitingFragment
-import com.stormers.storm.util.KeyBoardVisibilityUtils
 import kotlinx.android.synthetic.main.activity_round_setting.*
 
 class HostRoundSettingActivity : BaseRoundWaitingActivity() {

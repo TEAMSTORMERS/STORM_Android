@@ -2,7 +2,6 @@ package com.stormers.storm.base
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Layout
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import android.widget.ScrollView

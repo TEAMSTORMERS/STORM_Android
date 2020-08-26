@@ -20,19 +20,16 @@ class KeyBoardVisibilityUtils(
         window.decorView.getWindowVisibleDisplayFrame(windowVisibleDisplayFrame)
         val visibleDecorViewHeight = windowVisibleDisplayFrame.height()
 
-        // Decide whether keyboard is visible from changing decor view height.
         if (lastVisibleDecorViewHeight != 0) {
             if (lastVisibleDecorViewHeight > visibleDecorViewHeight + MIN_KEYBOARD_HEIGHT_PX) {
-                // Calculate current keyboard height (this includes also navigation bar height when in fullscreen mode).
                 val currentKeyboardHeight = window.decorView.height - windowVisibleDisplayFrame.bottom
-                // Notify listener about keyboard being shown.
+
                 onShowKeyboard?.invoke(currentKeyboardHeight)
             } else if (lastVisibleDecorViewHeight + MIN_KEYBOARD_HEIGHT_PX < visibleDecorViewHeight) {
-                // Notify listener about keyboard being hidden.
+
                 onHideKeyboard?.invoke()
             }
         }
-        // Save current decor view height for the next call.
         lastVisibleDecorViewHeight = visibleDecorViewHeight
     }
 
