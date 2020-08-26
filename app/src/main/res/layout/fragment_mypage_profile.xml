@@ -42,7 +42,7 @@
             android:fontFamily="@font/notosans_bold"
             android:maxLength="2"
             android:textColor="@color/storm_white"
-            android:textSize="45sp"
+            android:textSize="50sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/imageview_mypage_default_image"

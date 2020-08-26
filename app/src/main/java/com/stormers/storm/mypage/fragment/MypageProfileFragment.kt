@@ -217,6 +217,10 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
                         textview_mypage_name_in_profile.text = edittext_user_name.text
                     }
                 }
+                else {
+                    //입력된 텍스트가 공백일 때도 프로필 사진에 반영되도록 수정
+                    textview_mypage_name_in_profile.text = edittext_user_name.text
+                }
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
