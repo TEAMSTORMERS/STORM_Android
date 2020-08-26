@@ -6,7 +6,7 @@ import android.util.Log
 import android.view.View
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
-import com.stormers.storm.card.fragment.ExpandCardFragment
+import com.stormers.storm.card.fragment.ExpandRoundCardFragment
 import com.stormers.storm.round.data.source.RoundRepository
 import com.stormers.storm.round.model.RoundModel
 import kotlinx.android.synthetic.main.activity_expandcard.*
@@ -30,7 +30,7 @@ class RoundCardExpandActivity : BaseActivity() {
 
         initView(selectedProjectName)
 
-        goToFragment(ExpandCardFragment::class.java, Bundle().apply {
+        goToFragment(ExpandRoundCardFragment::class.java, Bundle().apply {
             if (selectedCardIdx != -1) {
                 putInt("cardIdx", selectedCardIdx)
             }

@@ -4,26 +4,29 @@ import android.os.Bundle
 import android.view.View
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
-import com.stormers.storm.card.fragment.ExpandCardFragment
-import com.stormers.storm.card.model.CardModel
+import com.stormers.storm.card.fragment.ExpandRoundCardFragment
+import com.stormers.storm.card.model.CardWithOwnerModel
 import kotlinx.android.synthetic.main.activity_expandcard.*
 import java.lang.StringBuilder
 
-class RoundFinishCardExpandActivity : BaseActivity(), ExpandCardFragment.OnCardPageChangeCallback {
+class RoundFinishRoundCardExpandActivity : BaseActivity(), ExpandRoundCardFragment.OnRoundCardPageChangeCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_expandcard)
 
         val selectedCardIdx = intent.getIntExtra("cardIdx", -1)
+        val currentProjectInx = GlobalApplication.currentProject!!.projectIdx
+        val currentRoundIdx = GlobalApplication.currentRound!!.roundIdx
 
         constraintlayout_expandcard_roundinfo.visibility = View.GONE
 
-        goToFragment(ExpandCardFragment::class.java, Bundle().apply {
+        goToFragment(ExpandRoundCardFragment::class.java, Bundle().apply {
             if (selectedCardIdx != -1) {
                 putInt("cardIdx", selectedCardIdx)
             }
-            putInt("roundIdx", GlobalApplication.currentRound!!.roundIdx)
+            putInt("roundIdx", currentRoundIdx)
+            putInt("projectIdx", currentProjectInx)
         })
     }
 
@@ -31,7 +34,7 @@ class RoundFinishCardExpandActivity : BaseActivity(), ExpandCardFragment.OnCardP
         return R.id.framelayout_expandcard_fragment
     }
 
-    override fun onCardPageChanged(position: Int, totalCount: Int, cardModel: CardModel) {
+    override fun onCardPageChanged(position: Int, totalCount: Int, card: CardWithOwnerModel) {
         setCount(totalCount, position)
     }
 

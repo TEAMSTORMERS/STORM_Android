@@ -18,16 +18,13 @@ import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.network.SocketClient
-import com.stormers.storm.project.data.source.ProjectRepository
 import com.stormers.storm.project.network.response.ResponseParticipant
-import com.stormers.storm.round.data.source.RoundRepository
 import com.stormers.storm.round.network.RequestRound
 import com.stormers.storm.ui.GlobalApplication
 import com.stormers.storm.ui.RoundProgressActivity
 import com.stormers.storm.user.ParticipantAdapter
 import com.stormers.storm.user.User
 import com.stormers.storm.user.UserDataSource
-import com.stormers.storm.user.UserRepository
 import com.stormers.storm.util.MarginDecoration
 import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.fragment_memberwaiting.view.*

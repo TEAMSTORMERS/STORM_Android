@@ -8,21 +8,13 @@ import com.stormers.storm.R
 import com.stormers.storm.base.BaseFragment
 import com.stormers.storm.card.adapter.CardListAdapter
 import com.stormers.storm.card.data.source.CardDataSource
-import com.stormers.storm.card.model.CardWithOwnerModel
-import com.stormers.storm.card.model.CardEnumModel
-import com.stormers.storm.card.network.RequestCard
-import com.stormers.storm.card.network.ResponseCardData
 import com.stormers.storm.card.data.source.CardRepository
 import com.stormers.storm.card.data.source.local.CardLocalDataSource
 import com.stormers.storm.card.data.source.remote.CardRemoteDataSource
 import com.stormers.storm.card.model.RoundInfoWithCardsModel
-import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.ui.GlobalApplication
-import com.stormers.storm.ui.RoundFinishCardExpandActivity
+import com.stormers.storm.ui.RoundFinishRoundCardExpandActivity
 import kotlinx.android.synthetic.main.fragment_roundmeeting.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class RoundMeetingFragment : BaseFragment(R.layout.fragment_roundmeeting) {
 
@@ -39,7 +31,7 @@ class RoundMeetingFragment : BaseFragment(R.layout.fragment_roundmeeting) {
 
         roundMeetingListAdapter = CardListAdapter(object: CardListAdapter.OnCardClickListener {
             override fun onCardClick(cardIdx: Int) {
-                val intent = Intent(context, RoundFinishCardExpandActivity::class.java)
+                val intent = Intent(context, RoundFinishRoundCardExpandActivity::class.java)
                 intent.putExtra("cardIdx", cardIdx)
                 startActivity(intent)
             }

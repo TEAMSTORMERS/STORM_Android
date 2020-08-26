@@ -5,8 +5,6 @@ import android.widget.Toast
 import com.stormers.storm.R
 import com.stormers.storm.canvas.base.BaseCanvasFragment
 import com.stormers.storm.canvas.network.RequestCard
-import com.stormers.storm.card.model.CacheCardModel
-import com.stormers.storm.card.model.CardEnumModel
 import com.stormers.storm.network.Response
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.ui.RoundProgressActivity

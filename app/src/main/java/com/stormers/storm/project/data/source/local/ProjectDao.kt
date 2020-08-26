@@ -32,4 +32,4 @@ package com.stormers.storm.project.data.source.local
 //    @Query("SELECT project_name, COUNT(scrap_idx) AS scrap_count FROM project_entity JOIN card_entity ON project_entity.project_idx = card_entity.project_idx JOIN scrap ON scrap.card_idx = card_entity.card_idx WHERE project_entity.project_idx = :projectIdx AND scrap.user_idx = :userIdx")
 //    abstract fun getProjectNameOfScrapedCard(projectIdx: Int, userIdx: Int) : ProjectNameWithScrapedCardCount?
 
-}
+//}

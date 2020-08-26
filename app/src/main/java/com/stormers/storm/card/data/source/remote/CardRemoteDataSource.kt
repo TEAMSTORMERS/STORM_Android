@@ -2,6 +2,7 @@ package com.stormers.storm.card.data.source.remote
 
 import android.util.Log
 import com.stormers.storm.card.data.source.CardDataSource
+import com.stormers.storm.card.model.CardMemoModel
 import com.stormers.storm.card.model.RoundInfoWithCardsModel
 import com.stormers.storm.card.model.ScrapedCardModel
 import com.stormers.storm.card.model.ScrapedCardRelationModel
@@ -115,7 +116,7 @@ object CardRemoteDataSource : CardDataSource {
     ) {
         Log.d(TAG, "requestCards: projectIdx: $projectIdx, roundIdx: $roundIdx, userIdx: $userIdx")
 
-        RetrofitClient.create(RequestCard::class.java).requestCard(projectIdx, roundIdx, GlobalApplication.userIdx)
+        requestCard.getCardWithProjectAndRoundInfo(projectIdx, roundIdx, GlobalApplication.userIdx)
             .enqueue(object : Callback<ResponseCardData> {
                 override fun onFailure(call: Call<ResponseCardData>, t: Throwable) {
                     Log.d(TAG, "requestCards: fail : ${t.message}")
@@ -137,5 +138,56 @@ object CardRemoteDataSource : CardDataSource {
                     }
                 }
             })
+    }
+
+    override fun createMemo(cardMemoModel: CardMemoModel) {
+        Log.d(TAG, "createMemo: $cardMemoModel")
+
+        requestCard.createMemo(cardMemoModel).enqueue(object: Callback<SimpleResponse> {
+            override fun onFailure(call: Call<SimpleResponse>, t: Throwable) {
+                Log.d(TAG, "createMemo: Fail, ${t.message}")
+            }
+
+            override fun onResponse(
+                call: Call<SimpleResponse>,
+                response: Response<SimpleResponse>
+            ) {
+                if (response.isSuccessful) {
+                    if (response.body()!!.success) {
+                        Log.d(TAG, "createMemo: Success.")
+                    } else {
+                        Log.d(TAG, "createMemo: Not success, ${response.body()!!.message}")
+                    }
+                } else {
+                    Log.d(TAG, "createMemo: Not successful, ${response.message()}")
+                }
+            }
+        })
+
+    }
+
+    override fun updateMemo(cardMemoModel: CardMemoModel) {
+        Log.d(TAG, "updateMemo: $cardMemoModel")
+
+        requestCard.updateMemo(cardMemoModel).enqueue(object: Callback<SimpleResponse> {
+            override fun onFailure(call: Call<SimpleResponse>, t: Throwable) {
+                Log.d(TAG, "updateMemo: Fail, ${t.message}")
+            }
+
+            override fun onResponse(
+                call: Call<SimpleResponse>,
+                response: Response<SimpleResponse>
+            ) {
+                if (response.isSuccessful) {
+                    if (response.body()!!.success) {
+                        Log.d(TAG, "updateMemo: Success.")
+                    } else {
+                        Log.d(TAG, "updateMemo: Not success, ${response.body()!!.message}")
+                    }
+                } else {
+                    Log.d(TAG, "updateMemo: Not successful, ${response.message()}")
+                }
+            }
+        })
     }
 }

@@ -68,7 +68,7 @@ open class BaseRoundFinishActivity : BaseRoundProgressActivity() {
             time.append(0)
         }
         time.append(roundTime)
-            .append(":00 소요")
+            .append("분 소요")
         textView_time.text = time.toString()
     }
 

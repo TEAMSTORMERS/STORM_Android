@@ -4,13 +4,11 @@ import android.view.ViewGroup
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseViewHolder
 import com.stormers.storm.card.adapter.CardListAdapter
-import com.stormers.storm.card.model.CardEnumModel
 import com.stormers.storm.card.data.source.CardRepository
 import com.stormers.storm.card.data.source.local.CardLocalDataSource
 import com.stormers.storm.card.data.source.remote.CardRemoteDataSource
 import com.stormers.storm.card.model.CardWithOwnerModel
 import com.stormers.storm.card.model.ScrapedCardRelationModel
-import com.stormers.storm.card.util.BitmapConverter
 import com.stormers.storm.customview.StormCard
 import com.stormers.storm.ui.GlobalApplication
 import kotlinx.android.synthetic.main.item_heart_card.view.*

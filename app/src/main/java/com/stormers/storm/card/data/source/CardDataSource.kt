@@ -1,5 +1,6 @@
 package com.stormers.storm.card.data.source
 
+import com.stormers.storm.card.model.CardMemoModel
 import com.stormers.storm.card.model.RoundInfoWithCardsModel
 import com.stormers.storm.card.model.ScrapedCardModel
 import com.stormers.storm.card.model.ScrapedCardRelationModel
@@ -29,4 +30,8 @@ interface CardDataSource {
     fun unScrapCard(scrapedCardRelationModel: ScrapedCardRelationModel)
 
     fun getCardWithProjectAndRoundInfo(projectIdx: Int, roundIdx: Int, userIdx: Int, callback: GetCardCallback<RoundInfoWithCardsModel>)
+
+    fun createMemo(cardMemoModel: CardMemoModel)
+
+    fun updateMemo(cardMemoModel: CardMemoModel)
 }

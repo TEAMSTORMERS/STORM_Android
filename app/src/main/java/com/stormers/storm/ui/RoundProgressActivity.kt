@@ -5,14 +5,9 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import com.stormers.storm.R
 import com.stormers.storm.card.fragment.AddCardFragment
-import com.stormers.storm.card.model.CacheCardModel
-import com.stormers.storm.card.model.CardEnumModel
-import com.stormers.storm.customview.dialog.StormDialogBuilder
-import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.round.base.BaseRoundProgressActivity
 import kotlinx.android.synthetic.main.activity_round_progress.*
 import java.util.concurrent.TimeUnit
-import kotlin.collections.ArrayList
 
 class RoundProgressActivity : BaseRoundProgressActivity() {
 

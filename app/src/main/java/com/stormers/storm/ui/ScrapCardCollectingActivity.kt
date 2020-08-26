@@ -7,7 +7,6 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.stormers.storm.R
 import com.stormers.storm.card.adapter.CardListAdapter
-import com.stormers.storm.card.model.CardEnumModel
 import com.stormers.storm.card.data.source.CardRepository
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_scrapcard_collecting.*
@@ -50,7 +49,7 @@ class ScrapCardCollectingActivity : AppCompatActivity() {
         //카드 리사이클러뷰 어댑터 초기화
         scrapCollectListAdapter = CardListAdapter(true, object: CardListAdapter.OnCardClickListener {
             override fun onCardClick(projectIdx: Int, roundIdx: Int, cardIdx: Int) {
-                val intent = Intent(this@ScrapCardCollectingActivity, ScrapedCardExpandActivity::class.java)
+                val intent = Intent(this@ScrapCardCollectingActivity, ScrapedRoundCardExpandActivity::class.java)
                 intent.putExtra("projectIdx", projectIdx)
                 intent.putExtra("cardIdx", cardIdx)
                 intent.putExtra("projectName", projectName)

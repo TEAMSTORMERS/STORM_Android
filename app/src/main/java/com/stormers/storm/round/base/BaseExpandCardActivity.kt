@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.viewpager2.widget.ViewPager2
 import com.stormers.storm.base.BaseActivity
-import com.stormers.storm.card.adapter.ExpandCardAdapter
+import com.stormers.storm.card.adapter.ExpandRoundCardAdapter
 import com.stormers.storm.card.data.Card
 import com.stormers.storm.card.data.source.CardRepository
 import com.stormers.storm.customview.StormButton
@@ -15,7 +15,7 @@ import com.stormers.storm.customview.StormToolbar
 import com.stormers.storm.util.DepthPageTransformer
 
 abstract class BaseExpandCardActivity(private val isScraped: Boolean, @LayoutRes val layoutRes: Int): BaseActivity() {
-    protected val expandCardAdapter: ExpandCardAdapter by lazy { ExpandCardAdapter() }
+    protected val expandRoundCardAdapter: ExpandRoundCardAdapter by lazy { ExpandRoundCardAdapter() }
 
     private val cardRepository: CardRepository by lazy { CardRepository() }
 
@@ -72,7 +72,7 @@ abstract class BaseExpandCardActivity(private val isScraped: Boolean, @LayoutRes
 
         applyButton.setOnClickListener {
 
-            val updatedCard = expandCardAdapter.getItem(currentPage)
+            val updatedCard = expandRoundCardAdapter.getItem(currentPage)
             //updatedCard.memo = memoEditText.text.toString()
             cardRepository.update(updatedCard)
 
@@ -83,7 +83,7 @@ abstract class BaseExpandCardActivity(private val isScraped: Boolean, @LayoutRes
 
     private fun initViewPager() {
         viewpager.run {
-            adapter = expandCardAdapter
+            adapter = expandRoundCardAdapter
             offscreenPageLimit = 3
             setPageTransformer(DepthPageTransformer())
             currentItem = currentPage

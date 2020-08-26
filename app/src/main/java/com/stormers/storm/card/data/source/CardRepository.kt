@@ -1,5 +1,6 @@
 package com.stormers.storm.card.data.source
 
+import com.stormers.storm.card.model.CardMemoModel
 import com.stormers.storm.card.model.RoundInfoWithCardsModel
 import com.stormers.storm.card.model.ScrapedCardModel
 import com.stormers.storm.card.model.ScrapedCardRelationModel
@@ -106,5 +107,15 @@ class CardRepository (
     override fun unScrapCard(scrapedCardRelationModel: ScrapedCardRelationModel) {
         cardLocalDataSource.unScrapCard(scrapedCardRelationModel)
         cardRemoteDataSource.unScrapCard(scrapedCardRelationModel)
+    }
+
+    override fun createMemo(cardMemoModel: CardMemoModel) {
+        cardLocalDataSource.createMemo(cardMemoModel)
+        cardRemoteDataSource.createMemo(cardMemoModel)
+    }
+
+    override fun updateMemo(cardMemoModel: CardMemoModel) {
+        cardLocalDataSource.updateMemo(cardMemoModel)
+        cardRemoteDataSource.updateMemo(cardMemoModel)
     }
 }

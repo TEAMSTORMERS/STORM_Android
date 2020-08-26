@@ -1,13 +1,12 @@
 package com.stormers.storm.card.data.source.local
 
 import com.stormers.storm.card.data.source.CardDataSource
-import com.stormers.storm.card.data.source.CardRepository
+import com.stormers.storm.card.model.CardMemoModel
 import com.stormers.storm.card.model.RoundInfoWithCardsModel
-import com.stormers.storm.card.model.ScrapCardWithRoundInfo
 import com.stormers.storm.card.model.ScrapedCardModel
 import com.stormers.storm.card.model.ScrapedCardRelationModel
 //import com.stormers.storm.project.data.source.local.ProjectDao
-import com.stormers.storm.round.data.source.local.RoundDao
+
 //import com.stormers.storm.util.AppExecutors
 
 class CardLocalDataSource private constructor(
@@ -90,5 +89,13 @@ class CardLocalDataSource private constructor(
         callback: CardDataSource.GetCardCallback<RoundInfoWithCardsModel>
     ) {
         callback.onDataNotAvailable()
+    }
+
+    override fun createMemo(cardMemoModel: CardMemoModel) {
+        //Todo: DB에 저장할 수 있도록 서버와 맞추기
+    }
+
+    override fun updateMemo(cardMemoModel: CardMemoModel) {
+        //Todo: DB에 저장할 수 있도록 서버와 맞추기
     }
 }

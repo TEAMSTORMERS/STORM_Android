@@ -13,7 +13,7 @@ data class CardWithOwnerModel (
     val cardText : String?,
 
     @SerializedName("memo_content")
-    val cardMemo : String,
+    var cardMemo : String?,
 
     @SerializedName("user_idx")
     val userIdx : Int,
@@ -22,5 +22,5 @@ data class CardWithOwnerModel (
     val userImg : String,
 
     @SerializedName("scrap_flag")
-    val isScraped : Int
+    var isScraped : Int
 )

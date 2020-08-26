@@ -20,7 +20,7 @@
         android:usesCleartextTraffic="true"
         toos:replace="android:label">
         <activity android:name=".ui.RoundCardExpandActivity"></activity>
-        <activity android:name=".ui.ScrapedCardExpandActivity" />
+        <activity android:name=".ui.ScrapedRoundCardExpandActivity" />
         <activity android:name=".ui.MemberRoundFinishActivity" />
         <activity android:name=".ui.CompleteSignUpActivity" />
         <activity
@@ -60,7 +60,7 @@
         <activity
             android:name=".ui.MypageActivity"
             android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".ui.RoundFinishCardExpandActivity" />
+        <activity android:name=".ui.RoundFinishRoundCardExpandActivity" />
         <activity
             android:name=".ui.MypageWithdrawalActivity"
             android:windowSoftInputMode="adjustPan" />

@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.card.adapter.CardListAdapter
-import com.stormers.storm.card.model.CardEnumModel
 import com.stormers.storm.card.data.source.CardRepository
 import com.stormers.storm.project.data.source.ProjectRepository
 import com.stormers.storm.project.adapter.ProjectParticipantsAdapter
@@ -83,7 +82,7 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         //스크랩한 카드 리사이클러뷰 어댑터 초기화
         scrapedCardListAdapter = CardListAdapter(true, object: CardListAdapter.OnCardClickListener {
             override fun onCardClick(projectIdx: Int, roundIdx: Int, cardIdx: Int) {
-                val intent = Intent(this@ParticipatedProjectDetailActivity, ScrapedCardExpandActivity::class.java)
+                val intent = Intent(this@ParticipatedProjectDetailActivity, ScrapedRoundCardExpandActivity::class.java)
                 intent.putExtra("projectIdx", projectIdx)
                 intent.putExtra("cardIdx", cardIdx)
                 intent.putExtra("projectName", projectName)
