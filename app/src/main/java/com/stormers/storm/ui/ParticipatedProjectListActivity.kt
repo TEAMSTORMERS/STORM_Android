@@ -1,24 +1,19 @@
 package com.stormers.storm.ui
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
-import com.stormers.storm.network.RetrofitClient
-import com.stormers.storm.project.ProjectRepository
+import com.stormers.storm.project.data.source.ProjectRepository
 import com.stormers.storm.project.adapter.ProjectPreviewAdapter
+import com.stormers.storm.project.data.source.ProjectsDataSource
+import com.stormers.storm.project.data.source.local.ProjectsLocalDataSource
+import com.stormers.storm.project.data.source.remote.ProjectsRemoteDataSource
 import com.stormers.storm.project.model.ProjectPreviewModel
-import com.stormers.storm.project.network.response.ResponseParticipatedProject
-import com.stormers.storm.project.network.RequestProject
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_participated_project_list.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class ParticipatedProjectListActivity : BaseActivity() {
 
@@ -28,7 +23,8 @@ class ParticipatedProjectListActivity : BaseActivity() {
 
     private lateinit var projectPreviewAdapter : ProjectPreviewAdapter
 
-    private val projectRepository: ProjectRepository by lazy { ProjectRepository.getInstance() }
+    private val projectRepository: ProjectRepository by lazy {
+        ProjectRepository.getInstance(ProjectsRemoteDataSource, ProjectsLocalDataSource.getInstance()) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,18 +47,21 @@ class ParticipatedProjectListActivity : BaseActivity() {
                 2, 20, 30))
         }
 
-        loadProjectsDatas()
+        loadProjectPreviews()
     }
 
-    private fun loadProjectsDatas() {
-        projectRepository.getPreviewAll(object: ProjectRepository.LoadProjectPreviewCallback {
-            override fun onPreviewLoaded(projects: List<ProjectPreviewModel>) {
+    private fun loadProjectPreviews() {
+        projectRepository.getProjectPreviews(GlobalApplication.userIdx, object: ProjectsDataSource.LoadProjectsCallback<ProjectPreviewModel> {
+
+            override fun onProjectsLoaded(projects: List<ProjectPreviewModel>) {
                 projectPreviewAdapter.setList(projects)
+                group_main_noprojectlist.visibility = View.GONE
+                recycler_participated_projects_list.visibility = View.VISIBLE
             }
 
-            @SuppressLint("LongLogTag")
             override fun onDataNotAvailable() {
-                Log.e(TAG, "No project data.")
+                group_main_noprojectlist.visibility = View.VISIBLE
+                recycler_participated_projects_list.visibility = View.GONE
             }
         })
     }

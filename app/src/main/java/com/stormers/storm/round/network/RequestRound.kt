@@ -1,9 +1,8 @@
 package com.stormers.storm.round.network
 
 import com.stormers.storm.network.BaseResponse
-import com.stormers.storm.network.Response
 import com.stormers.storm.network.SimpleResponse
-import com.stormers.storm.project.network.response.ResponseProjectUserListModel
+import com.stormers.storm.project.network.response.ResponseParticipant
 import com.stormers.storm.round.network.response.ResponseFinalRoundData
 import com.stormers.storm.round.network.response.ResponseRoundCountModel
 import com.stormers.storm.round.model.RoundEnterModel
@@ -18,7 +17,7 @@ interface RequestRound {
 
     @GET("round/memberList/{project_idx}/{round_idx}")
     fun showRoundUser(@Path("project_idx") projectIdx: Int,
-                      @Path("round_idx") roundIdx : Int) : Call<ResponseProjectUserListModel>
+                      @Path("round_idx") roundIdx : Int) : Call<ResponseParticipant>
 
     @DELETE("round/leave")
     fun roundExit(
@@ -28,8 +27,8 @@ interface RequestRound {
     @GET("/round/count/{project_idx}")
     fun responseRoundCount(@Path("project_idx") projectIdx :Int): Call<ResponseRoundCountModel>
 
-    @GET("round/roundFinalInfo/{project_idx}")
-    fun responseFinalRoundData(@Path("project_idx") projectIdx: Int) : Call<ResponseFinalRoundData>
+    @GET("round/roundFinalInfo/{user_idx}/{project_idx}")
+    fun getRoundInfo(@Path("project_idx") projectIdx: Int, @Path("user_idx") userIdx: Int) : Call<ResponseFinalRoundData>
 
     @POST("round/setting")
     fun roundSetting(@Body body: RoundSettingModel) : Call<BaseResponse>

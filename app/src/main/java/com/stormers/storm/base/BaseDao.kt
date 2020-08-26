@@ -9,6 +9,9 @@ interface BaseDao<T> {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(entity: T)
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insert(entity: List<T>)
+
     @Insert
     fun insert(vararg obj: T)
 

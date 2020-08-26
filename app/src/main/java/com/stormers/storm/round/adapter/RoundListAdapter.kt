@@ -2,15 +2,12 @@ package com.stormers.storm.round.adapter
 
 import android.view.ViewGroup
 import com.stormers.storm.base.BaseAdapter
-import com.stormers.storm.base.BaseViewHolder
 import com.stormers.storm.round.base.BaseRoundViewHolder
-import com.stormers.storm.round.viewholder.RoundViewHolder
 import com.stormers.storm.round.model.RoundDescriptionModel
-import com.stormers.storm.round.model.RoundModel
+import com.stormers.storm.round.viewholder.RoundViewHolder
 import com.stormers.storm.round.viewholder.RoundViewHolderForViewPager
-import com.stormers.storm.ui.ParticipatedProjectDetailActivity
 
-class RoundListAdapter(private val listener: OnRoundClickListener?) : BaseAdapter<RoundModel>() {
+class RoundListAdapter(private val listener: OnRoundClickListener?) : BaseAdapter<RoundDescriptionModel>() {
 
     var projectName: String? = null
 

@@ -1,55 +1,54 @@
 package com.stormers.storm.ui
 
-import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
-import com.stormers.storm.card.fragment.ExpandCardFragment
-import com.stormers.storm.card.model.CardEntity
-import com.stormers.storm.card.repository.CardRepository
-import com.stormers.storm.round.RoundRepository
-import com.stormers.storm.round.model.RoundModel
+import com.stormers.storm.card.adapter.ExpandRoundCardAdapter
+import com.stormers.storm.card.fragment.ExpandRoundCardFragment
+import com.stormers.storm.ui.RoundListActivity.Companion.RESULT_DIRTY
 import kotlinx.android.synthetic.main.activity_expandcard.*
 import java.lang.StringBuilder
 
-class RoundCardExpandActivity : BaseActivity() {
+class RoundCardExpandActivity : BaseActivity(), ExpandRoundCardAdapter.OnScrapChangedCallback {
 
     companion object {
         private const val TAG = "RoundCardExpandActivity"
     }
 
-    private val roundRepository: RoundRepository by lazy { RoundRepository.getInstance() }
+    var isEdited = false
+
+    private var selectedRoundIdx = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_expandcard)
 
+        stormtoolbar_expandcard.setBackButton(View.OnClickListener { returnResult() })
+
+        selectedRoundIdx = intent.getIntExtra("roundIdx", -1)
         val selectedCardIdx = intent.getIntExtra("cardIdx", -1)
         val selectedProjectName = intent.getStringExtra("projectName")
-        val selectedRoundIdx = intent.getIntExtra("roundIdx", -1)
+        val selectedProjectIdx = intent.getIntExtra("projectIdx", -1)
+
+        val roundNumber = intent.getIntExtra("roundNumber", -1)
+        val roundPurpose = intent.getStringExtra("roundPurpose")
+        val roundTime = intent.getIntExtra("roundTime", -1)
+
+        setRoundData(roundNumber, roundPurpose!!, roundTime)
 
         initView(selectedProjectName)
 
-        goToFragment(ExpandCardFragment::class.java, Bundle().apply {
+        goToFragment(ExpandRoundCardFragment::class.java, Bundle().apply {
             if (selectedCardIdx != -1) {
                 putInt("cardIdx", selectedCardIdx)
             }
             if (selectedRoundIdx != -1) {
                 putInt("roundIdx", selectedRoundIdx)
             }
-        })
-
-        roundRepository.get(selectedRoundIdx, object : RoundRepository.GetRoundCallback {
-            override fun onRoundLoaded(round: RoundModel) {
-                setRoundData(round)
-            }
-
-            @SuppressLint("LongLogTag")
-            override fun onDataNotAvailable() {
-                Log.e(TAG, "getRoundData: No round data. roundIdx ($selectedRoundIdx)")
+            if (selectedCardIdx != -1) {
+                putInt("projectIdx", selectedProjectIdx)
             }
         })
     }
@@ -58,19 +57,36 @@ class RoundCardExpandActivity : BaseActivity() {
         return R.id.framelayout_expandcard_fragment
     }
 
+    override fun onScrapChanged() {
+        isEdited = true
+    }
+
     private fun initView(projectName: String?) {
         textview_expandcard_count.visibility = View.GONE
 
         textview_expandcard_projectname.text = projectName
     }
 
-    private fun setRoundData(roundModel: RoundModel) {
+    private fun setRoundData(roundNumber: Int, roundPurpose: String, roundTime: Int) {
         textview_expandcard_roundnumber.text = StringBuilder("Round ")
-            .append(roundModel.roundNumber).toString()
+            .append(roundNumber).toString()
 
-        textview_expandcard_roundpurpose.text = roundModel.roundPurpose
+        textview_expandcard_roundpurpose.text = roundPurpose
 
         textview_expandcard_roundtime.text = StringBuilder("총 ")
-            .append(roundModel.roundTime).append("분 소요").toString()
+            .append(roundTime).append("분 소요").toString()
+    }
+
+    override fun onBackPressed() {
+        returnResult()
+    }
+
+    private fun returnResult() {
+        if (isEdited) {
+            val intent = Intent()
+            intent.putExtra("roundIdx", selectedRoundIdx)
+            setResult(RESULT_DIRTY, intent)
+        }
+        finish()
     }
 }

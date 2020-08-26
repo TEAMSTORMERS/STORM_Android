@@ -1,20 +1,19 @@
 package com.stormers.storm.ui
 
 import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.stormers.storm.R
 import com.stormers.storm.card.adapter.CardListAdapter
-import com.stormers.storm.card.model.CardEnumModel
-import com.stormers.storm.card.repository.CardRepository
-import com.stormers.storm.customview.dialog.StormDialog.Companion.TAG
+import com.stormers.storm.card.adapter.ScrapedCardListAdapter
+import com.stormers.storm.card.data.source.CardDataSource
+import com.stormers.storm.card.data.source.CardRepository
+import com.stormers.storm.card.data.source.local.CardLocalDataSource
+import com.stormers.storm.card.data.source.remote.CardRemoteDataSource
+import com.stormers.storm.card.model.ScrapedCardModel
 import com.stormers.storm.util.MarginDecoration
-import kotlinx.android.synthetic.main.activity_participated_project_detail.*
 import kotlinx.android.synthetic.main.activity_scrapcard_collecting.*
 
 class ScrapCardCollectingActivity : AppCompatActivity() {
@@ -23,13 +22,16 @@ class ScrapCardCollectingActivity : AppCompatActivity() {
         private const val TAG = "ScrapCardCollectingActivity"
     }
 
-    lateinit var scrapCollectListAdapter: CardListAdapter
+    lateinit var scrapCollectListAdapter: ScrapedCardListAdapter
 
-    private val cardRepository: CardRepository by lazy { CardRepository() }
+    private val cardRepository : CardRepository by lazy {
+        CardRepository.getInstance(CardRemoteDataSource, CardLocalDataSource.getInstance()) }
 
     private var projectIdx = -1
 
     private var projectName: String? = null
+
+    private val userIdx = GlobalApplication.userIdx
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,18 +50,17 @@ class ScrapCardCollectingActivity : AppCompatActivity() {
         textView_project_name_scrap_collect.text = projectName
 
         initRecyclerView()
-
     }
 
     private fun initRecyclerView() {
+
         //카드 리사이클러뷰 어댑터 초기화
-        scrapCollectListAdapter = CardListAdapter(true, object: CardListAdapter.OnCardClickListener {
-            override fun onCardClick(projectIdx: Int, roundIdx: Int, cardIdx: Int) {
-                val intent = Intent(this@ScrapCardCollectingActivity, ScrapedCardExpandActivity::class.java)
+        scrapCollectListAdapter = ScrapedCardListAdapter(true, object: ScrapedCardListAdapter.OnCardClickListener {
+            override fun onCardClick(cardIdx: Int) {
+                val intent = Intent(this@ScrapCardCollectingActivity, ScrapedRoundCardExpandActivity::class.java)
                 intent.putExtra("projectIdx", projectIdx)
                 intent.putExtra("cardIdx", cardIdx)
                 intent.putExtra("projectName", projectName)
-
                 startActivity(intent)
             }
         })
@@ -79,15 +80,15 @@ class ScrapCardCollectingActivity : AppCompatActivity() {
     }
 
     private fun setScrapedCardList() {
-        cardRepository.getScrapAllForList(projectIdx, object: CardRepository.LoadCardModel<CardEnumModel> {
+        cardRepository.getScrapedCardsWithInfo(projectIdx, userIdx, object: CardDataSource.GetCardCallback<ScrapedCardModel> {
+
             //카드를 성공적으로 불러왔을 때
-            override fun onCardsLoaded(cards: List<CardEnumModel>) {
-                //어댑터에 들어갈 데이터를 초기화
-                scrapCollectListAdapter.setList(cards)
+            override fun onCardLoaded(card: ScrapedCardModel) {
+                scrapCollectListAdapter.setList(card.cardItem)
 
                 //총 몇개의 카드인지 초기화
                 textView_card_count_scrap_collect.text = StringBuilder("총 ")
-                    .append(cards.size).append("개의 카드").toString()
+                    .append(card.cardItem.size).append("개의 카드").toString()
             }
 
             @SuppressLint("LongLogTag")

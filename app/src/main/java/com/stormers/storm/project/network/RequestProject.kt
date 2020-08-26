@@ -17,13 +17,13 @@ interface RequestProject {
     fun responseProjectinfo(@Path("project_idx") ProjectIdx : Int) :Call<ResponseProjectInfoModel>
 
     @GET("/project/enter/{project_idx}")
-    fun getProjectUserList(@Path("project_idx") projectIdx : Int ):Call<ResponseProjectUserListModel>
+    fun getProjectUserList(@Path("project_idx") projectIdx : Int ):Call<ResponseParticipant>
 
     @GET("project/finalInfo/{project_idx}")
-    fun responseProjectData(@Path("project_idx") projectIdx : Int) : Call<ResponseProjectFinalInfoModel>
+    fun getProjectDetailInfo(@Path("project_idx") projectIdx : Int) : Call<ResponseProjectDetialInfo>
 
     @GET("/project/user/{user_idx}")
-    fun requestParticipatedProject(@Path("user_idx") userIdx: Int) : Call<ResponseParticipatedProject>
+    fun getProjectPreviews(@Path("user_idx") userIdx: Int) : Call<ResponseProjectPreviews>
 
     @GET("/project/info/{project_code}")
     fun lookupProject(@Path("project_code") projectCode: String) : Call<ResponseLookupProject>

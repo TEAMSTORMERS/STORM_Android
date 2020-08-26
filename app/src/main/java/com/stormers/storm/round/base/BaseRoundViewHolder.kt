@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseViewHolder
 import com.stormers.storm.project.adapter.ProjectParticipantsAdapter
+import com.stormers.storm.round.model.RoundDescriptionModel
 import com.stormers.storm.round.model.RoundModel
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.item_round_info_card.view.*
@@ -14,13 +15,14 @@ import kotlinx.android.synthetic.main.item_round_part_detail.view.*
 import kotlinx.android.synthetic.main.layout_list_user_profile.view.*
 import java.lang.StringBuilder
 
-open class BaseRoundViewHolder (parent: ViewGroup, @LayoutRes val layoutRes: Int): BaseViewHolder<RoundModel>(layoutRes, parent) {
+open class BaseRoundViewHolder (parent: ViewGroup, @LayoutRes val layoutRes: Int):
+    BaseViewHolder<RoundDescriptionModel>(layoutRes, parent) {
 
     protected var baseItemView = itemView
 
     private val projectParticipantsAdapter: ProjectParticipantsAdapter by lazy { ProjectParticipantsAdapter() }
 
-    override fun bind(data: RoundModel) {
+    override fun bind(data: RoundDescriptionModel) {
         if (layoutRes == R.layout.item_round_info_card) {
             baseItemView = itemView.include_roundviewpager_item
         }
@@ -38,10 +40,12 @@ open class BaseRoundViewHolder (parent: ViewGroup, @LayoutRes val layoutRes: Int
                 addItemDecoration(MarginDecoration(itemView.context, 7, RecyclerView.HORIZONTAL))
                 recyclerview_user_profile.adapter = projectParticipantsAdapter
 
-                projectParticipantsAdapter.setList(data.participants!!)
+                projectParticipantsAdapter.setList(List(data.roundParticipant.size) { i ->
+                    data.roundParticipant[i].userImg
+                })
             }
 
-            val numberOfParticipants = data.participants!!.size
+            val numberOfParticipants = data.roundParticipant.size
 
             if( numberOfParticipants > 5 ) {
                 textview_extra_participants_info.run {

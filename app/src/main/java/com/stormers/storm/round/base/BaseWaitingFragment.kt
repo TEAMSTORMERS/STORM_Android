@@ -8,7 +8,6 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
-import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,15 +18,13 @@ import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.network.SocketClient
-import com.stormers.storm.project.ProjectRepository
-import com.stormers.storm.project.network.response.ResponseProjectUserListModel
-import com.stormers.storm.round.RoundRepository
+import com.stormers.storm.project.network.response.ResponseParticipant
 import com.stormers.storm.round.network.RequestRound
 import com.stormers.storm.ui.GlobalApplication
 import com.stormers.storm.ui.RoundProgressActivity
 import com.stormers.storm.user.ParticipantAdapter
-import com.stormers.storm.user.UserModel
-import com.stormers.storm.user.UserRepository
+import com.stormers.storm.user.User
+import com.stormers.storm.user.UserDataSource
 import com.stormers.storm.util.MarginDecoration
 import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.fragment_memberwaiting.view.*
@@ -35,7 +32,6 @@ import kotlinx.android.synthetic.main.layout_list_of_participant.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.StringBuilder
 
 abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(layoutRes) {
 
@@ -44,10 +40,6 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
     }
 
     private val participantAdapter: ParticipantAdapter by lazy { ParticipantAdapter() }
-
-    private val roundRepository: RoundRepository by lazy { RoundRepository.getInstance() }
-
-    private val projectRepository: ProjectRepository by lazy { ProjectRepository.getInstance() }
 
     private val buttonArray = ArrayList<StormDialogButton>()
 
@@ -59,7 +51,7 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
 
     private var mActivity: Activity? = null
 
-    private var cacheParticipants: List<UserModel>? = null
+    private var cacheParticipants: List<User>? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -143,8 +135,8 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
     }
 
     private fun refreshParticipants(roundIdx: Int) {
-        getParticipants(roundIdx, object: UserRepository.LoadUsersCallback {
-            override fun onUsersLoaded(users: List<UserModel>) {
+        getParticipants(roundIdx, object: UserDataSource.LoadUsersCallback<User> {
+            override fun onUsersLoaded(users: List<User>) {
                 participantAdapter.setList(users)
                 cacheParticipants = users
 
@@ -161,7 +153,7 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
         })
     }
 
-    private fun checkIsHost(participants: List<UserModel>): Boolean {
+    private fun checkIsHost(participants: List<User>): Boolean {
         for (participant in participants) {
             if (participant.isHost == 1) {
                 return participant.userIdx == GlobalApplication.userIdx
@@ -170,17 +162,17 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
         return false
     }
 
-    private fun getParticipants(roundIdx: Int, callback: UserRepository.LoadUsersCallback) {
+    private fun getParticipants(roundIdx: Int, callback: UserDataSource.LoadUsersCallback<User>) {
         Log.d(TAG, "getParticipants: projectIdx: ${GlobalApplication.currentProject!!.projectIdx}, roundIdx: $roundIdx")
         RetrofitClient.create(RequestRound::class.java).showRoundUser(GlobalApplication.currentProject!!.projectIdx, roundIdx)
-            .enqueue(object : Callback<ResponseProjectUserListModel> {
+            .enqueue(object : Callback<ResponseParticipant> {
 
-                override fun onFailure(call: Call<ResponseProjectUserListModel>, t: Throwable) {
+                override fun onFailure(call: Call<ResponseParticipant>, t: Throwable) {
                     dismissLoadingDialog()
                     Log.d(TAG, "getParticipants : fail, ${t.message}")
                     callback.onDataNotAvailable()
                 }
-                override fun onResponse(call: Call<ResponseProjectUserListModel>, response: Response<ResponseProjectUserListModel>) {
+                override fun onResponse(call: Call<ResponseParticipant>, response: Response<ResponseParticipant>) {
                     dismissLoadingDialog()
                     if (response.isSuccessful) {
                         if (response.body()!!.success) {
@@ -221,13 +213,9 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
         }
     }
 
-    private fun saveRoundInDB(participants: List<UserModel>) {
+    private fun saveRoundToCache(participants: List<User>) {
         //저장해둔 현재 라운드와 프로젝트의 정보를 DB에 저장
-        GlobalApplication.run {
-            currentRound!!.participants = participants
-            roundRepository.insert(currentProject!!.projectIdx, currentRound!!)
-            projectRepository.insert(currentProject!!)
-        }
+        GlobalApplication.currentRound!!.participants = participants
     }
 
     protected open fun onRoundStart() {
@@ -235,7 +223,7 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
         SocketClient.offEvent(SocketClient.ROUND_COMPLETE)
 
         //디비에 현재 참가자 목록 저장
-        cacheParticipants?.let { saveRoundInDB(it) } ?: Log.e(TAG, "Wrong participants")
+        cacheParticipants?.let { saveRoundToCache(it) } ?: Log.e(TAG, "Wrong participants")
 
         Log.d(TAG, "onRoundStart: Start round !!")
     }

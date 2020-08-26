@@ -170,6 +170,8 @@ class StormCard : CardView {
     }
 
     fun setImageUrl(url: String) {
+        imageview_customcard_background.visibility = View.VISIBLE
+        textview_customcard_background.visibility = View.INVISIBLE
         Glide.with(context).load(url).into(imageview_customcard_background)
     }
 

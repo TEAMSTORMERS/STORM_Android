@@ -16,8 +16,11 @@ import com.stormers.storm.project.network.RequestProject
 import com.stormers.storm.project.network.response.ResponseJoinProjectUsingCode
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.network.SocketClient
-import com.stormers.storm.project.ProjectRepository
+import com.stormers.storm.project.data.source.ProjectRepository
 import com.stormers.storm.project.adapter.ProjectPreviewAdapter
+import com.stormers.storm.project.data.source.ProjectsDataSource
+import com.stormers.storm.project.data.source.local.ProjectsLocalDataSource
+import com.stormers.storm.project.data.source.remote.ProjectsRemoteDataSource
 import com.stormers.storm.project.model.*
 import com.stormers.storm.project.network.response.ResponseLookupProject
 import com.stormers.storm.round.model.RoundModel
@@ -36,7 +39,8 @@ class MainActivity : BaseActivity() {
 
     private lateinit var recentProjectsAdapter: ProjectPreviewAdapter
 
-    private val projectRepository: ProjectRepository by lazy { ProjectRepository.getInstance() }
+    private val projectRepository: ProjectRepository by lazy {
+        ProjectRepository.getInstance(ProjectsRemoteDataSource, ProjectsLocalDataSource.getInstance()) }
 
     private val requestProject: RequestProject by lazy { RetrofitClient.create(RequestProject::class.java) }
 
@@ -216,8 +220,9 @@ class MainActivity : BaseActivity() {
     }
 
     private fun loadProjectPreviews() {
-        projectRepository.getPreviewAll(object: ProjectRepository.LoadProjectPreviewCallback {
-            override fun onPreviewLoaded(projects: List<ProjectPreviewModel>) {
+        projectRepository.getProjectPreviews(GlobalApplication.userIdx, object: ProjectsDataSource.LoadProjectsCallback<ProjectPreviewModel> {
+
+            override fun onProjectsLoaded(projects: List<ProjectPreviewModel>) {
                 recentProjectsAdapter.setList(projects)
                 group_main_noprojectlist.visibility = View.GONE
                 recycler_participated_projects_list.visibility = View.VISIBLE

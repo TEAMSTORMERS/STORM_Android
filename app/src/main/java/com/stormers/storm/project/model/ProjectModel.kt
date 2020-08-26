@@ -1,7 +1,7 @@
 package com.stormers.storm.project.model
 
 import com.stormers.storm.round.model.RoundModel
-import com.stormers.storm.user.UserModel
+import com.stormers.storm.user.User
 
 data class ProjectModel(
     val projectIdx: Int,
@@ -16,5 +16,5 @@ data class ProjectModel(
 
     var projectRounds: List<RoundModel>?,
 
-    val projectParticipants: List<UserModel>?
+    val projectParticipants: List<User>?
 )

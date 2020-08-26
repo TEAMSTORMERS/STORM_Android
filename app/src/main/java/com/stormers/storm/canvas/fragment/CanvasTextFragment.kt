@@ -3,14 +3,11 @@ package com.stormers.storm.canvas.fragment
 import android.util.Log
 import android.widget.Toast
 import com.stormers.storm.R
-import com.stormers.storm.card.fragment.AddCardFragment
 import com.stormers.storm.canvas.base.BaseCanvasFragment
 import com.stormers.storm.canvas.network.RequestCard
-import com.stormers.storm.card.CardType
-import com.stormers.storm.card.model.CardEnumModel
+import com.stormers.storm.card.model.CacheCardModel
 import com.stormers.storm.network.Response
 import com.stormers.storm.network.RetrofitClient
-import com.stormers.storm.ui.GlobalApplication
 import com.stormers.storm.ui.RoundProgressActivity
 import kotlinx.android.synthetic.main.view_addcard_edittext.*
 import okhttp3.MediaType
@@ -67,9 +64,8 @@ class CanvasTextFragment : BaseCanvasFragment(TEXT_MODE, R.layout.view_addcard_e
     }
 
     private fun saveCard(content: String) {
-        val card = CardEnumModel(0, projectIdx, roundIdx, false, CardType.TEXT, content)
         if (mActivity != null) {
-            (mActivity as RoundProgressActivity).cardList.add(card)
+            (mActivity as RoundProgressActivity).cardList.add(CacheCardModel(false, content))
         }
     }
 }
