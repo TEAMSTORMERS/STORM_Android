@@ -101,8 +101,6 @@ class ExpandScrapedCardFragment: BaseFragment(R.layout.fragment_expand_card) {
             adapter = expandScrapedCardAdapter
             offscreenPageLimit = 3
             setPageTransformer(DepthPageTransformer())
-            currentItem = currentPage
-
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
@@ -111,6 +109,7 @@ class ExpandScrapedCardFragment: BaseFragment(R.layout.fragment_expand_card) {
                     setMemo(position, data)
                 }
             })
+            currentItem = currentPage
         }
     }
 

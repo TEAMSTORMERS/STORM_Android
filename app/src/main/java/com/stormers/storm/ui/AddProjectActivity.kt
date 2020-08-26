@@ -61,7 +61,7 @@ class AddProjectActivity : BaseActivity() {
 
         RetrofitClient.create(RequestProject::class.java)
             .addProject(AddProjectModel(projectName,
-                projectComment, preference.getUserIdx()!!))
+                projectComment, GlobalApplication.userIdx))
 
             .enqueue(object : Callback<ResponseAddProject> {
                 override fun onFailure(call: Call<ResponseAddProject>, t: Throwable) {

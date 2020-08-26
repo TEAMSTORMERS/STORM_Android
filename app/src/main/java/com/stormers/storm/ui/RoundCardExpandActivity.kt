@@ -79,7 +79,6 @@ class RoundCardExpandActivity : BaseActivity(), ExpandRoundCardAdapter.OnScrapCh
 
     override fun onBackPressed() {
         returnResult()
-        finish()
     }
 
     private fun returnResult() {
@@ -88,5 +87,6 @@ class RoundCardExpandActivity : BaseActivity(), ExpandRoundCardAdapter.OnScrapCh
             intent.putExtra("roundIdx", selectedRoundIdx)
             setResult(RESULT_DIRTY, intent)
         }
+        finish()
     }
 }

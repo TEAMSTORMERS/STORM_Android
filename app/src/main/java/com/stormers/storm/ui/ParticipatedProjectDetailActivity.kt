@@ -72,7 +72,6 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         stormtoolbar_participateddetail.run {
             if (!isAfterProject) {
                 setBackButton()
-                setMyPageButton()
             } else {
                 setExitButton(View.OnClickListener {
                     finish()

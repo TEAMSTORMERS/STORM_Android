@@ -118,8 +118,6 @@ class ExpandRoundCardFragment: BaseFragment(R.layout.fragment_expand_card) {
             adapter = expandRoundCardAdapter
             offscreenPageLimit = 3
             setPageTransformer(DepthPageTransformer())
-            currentItem = currentPage
-
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
@@ -128,6 +126,7 @@ class ExpandRoundCardFragment: BaseFragment(R.layout.fragment_expand_card) {
                     setMemo(position, data)
                 }
             })
+            currentItem = currentPage
         }
     }
 

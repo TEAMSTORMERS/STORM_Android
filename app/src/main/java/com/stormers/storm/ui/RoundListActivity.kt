@@ -109,27 +109,14 @@ class RoundListActivity : BaseActivity() {
         roundRepository.getRoundsInfo(projectIdx, userIdx,  object : RoundDataSource.LoadRoundsCallback<RoundDescriptionModel> {
             override fun onRoundsLoaded(rounds: List<RoundDescriptionModel>) {
                 roundListAdapterForViewPager.addAll(rounds)
+                initViewPager()
+                //getRoundAndCardsInfo(roundIdx)
             }
 
             override fun onDataNotAvailable() {
                 Log.e(TAG, "No round in the project ($projectIdx)")
             }
         })
-
-        //라운드 뷰페이저 초기화
-        viewpager_roundcardlist_round.run {
-            adapter = roundListAdapterForViewPager
-            orientation = ViewPager2.ORIENTATION_HORIZONTAL
-            offscreenPageLimit = 3
-            currentItem = roundNo - 1
-            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                    //선택된 라운드의 카드 리스트를 보여줌
-                    getRoundAndCardsInfo(roundListAdapterForViewPager.getItem(position).roundIdx)
-                }
-            })
-        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -144,6 +131,24 @@ class RoundListActivity : BaseActivity() {
 
             cacheDirty[roundIdx] = true
             getRoundAndCardsInfo(roundIdx)
+        }
+    }
+
+    private fun initViewPager() {
+        //라운드 뷰페이저 초기화
+        viewpager_roundcardlist_round.run {
+            adapter = roundListAdapterForViewPager
+            orientation = ViewPager2.ORIENTATION_HORIZONTAL
+            offscreenPageLimit = 3
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    //선택된 라운드의 카드 리스트를 보여줌
+                    roundIdx = roundListAdapterForViewPager.getItem(position).roundIdx
+                    getRoundAndCardsInfo(roundIdx)
+                }
+            })
+            currentItem = roundNo - 1
         }
     }
 

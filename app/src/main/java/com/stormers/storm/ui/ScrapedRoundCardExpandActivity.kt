@@ -21,6 +21,8 @@ class ScrapedRoundCardExpandActivity : BaseActivity(), ExpandScrapedCardFragment
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_expandcard)
 
+        stormtoolbar_expandcard.setBackButton()
+
         val selectedCardIdx = intent.getIntExtra("cardIdx", -1)
         val selectedProjectIdx = intent.getIntExtra("projectIdx", -1)
         val selectedProjectName = intent.getStringExtra("projectName")
