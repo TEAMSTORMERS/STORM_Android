@@ -3,6 +3,7 @@ package com.stormers.storm.customview
 import android.content.Context
 import android.content.res.TypedArray
 import android.text.Editable
+import android.text.InputFilter
 import android.text.InputType
 import android.text.TextWatcher
 import android.util.AttributeSet
@@ -11,12 +12,14 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.marginTop
 import com.stormers.storm.R
 import com.stormers.storm.util.MetricsUtil
 import kotlinx.android.synthetic.main.view_edittext_custom.view.*
+import java.util.regex.Pattern
 
 
 class StormEditText : ConstraintLayout {
@@ -167,6 +170,18 @@ class StormEditText : ConstraintLayout {
                 }
             }
         })
+    }
+
+    fun setTextFilter() {
+        val pattern = Pattern.compile("^[a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣ\\u318D\\u119E\\u11A2\\u2022\\u2025a\\u00B7\\uFE55]*\$")
+        val filter = InputFilter { source, start, end, dest, dstart, dend ->
+            if (!pattern.matcher(source).matches()) {
+                Toast.makeText(context, "특수문자는 입력불가", Toast.LENGTH_SHORT).show()
+                return@InputFilter ""
+            }
+            null
+        }
+        this.edittext_customedittext.filters = Array(1) {filter}
     }
 
     companion object {

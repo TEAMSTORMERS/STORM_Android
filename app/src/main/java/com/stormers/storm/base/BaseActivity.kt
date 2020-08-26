@@ -4,11 +4,13 @@ import android.content.Context
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
+import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.stormers.storm.customview.dialog.StormLoadingDialog
 import com.stormers.storm.ui.GlobalApplication
+import com.stormers.storm.util.KeyBoardVisibilityUtils
 import com.stormers.storm.util.SharedPreference
 
 abstract class BaseActivity : AppCompatActivity() {
@@ -46,6 +48,18 @@ abstract class BaseActivity : AppCompatActivity() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    fun scrollViewKeyBoard(scrollView: ScrollView){
+
+      KeyBoardVisibilityUtils(window,
+            onShowKeyboard = {
+                    keyboardHeight ->
+                scrollView.run {
+                    smoothScrollTo(scrollX,scrollY + keyboardHeight)
+                }
+
+            })
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

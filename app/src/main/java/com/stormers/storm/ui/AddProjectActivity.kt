@@ -51,6 +51,8 @@ class AddProjectActivity : BaseActivity() {
 
         //전체 지우기 버튼 활성화/비활성화
         edittext_addproject_projectname.setRemoveAllTextWatcher()
+
+        scrollViewKeyBoard(scrollview_add_project)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

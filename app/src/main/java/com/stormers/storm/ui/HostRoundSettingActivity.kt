@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.stormers.storm.round.base.BaseRoundWaitingActivity
 import com.stormers.storm.round.fragment.HostRoundSettingFragment
 import com.stormers.storm.round.fragment.HostRoundWaitingFragment
+import kotlinx.android.synthetic.main.activity_round_setting.*
 
 class HostRoundSettingActivity : BaseRoundWaitingActivity() {
 
@@ -19,5 +20,8 @@ class HostRoundSettingActivity : BaseRoundWaitingActivity() {
                 putBoolean("isPromotion", isPromotion)
             })
         }
+
+        scrollViewKeyBoard(scrollview_round_setting)
+
     }
 }

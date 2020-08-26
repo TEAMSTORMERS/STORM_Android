@@ -43,7 +43,8 @@
             android:name=".ui.LoginActivity"
             android:theme="@style/loginTheme"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".ui.AddProjectActivity" />
+        <activity android:name=".ui.AddProjectActivity"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".ui.MainActivity"
             android:windowSoftInputMode="adjustNothing" />
@@ -55,7 +56,9 @@
         <activity android:name=".ui.RoundListActivity" />
         <activity android:name=".ui.RoundProgressActivity" />
         <activity android:name=".ui.HostRoundSettingActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
+            android:windowSoftInputMode="adjustResize"
+            android:configChanges="orientation"/>
+
         <activity android:name=".ui.ScrapCardCollectingActivity" />
         <activity
             android:name=".ui.MypageActivity"
