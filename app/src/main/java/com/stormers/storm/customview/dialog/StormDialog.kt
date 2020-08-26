@@ -48,7 +48,7 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
     companion object {
         const val TAG = "storm_dialog"
 
-        private const val DEFAULT_MAX_VALUE_MINUTE = 10
+        private const val DEFAULT_MAX_VALUE_MINUTE = 20
         private const val DEFAULT_MIN_VALUE_MINUTE = 1
 
         const val LOADING = -1

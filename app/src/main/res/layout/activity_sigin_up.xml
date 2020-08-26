@@ -15,6 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="회원가입"
+            android:fontFamily="@font/notosans_bold"
             android:textColor="@color/storm_gray"
             android:textSize="23sp"
             app:layout_constraintBottom_toBottomOf="parent"

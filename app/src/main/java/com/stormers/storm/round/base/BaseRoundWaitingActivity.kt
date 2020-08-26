@@ -31,6 +31,7 @@ open class BaseRoundWaitingActivity : BaseActivity() {
 
     private val exitDialogButtons: ArrayList<StormDialogButton> by lazy { ArrayList<StormDialogButton>() }
 
+
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
     }

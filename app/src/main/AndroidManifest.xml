@@ -55,7 +55,9 @@
         <activity android:name=".ui.RoundListActivity" />
         <activity android:name=".ui.RoundProgressActivity" />
         <activity android:name=".ui.HostRoundSettingActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustResize"/>
+
         <activity android:name=".ui.ScrapCardCollectingActivity" />
         <activity
             android:name=".ui.MypageActivity"
