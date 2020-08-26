@@ -18,9 +18,7 @@ import com.stormers.storm.network.SimpleResponse
 import com.stormers.storm.network.SocketClient
 import com.stormers.storm.round.network.RequestRound
 import com.stormers.storm.ui.GlobalApplication
-import com.stormers.storm.util.KeyBoardVisibilityUtils
 import kotlinx.android.synthetic.main.activity_round_setting.*
-import kotlinx.android.synthetic.main.fragment_host_round_setting.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
