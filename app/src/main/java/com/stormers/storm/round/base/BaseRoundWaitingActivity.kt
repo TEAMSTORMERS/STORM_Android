@@ -31,6 +31,10 @@ open class BaseRoundWaitingActivity : BaseActivity() {
 
     private val exitDialogButtons: ArrayList<StormDialogButton> by lazy { ArrayList<StormDialogButton>() }
 
+    private val userIdx = GlobalApplication.userIdx
+    private val projectIdx = GlobalApplication.currentProject?.projectIdx
+    private val roundIdx = GlobalApplication.currentRound?.roundIdx
+
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
@@ -59,9 +63,10 @@ open class BaseRoundWaitingActivity : BaseActivity() {
     }
 
     //라운드 나가기 통신
+    @SuppressLint("LongLogTag")
     private fun exitRound() {
-        RetrofitClient.create(RequestRound::class.java).exitRound(GlobalApplication.userIdx,
-            GlobalApplication.currentProject!!.projectIdx, GlobalApplication.currentRound!!.roundIdx)
+        Log.d(TAG, "exitRound(): userIdx: $userIdx, projectIdx: $projectIdx, roundIdx: $roundIdx")
+        RetrofitClient.create(RequestRound::class.java).exitRound(userIdx, projectIdx!!, roundIdx!!)
             .enqueue(object : Callback<SimpleResponse> {
 
                 @SuppressLint("LongLogTag")
@@ -74,6 +79,8 @@ open class BaseRoundWaitingActivity : BaseActivity() {
                     if (response.isSuccessful) {
                         if (response.body()!!.success) {
                             Log.d(TAG, "exitRound: Success.")
+
+
 
                             //소켓으로 나감을 알림
                             leaveSocket()
@@ -96,7 +103,12 @@ open class BaseRoundWaitingActivity : BaseActivity() {
             exitDialogButtons.add(StormDialogButton("취소", true, null))
             exitDialogButtons.add(StormDialogButton("확인", true, object : StormDialogButton.OnClickListener {
                 override fun onClick() {
-                    exitRound()
+                    //roundIdx가 존재할 때 -> 라운드가 한 번이라도 생성되었을 때
+                    roundIdx?.let {
+                        //라운드 나가기
+                        exitRound()
+
+                    }?: onExitBeforeFirstRound() //roundIdx가 null일 때 -> 첫 번째 라운드 생성 전
                 }
             }))
         }
@@ -115,5 +127,15 @@ open class BaseRoundWaitingActivity : BaseActivity() {
 
     override fun initFragmentId(): Int? {
         return R.id.constraint_host_round
+    }
+
+    @SuppressLint("LongLogTag")
+    protected open fun onExitBeforeFirstRound() {
+        Log.d(TAG, "onExitRound()")
+    }
+
+    @SuppressLint("LongLogTag")
+    protected open fun onLeaveRound() {
+        Log.d(TAG, "onLeaveRound()")
     }
 }
