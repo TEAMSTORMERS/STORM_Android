@@ -18,7 +18,7 @@ interface RequestCard {
         @Path("user_idx") user_idx : Int,
         @Path("card_idx") card_idx : Int) : Call<ResponseCardData>
 
-    @GET("/project/finalScarpList/{user_idx}/{project_idx}")
+    @GET("/project/finalScrapList/{user_idx}/{project_idx}")
     fun getScrapedCards(@Path("project_idx") projectIdx: Int, @Path("user_idx") userIdx: Int) : Call<ResponseData<ScrapedCardModel>>
 
     @POST("/card/scrap")
