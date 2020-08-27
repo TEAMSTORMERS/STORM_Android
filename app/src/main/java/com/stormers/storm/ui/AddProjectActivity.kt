@@ -33,7 +33,6 @@ class AddProjectActivity : BaseActivity() {
 
         stormtoolbar_addproject.run {
             setBackButton()
-            setMyPageButton()
         }
 
         button_add_project.setOnClickListener {

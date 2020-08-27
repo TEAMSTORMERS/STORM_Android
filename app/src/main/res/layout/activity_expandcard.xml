@@ -58,6 +58,7 @@
             android:layout_height="wrap_content"
             android:text="프로젝트 명"
             style="@style/project_round_info"
+            android:textFontWeight="700"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/textview_expandcard_roundpurpose"/>
@@ -68,6 +69,7 @@
             android:layout_height="wrap_content"
             android:text="라운드 목표"
             style="@style/project_round_info"
+            android:textFontWeight="400"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textview_expandcard_projectname"
             app:layout_constraintBottom_toBottomOf="parent"/>
@@ -78,6 +80,7 @@
             android:layout_height="wrap_content"
             android:text="ROUND N"
             style="@style/project_round_info"
+            android:textFontWeight="700"
             app:layout_constraintTop_toTopOf="@id/textview_expandcard_projectname"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/textview_expandcard_projectname"/>
@@ -88,6 +91,7 @@
             android:layout_height="wrap_content"
             android:text="총 00:00 소요"
             style="@style/project_round_info"
+            android:textFontWeight="400"
             app:layout_constraintTop_toTopOf="@id/textview_expandcard_roundpurpose"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/textview_expandcard_roundpurpose"/>

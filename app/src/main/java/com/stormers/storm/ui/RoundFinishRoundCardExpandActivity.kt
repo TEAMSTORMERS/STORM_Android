@@ -21,6 +21,8 @@ class RoundFinishRoundCardExpandActivity : BaseActivity(), ExpandRoundCardFragme
 
         constraintlayout_expandcard_roundinfo.visibility = View.GONE
 
+        stormtoolbar_expandcard.setBackButton()
+
         goToFragment(ExpandRoundCardFragment::class.java, Bundle().apply {
             if (selectedCardIdx != -1) {
                 putInt("cardIdx", selectedCardIdx)
