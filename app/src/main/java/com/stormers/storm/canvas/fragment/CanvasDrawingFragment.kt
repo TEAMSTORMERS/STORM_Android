@@ -162,9 +162,9 @@ class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_dra
 
     private fun setSaturationView(view: ImageView, isSaturation: Boolean) {
         if (isSaturation) {
-            view.setColorFilter(context!!.getColor(R.color.very_light_pink), PorterDuff.Mode.MULTIPLY)
+            view.alpha = 0.5f
         } else {
-            view.colorFilter = null
+            view.alpha = 1f
         }
         Log.d(TAG, "setSaturation(): ${view.id} - $isSaturation")
     }
