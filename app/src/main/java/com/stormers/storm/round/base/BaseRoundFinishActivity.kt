@@ -100,6 +100,9 @@ open class BaseRoundFinishActivity : BaseRoundProgressActivity() {
                         if (response.body()!!.success) {
                             Log.d(TAG, "exitRound: Success.")
 
+                            //나가기 전 작업
+                            onExitRound()
+
                             //소켓으로 나감을 알림
                             leaveSocket()
 
@@ -122,5 +125,9 @@ open class BaseRoundFinishActivity : BaseRoundProgressActivity() {
 
     override fun initFragmentId(): Int? {
         return R.id.framelayout_roundprogress_fragment
+    }
+
+    protected open fun onExitRound() {
+        Log.d(TAG, "onExitRound(): Exit.")
     }
 }

@@ -44,6 +44,13 @@ class HostRoundFinishActivity : BaseRoundFinishActivity() {
         }
     }
 
+    override fun onExitRound() {
+        super.onExitRound()
+
+        //호스트가 나가기를 누르면 프로젝트 끝내기
+        finishRound()
+    }
+
     private fun initDialogButton() {
 
         if(currentRound!!.roundNumber == 9) {
