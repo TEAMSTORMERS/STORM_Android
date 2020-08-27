@@ -70,7 +70,7 @@ class RoundCardExpandActivity : BaseActivity(), ExpandRoundCardAdapter.OnScrapCh
     }
 
     private fun setRoundData(roundNumber: Int, roundPurpose: String, roundTime: Int) {
-        textview_expandcard_roundnumber.text = StringBuilder("Round ")
+        textview_expandcard_roundnumber.text = StringBuilder("ROUND ")
             .append(roundNumber).toString()
 
         textview_expandcard_roundpurpose.text = roundPurpose
