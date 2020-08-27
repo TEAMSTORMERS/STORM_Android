@@ -10,7 +10,9 @@
 
     <application
         android:name=".ui.GlobalApplication"
-        android:allowBackup="true"
+        android:allowBackup="false"
+        android:fullBackupContent="false"
+        android:fullBackupOnly="false"
         android:icon="@mipmap/storm_app_icon"
         android:label="STORM"
         android:largeHeap="true"
@@ -18,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        toos:replace="android:label">
+        toos:replace="android:label,android:allowBackup">
         <activity android:name=".ui.RoundCardExpandActivity"></activity>
         <activity android:name=".ui.ScrapedRoundCardExpandActivity" />
         <activity android:name=".ui.MemberRoundFinishActivity" />
