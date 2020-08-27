@@ -37,10 +37,9 @@ import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.util.ProfileCompanion.FLAG_PERM_STORAGE
 import com.stormers.storm.util.ProfileCompanion.FLAG_REQ_STORAGE
-import com.stormers.storm.util.ProfileCompanion.SELECT_PURPLE_BUTTON
-import com.stormers.storm.util.ProfileCompanion.SELECT_RED_BUTTON
-import com.stormers.storm.util.ProfileCompanion.SELECT_YELLOW_BUTTON
-import com.stormers.storm.util.ProfileCompanion.USER_DEFAULT_IMAGE
+import com.stormers.storm.util.ProfileCompanion.USER_DEFAULT_IMAGE_PURPLE
+import com.stormers.storm.util.ProfileCompanion.USER_DEFAULT_IMAGE_RED
+import com.stormers.storm.util.ProfileCompanion.USER_DEFAULT_IMAGE_YELLOW
 import com.stormers.storm.util.ProfileCompanion.USER_IMAGE
 import kotlinx.android.synthetic.main.activity_set_email_password.*
 import kotlinx.android.synthetic.main.activity_sigin_up.*
@@ -67,7 +66,7 @@ class SignUpActivity : BaseActivity() {
 
     lateinit var profileBitmap : Bitmap
 
-    var userImageFlag = USER_DEFAULT_IMAGE
+    private var userImageFlag = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,22 +90,22 @@ class SignUpActivity : BaseActivity() {
                 changeProfileResources(imagebutton_select_profile_purple)
                 keepBackgroundShapeAndSetColor(R.color.storm_purple)
 
-                //사용자가 선택한 배경 색상 sharedPreference에 저장
-                preference.setProfileColor(SELECT_PURPLE_BUTTON)
+                //사용자가 선택한 배경 색상 userImageFlag 변수에 저장
+                userImageFlag = USER_DEFAULT_IMAGE_PURPLE
             }
 
             imagebutton_select_profile_red.setOnClickListener{
                 changeProfileResources(imagebutton_select_profile_red)
                 keepBackgroundShapeAndSetColor(R.color.storm_red)
 
-                preference.setProfileColor(SELECT_RED_BUTTON)
+                userImageFlag = USER_DEFAULT_IMAGE_RED
             }
 
             imagebutton_select_profile_yellow.setOnClickListener{
                 changeProfileResources(imagebutton_select_profile_yellow)
                 keepBackgroundShapeAndSetColor(R.color.storm_yellow)
 
-                preference.setProfileColor(SELECT_YELLOW_BUTTON)
+                userImageFlag = USER_DEFAULT_IMAGE_YELLOW
             }
         }
     fun keepBackgroundShapeAndSetColor(colorId: Int) {
@@ -137,16 +136,25 @@ class SignUpActivity : BaseActivity() {
             imagebutton_select_profile_purple.setBackgroundResource(R.drawable.join_profile_selected_purple)
             imagebutton_select_profile_yellow.setBackgroundResource(R.drawable.join_profile_yellow)
             imagebutton_select_profile_red.setBackgroundResource(R.drawable.join_profile_red)
+
+            userImageFlag = USER_DEFAULT_IMAGE_PURPLE
+
         } else {
             if(imageButtonSelected == imagebutton_select_profile_yellow) {
                 imagebutton_select_profile_purple.setBackgroundResource(R.drawable.join_profile_purple)
                 imagebutton_select_profile_yellow.setBackgroundResource(R.drawable.join_profile_selected_yellow)
                 imagebutton_select_profile_red.setBackgroundResource(R.drawable.join_profile_red)
+
+                userImageFlag = USER_DEFAULT_IMAGE_YELLOW
+
             }  else {
                 if(imageButtonSelected == imagebutton_select_profile_red) {
                     imagebutton_select_profile_purple.setBackgroundResource(R.drawable.join_profile_purple)
                     imagebutton_select_profile_yellow.setBackgroundResource(R.drawable.join_profile_yellow)
                     imagebutton_select_profile_red.setBackgroundResource(R.drawable.join_profile_selected_red)
+
+                    userImageFlag = USER_DEFAULT_IMAGE_RED
+
                 }
             }
         }
@@ -196,7 +204,6 @@ class SignUpActivity : BaseActivity() {
             imagebutton_select_profile_yellow.visibility = View.VISIBLE
             imagebutton_select_profile_red.visibility = View.VISIBLE
 
-            userImageFlag = USER_DEFAULT_IMAGE
             changeProfileDefaultBackground()
         }
 
