@@ -25,6 +25,8 @@ class RoundCardExpandActivity : BaseActivity(), ExpandRoundCardAdapter.OnScrapCh
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_expandcard)
 
+        scrollViewKeyBoard(scrollview_expandcard)
+
         stormtoolbar_expandcard.setBackButton(View.OnClickListener { returnResult() })
 
         selectedRoundIdx = intent.getIntExtra("roundIdx", -1)
