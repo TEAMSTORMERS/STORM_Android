@@ -28,6 +28,8 @@ class LoginActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        scrollViewKeyBoard(scrollview_login)
+
         goToSignUp()
 
         autoLogIn()
