@@ -72,6 +72,8 @@ class SignUpActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sigin_up)
 
+        scrollViewKeyBoard(scrollview_signup)
+
         selectProfileColor()
 
         setNameTextWatcher()

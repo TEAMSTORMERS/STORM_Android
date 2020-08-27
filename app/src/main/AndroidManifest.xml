@@ -21,8 +21,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         toos:replace="android:label,android:allowBackup">
-        <activity android:name=".ui.RoundCardExpandActivity"></activity>
-        <activity android:name=".ui.ScrapedRoundCardExpandActivity" />
+        <activity android:name=".ui.RoundCardExpandActivity"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.ScrapedRoundCardExpandActivity"
+            android:windowSoftInputMode="adjustResize"/>
+
         <activity android:name=".ui.MemberRoundFinishActivity" />
         <activity android:name=".ui.CompleteSignUpActivity" />
         <activity
@@ -44,7 +47,7 @@
         <activity
             android:name=".ui.LoginActivity"
             android:theme="@style/loginTheme"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".ui.AddProjectActivity"
             android:windowSoftInputMode="adjustResize"/>
         <activity
@@ -65,7 +68,8 @@
         <activity
             android:name=".ui.MypageActivity"
             android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".ui.RoundFinishRoundCardExpandActivity" />
+        <activity android:name=".ui.RoundFinishRoundCardExpandActivity"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".ui.MypageWithdrawalActivity"
             android:windowSoftInputMode="adjustPan" />
@@ -73,7 +77,7 @@
         <activity
             android:name=".ui.SignUpActivity"
             android:theme="@style/loginTheme"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustResize" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
