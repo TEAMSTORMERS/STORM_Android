@@ -80,12 +80,12 @@ open class BaseRoundWaitingActivity : BaseActivity() {
                         if (response.body()!!.success) {
                             Log.d(TAG, "exitRound: Success.")
 
-
+                            //라운드 나가기 전 작업
+                            onLeaveRound()
 
                             //소켓으로 나감을 알림
                             leaveSocket()
 
-                            //종료
                             finish()
                         } else {
                             Log.d(TAG, "exitRound: Not success. ${response.body()!!.message}")

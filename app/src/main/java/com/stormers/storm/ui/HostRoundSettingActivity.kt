@@ -116,7 +116,7 @@ class HostRoundSettingActivity : BaseRoundWaitingActivity() {
                         Log.d(TAG, "deleteProject: Not success, ${response.body()!!.message}")
                     }
                 } else {
-                    Log.d(TAG, "deletePropject: Not successful, ${response.message()}")
+                    Log.d(TAG, "deleteProject: Not successful, ${response.message()}")
                 }
             }
         })
