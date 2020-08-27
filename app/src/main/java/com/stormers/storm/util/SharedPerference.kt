@@ -8,8 +8,6 @@ class SharedPreference(context: Context) {
     companion object {
         const val USER_IDX = "user_idx"
         const val AUTO_LOGIN = "auto_login"
-        const val PROFILE_COLOR = "profile_color"
-
     }
 
     private val prefs: SharedPreferences =
@@ -71,12 +69,5 @@ class SharedPreference(context: Context) {
         return getBoolean(AUTO_LOGIN)
     }
 
-    fun setProfileColor(profileColor: Int) {
-        setInt(PROFILE_COLOR, profileColor)
-    }
-
-    fun getProfileColor(): Int? {
-        return getInt(PROFILE_COLOR)
-    }
 }
 

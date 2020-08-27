@@ -37,10 +37,9 @@ import com.stormers.storm.ui.LoginActivity
 import com.stormers.storm.ui.MypageWithdrawalActivity
 import com.stormers.storm.util.ProfileCompanion.FLAG_PERM_STORAGE
 import com.stormers.storm.util.ProfileCompanion.FLAG_REQ_STORAGE
-import com.stormers.storm.util.ProfileCompanion.SELECT_PURPLE_BUTTON
-import com.stormers.storm.util.ProfileCompanion.SELECT_RED_BUTTON
-import com.stormers.storm.util.ProfileCompanion.SELECT_YELLOW_BUTTON
-import com.stormers.storm.util.ProfileCompanion.USER_DEFAULT_IMAGE
+import com.stormers.storm.util.ProfileCompanion.USER_DEFAULT_IMAGE_PURPLE
+import com.stormers.storm.util.ProfileCompanion.USER_DEFAULT_IMAGE_RED
+import com.stormers.storm.util.ProfileCompanion.USER_DEFAULT_IMAGE_YELLOW
 import com.stormers.storm.util.ProfileCompanion.USER_IMAGE
 import kotlinx.android.synthetic.main.bottomsheet_select_profile.*
 import kotlinx.android.synthetic.main.fragment_mypage_profile.*
@@ -120,18 +119,18 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
                         }
                         //서버로부터 받아온 profile image 적용: 기본 이미지일 경우
                        else {
-                            imgFlag = USER_DEFAULT_IMAGE
+                            imgFlag = response.body()!!.data.user_img_flag
 
-                            when (preference.getProfileColor()) {
-                                SELECT_PURPLE_BUTTON -> {
+                            when (imgFlag) {
+                                USER_DEFAULT_IMAGE_PURPLE -> {
                                     selectPurpleButton()
                                     purpleBackground()
                                 }
-                                SELECT_RED_BUTTON -> {
+                                USER_DEFAULT_IMAGE_RED -> {
                                     selectRedButton()
                                     redBackground()
                                 }
-                                SELECT_YELLOW_BUTTON -> {
+                                USER_DEFAULT_IMAGE_YELLOW -> {
                                     selectYellowButton()
                                     yellowBackground()
                                 }
@@ -195,7 +194,8 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
                 edittext_user_name.isEnabled = false
 
                 //기본 이미지일 때에만 사용자 이름/프로필 사진 둘 다 수정됨
-                if (imgFlag == USER_DEFAULT_IMAGE) {
+                if (imgFlag == USER_DEFAULT_IMAGE_PURPLE || imgFlag == USER_DEFAULT_IMAGE_YELLOW ||
+                    imgFlag == USER_DEFAULT_IMAGE_RED) {
                     saveProfile()
 
                     updateImage()
@@ -216,6 +216,10 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
                     else {
                         textview_mypage_name_in_profile.text = edittext_user_name.text
                     }
+                }
+                else {
+                    //입력된 텍스트가 공백일 때도 프로필 사진에 반영되도록 수정
+                    textview_mypage_name_in_profile.text = edittext_user_name.text
                 }
             }
 
@@ -270,14 +274,13 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
                     selectGallery()
 
                     imgFlag = USER_IMAGE
-                    preference.setProfileColor(-1)
                 }
             }
 
 
             //bottomSheet에서 기본이미지로 변경 버튼 누를 경우
            button_change_default_image.setOnClickListener {
-               imgFlag = USER_DEFAULT_IMAGE
+               //imgFlag = USER_DEFAULT_IMAGE
 
                constraint_select_button.visibility = View.VISIBLE
                textview_mypage_name_in_profile.visibility = View.VISIBLE
@@ -459,7 +462,8 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
         imagebutton_mypage_select_yellow.setBackgroundResource(R.drawable.join_profile_yellow)
         imagebutton_mypage_select_red.setBackgroundResource(R.drawable.join_profile_red)
 
-        preference.setProfileColor(SELECT_PURPLE_BUTTON)
+        //imgFlag 값 보라색 기본 이미지로 변경
+        imgFlag = USER_DEFAULT_IMAGE_PURPLE
     }
 
     private fun selectRedButton() {
@@ -467,7 +471,8 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
         imagebutton_mypage_select_yellow.setBackgroundResource(R.drawable.join_profile_yellow)
         imagebutton_mypage_select_red.setBackgroundResource(R.drawable.join_profile_selected_red)
 
-        preference.setProfileColor(SELECT_RED_BUTTON)
+        //imgFlag 값 빨간색 기본 이미지로 변경
+        imgFlag = USER_DEFAULT_IMAGE_RED
     }
 
     private fun selectYellowButton() {
@@ -475,7 +480,8 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
         imagebutton_mypage_select_yellow.setBackgroundResource(R.drawable.join_profile_selected_yellow)
         imagebutton_mypage_select_red.setBackgroundResource(R.drawable.join_profile_red)
 
-        preference.setProfileColor(SELECT_YELLOW_BUTTON)
+        //imgFlag 값 노란색 기본 이미지로 변경
+        imgFlag = USER_DEFAULT_IMAGE_YELLOW
     }
 
     //권한처리 메서드
