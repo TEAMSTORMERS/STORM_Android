@@ -49,6 +49,8 @@ class CanvasTextFragment : BaseCanvasFragment(TEXT_MODE, R.layout.view_addcard_e
 
                                 saveCard(content)
 
+                                edittext_addcard.text = null
+
                                 Toast.makeText(context, "카드가 추가되었습니다", Toast.LENGTH_SHORT).show()
                             } else {
                                 Log.d(TAG, "postCard: Not success, ${response.body()!!.message}")
