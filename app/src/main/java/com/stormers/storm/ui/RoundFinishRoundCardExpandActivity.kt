@@ -21,7 +21,7 @@ class RoundFinishRoundCardExpandActivity : BaseActivity(), ExpandRoundCardFragme
         val currentProjectInx = GlobalApplication.currentProject!!.projectIdx
         val currentRoundIdx = GlobalApplication.currentRound!!.roundIdx
 
-        constraintlayout_expandcard_roundinfo.visibility = View.GONE
+        constraintlayout_expandcard_roundinfo.visibility = View.INVISIBLE
 
         goToFragment(ExpandRoundCardFragment::class.java, Bundle().apply {
             if (selectedCardIdx != -1) {
