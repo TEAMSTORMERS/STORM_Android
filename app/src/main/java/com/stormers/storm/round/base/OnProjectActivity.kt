@@ -60,8 +60,6 @@ abstract class OnProjectActivity: BaseActivity() {
      */
     fun deleteProject() {
         requestDeleteProject()
-
-        finish()
     }
 
     /**
@@ -160,6 +158,9 @@ abstract class OnProjectActivity: BaseActivity() {
                     if (response.isSuccessful) {
                         if (response.body()!!.success) {
                             Log.d(TAG, "deleteProject: Success.")
+
+                            //응답 후에 종료하여야 메인 화면에서 해당 프로젝트가 뜨지 않음
+                            finish()
                         } else {
                             Log.d(TAG, "deleteProject: Not success, ${response.body()!!.message}")
                         }
