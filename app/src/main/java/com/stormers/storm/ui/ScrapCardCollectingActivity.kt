@@ -39,7 +39,6 @@ class ScrapCardCollectingActivity : AppCompatActivity() {
 
         stormtoolbar_scarpedcard.run {
             setBackButton()
-            setMyPageButton()
         }
 
         //필요한 세팅값 불러오기
