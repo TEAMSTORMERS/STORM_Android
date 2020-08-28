@@ -39,8 +39,8 @@ class LoginActivity : BaseActivity() {
 
     private fun initView() {
         //전체 지우기 버튼 활성화/비활성화
-        edittext_email_login.setRemoveAllTextWatcher()
-        edittext_password_login.setRemoveAllTextWatcher()
+        edittext_email_login.setEditTextWatcher(null, null, true)
+        edittext_password_login.setEditTextWatcher(null, null, true)
 
         button_login.setOnClickListener{
             if (edittext_email_login.text.isNullOrBlank() || edittext_password_login.text.isNullOrBlank()){
