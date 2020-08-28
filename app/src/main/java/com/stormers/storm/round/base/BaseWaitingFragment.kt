@@ -1,6 +1,6 @@
 package com.stormers.storm.round.base
 
-import android.app.Activity
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -12,11 +12,12 @@ import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stormers.storm.R
-import com.stormers.storm.base.BaseFragment
+import com.stormers.storm.customview.StormToolbar
 import com.stormers.storm.customview.dialog.StormDialog
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.network.RetrofitClient
+import com.stormers.storm.network.SimpleResponse
 import com.stormers.storm.network.SocketClient
 import com.stormers.storm.project.network.response.ResponseParticipant
 import com.stormers.storm.round.network.RequestRound
@@ -33,7 +34,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(layoutRes) {
+abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseRoundFragment(layoutRes) {
 
     companion object {
         private const val START_DELAY = 5000L
@@ -49,14 +50,7 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
 
     protected var isFirstRound = true
 
-    private var mActivity: Activity? = null
-
     private var cacheParticipants: List<User>? = null
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        this.mActivity = context as Activity
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -81,7 +75,7 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
 
         //호스트로 승격한 경우 참가자만 초기화하고 이 외 초기화는 하지 않음
         if (isPromotion) {
-            refreshParticipants(GlobalApplication.currentRound!!.roundIdx)
+            refreshParticipants(roundIdx!!)
             return
         }
 
@@ -94,6 +88,12 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
         } else {
             enterNextRound()
         }
+    }
+
+    override fun onExitRound() {
+        super.onExitRound()
+
+        exitRound()
     }
 
     private fun enterNextRound() {
@@ -128,7 +128,7 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
     private fun registerParticipantsSocket() {
         SocketClient.responseEvent(SocketClient.ROUND_COMPLETE, Emitter.Listener {
             Log.d(TAG, "[socket] roundComplete: 참가자가 들어왔습니다.")
-            refreshParticipants(GlobalApplication.currentRound!!.roundIdx)
+            refreshParticipants(roundIdx!!)
         })
 
         Log.d(TAG, "[socket] roundComplete: set")
@@ -213,18 +213,52 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseFragment(lay
         }
     }
 
-    private fun saveRoundToCache(participants: List<User>) {
-        //저장해둔 현재 라운드와 프로젝트의 정보를 DB에 저장
-        GlobalApplication.currentRound!!.participants = participants
+    //라운드 나가기 통신
+    @SuppressLint("LongLogTag")
+    private fun exitRound() {
+        Log.d(TAG, "exitRound(): userIdx: $userIdx, projectIdx: $projectIdx, roundIdx: $roundIdx")
+        RetrofitClient.create(RequestRound::class.java).exitRound(userIdx, projectIdx, roundIdx!!)
+            .enqueue(object : Callback<SimpleResponse> {
+
+                @SuppressLint("LongLogTag")
+                override fun onFailure(call: Call<SimpleResponse>, t: Throwable) {
+                    Log.d(TAG, "exitRound: Fail. ${t.message}")
+                }
+
+                @SuppressLint("LongLogTag")
+                override fun onResponse(call: Call<SimpleResponse>, response: Response<SimpleResponse>) {
+                    if (response.isSuccessful) {
+                        if (response.body()!!.success) {
+                            Log.d(TAG, "exitRound: Success.")
+
+                            //소켓으로 나감을 알림
+                            leaveSocket()
+
+                            //첫 라운드라면 메인화면으로
+                            if (roundNumber == 1 || roundNumber == null) {
+                                mActivity?.finish()
+                            } else {
+                                //두 번째 이상 라운드라면 정리뷰로
+                                mActivity?.startDetailActivity()
+                            }
+                        } else {
+                            Log.d(TAG, "exitRound: Not success. ${response.body()!!.message}")
+                        }
+                    } else {
+                        Log.d(TAG, "exitRound: Not successful. ${response.message()}")
+                    }
+                }
+            })
+    }
+
+    private fun leaveSocket() {
+        SocketClient.sendEvent(SocketClient.LEAVE_ROOM, GlobalApplication.currentProject!!.projectCode!!)
+        SocketClient.disconnectionAndClose()
     }
 
     protected open fun onRoundStart() {
         //입장 이벤트 그만 받기
         SocketClient.offEvent(SocketClient.ROUND_COMPLETE)
-
-        //디비에 현재 참가자 목록 저장
-        cacheParticipants?.let { saveRoundToCache(it) } ?: Log.e(TAG, "Wrong participants")
-
         Log.d(TAG, "onRoundStart: Start round !!")
     }
 

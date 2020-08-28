@@ -1,16 +1,12 @@
 package com.stormers.storm.round.base
 
-import android.content.Intent
 import android.os.Bundle
 import com.stormers.storm.R
-import com.stormers.storm.base.BaseActivity
-import com.stormers.storm.network.SocketClient
 import com.stormers.storm.ui.GlobalApplication
-import com.stormers.storm.ui.ParticipatedProjectDetailActivity
 import kotlinx.android.synthetic.main.activity_round_progress.*
 import java.lang.StringBuilder
 
-open class BaseRoundProgressActivity : BaseActivity() {
+open class BaseRoundProgressActivity : OnProjectActivity() {
 
     protected val roundPurpose = GlobalApplication.currentRound!!.roundPurpose!!
     protected val roundNumber = GlobalApplication.currentRound!!.roundNumber!!
@@ -20,6 +16,8 @@ open class BaseRoundProgressActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_round_progress)
+
+        setStormToolbar(stormtoolbar_roundprogress)
 
         //상단 라운드 정보 보여주기
         initRoundInfo()

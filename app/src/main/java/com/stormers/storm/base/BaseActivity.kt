@@ -21,6 +21,8 @@ abstract class BaseActivity : AppCompatActivity() {
 
     private val loadingDialog: DialogFragment by lazy { StormLoadingDialog() }
 
+    protected val TAG = javaClass.simpleName
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

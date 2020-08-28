@@ -22,8 +22,6 @@ open class BaseRoundFinishActivity : BaseRoundProgressActivity() {
 
     protected lateinit var finishButton: Button
 
-    private val exitDialogButtons: ArrayList<StormDialogButton> by lazy { ArrayList<StormDialogButton>() }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -33,25 +31,12 @@ open class BaseRoundFinishActivity : BaseRoundProgressActivity() {
 
         setRoundTime()
 
-        stormtoolbar_roundprogress.setExitButton(View.OnClickListener {
-            showExitDialog()
-        })
+        setExitButton()
     }
 
-    private fun showExitDialog() {
-        if (exitDialogButtons.isEmpty()) {
-            exitDialogButtons.add(StormDialogButton("취소", true, null))
-            exitDialogButtons.add(StormDialogButton("확인", true, object : StormDialogButton.OnClickListener {
-                override fun onClick() {
-                    exitRound()
-                }
-            }))
-        }
-
-        StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, "프로젝트를 나가시겠습니까?")
-            .setHorizontalArray(exitDialogButtons)
-            .build()
-            .show(supportFragmentManager, "exit_round")
+    override fun onExitDialogPositiveClick() {
+        super.onExitDialogPositiveClick()
+        exitRound()
     }
 
     private fun setRoundTime() {
@@ -62,17 +47,6 @@ open class BaseRoundFinishActivity : BaseRoundProgressActivity() {
         time.append(roundTime)
             .append("분 소요")
         textView_time.text = time.toString()
-    }
-
-    protected fun startDetailActivity () {
-        val intent = Intent(this, ParticipatedProjectDetailActivity::class.java)
-        intent.putExtra("projectIdx", GlobalApplication.currentProject!!.projectIdx)
-        intent.putExtra("isAfterProject", true)
-
-        SocketClient.disconnectionAndClose()
-
-        startActivity(intent)
-        finish()
     }
 
     //라운드 나가기
