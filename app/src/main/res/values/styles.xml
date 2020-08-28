@@ -15,6 +15,12 @@
         <item name="android:checkboxStyle">@style/customCheckboxFontStyle</item>
     </style>
 
+    <!-- Splash Activity -->
+    <style name="splashTheme" parent="AppTheme">
+        <item name="android:statusBarColor">@color/storm_white</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
     <!-- Login Activity -->
     <style name="loginTheme" parent="AppTheme">
         <item name="android:statusBarColor">@color/storm_white</item>
