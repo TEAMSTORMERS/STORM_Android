@@ -81,5 +81,7 @@ class GlobalApplication : Application() {
         var currentRound: RoundModel? = null
 
         var isHost: Boolean = false
+
+
     }
 }

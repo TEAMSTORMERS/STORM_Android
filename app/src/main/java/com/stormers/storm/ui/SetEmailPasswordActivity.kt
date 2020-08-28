@@ -26,23 +26,27 @@ class SetEmailPasswordActivity : BaseActivity() {
 
     val buttonArray = ArrayList<StormDialogButton>()
 
-    var isValidEmail = false
-    var isValidPassword = false
+    var completePassword : Boolean = false
 
-    var lastEmailCheck = false
-    var lastValidPassword = false
-    var lastValidPasswordCheck = false
+    var completeCheckInfo : Boolean = false
+
+    var completeCheckEmail : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_set_email_password)
 
-        checkPasswordTextWatcher()
         checkVaildEmailType()
+        checkPasswordTextWatcher()
+        isCheckedLegacy()
+
         goSignUpActivity()
         goBackActivity()
 
-        lastCheckNextButtonEnabled()
+
+        gogogo()
+
+
     }
 
     fun goBackActivity(){
@@ -108,35 +112,17 @@ class SetEmailPasswordActivity : BaseActivity() {
         edittext_password_check.setRemoveAllTextWatcher()
     }
 
-    fun lastCheckNextButtonEnabled() {
-        if(lastEmailCheck == true && lastValidPassword == true && lastValidPasswordCheck == true && isCheckedLegacy() == true){
-            usableNextButton()
-        } else {
-            unusableNextButton()
-        }
-    }
-
     fun checkVaildEmailType() {
 
         edittext_input_email.addTextChangedListener(object : TextWatcher{
             override fun afterTextChanged(s: Editable?) {
-                isValidEmail = checkEmailCondition(edittext_input_email)
-
-                if( isValidEmail == true) {
-                    lastEmailCheck = true
-                } else {
-                    lastEmailCheck = false
-                }
-
+                checkEmailCondition(edittext_input_email)
             }
-
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
-
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
         })
-
     }
 
     fun checkPasswordTextWatcher() {
@@ -144,16 +130,12 @@ class SetEmailPasswordActivity : BaseActivity() {
         edittext_input_password.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
 
-                isValidPassword = checkPasswordCondition(edittext_input_password, edittext_password_check, textview_password_warning)
-
-                if(isValidPassword == true) {
-                    lastValidPassword = true
-                } else {
-                    lastValidPassword = false
-                }
+                checkPasswordCondition(edittext_input_password, edittext_password_check, textview_password_warning)
             }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
         })
@@ -161,18 +143,10 @@ class SetEmailPasswordActivity : BaseActivity() {
         edittext_password_check.addTextChangedListener(object  : TextWatcher{
             override fun afterTextChanged(s: Editable?) {
 
-                isValidPassword = checkPasswordCondition(edittext_password_check, edittext_input_password, textview_password_warning)
-
-                if( isValidPassword == true) {
-                    lastValidPasswordCheck = true
-                } else {
-                    lastValidPasswordCheck = false
-                }
-
+                checkPasswordCondition(edittext_password_check, edittext_input_password, textview_password_warning)
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
             }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
@@ -182,14 +156,13 @@ class SetEmailPasswordActivity : BaseActivity() {
 
     }
 
-    fun checkPasswordCondition(editText1: StormEditText, editText2: StormEditText, textView: TextView) : Boolean {
+    fun checkPasswordCondition(editText1: StormEditText, editText2: StormEditText, textView: TextView) {
 
         if (editText1.text!!.length < 8){
             textView.visibility = View.VISIBLE
             textView.setText(R.string.input_password_more_char)
 
-
-            return false
+            completePassword = false
 
         } else {
 
@@ -197,28 +170,25 @@ class SetEmailPasswordActivity : BaseActivity() {
                 textView.setText(R.string.check_password)
                 textView.visibility = View.VISIBLE
 
-                return false
+                completePassword = false
 
             } else {
                 textView.visibility = View.GONE
 
-                return true
+                completePassword = true
             }
         }
     }
 
-    fun checkEmailCondition(editText: StormEditText) : Boolean {
+    fun checkEmailCondition(editText: StormEditText) {
 
         if(isEmailValid(editText.text.toString()) == false){
             textview_email_warning.setText(R.string.check_email_type)
             textview_email_warning.visibility = View.VISIBLE
-
-            return false
-
+            completeCheckEmail = false
         } else {
             textview_email_warning.visibility = View.GONE
-
-            return true
+            completeCheckEmail = true
         }
 
     }
@@ -227,27 +197,33 @@ class SetEmailPasswordActivity : BaseActivity() {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
-    fun isCheckedLegacy() : Boolean {
+    fun isCheckedLegacy() {
 
         if(checkbox_service_lagacy.isChecked == true && checkbox_personal_information.isChecked == true){
-
-            return true
-
+            completeCheckInfo = true
         } else {
-
-            return false
+            completeCheckInfo = false
         }
-
     }
 
-    private fun unusableNextButton(){
+    private fun unusableNextButton() {
         button_next_signup.setBackgroundResource(R.drawable.button_color_popup_line_gray)
         button_next_signup.isEnabled = false
 
     }
 
-    private fun usableNextButton(){
+    private fun usableNextButton() {
         button_next_signup.setBackgroundResource(R.drawable.button_activated_signup)
         button_next_signup.isEnabled = true
+
+    }
+
+    fun gogogo() {
+        if(completeCheckEmail == true && completePassword ==true
+            && completeCheckInfo == true){
+            usableNextButton()
+        } else {
+            unusableNextButton()
+        }
     }
 }
