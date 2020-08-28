@@ -32,10 +32,12 @@ class MemberRoundFinishActivity : BaseRoundFinishActivity() {
     }
 
     private fun waitNextRoundOrFinish() {
+
+        //호스트가 다음 라운드를 준비할 때
         SocketClient.responseEvent(SocketClient.WAIT_NEXT_ROUND, Emitter.Listener {
 
+            //동일한 신호를 기다리지 않음
             SocketClient.offEvent(SocketClient.WAIT_NEXT_ROUND)
-            SocketClient.offEvent(SocketClient.MEMBER_FINISH_PROJECT)
             Log.d(TAG, "[socket] waitNextRound: Host is setting next round......")
 
             //UI를 변경하기 때문에 runOnUiThread로 둘러싸줌
@@ -46,40 +48,28 @@ class MemberRoundFinishActivity : BaseRoundFinishActivity() {
                 }
             }
         })
-
         Log.d(TAG, "[socket] waitNextRound: set")
 
+        //호스트가 다음 라운드 세팅을 마쳤을 때
         SocketClient.responseEvent(SocketClient.MEMBER_NEXT_ROUND, Emitter.Listener {
 
+            //동일 신호를 기다리지 않음
             SocketClient.offEvent(SocketClient.MEMBER_NEXT_ROUND)
             Log.d(TAG, "[socket] memberNextRound: Go to next round!!")
-            //showNextRoundDialog()
+
+            //다음 라운드로 이동
             enterNextRound()
         })
-
         Log.d(TAG, "[socket] memberNextRound: set")
 
+        //호스트가 나가거나 프로젝트를 종료할 때
         SocketClient.responseEvent(SocketClient.MEMBER_FINISH_PROJECT, Emitter.Listener {
             Log.d(TAG, "[socket] memberFinishProject: It's enough. Go to finish")
+
+            //최종 정리뷰로 이동
             startDetailActivity()
         })
-
         Log.d(TAG, "[socket] memberFinishProject: set")
-    }
-
-    private fun showNextRoundDialog() {
-        val button = ArrayList<StormDialogButton>()
-        button.add(StormDialogButton("확인", true, object : StormDialogButton.OnClickListener {
-            override fun onClick() {
-                enterNextRound()
-            }
-        }))
-
-        StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, "Round ${GlobalApplication.currentRound!!.roundNumber} 종료")
-            .setContentText("다음 단계로 이동합니다.")
-            .setButtonArray(button)
-            .build()
-            .show(supportFragmentManager, "go_to_next_round")
     }
 
     private fun goToNextRound() {
@@ -88,8 +78,7 @@ class MemberRoundFinishActivity : BaseRoundFinishActivity() {
         startActivity(intent)
         finish()
     }
-
-
+    
     private fun enterNextRound(){
         val projectIdx = GlobalApplication.currentProject!!.projectIdx
         val userIdx = GlobalApplication.userIdx
@@ -109,6 +98,7 @@ class MemberRoundFinishActivity : BaseRoundFinishActivity() {
                         if (response.body()!!.success) {
                             Log.d(TAG, "enterRound: success")
 
+                            //새로운 roundIdx 초기화
                             GlobalApplication.currentRound!!.roundIdx = response.body()!!.data
 
                             goToNextRound()
