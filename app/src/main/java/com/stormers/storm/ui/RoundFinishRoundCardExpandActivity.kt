@@ -15,11 +15,15 @@ class RoundFinishRoundCardExpandActivity : BaseActivity(), ExpandRoundCardFragme
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_expandcard)
 
+        scrollViewKeyBoard(scrollview_expandcard)
+
         val selectedCardIdx = intent.getIntExtra("cardIdx", -1)
         val currentProjectInx = GlobalApplication.currentProject!!.projectIdx
         val currentRoundIdx = GlobalApplication.currentRound!!.roundIdx
 
-        constraintlayout_expandcard_roundinfo.visibility = View.GONE
+        constraintlayout_expandcard_roundinfo.visibility = View.INVISIBLE
+
+        stormtoolbar_expandcard.setBackButton()
 
         goToFragment(ExpandRoundCardFragment::class.java, Bundle().apply {
             if (selectedCardIdx != -1) {

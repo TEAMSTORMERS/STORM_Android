@@ -43,6 +43,7 @@ import com.stormers.storm.util.ProfileCompanion.USER_DEFAULT_IMAGE_YELLOW
 import com.stormers.storm.util.ProfileCompanion.USER_IMAGE
 import kotlinx.android.synthetic.main.bottomsheet_select_profile.*
 import kotlinx.android.synthetic.main.fragment_mypage_profile.*
+import kotlinx.android.synthetic.main.view_edittext_custom.view.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -235,6 +236,11 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
                 else {
                     textview_notice.visibility = View.INVISIBLE
                     char_limit = false
+                }
+                //사용자 이름 변경란 글자 수 10자 제한
+                if (s?.length!! > 10) {
+                    edittext_user_name.setText(s.dropLast(1).toString())
+                    edittext_user_name.setSelection(s.length - 1)
                 }
             }
 

@@ -25,6 +25,8 @@ class RoundCardExpandActivity : BaseActivity(), ExpandRoundCardAdapter.OnScrapCh
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_expandcard)
 
+        scrollViewKeyBoard(scrollview_expandcard)
+
         stormtoolbar_expandcard.setBackButton(View.OnClickListener { returnResult() })
 
         selectedRoundIdx = intent.getIntExtra("roundIdx", -1)
@@ -68,7 +70,7 @@ class RoundCardExpandActivity : BaseActivity(), ExpandRoundCardAdapter.OnScrapCh
     }
 
     private fun setRoundData(roundNumber: Int, roundPurpose: String, roundTime: Int) {
-        textview_expandcard_roundnumber.text = StringBuilder("Round ")
+        textview_expandcard_roundnumber.text = StringBuilder("ROUND ")
             .append(roundNumber).toString()
 
         textview_expandcard_roundpurpose.text = roundPurpose

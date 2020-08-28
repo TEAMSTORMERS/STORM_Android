@@ -30,7 +30,7 @@ class MypageWithdrawalActivity : BaseActivity() {
         }
 
         //전체 지우기 버튼 활성화/비활성화
-        edittext_withdrawal_pwd.setRemoveAllTextWatcher()
+        edittext_withdrawal_pwd.setEditTextWatcher(null, null, true)
 
         stormtoolbar_mypage_withdrawal.setBackButton()
 
