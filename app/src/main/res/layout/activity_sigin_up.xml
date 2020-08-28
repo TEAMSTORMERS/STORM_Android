@@ -131,13 +131,15 @@
                 android:id="@+id/imagebutton_set_profile"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="100dp"
                 android:background="@drawable/join_profile_ic_camera"
+                app:layout_constraintBottom_toBottomOf="@+id/constraintlayout_signup_profile"
                 app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintStart_toStartOf="@id/constraintlayout_signup_profile"
-                app:layout_constraintTop_toTopOf="@id/constraintlayout_signup_profile"
-                app:layout_constraintWidth_percent="0.15" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_profile"
+                app:layout_constraintWidth_percent="0.15"
+                app:layout_constraintVertical_bias="0.99"
+                app:layout_constraintHorizontal_bias="0.68"/>
 
             <ImageButton
                 android:id="@+id/imagebutton_select_profile_yellow"
@@ -216,4 +218,3 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </ScrollView>
-
