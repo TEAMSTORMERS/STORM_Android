@@ -312,8 +312,8 @@ class SignUpActivity : BaseActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
         })
 
-        //전체 지우기 버튼 활성화/비활성화
-        edittext_name_signup.setRemoveAllTextWatcher()
+        //전체 지우기 버튼 활성화/비활성화, 글자 수 10자 제한
+        edittext_name_signup.setEditTextWatcher(10, null, true)
 
         //사용자 이름 특수문자 입력 방지
         edittext_name_signup.setTextFilter()

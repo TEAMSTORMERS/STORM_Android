@@ -93,9 +93,9 @@ class SetEmailPasswordActivity : BaseActivity() {
         })
 
         //전체 지우기 버튼 활성화/비활성화
-        edittext_input_email.setRemoveAllTextWatcher()
-        edittext_input_password.setRemoveAllTextWatcher()
-        edittext_password_check.setRemoveAllTextWatcher()
+        edittext_input_email.setEditTextWatcher(null, null, true)
+        edittext_input_password.setEditTextWatcher(null, null, true)
+        edittext_password_check.setEditTextWatcher(null, null, true)
 
     }
 

@@ -71,11 +71,8 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
             timePickerDialog.show(fragmentManager!!, "timepicker")
         }
 
-        //전체 지우기 버튼 활성화/비활성화
-        textview_round_goal.setRemoveAllTextWatcher()
-
-        //라운드 목표 글자수 제한
-        setTextWatcher(textview_round_goal)
+        //전체 지우기 버튼 활성화/비활성화, 글자 수 23자 제한
+        textview_round_goal.setEditTextWatcher(23, null, true)
 
     }
 
@@ -192,25 +189,5 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
             .append(roundCount)
             .append(" 설정")
         textview_round_setting.text = round.toString()
-    }
-
-    private fun setTextWatcher(editText: StormEditText) {
-        editText.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                //23자 제한
-                if (count > 23) {
-                    //Todo: 23자 글자 수 제한
-                    editText.text = s?.dropLast(1) as Editable?
-                }
-            }
-        })
     }
 }
