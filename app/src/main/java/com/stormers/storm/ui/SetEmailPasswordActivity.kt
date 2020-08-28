@@ -32,6 +32,10 @@ class SetEmailPasswordActivity : BaseActivity() {
 
     var completeCheckEmail : Boolean = false
 
+    var checkedServiceLagacy : Boolean = false
+
+    var checkedPersonalInformaiton : Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_set_email_password)
@@ -43,19 +47,15 @@ class SetEmailPasswordActivity : BaseActivity() {
         goSignUpActivity()
         goBackActivity()
 
-
-        gogogo()
-
-
     }
 
-    fun goBackActivity(){
+    private fun goBackActivity(){
         button_back_signup.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
         }
     }
 
-    fun goSignUpActivity(){
+    private fun goSignUpActivity(){
         button_next_signup.setOnClickListener{
 
             RetrofitClient.create(InterfaceSignUp::class.java).requestCheckEmailDuplication(
@@ -105,14 +105,14 @@ class SetEmailPasswordActivity : BaseActivity() {
         }
     }
 
-    fun setRemoveAllTextWatcher() {
+    private fun setRemoveAllTextWatcher() {
         //전체 지우기 버튼 활성화/비활성화
         edittext_input_email.setRemoveAllTextWatcher()
         edittext_input_password.setRemoveAllTextWatcher()
         edittext_password_check.setRemoveAllTextWatcher()
     }
 
-    fun checkVaildEmailType() {
+    private fun checkVaildEmailType() {
 
         edittext_input_email.addTextChangedListener(object : TextWatcher{
             override fun afterTextChanged(s: Editable?) {
@@ -125,7 +125,7 @@ class SetEmailPasswordActivity : BaseActivity() {
         })
     }
 
-    fun checkPasswordTextWatcher() {
+    private fun checkPasswordTextWatcher() {
 
         edittext_input_password.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -176,34 +176,66 @@ class SetEmailPasswordActivity : BaseActivity() {
                 textView.visibility = View.GONE
 
                 completePassword = true
+                Log.d("completePassword","true")
             }
         }
+        checkAllCondition()
     }
 
     fun checkEmailCondition(editText: StormEditText) {
 
-        if(isEmailValid(editText.text.toString()) == false){
+        if(!isEmailValid(editText.text.toString())){
             textview_email_warning.setText(R.string.check_email_type)
             textview_email_warning.visibility = View.VISIBLE
             completeCheckEmail = false
         } else {
             textview_email_warning.visibility = View.GONE
             completeCheckEmail = true
+            Log.d("completeCheckEmail","true")
         }
-
+        checkAllCondition()
     }
 
-    fun isEmailValid(email: String): Boolean {
+    private fun isEmailValid(email: String): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
-    fun isCheckedLegacy() {
-
-        if(checkbox_service_lagacy.isChecked == true && checkbox_personal_information.isChecked == true){
-            completeCheckInfo = true
-        } else {
-            completeCheckInfo = false
+    private fun isCheckedLegacy() {
+        checkbox_service_lagacy.setOnClickListener {
+            if (checkbox_service_lagacy.isChecked) {
+                checkedServiceLagacy = true
+                Log.d("checkbox_service_lagacy", "true")
+            }
+            else {
+                checkedServiceLagacy = false
+                Log.d("checkbox_service_lagacy", "false")
+            }
+            completeCheckInfo()
         }
+
+        checkbox_personal_information.setOnClickListener {
+            if (checkbox_personal_information.isChecked) {
+                checkedPersonalInformaiton = true
+                Log.d("checkbox_information", "true")
+            }
+            else {
+                checkedPersonalInformaiton = false
+                Log.d("checkbox_information", "false")
+            }
+            completeCheckInfo()
+        }
+    }
+
+    private fun completeCheckInfo() {
+        if (checkedServiceLagacy && checkedPersonalInformaiton) {
+            completeCheckInfo = true
+            Log.d("completeCheckInfo", "true")
+        }
+        else {
+            completeCheckInfo = false
+            Log.d("completeCheckInfo", "false")
+        }
+        checkAllCondition()
     }
 
     private fun unusableNextButton() {
@@ -218,9 +250,8 @@ class SetEmailPasswordActivity : BaseActivity() {
 
     }
 
-    fun gogogo() {
-        if(completeCheckEmail == true && completePassword ==true
-            && completeCheckInfo == true){
+    private fun checkAllCondition() {
+        if(completeCheckEmail && completePassword && completeCheckInfo){
             usableNextButton()
         } else {
             unusableNextButton()
