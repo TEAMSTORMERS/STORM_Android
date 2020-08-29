@@ -3,7 +3,10 @@ package com.stormers.storm.ui
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
+import androidx.fragment.app.Fragment
 import com.stormers.storm.R
+import com.stormers.storm.canvas.fragment.CanvasDrawingFragment
+import com.stormers.storm.canvas.fragment.CanvasTextFragment
 import com.stormers.storm.card.fragment.AddCardFragment
 import com.stormers.storm.card.model.CacheCardModel
 import com.stormers.storm.round.base.BaseRoundProgressActivity
@@ -15,6 +18,10 @@ class RoundProgressActivity : BaseRoundProgressActivity() {
     val cardList = mutableListOf<CacheCardModel>()
 
     private lateinit var countDownTimer: CountDownTimer
+
+    var addCardFragment: Fragment? = null
+    var canvasDrawingFragment: Fragment? = null
+    var canvasTextFragment: Fragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +37,7 @@ class RoundProgressActivity : BaseRoundProgressActivity() {
 
         countDown(roundTime)
 
-        goToFragment(AddCardFragment::class.java, null)
+        addCardFragment = goToFragment(AddCardFragment::class.java, null)
     }
 
     override fun initFragmentId(): Int? {
