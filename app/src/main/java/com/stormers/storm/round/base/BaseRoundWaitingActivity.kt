@@ -40,6 +40,10 @@ open class BaseRoundWaitingActivity : OnProjectActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        showExitDialog()
+    }
+
     //나가기 다이얼로그에서 확인을 눌렀을 때
     override fun onExitDialogPositiveClick() {
         super.onExitDialogPositiveClick()
