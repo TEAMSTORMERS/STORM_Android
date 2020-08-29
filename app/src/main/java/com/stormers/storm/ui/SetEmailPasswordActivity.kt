@@ -15,7 +15,6 @@ import com.stormers.storm.customview.StormEditText
 import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.network.SimpleResponse
-import kotlinx.android.synthetic.main.activity_add_project.*
 import kotlinx.android.synthetic.main.activity_set_email_password.*
 import kotlinx.android.synthetic.main.activity_set_email_password.button_back_signup
 import retrofit2.Call
@@ -46,6 +45,7 @@ class SetEmailPasswordActivity : BaseActivity() {
 
         goSignUpActivity()
         goBackActivity()
+        checkPersonalInfoLegacy()
 
     }
 
@@ -251,6 +251,16 @@ class SetEmailPasswordActivity : BaseActivity() {
             usableNextButton()
         } else {
             unusableNextButton()
+        }
+    }
+
+    fun checkPersonalInfoLegacy(){
+        textview_personal_information.setOnClickListener{
+            startActivity(Intent(this,WebviewPersonalInfoLegacyActivity::class.java))
+        }
+
+        textview_service_legacy.setOnClickListener{
+            startActivity(Intent(this, WebviewForUsingServiceLegacyActivity::class.java))
         }
     }
 }

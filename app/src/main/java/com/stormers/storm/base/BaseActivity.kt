@@ -4,16 +4,22 @@ import android.content.Context
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import com.stormers.storm.R
 import com.stormers.storm.customview.dialog.StormLoadingDialog
 import com.stormers.storm.ui.GlobalApplication
 import com.stormers.storm.util.KeyBoardVisibilityUtils
 import com.stormers.storm.util.SharedPreference
+import java.net.URL
 
 abstract class BaseActivity : AppCompatActivity() {
+
+    protected var webViewForLegacy : WebView? = null
 
     private var fragmentId: Int? = null
 
@@ -62,6 +68,19 @@ abstract class BaseActivity : AppCompatActivity() {
                 }
 
             })
+    }
+
+    fun moveToWebView(webView: WebView, url: String) {
+
+        webViewForLegacy = webView
+
+        webViewForLegacy!!.webViewClient = object : WebViewClient() {
+            override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+                view?.loadUrl(url)
+                return true
+            }
+        }
+        webViewForLegacy!!.loadUrl(url)
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
