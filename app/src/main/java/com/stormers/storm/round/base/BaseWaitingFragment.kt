@@ -230,7 +230,7 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseRoundFragmen
                             Log.d(TAG, "exitRound: Success.")
 
                             //소켓으로 나감을 알림
-                            leaveSocket()
+                            mActivity?.leaveSocket()
 
                             //첫 라운드라면 메인화면으로
                             if (roundNumber == 1 || roundNumber == null) {
@@ -247,11 +247,6 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseRoundFragmen
                     }
                 }
             })
-    }
-
-    private fun leaveSocket() {
-        SocketClient.sendEvent(SocketClient.LEAVE_ROOM, GlobalApplication.currentProject!!.projectCode!!)
-        SocketClient.disconnectionAndClose()
     }
 
     protected open fun onRoundStart() {

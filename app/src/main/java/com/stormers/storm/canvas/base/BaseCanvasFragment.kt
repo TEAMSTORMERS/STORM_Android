@@ -14,13 +14,14 @@ import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.canvas.fragment.CanvasDrawingFragment
 import com.stormers.storm.canvas.fragment.CanvasTextFragment
+import com.stormers.storm.round.base.BaseRoundFragment
 import com.stormers.storm.ui.GlobalApplication
 import com.stormers.storm.ui.RoundProgressActivity
 import kotlinx.android.synthetic.main.activity_round_progress.*
 import kotlinx.android.synthetic.main.fragment_round_canvas.*
 
 abstract class BaseCanvasFragment(private val mode: Int, @LayoutRes private val canvasLayout: Int) :
-    BaseFragment(R.layout.fragment_round_canvas) {
+    BaseRoundFragment(R.layout.fragment_round_canvas) {
 
     companion object {
         const val DRAWING_MODE = 100
@@ -29,17 +30,6 @@ abstract class BaseCanvasFragment(private val mode: Int, @LayoutRes private val 
 
     private lateinit var targetModeStr: String
     private lateinit var targetFragment: Class<*>
-
-    protected val userIdx = GlobalApplication.userIdx
-    protected val projectIdx = GlobalApplication.currentProject!!.projectIdx
-    protected val roundIdx = GlobalApplication.currentRound!!.roundIdx
-
-    protected var mActivity: Activity? = null
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        this.mActivity = context as Activity
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -104,11 +94,6 @@ abstract class BaseCanvasFragment(private val mode: Int, @LayoutRes private val 
             .setHorizontalArray(buttonArray)
             .build()
             .show(fragmentManager!!, "notice")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        this.mActivity = null
     }
 
     protected abstract fun onTrashed()

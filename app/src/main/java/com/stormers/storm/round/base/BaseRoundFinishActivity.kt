@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.widget.Button
 import com.stormers.storm.R
 import com.stormers.storm.card.fragment.RoundMeetingFragment
-import com.stormers.storm.network.SocketClient
-import com.stormers.storm.ui.GlobalApplication
 import kotlinx.android.synthetic.main.activity_round_progress.*
 import java.lang.StringBuilder
 
@@ -51,11 +49,6 @@ open class BaseRoundFinishActivity : BaseRoundProgressActivity() {
 
         //종료
         finish()
-    }
-
-    private fun leaveSocket() {
-        SocketClient.sendEvent(SocketClient.LEAVE_ROOM, GlobalApplication.currentProject!!.projectCode!!)
-        SocketClient.disconnectionAndClose()
     }
 
     override fun initFragmentId(): Int? {

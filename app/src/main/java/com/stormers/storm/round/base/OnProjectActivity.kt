@@ -71,6 +71,16 @@ abstract class OnProjectActivity: BaseActivity() {
     }
 
     /**
+     * 라운드 방에서 나가고 싶을 때 호출하는 메서드
+     * 1. 소켓에 룸을 나감을 알림
+     * 2. 소켓 연결 종료
+     */
+    fun leaveSocket() {
+        SocketClient.sendEvent(SocketClient.LEAVE_ROOM, projectCode)
+        SocketClient.disconnectionAndClose()
+    }
+
+    /**
      * 현재 프래그먼트 가져오기
      */
     protected fun getCurrentFragment(): BaseRoundFragment? {
