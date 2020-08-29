@@ -5,10 +5,10 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
+import androidx.fragment.app.Fragment
 import com.stormers.storm.R
 import com.stormers.storm.card.fragment.AddCardFragment
 import com.stormers.storm.card.model.CacheCardModel
-import com.stormers.storm.customview.dialog.StormDialog
 import com.stormers.storm.customview.dialog.StormDialogBuilder
 import com.stormers.storm.round.base.BaseRoundProgressActivity
 import kotlinx.android.synthetic.main.activity_round_progress.*
@@ -24,6 +24,10 @@ class RoundProgressActivity : BaseRoundProgressActivity() {
 
     private lateinit var countDownTimer: CountDownTimer
 
+    var addCardFragment: Fragment? = null
+    var canvasDrawingFragment: Fragment? = null
+    var canvasTextFragment: Fragment? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -38,7 +42,7 @@ class RoundProgressActivity : BaseRoundProgressActivity() {
 
         countDown(roundTime)
 
-        goToFragment(AddCardFragment::class.java, null)
+        addCardFragment = goToFragment(AddCardFragment::class.java, null)
     }
 
     override fun initFragmentId(): Int? {
