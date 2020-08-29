@@ -5,11 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import com.stormers.storm.R
-import com.stormers.storm.customview.dialog.StormDialogBuilder
-import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.network.BaseResponse
 import com.stormers.storm.network.RetrofitClient
-import com.stormers.storm.network.SimpleResponse
 import com.stormers.storm.network.SocketClient
 import com.stormers.storm.round.base.BaseRoundFinishActivity
 import com.stormers.storm.round.model.RoundEnterModel
@@ -28,7 +25,23 @@ class MemberRoundFinishActivity : BaseRoundFinishActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        setExitButton()
+
         waitNextRoundOrFinish()
+    }
+
+    override fun onExitDialogPositiveClick() {
+        super.onExitDialogPositiveClick()
+        exitRound()
+    }
+
+    //라운드 나가기
+    private fun exitRound() {
+        //소켓으로 나감을 알림
+        leaveSocket()
+
+        //종료
+        finish()
     }
 
     private fun waitNextRoundOrFinish() {
@@ -111,5 +124,9 @@ class MemberRoundFinishActivity : BaseRoundFinishActivity() {
                     }
                 }
             })
+    }
+
+    override fun onBackPressed() {
+        showExitDialog()
     }
 }
