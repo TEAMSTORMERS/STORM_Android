@@ -74,7 +74,6 @@ abstract class BaseCanvasFragment(private val mode: Int, @LayoutRes private val 
 
         imagebutton_canvas_trash.setOnClickListener {
             onTrashed()
-            Toast.makeText(context, "지웠습니다!", Toast.LENGTH_SHORT).show()
         }
     }
 

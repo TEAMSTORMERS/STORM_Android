@@ -33,7 +33,7 @@
             android:id="@+id/button_gallery"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="앨범에서 프로필 사진 선택"
+            android:text="앨범에서 사진 선택"
             android:layout_weight="0.85"
             android:textColor="@color/storm_gray"
             android:textSize="16sp"
