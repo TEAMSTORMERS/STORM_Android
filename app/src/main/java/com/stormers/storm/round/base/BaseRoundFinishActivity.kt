@@ -1,16 +1,11 @@
 package com.stormers.storm.round.base
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import com.stormers.storm.R
 import com.stormers.storm.card.fragment.RoundMeetingFragment
-import com.stormers.storm.customview.dialog.StormDialogBuilder
-import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.network.SocketClient
 import com.stormers.storm.ui.GlobalApplication
-import com.stormers.storm.ui.ParticipatedProjectDetailActivity
 import kotlinx.android.synthetic.main.activity_round_progress.*
 import java.lang.StringBuilder
 

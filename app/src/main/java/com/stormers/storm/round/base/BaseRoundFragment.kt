@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.Log
 import androidx.annotation.LayoutRes
 import com.stormers.storm.base.BaseFragment
-import com.stormers.storm.customview.StormToolbar
 import com.stormers.storm.ui.GlobalApplication
 
 

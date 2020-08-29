@@ -2,7 +2,6 @@ package com.stormers.storm.round.base
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.os.Bundle
 import android.util.Log
 import android.view.View
 import com.stormers.storm.base.BaseActivity
@@ -83,6 +82,13 @@ abstract class OnProjectActivity: BaseActivity() {
         return null
     }
 
+    /**
+     * 나가기 다이얼로그에서 확인 버튼을 눌렀을 때
+     */
+    protected open fun onExitDialogPositiveClick() {
+        Log.d(TAG, "onExitDialogPositiveClick() : Clicked")
+    }
+
     //나가기 다이얼로그 띄우기
     private fun showExitDialog() {
         if (exitDialogButtons.isEmpty()) {
@@ -98,10 +104,6 @@ abstract class OnProjectActivity: BaseActivity() {
             .setHorizontalArray(exitDialogButtons)
             .build()
             .show(supportFragmentManager, "exit_round")
-    }
-
-    protected open fun onExitDialogPositiveClick() {
-        Log.d(TAG, "onExitDialogPositiveClick() : Clicked")
     }
 
     private fun requestFinishProject() {

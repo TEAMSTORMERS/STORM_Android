@@ -1,6 +1,5 @@
 package com.stormers.storm.round.base
 
-import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -9,7 +8,6 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.stormers.storm.R
-import com.stormers.storm.customview.StormToolbar
 import com.stormers.storm.ui.GlobalApplication
 import kotlinx.android.synthetic.main.activity_round_setting.*
 
