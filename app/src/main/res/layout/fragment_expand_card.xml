@@ -5,37 +5,14 @@
     android:elevation="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageButton
-        android:id="@+id/imagebutton_before_card"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:background="@drawable/all_roundmeeting_before"
-        android:elevation="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imagebutton_next_card"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imagebutton_next_card" />
-
-    <ImageButton
-        android:id="@+id/imagebutton_next_card"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
-        android:background="@null"
-        android:elevation="10dp"
-        android:src="@drawable/all_roundmeeting_next"
-        app:layout_constraintBottom_toBottomOf="@+id/viewpager_expandcard"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/viewpager_expandcard" />
-
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewpager_expandcard"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:clipChildren="false"
         android:elevation="10dp"
-        app:layout_constraintHeight_percent="0.71"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.71"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -72,6 +49,34 @@
             android:textSize="13sp" />
 
     </androidx.cardview.widget.CardView>
+
+    <ImageButton
+        android:id="@+id/imagebutton_before_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:src="@drawable/all_roundmeeting_before"
+        android:elevation="10dp"
+        android:paddingEnd="100dp"
+        android:paddingStart="20dp"
+        android:paddingVertical="100dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imagebutton_next_card"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imagebutton_next_card" />
+
+    <ImageButton
+        android:id="@+id/imagebutton_next_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:elevation="10dp"
+        android:src="@drawable/all_roundmeeting_next"
+        android:paddingEnd="20dp"
+        android:paddingStart="100dp"
+        android:paddingVertical="100dp"
+        app:layout_constraintBottom_toBottomOf="@+id/viewpager_expandcard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/viewpager_expandcard" />
 
     <com.stormers.storm.customview.StormButton
         android:id="@+id/stormbutton_expandcard_apply"
