@@ -38,7 +38,12 @@ object ProjectsRemoteDataSource : ProjectsDataSource {
                 if (response.isSuccessful) {
                     if (response.body()!!.success) {
                         Log.d(TAG, "getProjectPreviews: Success")
-                        callback.onProjectsLoaded(response.body()!!.data)
+
+                        if (response.body()!!.data.isEmpty()) {
+                            callback.onDataNotAvailable()
+                        } else {
+                            callback.onProjectsLoaded(response.body()!!.data)
+                        }
                     } else {
                         Log.d(TAG, "getProjectPreviews: Not Success, ${response.body()!!.message}")
                         callback.onDataNotAvailable()
