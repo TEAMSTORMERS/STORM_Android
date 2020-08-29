@@ -53,7 +53,7 @@ class HostRoundFinishActivity : BaseRoundFinishActivity() {
                 })
             )
             buttonArray.add(
-                StormDialogButton("프로젝트 종료 후 최종 정리", true, object : StormDialogButton.OnClickListener {
+                StormDialogButton("프로젝트 종료", true, object : StormDialogButton.OnClickListener {
                     override fun onClick() {
                         finishProject()
                     }

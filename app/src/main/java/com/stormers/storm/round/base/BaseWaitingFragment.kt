@@ -59,7 +59,7 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseRoundFragmen
 
         val isPromotion = arguments?.getBoolean("isPromotion") ?: false
 
-        loadingDialog = StormDialogBuilder(StormDialogBuilder.LOADING_LOGO, "5초 후 라운드가 시작합니다").build()
+        loadingDialog = StormDialogBuilder(StormDialogBuilder.LOADING_LOGO, "5초 후 라운드가 시작됩니다").build()
 
         //참가자 리사이클러뷰 초기화
         view.include_waitingproject_participant.recyclerview_participant.run {

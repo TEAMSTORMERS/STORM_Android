@@ -112,7 +112,7 @@ class AddProjectActivity : BaseActivity() {
     }
 
     private fun makeDialog(code: String) : StormDialog {
-        return StormDialogBuilder(StormDialogBuilder.STORM_LOGO, "참여코드 생성 완료!")
+        return StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, "참여 코드 생성 완료!")
             .setContentRes(R.layout.view_participation_code)
             .setButtonArray(buttonArray)
             .isCode(true, code)

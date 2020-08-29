@@ -20,7 +20,7 @@
         android:lineSpacingExtra="6sp"
         android:textColor="@color/storm_gray"
         android:textColorHint="@color/storm_popup_line_gray"
-        android:textSize="14sp"
+        android:textSize="13sp"
         android:scrollbarAlwaysDrawHorizontalTrack="true"
         android:scrollbarFadeDuration="0"
         android:scrollbarStyle="insideInset"

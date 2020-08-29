@@ -132,7 +132,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="스크랩한 카드"
+                android:text="최근 스크랩한 카드"
                 android:textColor="@color/storm_white"
                 android:textFontWeight="600"
                 android:textSize="15sp"
