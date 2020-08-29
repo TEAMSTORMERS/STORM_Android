@@ -151,14 +151,13 @@
         android:id="@+id/textview_past_project_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="30dp"
         android:fontFamily="@font/notosans_bold"
         android:includeFontPadding="false"
         android:text="최근 참여한 프로젝트"
         android:textColor="@color/brownish_grey"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton_show_all"
+        app:layout_constraintEnd_toStartOf="@+id/constraintlayout_main_showmore"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="@+id/iamgeview_storming_bacground"
         app:layout_constraintTop_toBottomOf="@+id/iamgeview_storming_bacground" />
@@ -176,29 +175,47 @@
         app:layout_constraintTop_toBottomOf="@+id/textview_past_project_list"
         app:layout_constraintVertical_bias="0.18" />
 
-    <ImageButton
-        android:id="@+id/imageButton_show_all"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintlayout_main_showmore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="17dp"
-        android:background="@drawable/text_show_more"
+        android:padding="5dp"
+        android:layout_marginEnd="21dp"
+        android:foreground="?android:selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="@+id/textview_past_project_list"
-        app:layout_constraintEnd_toEndOf="@+id/iamgeview_storming_bacground"
-        app:layout_constraintStart_toEndOf="@+id/textview_past_project_list"
-        app:layout_constraintTop_toTopOf="@+id/textview_past_project_list" />
-
-
-    <ImageView
-        android:id="@+id/icon_show_more"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="25.5dp"
-        android:background="@drawable/icon_show_more"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton_show_all"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageButton_show_all"
-        app:layout_constraintTop_toTopOf="@id/imageButton_show_all" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textview_past_project_list"
+        app:layout_constraintTop_toTopOf="@+id/textview_past_project_list">
+
+        <TextView
+            android:id="@+id/imageButton_show_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="6sp"
+            android:text="전체보기"
+            android:textColor="@color/storm_gray"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/icon_show_more"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/icon_show_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/icon_show_more"
+            app:layout_constraintBottom_toBottomOf="@+id/imageButton_show_all"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageButton_show_all"
+            app:layout_constraintTop_toTopOf="@id/imageButton_show_all" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/textview_info_project_list"
@@ -210,7 +227,6 @@
         android:textColor="@color/storm_popup_line_gray"
         android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="@+id/imageview_mainview_symbol"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/imageview_mainview_symbol"
         app:layout_constraintTop_toBottomOf="@+id/imageview_mainview_symbol" />
 
