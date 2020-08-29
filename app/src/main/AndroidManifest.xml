@@ -27,7 +27,8 @@
             android:windowSoftInputMode="adjustResize"/>
 
         <activity android:name=".ui.MemberRoundFinishActivity" />
-        <activity android:name=".ui.CompleteSignUpActivity" />
+        <activity android:name=".ui.CompleteSignUpActivity"
+            android:theme="@style/loginTheme" />
         <activity
             android:name=".ui.SetEmailPasswordActivity"
             android:theme="@style/loginTheme"
