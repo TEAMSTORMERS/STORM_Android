@@ -100,7 +100,7 @@ class HostRoundSettingFragment : BaseRoundFragment(R.layout.fragment_host_round_
     }
 
     private fun initDialog() {
-        timePickerDialog = StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, "라운드 목표 시간을 선택해주세요")
+        timePickerDialog = StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, "라운드 소요 시간")
             .setContentRes(R.layout.view_timepicker)
             .setButtonArray(buttonArray)
             .isPicker(true)

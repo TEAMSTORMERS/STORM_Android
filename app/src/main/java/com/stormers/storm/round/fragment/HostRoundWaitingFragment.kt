@@ -49,8 +49,8 @@ class HostRoundWaitingFragment : BaseWaitingFragment(R.layout.fragment_hostwaiti
     }
 
     private fun initRoundInfo(roundPurpose: String, roundTime: Int, roundNumber: Int) {
-        textview_hostwaiting_roundpurpose.text = StringBuilder("총 ").append(roundTime).append("분 예정").toString()
-        textview_hostwaiting_roundtime.text = roundPurpose
+        textview_hostwaiting_roundpurpose.text = roundPurpose
+        textview_hostwaiting_roundtime.text = StringBuilder("총 ").append(roundTime).append("분 예정").toString()
         textview_hostwaiting_roundnumber.text = StringBuilder("ROUND ").append(roundNumber).append(" 설정 완료").toString()
     }
 
@@ -62,6 +62,8 @@ class HostRoundWaitingFragment : BaseWaitingFragment(R.layout.fragment_hostwaiti
     private fun initActivityButton() {
 
         activityButton = (activity as HostRoundSettingActivity).stormButton_ok_host_round_setting
+
+        activityButton.setText("시작")
 
         activityButton.setOnClickListener {
 

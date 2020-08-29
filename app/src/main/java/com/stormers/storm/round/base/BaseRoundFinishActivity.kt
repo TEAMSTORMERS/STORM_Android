@@ -23,13 +23,6 @@ open class BaseRoundFinishActivity : BaseRoundProgressActivity() {
         goToFragment(RoundMeetingFragment::class.java, null)
 
         setRoundTime()
-
-        setExitButton()
-    }
-
-    override fun onExitDialogPositiveClick() {
-        super.onExitDialogPositiveClick()
-        exitRound()
     }
 
     private fun setRoundTime() {
@@ -37,15 +30,6 @@ open class BaseRoundFinishActivity : BaseRoundProgressActivity() {
         time.append(roundTime)
             .append("분 소요")
         textView_time.text = time.toString()
-    }
-
-    //라운드 나가기
-    private fun exitRound() {
-        //소켓으로 나감을 알림
-        leaveSocket()
-
-        //종료
-        finish()
     }
 
     override fun initFragmentId(): Int? {

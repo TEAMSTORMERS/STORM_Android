@@ -144,10 +144,10 @@ class MainActivity : BaseActivity() {
 
     private fun getResponseLookupComment(status: Int): String {
          return when (status) {
-            202 -> "지금은 프로젝트에\n참여하실 수 없습니다.."
-            204 -> "지금은 호스트가 준비 중입니다."
-            400 -> "유효하지 않은 코드입니다."
-            else -> "오류가 발생했습니다."
+            202 -> "지금은 프로젝트에\n참여하실 수 없습니다"
+            204 -> "호스트가 프로젝트를\n준비 중입니다"
+            400 -> "유효하지 않은 코드입니다"
+            else -> "오류가 발생했습니다"
         }
     }
 

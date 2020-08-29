@@ -40,7 +40,7 @@
                 android:id="@+id/textview_addcard_addcard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="탭하여 글/그림 추가"
+                android:text="탭하여 글/그림 추가하기"
                 android:layout_marginTop="4dp"
                 android:textSize="12sp"
                 android:textColor="@color/storm_gray"
