@@ -6,7 +6,9 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
@@ -25,6 +27,10 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
+import androidx.core.graphics.drawable.toDrawable
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.stormers.storm.R
 import com.stormers.storm.SignUp.InterfaceSignUp
@@ -41,6 +47,7 @@ import com.stormers.storm.util.ProfileCompanion.USER_DEFAULT_IMAGE_PURPLE
 import com.stormers.storm.util.ProfileCompanion.USER_DEFAULT_IMAGE_RED
 import com.stormers.storm.util.ProfileCompanion.USER_DEFAULT_IMAGE_YELLOW
 import com.stormers.storm.util.ProfileCompanion.USER_IMAGE
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_set_email_password.*
 import kotlinx.android.synthetic.main.activity_sigin_up.*
 import kotlinx.android.synthetic.main.activity_sigin_up.button_back_signup
@@ -83,6 +90,7 @@ class SignUpActivity : BaseActivity() {
         goCompleteSignUpActivity()
 
         goToLogInActivity()
+
     }
 
     // 프로필 default image color변경
@@ -111,10 +119,17 @@ class SignUpActivity : BaseActivity() {
             }
         }
     fun keepBackgroundShapeAndSetColor(colorId: Int) {
+
+
         constraintlayout_signup_profile.background = ShapeDrawable(OvalShape())
         constraintlayout_signup_profile.clipToOutline = true
+
         changeBackground.setColor(resources.getColor(colorId))
+        changeBackground.shape = GradientDrawable.OVAL
         imageview_signup_profilebackground.setImageDrawable(changeBackground)
+
+        imageview_signup_profilebackground.background = ShapeDrawable(OvalShape())
+        imageview_signup_profilebackground.clipToOutline = true
     }
 
 
@@ -122,10 +137,10 @@ class SignUpActivity : BaseActivity() {
         if(imagebutton_select_profile_purple.background.equals(R.drawable.join_profile_selected_purple)){
             keepBackgroundShapeAndSetColor(R.color.storm_purple)
         } else {
-            if(imagebutton_select_profile_purple.background.equals(R.drawable.join_profile_selected_yellow)){
+            if(imagebutton_select_profile_yellow.background.equals(R.drawable.join_profile_selected_yellow)){
                 keepBackgroundShapeAndSetColor(R.color.storm_yellow)
             } else {
-                if (imagebutton_select_profile_purple.background.equals(R.drawable.join_profile_selected_red)){
+                if (imagebutton_select_profile_red.background.equals(R.drawable.join_profile_selected_red)){
                     keepBackgroundShapeAndSetColor(R.color.storm_red)
                 }
             }
@@ -156,7 +171,6 @@ class SignUpActivity : BaseActivity() {
                     imagebutton_select_profile_red.setBackgroundResource(R.drawable.join_profile_selected_red)
 
                     userImageFlag = USER_DEFAULT_IMAGE_RED
-
                 }
             }
         }
@@ -195,18 +209,18 @@ class SignUpActivity : BaseActivity() {
         }
 
         button_change_default_image.setOnClickListener{
-            textview_name_in_profile.visibility = View.VISIBLE
-
-            imageview_signup_profilebackground.setImageResource(R.drawable.circular_profile)
             bottomSheetChangeProfile.state = BottomSheetBehavior.STATE_HIDDEN
 
+            imageview_signup_profilebackground.setImageResource(R.drawable.circular_profile)
+            textview_name_in_profile.visibility = View.VISIBLE
+
             changeProfileResources(imagebutton_select_profile_purple)
+            selectProfileColor()
 
             imagebutton_select_profile_purple.visibility = View.VISIBLE
             imagebutton_select_profile_yellow.visibility = View.VISIBLE
             imagebutton_select_profile_red.visibility = View.VISIBLE
 
-            changeProfileDefaultBackground()
         }
 
         view_bottom_sheet_blur.setOnClickListener{
@@ -224,8 +238,10 @@ class SignUpActivity : BaseActivity() {
             when (requestCode) {
                 FLAG_REQ_STORAGE -> {
                     val uri = data?.data
+
                     constraintlayout_signup_profile.background = ShapeDrawable(OvalShape())
                     constraintlayout_signup_profile.clipToOutline = true
+
                     imageview_signup_profilebackground.setImageURI(uri)
 
                     userImageFlag = USER_IMAGE
