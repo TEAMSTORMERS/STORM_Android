@@ -110,8 +110,19 @@ class ExpandRoundCardFragment: BaseFragment(R.layout.fragment_expand_card) {
                 Toast.makeText(context, "메모가 저장되었습니다", Toast.LENGTH_SHORT).show()
             }
         }
-    }
 
+        imagebutton_before_card.setOnClickListener {
+            cardViewPager.run {
+                currentItem -= 1
+            }
+        }
+
+        imagebutton_next_card.setOnClickListener {
+            cardViewPager.run {
+                currentItem += 1
+            }
+        }
+    }
 
     private fun initViewPager(data: List<CardWithOwnerModel>) {
         cardViewPager.run {
@@ -121,12 +132,26 @@ class ExpandRoundCardFragment: BaseFragment(R.layout.fragment_expand_card) {
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
+                    setVisibilityOfMoveButton(position, data.size)
+
                     currentPage = position
                     roundCardChangeCallback?.onCardPageChanged(position, expandRoundCardAdapter.itemCount, data[position])
                     setMemo(position, data)
                 }
             })
             currentItem = currentPage
+        }
+    }
+
+    private fun setVisibilityOfMoveButton(position: Int, length: Int) {
+        imagebutton_before_card.visibility = View.VISIBLE
+        imagebutton_next_card.visibility = View.VISIBLE
+
+        if (position == 0) {
+            imagebutton_before_card.visibility = View.GONE
+        }
+        if (position == length - 1) {
+            imagebutton_next_card.visibility = View.GONE
         }
     }
 
