@@ -115,6 +115,7 @@ class AddProjectActivity : BaseActivity() {
         return StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, "참여 코드 생성 완료!")
             .setContentRes(R.layout.view_participation_code)
             .setButtonArray(buttonArray)
+            .setCancelable(false)
             .isCode(true, code)
             .build()
     }

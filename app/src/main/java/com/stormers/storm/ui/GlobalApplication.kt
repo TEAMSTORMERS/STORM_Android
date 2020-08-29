@@ -82,6 +82,6 @@ class GlobalApplication : Application() {
 
         var isHost: Boolean = false
 
-
+        var projectPreviewIsDirty = false
     }
 }

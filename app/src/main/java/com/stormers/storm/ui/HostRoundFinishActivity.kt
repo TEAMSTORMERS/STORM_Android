@@ -79,6 +79,12 @@ class HostRoundFinishActivity : BaseRoundFinishActivity() {
 
         dialog = StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, round.toString())
             .setButtonArray(buttonArray)
+            .setExitButton(true)
             .build()
+    }
+
+    override fun onBackPressed() {
+        //뒤로 버튼을 눌러도 나갈 수 없음
+        Log.d(TAG, "onBackPressed()")
     }
 }
