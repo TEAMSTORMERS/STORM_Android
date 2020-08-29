@@ -72,4 +72,9 @@
         <item name="android:textFontWeight">700</item>
     </style>
 
+    <!--numberPicker-->
+    <style name="numberPickerStyle" >
+        <item name="android:editTextColor">@color/storm_gray</item>
+    </style>
+
 </resources>
