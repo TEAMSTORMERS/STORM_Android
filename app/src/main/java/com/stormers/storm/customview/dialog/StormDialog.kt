@@ -41,7 +41,7 @@ import kotlinx.android.synthetic.main.view_timepicker.view.numberpicker_minute
  */
 class StormDialog(@DrawableRes val imageRes: Int, private val title: String, private val contentText: String?,
                   @LayoutRes val contentRes: Int?, private val buttonArray: ArrayList<StormDialogButton>?,
-                  private val horizontalButtonArray: ArrayList<StormDialogButton>?, private val isPicker: Boolean,
+                  private val horizontalButtonArray: ArrayList<StormDialogButton>?, private val exitButton: Boolean, private val isPicker: Boolean,
                   private val isCode: Boolean, private val code: String?, private val minValue: Int?,
                   private val maxValue: Int?, private val callback: OnContentAttachedCallback?) : DialogFragment() {
 
@@ -171,6 +171,15 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
         if (buttonArray == null && horizontalButtonArray == null) {
             ((view.linearlayout_dialog_buttons.layoutParams) as ViewGroup.MarginLayoutParams)
                 .setMargins(0, MetricsUtil.convertDpToPixel(20f, context).toInt(), 0, 0)
+        }
+
+        if (exitButton) {
+            view.imagebutton_dialog_exit.run {
+                visibility = View.VISIBLE
+                setOnClickListener {
+                    dismiss()
+                }
+            }
         }
 
         //직각 모서리를 없애기 위함
