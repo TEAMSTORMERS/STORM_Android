@@ -16,5 +16,5 @@
     <string name="input_password_more_char">8자 이상 입력해주세요</string>
     <string name="check_email_type">이메일 형식이 올바르지 않습니다</string>
     <string name="email_already_used">이미 사용 중인 이메일입니다</string>
-    <string name="prepare_next_round">다음 ROUND 준비 중</string>
+    <string name="prepare_next_round">다음 라운드 준비 중</string>
 </resources>
