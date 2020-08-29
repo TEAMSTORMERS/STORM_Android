@@ -261,7 +261,13 @@ class MainActivity : BaseActivity() {
         projectRepository.getProjectPreviews(GlobalApplication.userIdx, object: ProjectsDataSource.LoadProjectsCallback<ProjectPreviewModel> {
 
             override fun onProjectsLoaded(projects: List<ProjectPreviewModel>) {
-                recentProjectsAdapter.setList(projects)
+                //개수가 15개 이상이면
+                if (projects.size > 15) {
+                    //0 ~ 14 인덱스만 잘라내어 삽입
+                    recentProjectsAdapter.setList(projects.subList(0, 15))
+                } else {
+                    recentProjectsAdapter.setList(projects)
+                }
                 group_main_noprojectlist.visibility = View.GONE
                 recycler_participated_projects_list.visibility = View.VISIBLE
             }
