@@ -58,6 +58,8 @@ class MainActivity : BaseActivity() {
 
         initView()
 
+        loadProjectPreviews()
+
         initListener()
 
         setUpperCase()
@@ -69,12 +71,18 @@ class MainActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        loadProjectPreviews()
 
         GlobalApplication.run {
             currentRound = null
             currentProject = null
             isHost = false
+
+            //참여한 프로젝트 목록에 변화가 있으면
+            if (projectPreviewIsDirty) {
+                //목록 갱신
+                loadProjectPreviews()
+                projectPreviewIsDirty = false
+            }
         }
     }
 
@@ -122,13 +130,9 @@ class MainActivity : BaseActivity() {
         }
 
         edittext_input_participate_code.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
+            override fun afterTextChanged(s: Editable?) { }
 
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 //공백이 아니면 전체 지우기 버튼 활성화
