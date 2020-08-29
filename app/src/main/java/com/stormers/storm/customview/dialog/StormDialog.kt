@@ -41,7 +41,8 @@ import kotlinx.android.synthetic.main.view_timepicker.view.numberpicker_minute
  */
 class StormDialog(@DrawableRes val imageRes: Int, private val title: String, private val contentText: String?,
                   @LayoutRes val contentRes: Int?, private val buttonArray: ArrayList<StormDialogButton>?,
-                  private val horizontalButtonArray: ArrayList<StormDialogButton>?, private val exitButton: Boolean, private val isPicker: Boolean,
+                  private val horizontalButtonArray: ArrayList<StormDialogButton>?, private val exitButton: Boolean,
+                  private val cancelable: Boolean, private val isPicker: Boolean,
                   private val isCode: Boolean, private val code: String?, private val minValue: Int?,
                   private val maxValue: Int?, private val callback: OnContentAttachedCallback?) : DialogFragment() {
 
@@ -186,8 +187,12 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         //별도 타이틀 없애기
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
-        //다이얼로그 밖 화면 터치시 닫히지 않음
-        isCancelable = false
+        //다이얼로그 밖 화면 터치시 닫힐지
+        isCancelable = if (imageRes != LOADING) {
+            cancelable
+        } else {
+            false
+        }
 
         return view
     }

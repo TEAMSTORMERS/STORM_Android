@@ -31,6 +31,8 @@ class StormDialogBuilder(private var dialogImg: Int, private var title: String) 
 
     private var exitButton: Boolean = false
 
+    private var cancelable: Boolean = true
+
     private var isPicker: Boolean = false
 
     private var isCode: Boolean = false
@@ -61,6 +63,7 @@ class StormDialogBuilder(private var dialogImg: Int, private var title: String) 
             buttonArray,
             horizontalButton,
             exitButton,
+            cancelable,
             isPicker,
             isCode,
             code,
@@ -102,6 +105,11 @@ class StormDialogBuilder(private var dialogImg: Int, private var title: String) 
 
     fun setExitButton(exitButton: Boolean) : StormDialogBuilder {
         this.exitButton = exitButton
+        return this
+    }
+
+    fun setCancelable(isCancelable: Boolean) : StormDialogBuilder {
+        this.cancelable = isCancelable
         return this
     }
 
