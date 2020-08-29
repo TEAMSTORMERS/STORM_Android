@@ -67,6 +67,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_participate_project" />
 
+    <ImageButton
+        android:id="@+id/imagebutton_all_remove_main"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@null"
+        android:elevation="10dp"
+        android:src="@drawable/h_projectsetting_btn_cancle"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/edittext_input_participate_code"
+        app:layout_constraintDimensionRatio="h,1:1"
+        app:layout_constraintEnd_toEndOf="@+id/edittext_input_participate_code"
+        app:layout_constraintTop_toTopOf="@+id/edittext_input_participate_code" />
+
     <TextView
         android:id="@+id/textview_add_project"
         android:layout_width="match_parent"
