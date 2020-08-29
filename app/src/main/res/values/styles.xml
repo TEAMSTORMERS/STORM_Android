@@ -24,6 +24,14 @@
 
     <!-- Login Activity -->
     <style name="loginTheme" parent="AppTheme">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+    <!-- SignUp Activity -->
+    <style name="signUpTheme" parent="AppTheme">
         <item name="android:statusBarColor">@color/storm_white</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
