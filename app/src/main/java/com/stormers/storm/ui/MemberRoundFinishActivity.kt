@@ -5,11 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import com.stormers.storm.R
-import com.stormers.storm.customview.dialog.StormDialogBuilder
-import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.network.BaseResponse
 import com.stormers.storm.network.RetrofitClient
-import com.stormers.storm.network.SimpleResponse
 import com.stormers.storm.network.SocketClient
 import com.stormers.storm.round.base.BaseRoundFinishActivity
 import com.stormers.storm.round.model.RoundEnterModel
@@ -111,5 +108,9 @@ class MemberRoundFinishActivity : BaseRoundFinishActivity() {
                     }
                 }
             })
+    }
+
+    override fun onBackPressed() {
+        //Todo: 나가기 기능 되살리기
     }
 }
