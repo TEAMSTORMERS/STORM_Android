@@ -86,6 +86,7 @@ class RoundProgressActivity : BaseRoundProgressActivity() {
 
     private fun showRoundFinishDialog() {
         return StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, "라운드가 종료되었습니다.")
+            .setCancelable(false)
             .build()
             .show(supportFragmentManager, "finish_round")
     }
