@@ -100,7 +100,7 @@ abstract class OnProjectActivity: BaseActivity() {
     }
 
     //나가기 다이얼로그 띄우기
-    private fun showExitDialog() {
+    protected fun showExitDialog() {
         if (exitDialogButtons.isEmpty()) {
             exitDialogButtons.add(StormDialogButton("취소", true, null))
             exitDialogButtons.add(StormDialogButton("확인", true, object : StormDialogButton.OnClickListener {

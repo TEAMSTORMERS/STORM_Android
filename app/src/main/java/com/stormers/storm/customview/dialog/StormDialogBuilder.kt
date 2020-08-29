@@ -1,9 +1,7 @@
 package com.stormers.storm.customview.dialog
 
-import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
 import com.stormers.storm.R
-
 
 /**
  * StormDialog를 생성하기 위한 BuilderClass
@@ -30,6 +28,10 @@ class StormDialogBuilder(private var dialogImg: Int, private var title: String) 
     private var buttonArray: ArrayList<StormDialogButton>? = null
 
     private var horizontalButton: ArrayList<StormDialogButton>? = null
+
+    private var exitButton: Boolean = false
+
+    private var cancelable: Boolean = true
 
     private var isPicker: Boolean = false
 
@@ -60,6 +62,8 @@ class StormDialogBuilder(private var dialogImg: Int, private var title: String) 
             contentRes,
             buttonArray,
             horizontalButton,
+            exitButton,
+            cancelable,
             isPicker,
             isCode,
             code,
@@ -96,6 +100,16 @@ class StormDialogBuilder(private var dialogImg: Int, private var title: String) 
 
     fun setMaxValue(maxValue: Int) : StormDialogBuilder {
         this.maxValue = maxValue
+        return this
+    }
+
+    fun setExitButton(exitButton: Boolean) : StormDialogBuilder {
+        this.exitButton = exitButton
+        return this
+    }
+
+    fun setCancelable(isCancelable: Boolean) : StormDialogBuilder {
+        this.cancelable = isCancelable
         return this
     }
 

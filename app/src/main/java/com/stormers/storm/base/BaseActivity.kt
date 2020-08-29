@@ -47,12 +47,45 @@ abstract class BaseActivity : AppCompatActivity() {
         loadingDialog.dismiss()
     }
 
-    fun goToFragment(cls: Class<*>, args: Bundle?) {
+    fun goToFragment(cls: Class<*>, args: Bundle?): Fragment? {
         try {
             val fragment = cls.newInstance() as Fragment
             fragment.arguments = args
             val fragmentManager = supportFragmentManager
             fragmentManager.beginTransaction().replace(fragmentId!!, fragment).commit()
+            return fragment
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return null
+    }
+
+    fun addFragment(cls: Class<*>, args: Bundle?) : Fragment? {
+        try {
+            val fragment = cls.newInstance() as Fragment
+            fragment.arguments = args
+            val fragmentManager = supportFragmentManager
+            fragmentManager.beginTransaction().add(fragmentId!!, fragment).commit()
+            return fragment
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return null
+    }
+
+    fun hideFragment(fragment: Fragment) {
+        try {
+            val fragmentManager = supportFragmentManager
+            fragmentManager.beginTransaction().hide(fragment).commit()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    fun showFragment(fragment: Fragment) {
+        try {
+            val fragmentManager = supportFragmentManager
+            fragmentManager.beginTransaction().show(fragment).commit()
         } catch (e: Exception) {
             e.printStackTrace()
         }

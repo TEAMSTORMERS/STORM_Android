@@ -21,6 +21,9 @@ open class BaseRoundWaitingActivity : OnProjectActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_round_setting)
 
+        //참여한 프로젝트에 해당 프로젝트가 추가되었으므로 이 사실을 기록
+        GlobalApplication.projectPreviewIsDirty = true
+
         setStormToolbar(stormtoolbar_roundsetting)
 
         //나가기 버튼 활성화
@@ -38,6 +41,10 @@ open class BaseRoundWaitingActivity : OnProjectActivity() {
 
             Toast.makeText(application, "참여코드가 복사되었습니다.", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onBackPressed() {
+        showExitDialog()
     }
 
     //나가기 다이얼로그에서 확인을 눌렀을 때
