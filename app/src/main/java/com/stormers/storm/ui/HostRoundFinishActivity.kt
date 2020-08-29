@@ -79,6 +79,7 @@ class HostRoundFinishActivity : BaseRoundFinishActivity() {
 
         dialog = StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, round.toString())
             .setButtonArray(buttonArray)
+            .setExitButton(true)
             .build()
     }
 }
