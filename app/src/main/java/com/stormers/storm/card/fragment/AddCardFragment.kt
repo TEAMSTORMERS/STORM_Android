@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseFragment
 import com.stormers.storm.canvas.fragment.CanvasDrawingFragment
+import com.stormers.storm.canvas.fragment.CanvasTextFragment
 import com.stormers.storm.card.adapter.CacheCardListAdapter
 import com.stormers.storm.ui.RoundProgressActivity
 import com.stormers.storm.util.MarginDecoration
@@ -50,7 +51,12 @@ class AddCardFragment : BaseFragment(R.layout.fragment_add_card) {
         }
 
         cardview_addcard_add.setOnClickListener {
-            goToFragment(CanvasDrawingFragment::class.java, null)
+            (mActivity as RoundProgressActivity).run {
+                canvasDrawingFragment = goToFragment(CanvasDrawingFragment::class.java, null)
+                canvasTextFragment = addFragment(CanvasTextFragment::class.java, null)
+
+                hideFragment(canvasTextFragment!!)
+            }
         }
     }
 
