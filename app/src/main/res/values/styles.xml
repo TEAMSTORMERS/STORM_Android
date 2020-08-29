@@ -24,6 +24,14 @@
 
     <!-- Login Activity -->
     <style name="loginTheme" parent="AppTheme">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+    <!-- SignUp Activity -->
+    <style name="signUpTheme" parent="AppTheme">
         <item name="android:statusBarColor">@color/storm_white</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
@@ -37,7 +45,7 @@
     <!--Custom EditText-->
     <style name="custom_editText" parent="Widget.AppCompat.EditText">
         <item name="android:background">@drawable/background_edittext_gray_radius</item>
-        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingStart">10dp</item>
         <item name="android:paddingEnd">16dp</item>
         <item name="android:paddingTop">11dp</item>
         <item name="android:paddingBottom">11dp</item>

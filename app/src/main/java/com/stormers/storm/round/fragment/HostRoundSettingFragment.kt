@@ -5,10 +5,8 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import android.view.Window
 import android.widget.Toast
 import com.stormers.storm.R
-import com.stormers.storm.base.BaseFragment
 import com.stormers.storm.customview.StormButton
 import com.stormers.storm.customview.StormEditText
 import com.stormers.storm.customview.dialog.StormDialog
@@ -17,20 +15,20 @@ import com.stormers.storm.customview.dialog.StormDialogButton
 
 import com.stormers.storm.round.network.RequestRound
 import com.stormers.storm.network.*
+import com.stormers.storm.round.base.BaseRoundFragment
 import com.stormers.storm.round.network.response.ResponseRoundCountModel
 import com.stormers.storm.round.model.RoundModel
 import com.stormers.storm.round.model.RoundSettingModel
 import com.stormers.storm.ui.GlobalApplication
 import kotlinx.android.synthetic.main.activity_round_setting.*
 import com.stormers.storm.ui.HostRoundSettingActivity
-import com.stormers.storm.util.KeyBoardVisibilityUtils
 import kotlinx.android.synthetic.main.fragment_host_round_setting.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.lang.StringBuilder
 
-class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setting) {
+class HostRoundSettingFragment : BaseRoundFragment(R.layout.fragment_host_round_setting) {
 
     private lateinit var timePickerDialog: StormDialog
 
@@ -39,10 +37,6 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
     private lateinit var activityButton: StormButton
 
     private lateinit var retrofitClient: RequestRound
-
-    private val projectIdx = GlobalApplication.currentProject!!.projectIdx
-
-    private val userIdx = GlobalApplication.userIdx
 
     private var roundCount: Int? = null
 
@@ -65,7 +59,6 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
         //라운드 목표 시간 다이어그램 초기화
         initDialog()
 
-
         //라운드 목표 시간 버튼 초기화
         textview_roundsetting_time.setOnClickListener {
             timePickerDialog.show(fragmentManager!!, "timepicker")
@@ -74,6 +67,21 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
         //전체 지우기 버튼 활성화/비활성화, 글자 수 23자 제한
         textview_round_goal.setEditTextWatcher(23, null, true)
 
+        //라운드 목표 글자수 제한
+        setTextWatcher(textview_round_goal)
+    }
+
+    //프로젝트 나가기를 눌렀을 때 상황 재작성
+    override fun onExitRound() {
+        super.onExitRound()
+
+        //roundIdx != nul 이면 2라운드 이상
+        roundIdx?.let {
+            //프로젝트를 종료
+            mActivity?.finishProject()
+
+            //첫 번째 라운드라면 프로젝트를 삭제
+        } ?: mActivity?.deleteProject()
     }
 
     private fun initDialogButton() {
@@ -88,12 +96,11 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
                 textview_roundsetting_time.text = string.toString()
             }
         }
-
         buttonArray.add(button)
     }
 
     private fun initDialog() {
-        timePickerDialog = StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, "라운드 목표 시간을 선택해주세요")
+        timePickerDialog = StormDialogBuilder(StormDialogBuilder.THUNDER_LOGO, "라운드 소요 시간")
             .setContentRes(R.layout.view_timepicker)
             .setButtonArray(buttonArray)
             .isPicker(true)
@@ -189,5 +196,21 @@ class HostRoundSettingFragment : BaseFragment(R.layout.fragment_host_round_setti
             .append(roundCount)
             .append(" 설정")
         textview_round_setting.text = round.toString()
+    }
+
+    private fun setTextWatcher(editText: StormEditText) {
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) { }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                //23자 제한
+                if (count > 23) {
+                    //Todo: 23자 글자 수 제한
+                    editText.text = s?.dropLast(1) as Editable?
+                }
+            }
+        })
     }
 }

@@ -11,12 +11,11 @@
         android:id="@+id/stormtoolbar_mypage_withdrawal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.058" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageview_withdrawal_background"
@@ -68,7 +67,7 @@
         android:layout_height="0dp"
         android:background="@drawable/box_roundcorner"
         android:fontFamily="@font/notosans_medium"
-        android:hint="탈퇴 사유를 입력해주세요(선택)"
+        android:hint="탈퇴 사유를 입력해주세요 (선택)"
         android:inputType="textMultiLine"
         android:lines="5"
         android:textColor="@color/storm_popup_line_gray"
@@ -119,7 +118,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:fontFamily="@font/notosans_medium"
-        android:text="비밀번호가 일치하지 않습니다."
+        android:text="비밀번호가 일치하지 않습니다"
         android:textColor="@color/storm_red"
         android:textSize="11sp"
         android:visibility="gone"

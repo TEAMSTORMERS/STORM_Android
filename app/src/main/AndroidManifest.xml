@@ -27,10 +27,11 @@
             android:windowSoftInputMode="adjustResize"/>
 
         <activity android:name=".ui.MemberRoundFinishActivity" />
-        <activity android:name=".ui.CompleteSignUpActivity" />
+        <activity android:name=".ui.CompleteSignUpActivity"
+            android:theme="@style/signUpTheme" />
         <activity
             android:name=".ui.SetEmailPasswordActivity"
-            android:theme="@style/loginTheme"
+            android:theme="@style/signUpTheme"
             android:windowSoftInputMode="adjustPan" />
 
         <meta-data
@@ -77,7 +78,7 @@
         <activity android:name=".ui.MypageWithdrawalCheckActivity" />
         <activity
             android:name=".ui.SignUpActivity"
-            android:theme="@style/loginTheme"
+            android:theme="@style/signUpTheme"
             android:windowSoftInputMode="adjustResize" />
 
         <provider

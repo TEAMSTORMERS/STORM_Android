@@ -39,12 +39,12 @@
             android:id="@+id/constraintLayout_fragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="140dp"
             android:background="@drawable/background_white_radius"
             app:cardCornerRadius="25dp"
             app:cardElevation="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="0.70:1"
+            app:layout_constraintDimensionRatio="0.75:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/stormtoolbar_roundsetting"
@@ -74,7 +74,7 @@
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:selectableItemBackground"
-            app:cardCornerRadius="15dp"
+            app:cardCornerRadius="20dp"
             app:cardElevation="20dp"
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout_fragment"
             app:layout_constraintDimensionRatio="1:0.63"
@@ -90,7 +90,6 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/card_asset"
                 android:foreground="?android:selectableItemBackground">
-
 
                 <TextView
                     android:id="@+id/textview_projectcard_title"
@@ -110,12 +109,8 @@
                     android:id="@+id/textview_projectcard_describe"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/background_textview_codecopy"
-                    android:lineHeight="18sp"
-                    android:paddingHorizontal="10dp"
-                    android:text="참여 코드 복사"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:text="탭하여 참여코드 복사하기"
+                    android:textSize="11sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textview_projectcard_title" />

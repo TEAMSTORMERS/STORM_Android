@@ -59,11 +59,11 @@
 
             <com.stormers.storm.customview.StormEditText
                 android:id="@+id/edittext_name_signup"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="347dp"
+                android:layout_height="43dp"
+                android:layout_marginTop="122dp"
                 android:hint="사용자 이름을 입력하세요"
                 android:inputType="text"
-                android:layout_marginTop="122dp"
                 app:layout_constraintBottom_toTopOf="@+id/button_complete_signup"
                 app:layout_constraintEnd_toEndOf="@id/constraintlayout_signup_profile"
                 app:layout_constraintStart_toStartOf="@id/constraintlayout_signup_profile"
@@ -75,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/notosans_medium"
-                android:text="2글자 이상 입력해주세요"
+                android:text="2자 이상 입력해주세요"
                 android:textColor="@color/storm_red"
                 android:textSize="11sp"
                 android:visibility="gone"

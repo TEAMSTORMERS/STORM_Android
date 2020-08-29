@@ -15,7 +15,7 @@ abstract class BaseFragment() : Fragment() {
         this.layoutResId = layoutResId
     }
     
-    protected var TAG = javaClass.name
+    protected var TAG = javaClass.simpleName
 
     @LayoutRes
     private var layoutResId: Int = -1

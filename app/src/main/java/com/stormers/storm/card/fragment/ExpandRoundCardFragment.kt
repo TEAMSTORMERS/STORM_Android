@@ -103,11 +103,11 @@ class ExpandRoundCardFragment: BaseFragment(R.layout.fragment_expand_card) {
             if (currentCard.cardMemo == null) {
                 currentCard.cardMemo = currentMemo
                 cardRepository.createMemo(cardMemoModel)
-                Toast.makeText(context, "메모가 저장되었습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "메모가 저장되었습니다", Toast.LENGTH_SHORT).show()
             } else if (currentCard.cardMemo != currentMemo) {
                 currentCard.cardMemo = currentMemo
                 cardRepository.updateMemo(cardMemoModel)
-                Toast.makeText(context, "메모가 저장되었습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "메모가 저장되었습니다", Toast.LENGTH_SHORT).show()
             }
         }
     }

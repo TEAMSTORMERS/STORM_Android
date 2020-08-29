@@ -2,6 +2,9 @@ package com.stormers.storm.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.InputFilter
+import android.text.TextWatcher
 import android.util.Log
 import android.view.*
 import android.widget.TextView
@@ -27,6 +30,7 @@ import com.stormers.storm.round.model.RoundModel
 import com.stormers.storm.util.DateUtils
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.view_edittext_custom.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -55,6 +59,10 @@ class MainActivity : BaseActivity() {
         initView()
 
         initListener()
+
+        setUpperCase()
+
+        initAllRemoveButton()
 
         initDialogButton()
     }
@@ -96,7 +104,7 @@ class MainActivity : BaseActivity() {
             startActivity(intent)
         }
         
-        imageButton_show_all.setOnClickListener {
+        constraintlayout_main_showmore.setOnClickListener {
             startActivity(Intent(this@MainActivity, ParticipatedProjectListActivity::class.java))
         }
 
@@ -106,6 +114,36 @@ class MainActivity : BaseActivity() {
             }
             return@setOnKeyListener false
         }
+    }
+
+    private fun initAllRemoveButton() {
+        imagebutton_all_remove_main.setOnClickListener {
+            edittext_input_participate_code.text = null
+        }
+
+        edittext_input_participate_code.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                //공백이 아니면 전체 지우기 버튼 활성화
+                if (s.toString().isNotEmpty()) {
+                    imagebutton_all_remove_main.visibility = View.VISIBLE
+                } else {
+                    //입력란이 공백일 때는 버튼 띄워주지 않음
+                    imagebutton_all_remove_main.visibility = View.INVISIBLE
+                }
+            }
+        })
+    }
+
+    private fun setUpperCase() {
+        edittext_input_participate_code.filters = Array(1) { InputFilter.AllCaps()}
     }
 
     private fun showLookupProject(projectCode: String) {
@@ -144,10 +182,10 @@ class MainActivity : BaseActivity() {
 
     private fun getResponseLookupComment(status: Int): String {
          return when (status) {
-            202 -> "지금은 프로젝트에\n참여하실 수 없습니다.."
-            204 -> "지금은 호스트가 준비 중입니다."
-            400 -> "유효하지 않은 코드입니다."
-            else -> "오류가 발생했습니다."
+            202 -> "이미 프로젝트가 진행 중입니다"
+            204 -> "호스트가 프로젝트를\n준비 중입니다"
+            400 -> "유효하지 않은 참여 코드입니다"
+            else -> "오류가 발생했습니다"
         }
     }
 

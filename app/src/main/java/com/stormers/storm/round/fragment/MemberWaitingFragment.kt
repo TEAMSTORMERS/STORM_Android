@@ -1,6 +1,5 @@
 package com.stormers.storm.round.fragment
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -29,15 +28,6 @@ import java.lang.StringBuilder
 class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_memberwaiting) {
 
     private lateinit var activityButton: StormButton
-
-    private val roundIdx = GlobalApplication.currentRound!!.roundIdx
-
-    private var mActivity: Activity? = null
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        mActivity = context as MemberRoundWaitingActivity
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -91,7 +81,7 @@ class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_memberwaitin
 
     private fun getRoundInfo(){
 
-        RetrofitClient.create(RequestRound::class.java).responseRoundInfo(GlobalApplication.currentRound!!.roundIdx).enqueue(object : Callback<ResponseRoundInfoModel>{
+        RetrofitClient.create(RequestRound::class.java).responseRoundInfo(roundIdx!!).enqueue(object : Callback<ResponseRoundInfoModel>{
             override fun onFailure(call: Call<ResponseRoundInfoModel>, t: Throwable) {
                 Log.d(TAG, "getRoundInfo: Fail, ${t.message}")
             }
@@ -105,7 +95,7 @@ class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_memberwaitin
                             Log.d(TAG, "getRoundInfo: Success, roundNumber: ${it.roundNumber}, roundPurpose: ${it.roundPurpose}, roundTime: ${it.roundTime}")
 
                             //받은 라운드 정보를 앱 전역에 저장
-                            GlobalApplication.currentRound = RoundModel(roundIdx, it.roundNumber, it.roundPurpose, it.roundTime, null)
+                            GlobalApplication.currentRound = RoundModel(roundIdx!!, it.roundNumber, it.roundPurpose, it.roundTime, null)
 
                             //라운드 정보를 뷰에 초기화
                             initRoundInfo(it.roundPurpose, it.roundTime, it.roundNumber)
