@@ -33,4 +33,7 @@ interface RequestProject {
 
     @PUT("/project/finish/{project_idx}")
     fun finishProject(@Path("project_idx") projectIdx: Int) : Call<SimpleResponse>
+
+    @DELETE("/project/leave/{project_idx}")
+    fun deleteProject(@Path("project_idx") projectIdx: Int) : Call<SimpleResponse>
 }
