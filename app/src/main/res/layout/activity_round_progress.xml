@@ -21,7 +21,7 @@
         android:id="@+id/stormtoolbar_roundprogress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="49dp"
+        android:layout_marginTop="25dp"
         android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
