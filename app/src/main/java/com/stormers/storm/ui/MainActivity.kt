@@ -3,6 +3,7 @@ package com.stormers.storm.ui
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputFilter
 import android.text.TextWatcher
 import android.util.Log
 import android.view.*
@@ -58,6 +59,8 @@ class MainActivity : BaseActivity() {
         initView()
 
         initListener()
+
+        setUpperCase()
 
         initAllRemoveButton()
 
@@ -137,6 +140,10 @@ class MainActivity : BaseActivity() {
                 }
             }
         })
+    }
+
+    private fun setUpperCase() {
+        edittext_input_participate_code.filters = Array(1) { InputFilter.AllCaps()}
     }
 
     private fun showLookupProject(projectCode: String) {
