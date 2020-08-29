@@ -150,7 +150,7 @@ class StormEditText : ConstraintLayout {
         }
     }
 
-    fun setRemoveAllTextWatcher() {
+    fun setEditTextWatcher(word: Int?, line: Int?, isAllRemove: Boolean) {
         this.edittext_customedittext.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
 
@@ -161,12 +161,28 @@ class StormEditText : ConstraintLayout {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                //공백이 아니면 전체 지우기 버튼 활성화
-                if (s.toString().isNotEmpty()) {
-                    showRemoveAll(true)
-                } else {
-                    //입력란이 공백일 때는 버튼 띄워주지 않음
-                    showRemoveAll(false)
+                if (isAllRemove) {
+                    //공백이 아니면 전체 지우기 버튼 활성화
+                    if (s.toString().isNotEmpty()) {
+                        showRemoveAll(true)
+                    } else {
+                        //입력란이 공백일 때는 버튼 띄워주지 않음
+                        showRemoveAll(false)
+                    }
+                }
+                //글자 수 제한
+                if (word != null) {
+                    if (s?.length!! > word) {
+                        edittext_customedittext.setText(s.dropLast(1).toString())
+                        edittext_customedittext.setSelection(s.length - 1)
+                    }
+                }
+                //라인 수 제한
+                if (line != null) {
+                    if (edittext_customedittext.lineCount > line) {
+                        edittext_customedittext.setText(s?.dropLast(1).toString()) // line개의 줄 초과 시 마지막 한글자 삭제
+                        edittext_customedittext.setSelection(s?.length!! - 1) // 커서 위치 마지막으로 이동
+                    }
                 }
             }
         })

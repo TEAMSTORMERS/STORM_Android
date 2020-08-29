@@ -64,8 +64,8 @@ class HostRoundSettingFragment : BaseRoundFragment(R.layout.fragment_host_round_
             timePickerDialog.show(fragmentManager!!, "timepicker")
         }
 
-        //전체 지우기 버튼 활성화/비활성화
-        textview_round_goal.setRemoveAllTextWatcher()
+        //전체 지우기 버튼 활성화/비활성화, 글자 수 23자 제한
+        textview_round_goal.setEditTextWatcher(23, null, true)
 
         //라운드 목표 글자수 제한
         setTextWatcher(textview_round_goal)

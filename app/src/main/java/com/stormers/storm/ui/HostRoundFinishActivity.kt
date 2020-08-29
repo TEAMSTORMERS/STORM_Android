@@ -46,7 +46,7 @@ class HostRoundFinishActivity : BaseRoundFinishActivity() {
             )
         } else {
             buttonArray.add(
-                StormDialogButton("다음 ROUND 진행", true, object : StormDialogButton.OnClickListener {
+                StormDialogButton("다음 라운드 진행", true, object : StormDialogButton.OnClickListener {
                     override fun onClick() {
                         startNextRound()
                     }

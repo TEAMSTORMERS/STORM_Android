@@ -13,6 +13,13 @@
         <item name="android:editTextStyle">@style/customEditTextFontStyle</item>
         <item name="android:radioButtonStyle">@style/customRadioButtonFontStyle</item>
         <item name="android:checkboxStyle">@style/customCheckboxFontStyle</item>
+        <item name="android:windowBackground">@color/storm_white</item>
+    </style>
+
+    <!-- Splash Activity -->
+    <style name="splashTheme" parent="AppTheme">
+        <item name="android:statusBarColor">@color/storm_white</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <!-- Login Activity -->

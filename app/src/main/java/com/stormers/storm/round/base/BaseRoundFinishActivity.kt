@@ -34,9 +34,6 @@ open class BaseRoundFinishActivity : BaseRoundProgressActivity() {
 
     private fun setRoundTime() {
         val time = StringBuilder("총 ")
-        if (roundTime < 10) {
-            time.append(0)
-        }
         time.append(roundTime)
             .append("분 소요")
         textView_time.text = time.toString()

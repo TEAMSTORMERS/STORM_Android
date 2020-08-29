@@ -33,7 +33,6 @@ class AddProjectActivity : BaseActivity() {
 
         stormtoolbar_addproject.run {
             setBackButton()
-            setMyPageButton()
         }
 
         button_add_project.setOnClickListener {
@@ -49,8 +48,11 @@ class AddProjectActivity : BaseActivity() {
             })
         )
 
-        //전체 지우기 버튼 활성화/비활성화
-        edittext_addproject_projectname.setRemoveAllTextWatcher()
+        //전체 지우기 버튼 활성화/비활성화, 글자 수 17자 제한
+        edittext_addproject_projectname.setEditTextWatcher(17, null, true)
+
+        //프로젝트 소개 editText에 3줄 제한
+        edittext_addproject_notice.setEditTextWatcher(null, 3, false)
 
         scrollViewKeyBoard(scrollview_add_project)
     }
