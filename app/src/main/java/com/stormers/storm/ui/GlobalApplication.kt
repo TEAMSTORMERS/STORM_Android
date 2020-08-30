@@ -6,8 +6,6 @@ import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.os.Bundle
-import com.kakao.auth.KakaoSDK
-import com.stormers.storm.kakao.KakaoSDKAdapter
 import com.stormers.storm.project.model.ProjectModel
 import com.stormers.storm.round.model.RoundModel
 //import com.stormers.storm.util.DatabaseManager
@@ -19,7 +17,6 @@ class GlobalApplication : Application() {
         super.onCreate()
 
         instance = this
-        KakaoSDK.init(KakaoSDKAdapter())
 
         prefs = SharedPreference(applicationContext)
         //databaseManager = DatabaseManager.getInstance(this)
@@ -56,13 +53,6 @@ class GlobalApplication : Application() {
     override fun onTerminate() {
         super.onTerminate()
         instance = null
-    }
-
-    fun getGlobalApplicationContext(): GlobalApplication {
-        checkNotNull(instance) {
-            "this application does not inherit com.kakao.GlobalApplication"
-        }
-        return instance!!
     }
 
     companion object {
