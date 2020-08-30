@@ -50,7 +50,7 @@ class ProjectPreviewViewHolder(parent: ViewGroup, private val isMain: Boolean, p
     private fun initPreview(data: List<CardPreviewModel>) {
         itemView.run {
             if (data[0].cardIdx == -1) {
-                imageview_cardpreview_img1.visibility = View.VISIBLE
+                imageview_cardpreview_img1.visibility = View.INVISIBLE
                 imageview_cardpreview_img1.setImageResource(R.drawable.h_roundstart_popup_symbol)
                 textview_cardpreview_txt1.visibility = View.GONE
             } else {
@@ -66,7 +66,7 @@ class ProjectPreviewViewHolder(parent: ViewGroup, private val isMain: Boolean, p
             }
 
             if (data[1].cardIdx == -1) {
-                imageview_cardpreview_img2.visibility = View.VISIBLE
+                imageview_cardpreview_img2.visibility = View.INVISIBLE
                 imageview_cardpreview_img2.setImageResource(R.drawable.h_roundstart_popup_symbol)
                 textview_cardpreview_txt2.visibility = View.GONE
             } else {
@@ -82,7 +82,7 @@ class ProjectPreviewViewHolder(parent: ViewGroup, private val isMain: Boolean, p
             }
 
             if (data[2].cardIdx == -1) {
-                imageview_cardpreview_img3.visibility = View.VISIBLE
+                imageview_cardpreview_img3.visibility = View.INVISIBLE
                 imageview_cardpreview_img3.setImageResource(R.drawable.h_roundstart_popup_symbol)
                 textview_cardpreview_txt3.visibility = View.GONE
             } else {
@@ -98,8 +98,7 @@ class ProjectPreviewViewHolder(parent: ViewGroup, private val isMain: Boolean, p
             }
 
             if (data[3].cardIdx == -1) {
-                imageview_cardpreview_img4.visibility = View.VISIBLE
-                imageview_cardpreview_img4.setImageResource(R.drawable.h_roundstart_popup_symbol)
+                imageview_cardpreview_img4.visibility = View.INVISIBLE
                 textview_cardpreview_txt4.visibility = View.GONE
             } else {
                 if (data[3].cardImage != null) {
