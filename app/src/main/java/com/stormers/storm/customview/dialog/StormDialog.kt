@@ -21,18 +21,14 @@ import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
-import androidx.core.view.get
 import androidx.fragment.app.DialogFragment
+import com.aigestudio.wheelpicker.WheelPicker
 import com.stormers.storm.R
 import com.stormers.storm.util.MetricsUtil
 import kotlinx.android.synthetic.main.dialog_custom.view.*
-import kotlinx.android.synthetic.main.dialog_custom.view.imageview_dialog_symbol
-import kotlinx.android.synthetic.main.dialog_custom.view.textview_dialog_content
 import kotlinx.android.synthetic.main.item_dialog_buttons.view.*
 import kotlinx.android.synthetic.main.view_participation_code.view.*
-import kotlinx.android.synthetic.main.view_timepicker.*
-import kotlinx.android.synthetic.main.view_timepicker.view.numberpicker_minute
-import java.lang.reflect.Field
+import kotlinx.android.synthetic.main.view_timepicker.view.*
 
 /**
  * 커스텀 다이얼로그 생성 클래스
@@ -50,8 +46,8 @@ import java.lang.reflect.Field
 class StormDialog(@DrawableRes val imageRes: Int, private val title: String, private val contentText: String?,
                   @LayoutRes val contentRes: Int?, private val buttonArray: ArrayList<StormDialogButton>?,
                   private val horizontalButtonArray: ArrayList<StormDialogButton>?, private val isPicker: Boolean,
-                  private val isCode: Boolean, private val code: String?, private val minValue: Int?,
-                  private val maxValue: Int?, private val callback: OnContentAttachedCallback?) : DialogFragment() {
+                  private val isCode: Boolean, private val code: String?, private var minValue: Int?,
+                  private var maxValue: Int?, private val callback: OnContentAttachedCallback?) : DialogFragment() {
 
     companion object {
         const val TAG = "storm_dialog"
@@ -96,80 +92,14 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
 
             if (isPicker) {
                 view.numberpicker_minute.run {
-                    maxValue = this@StormDialog.maxValue?: DEFAULT_MAX_VALUE_MINUTE
-                    minValue = this@StormDialog.minValue?: DEFAULT_MIN_VALUE_MINUTE
-                    wrapSelectorWheel = false
-                    descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
-
-                    //Todo: 테스트용으로 넣어본 색상입니다!
-                    setNumberPickerTextColor(numberpicker_minute, Color.argb(255, 255, 0, 0))
-
-
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-//                        textColor = context.getColor(R.color.storm_gray)
-//                    }
-
-//                    (numberpicker_minute.getChildAt(10) as EditText).setTextColor(ContextCompat.getColor(context, R.color.storm_gray))
-//                    numberpicker_minute.invalidate()
-
-//                    val count = view.numberpicker_minute.childCount
-//                    for (i in 0..count) {
-//                        val t0 = view.numberpicker_minute.getChildAt(i)
-//                        if (t0 is EditText) {
-//                            try {
-//                                val t1 = view.numberpicker_minute.javaClass.getDeclaredField("mSelectorWheelPaint")
-//                                t1.isAccessible = true
-//                                (t1.get(view.numberpicker_minute) as Paint).color = ContextCompat.getColor(context!!, R.color.storm_gray)
-//                                (t0 as EditText).setTextColor(ContextCompat.getColor(context!!, R.color.storm_gray))
-//                                view.numberpicker_minute.invalidate()
-//                            }
-//                            catch (e: Exception) {
-//                                Log.d("numberpicker_minute","false")
-//                            }
-//                        }
-//                    }
-
-//                    try {
-//                        val selectorWheelPaintField = NumberPicker::class.java.getDeclaredField("mSelectorWheelPaint")
-//                        selectorWheelPaintField.isAccessible = true
-//                        (selectorWheelPaintField.get(numberpicker_minute) as Paint).setColor(ContextCompat.getColor(context!!, R.color.storm_gray))
-//                    }
-//                    catch (e: NoSuchFieldException) {
-//                        Log.w("setNumberPickerTextColor", e)
-//                    }
-//                    catch (e: IllegalAccessException) {
-//                        Log.w("setNumberPickerTextColor", e)
-//                    }
-//                    catch (e: IllegalArgumentException) {
-//                        Log.w("setNumberPickerTextColor", e)
-//                    }
-//
-//                    val count = numberpicker_minute.childCount
-//                    for (i in 0..count) {
-//                        val child = numberpicker_minute.getChildAt(i)
-//                        if (child is EditText) {
-//                            (child as EditText).setTextColor(ContextCompat.getColor(context!!, R.color.storm_gray))
-//                        }
-//                    }
-//                    numberpicker_minute.invalidate()
-
-//                    val count = childCount
-//                    for (i in 0 until count) {
-//                        val view = getChildAt(i)
-//                        if (view is EditText) {
-//                            try {
-//                                view.setTextColor(ContextCompat.getColor(context!!, R.color.storm_gray))
-//                                val selectorWheelPaint = NumberPicker::class.java.getDeclaredField("mSelectorWheelPaint")
-//                                selectorWheelPaint.isAccessible = true
-//                                (selectorWheelPaint.get(this) as Paint).color = ContextCompat.getColor(context!!, R.color.storm_gray)
-//                                invalidate()
-//                            }
-//                            catch (e: Exception) {
-//                                Log.d("numberpicker_minute","false")
-//                            }
-//                        }
-//                    }
-
+                    val data = mutableListOf<Int>()
+                    for (i in 1..20) {
+                        data.add(i)
+                    }
+                    numberpicker_minute.data = data
+                    numberpicker_minute.visibleItemCount = 3
+                    numberpicker_minute.itemTextColor = ContextCompat.getColor(context, R.color.storm_popup_gray)
+                    numberpicker_minute.selectedItemTextColor = ContextCompat.getColor(context, R.color.storm_gray)
                 }
             }
 
@@ -200,7 +130,7 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
 
                 button.constraintlayout_dialog_button.setOnClickListener {
                     stormDialogButton.listener?.onClick()
-                    stormDialogButton.pickerListener?.onClick(view.numberpicker_minute.value)
+                    stormDialogButton.pickerListener?.onClick(view.numberpicker_minute.currentItemPosition + 1)
                     dismiss()
                 }
 
@@ -225,7 +155,7 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
 
                 button.constraintlayout_dialog_button.setOnClickListener {
                     stormDialogButton.listener?.onClick()
-                    stormDialogButton.pickerListener?.onClick(view.numberpicker_minute.value)
+                    stormDialogButton.pickerListener?.onClick(view.numberpicker_minute.currentItemPosition + 1)
                     dismiss()
                 }
 
@@ -268,36 +198,4 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
         fun onContentAttached(view: View)
     }
 
-    private fun setNumberPickerTextColor(numberPicker: NumberPicker, color: Int){
-        //if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            val count = numberPicker.childCount
-            for (i in 0..count) {
-                val child = numberPicker.getChildAt(i)
-                if (child is EditText) {
-                    try {
-                        child.setTextColor(color)
-                        numberPicker.invalidate()
-                        var selectorWheelPaintField = numberPicker.javaClass.getDeclaredField("mSelectorWheelPaint")
-                        var accessible = selectorWheelPaintField.isAccessible
-                        selectorWheelPaintField.isAccessible = true
-                        (selectorWheelPaintField.get(numberPicker) as Paint).color = color
-                        selectorWheelPaintField.isAccessible = accessible
-                        numberPicker.invalidate()
-                        var selectionDividerField = numberPicker.javaClass.getDeclaredField("mSelectionDivider")
-                        accessible = selectionDividerField.isAccessible
-                        selectionDividerField.isAccessible = true
-                        selectionDividerField.set(numberPicker, null)
-                        selectionDividerField.isAccessible = accessible
-                        numberPicker.invalidate()
-                    } catch (exception: Exception) {
-                        Log.d("test", "exception $exception")
-                    }
-                }
-            }
-        //} else {
-            //numberPicker.textColor = color
-        //}
-    }
-
-    
 }

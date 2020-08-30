@@ -121,4 +121,7 @@ dependencies {
 
     //TedPermission 사용
     implementation 'gun0912.ted:tedpermission:2.2.3'
+
+    //numberPicker
+    implementation 'cn.aigestudio.wheelpicker:WheelPicker:1.1.3'
 }
