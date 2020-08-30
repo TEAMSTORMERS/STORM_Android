@@ -19,10 +19,147 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.stormers.storm.customview.ClickableRecyclerView
-            android:id="@+id/recyclerview_projectfolder"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/imageview_cardpreview_img1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/storm_white"
+                        android:scaleType="fitCenter"
+                        android:padding="3dp"
+                        android:src="@drawable/h_roundstart_popup_symbol" />
+
+                    <TextView
+                        android:id="@+id/textview_cardpreview_txt1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/storm_white"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:padding="5dp"
+                        android:textSize="12sp" />
+
+                </FrameLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/storm_divide_gray"/>
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/imageview_cardpreview_img2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/storm_white"
+                        android:scaleType="fitCenter"
+                        android:padding="3dp"
+                        android:src="@drawable/h_roundstart_popup_symbol" />
+
+                    <TextView
+                        android:id="@+id/textview_cardpreview_txt2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/storm_white"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:padding="5dp"
+                        android:textSize="12sp" />
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/storm_divide_gray"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/imageview_cardpreview_img3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/storm_white"
+                        android:scaleType="fitCenter"
+                        android:padding="3dp"
+                        android:src="@drawable/h_roundstart_popup_symbol" />
+
+                    <TextView
+                        android:id="@+id/textview_cardpreview_txt3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/storm_white"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:padding="5dp"
+                        android:textSize="12sp" />
+
+                </FrameLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/storm_divide_gray"/>
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/imageview_cardpreview_img4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/storm_white"
+                        android:scaleType="fitCenter"
+                        android:padding="3dp"
+                        android:src="@drawable/h_roundstart_popup_symbol" />
+
+                    <TextView
+                        android:id="@+id/textview_cardpreview_txt4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/storm_white"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:padding="5dp"
+                        android:textSize="12sp" />
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
