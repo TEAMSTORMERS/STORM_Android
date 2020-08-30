@@ -136,6 +136,14 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
                 }
 
                 view.linearlayout_dialog_buttons.addView(button)
+
+                if (stormDialogButton != buttonArray[buttonArray.size - 1]) {
+                    val divider = View(context)
+                    divider.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, MetricsUtil.convertDpToPixel(1f, context).toInt())
+                    divider.setBackgroundResource(R.color.dialog_divider)
+
+                    view.linearlayout_dialog_buttons.addView(divider)
+                }
             }
         }
 
@@ -162,14 +170,14 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
 
                 linearLayout.addView(button)
 
-                //디자인상 divider 가 빠짐
-//                if (stormDialogButton != horizontalButtonArray[horizontalButtonArray.size - 1]) {
-//                    val divider = View(context)
-//                    divider.layoutParams = LinearLayout.LayoutParams(MetricsUtil.convertDpToPixel(1f, context).toInt(), LinearLayout.LayoutParams.MATCH_PARENT)
-//                    divider.setBackgroundResource(R.color.brownish_grey)
-//
-//                    view.linearlayout_dialog_horizontalbuttons.addView(divider)
-//                }
+                //divider
+                if (stormDialogButton != horizontalButtonArray[horizontalButtonArray.size - 1]) {
+                    val divider = View(context)
+                    divider.layoutParams = LinearLayout.LayoutParams(MetricsUtil.convertDpToPixel(1f, context).toInt(), LinearLayout.LayoutParams.MATCH_PARENT)
+                    divider.setBackgroundResource(R.color.dialog_divider)
+
+                    linearLayout.addView(divider)
+                }
             }
             view.linearlayout_dialog_buttons.addView(linearLayout)
         }

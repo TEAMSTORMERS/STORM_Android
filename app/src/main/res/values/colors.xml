@@ -24,4 +24,5 @@
 
     <color name="storm_copy_code_background">#c9c9c9</color>
     <color name="storm_divide_gray">#eaeaea</color>
+    <color name="dialog_divider">#e5c06f</color>
 </resources>
