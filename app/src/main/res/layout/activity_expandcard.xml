@@ -67,6 +67,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="프로젝트 명"
+                android:textFontWeight="700"
+                android:fontFamily="@font/notosans_bold"
                 app:layout_constraintBottom_toTopOf="@id/textview_expandcard_roundpurpose"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -88,6 +90,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ROUND N"
+                android:textFontWeight="700"
+                android:fontFamily="@font/notosans_bold"
                 app:layout_constraintBottom_toBottomOf="@id/textview_expandcard_projectname"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/textview_expandcard_projectname" />

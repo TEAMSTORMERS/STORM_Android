@@ -51,6 +51,7 @@
         android:textColor="@color/storm_white"
         android:textSize="13sp"
         android:textFontWeight="700"
+        android:fontFamily="@font/notosans_bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/stormtoolbar_roundprogress" />
 
@@ -63,6 +64,7 @@
         android:text="라운드 목표"
         android:textColor="@color/storm_white"
         android:textSize="13sp"
+        android:textFontWeight="400"
         app:layout_constraintStart_toStartOf="@+id/textView_project_name"
         app:layout_constraintTop_toBottomOf="@+id/textView_project_name" />
 
@@ -77,6 +79,7 @@
         android:textColor="@color/storm_white"
         android:textSize="13sp"
         android:textFontWeight="700"
+        android:fontFamily="@font/notosans_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView_project_name" />
 
@@ -89,6 +92,7 @@
         android:text="총 00:00 남음"
         android:textColor="@color/storm_white"
         android:textSize="13sp"
+        android:textFontWeight="400"
         app:layout_constraintEnd_toEndOf="@+id/textView_round"
         app:layout_constraintTop_toBottomOf="@+id/textView_round" />
 
