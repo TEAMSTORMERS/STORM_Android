@@ -25,7 +25,23 @@ class MemberRoundFinishActivity : BaseRoundFinishActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        setExitButton()
+
         waitNextRoundOrFinish()
+    }
+
+    override fun onExitDialogPositiveClick() {
+        super.onExitDialogPositiveClick()
+        exitRound()
+    }
+
+    //라운드 나가기
+    private fun exitRound() {
+        //소켓으로 나감을 알림
+        leaveSocket()
+
+        //종료
+        finish()
     }
 
     private fun waitNextRoundOrFinish() {
@@ -111,6 +127,6 @@ class MemberRoundFinishActivity : BaseRoundFinishActivity() {
     }
 
     override fun onBackPressed() {
-        //Todo: 나가기 기능 되살리기
+        showExitDialog()
     }
 }
