@@ -4,6 +4,7 @@
     android:id="@+id/cardview_customcard_root"
     android:layout_width="144dp"
     android:layout_height="156dp"
+    android:foreground="?android:selectableItemBackground"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <androidx.constraintlayout.widget.ConstraintLayout
