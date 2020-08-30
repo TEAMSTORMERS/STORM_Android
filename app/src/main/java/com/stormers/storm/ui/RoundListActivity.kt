@@ -163,10 +163,12 @@ class RoundListActivity : BaseActivity() {
         if (cacheRounds.containsKey(roundIdx) && !cacheDirty[roundIdx]!!) {
             setRoundAndCardsInfo(cacheRounds[roundIdx]!!)
         } else {
+            showLoadingDialog()
             cardRepository.getCardWithProjectAndRoundInfo(projectIdx, roundIdx, userIdx,
                 object : CardDataSource.GetCardCallback<RoundInfoWithCardsModel> {
 
                     override fun onCardLoaded(card: RoundInfoWithCardsModel) {
+                        dismissLoadingDialog()
                         setRoundAndCardsInfo(card)
                         cacheRounds[roundIdx] = card
                         cacheDirty[roundIdx] = false
@@ -175,6 +177,7 @@ class RoundListActivity : BaseActivity() {
                     }
 
                     override fun onDataNotAvailable() {
+                        dismissLoadingDialog()
                         Log.e(TAG, "No data in DB. projectIdx: $projectIdx, roundIdx: $roundIdx")
                     }
                 })

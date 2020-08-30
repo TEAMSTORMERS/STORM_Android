@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:background="@color/storm_red"
         android:elevation="10dp"
-        app:layout_constraintBottom_toTopOf="@id/recyclerview_participatedproject"
         app:layout_constraintDimensionRatio=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
