@@ -31,7 +31,7 @@ open class BaseRoundViewHolder (parent: ViewGroup, @LayoutRes val layoutRes: Int
             textview_roundinfo_projectname.visibility = View.GONE
             textview_roundinfo_purpose.text = data.roundPurpose
             textview_roundinfo_roundnumber.text =
-                StringBuilder("Round ").append(data.roundNumber).toString()
+                StringBuilder("ROUND ").append(data.roundNumber).toString()
 
             textview_roundinfo_purpose.text = data.roundPurpose
             textview_roundinfo_time.text = StringBuilder("총 ").append(data.roundTime).append("분 소요").toString()

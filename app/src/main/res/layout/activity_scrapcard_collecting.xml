@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="26dp"
         android:layout_marginTop="42dp"
-        android:text="스크랩한 카드 모아보기"
+        android:text="스크랩한 카드"
         android:textColor="@color/storm_white"
         android:textFontWeight="600"
         android:textSize="16sp"

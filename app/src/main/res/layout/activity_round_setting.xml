@@ -109,7 +109,7 @@
                     android:id="@+id/textview_projectcard_describe"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="탭하여 참여코드 복사하기"
+                    android:text="탭하여 참여 코드 복사하기"
                     android:textSize="11sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
