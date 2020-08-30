@@ -10,7 +10,9 @@ import java.lang.StringBuilder
 open class BaseRoundFinishActivity : BaseRoundProgressActivity() {
 
     companion object {
-        private const val TAG = "BaseRoundFinishActivity"
+        const val REQUEST_EXPAND = 100
+
+        const val RESULT_DIRTY = 10
     }
 
     protected lateinit var finishButton: Button

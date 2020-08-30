@@ -4,12 +4,16 @@ import android.os.Bundle
 import android.view.View
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
+import com.stormers.storm.card.adapter.ExpandRoundCardAdapter
 import com.stormers.storm.card.fragment.ExpandRoundCardFragment
 import com.stormers.storm.card.model.CardWithOwnerModel
 import kotlinx.android.synthetic.main.activity_expandcard.*
 import java.lang.StringBuilder
 
-class RoundFinishRoundCardExpandActivity : BaseActivity(), ExpandRoundCardFragment.OnRoundCardPageChangeCallback {
+class RoundFinishRoundCardExpandActivity : BaseActivity(), ExpandRoundCardFragment.OnRoundCardPageChangeCallback,
+    ExpandRoundCardAdapter.OnScrapChangedCallback {
+
+    var isEdited = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +42,10 @@ class RoundFinishRoundCardExpandActivity : BaseActivity(), ExpandRoundCardFragme
         return R.id.framelayout_expandcard_fragment
     }
 
+    override fun onScrapChanged() {
+        isEdited = true
+    }
+
     override fun onCardPageChanged(position: Int, totalCount: Int, card: CardWithOwnerModel) {
         setCount(totalCount, position)
     }
@@ -55,5 +63,16 @@ class RoundFinishRoundCardExpandActivity : BaseActivity(), ExpandRoundCardFragme
             .append(")")
 
         return cardCount.toString()
+    }
+
+    override fun onBackPressed() {
+        returnResult()
+    }
+
+    private fun returnResult() {
+        if (isEdited) {
+            setResult(RoundListActivity.RESULT_DIRTY)
+        }
+        finish()
     }
 }

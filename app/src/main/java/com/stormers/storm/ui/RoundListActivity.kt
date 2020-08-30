@@ -3,6 +3,7 @@ package com.stormers.storm.ui
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
@@ -20,6 +21,7 @@ import com.stormers.storm.round.data.source.remote.RoundsRemoteDataSource
 import com.stormers.storm.round.model.RoundDescriptionModel
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_project_cardlist.*
+import kotlinx.android.synthetic.main.fragment_roundmeeting.*
 
 class RoundListActivity : BaseActivity() {
 
@@ -59,6 +61,8 @@ class RoundListActivity : BaseActivity() {
 
     private val cacheDirty = HashMap<Int, Boolean>()
 
+    private var scrollPosition: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_project_cardlist)
@@ -91,6 +95,8 @@ class RoundListActivity : BaseActivity() {
                 intent.putExtra("roundIdx", roundIdx)
                 intent.putExtra("projectIdx", projectIdx)
 
+                scrollPosition =
+                    (recyclerview_roundlist_cardlist.layoutManager as GridLayoutManager).findFirstVisibleItemPosition() + 4
                 startActivityForResult(intent, REQUEST_EXPAND)
             }
         })
@@ -145,6 +151,7 @@ class RoundListActivity : BaseActivity() {
                     super.onPageSelected(position)
                     //선택된 라운드의 카드 리스트를 보여줌
                     roundIdx = roundListAdapterForViewPager.getItem(position).roundIdx
+                    scrollPosition = 0
                     getRoundAndCardsInfo(roundIdx)
                 }
             })
@@ -163,6 +170,8 @@ class RoundListActivity : BaseActivity() {
                         setRoundAndCardsInfo(card)
                         cacheRounds[roundIdx] = card
                         cacheDirty[roundIdx] = false
+
+                        recyclerview_roundlist_cardlist.scrollToPosition(scrollPosition)
                     }
 
                     override fun onDataNotAvailable() {
