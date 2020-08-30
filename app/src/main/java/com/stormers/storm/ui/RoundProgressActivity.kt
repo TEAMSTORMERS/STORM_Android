@@ -32,11 +32,11 @@ class RoundProgressActivity : BaseRoundProgressActivity() {
         super.onCreate(savedInstanceState)
 
         //Debug 용도로 라운드 목표를 터치하면 라운드가 종료되도록 함
-        this.textView_round_goal.setOnClickListener {
+        /*this.textView_round_goal.setOnClickListener {
             countDownTimer.cancel()
             startActivity(Intent(this, HostRoundFinishActivity::class.java))
             finish()
-        }
+        }*/
 
         val roundTime: Long = (roundTime * 1000 * 60).toLong()
 
