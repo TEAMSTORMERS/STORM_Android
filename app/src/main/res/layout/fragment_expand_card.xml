@@ -41,7 +41,7 @@
             android:layout_height="match_parent"
             android:background="@null"
             android:gravity="top|start"
-            android:hint="MEMO"
+            android:hint="Memo"
             android:maxLines="3"
             android:lineSpacingExtra="7sp"
             android:paddingHorizontal="19dp"

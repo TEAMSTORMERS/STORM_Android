@@ -191,7 +191,7 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
                 val imm = context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(edittext_user_name.windowToken, 0)
 
-                Toast.makeText(context, "사용자 이름이 변경되었습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "사용자 이름이 변경되었습니다", Toast.LENGTH_SHORT).show()
 
                 edittext_user_name.isEnabled = false
 
@@ -386,7 +386,7 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
         val pattern = Pattern.compile("^[a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣ\\u318D\\u119E\\u11A2\\u2022\\u2025a\\u00B7\\uFE55]*\$")
         val filter = InputFilter { source, start, end, dest, dstart, dend ->
             if (!pattern.matcher(source).matches()) {
-                Toast.makeText(context, "특수문자는 입력불가", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "문자 및 숫자만 입력 가능합니다", Toast.LENGTH_SHORT).show()
                 return@InputFilter ""
             }
             null
@@ -514,7 +514,7 @@ class MypageProfileFragment : BaseFragment(R.layout.fragment_mypage_profile) {
             FLAG_PERM_STORAGE -> {
                 for (grant in grantResults){
                     if(grant != PackageManager.PERMISSION_GRANTED) {
-                        Toast.makeText(context, "저장소 권한을 승인해야 프로필 사진을 설정할 수 있습니다.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "저장소 권한을 승인해야 프로필 사진을 설정할 수 있습니다", Toast.LENGTH_SHORT).show()
                         return
                     }
                 }
