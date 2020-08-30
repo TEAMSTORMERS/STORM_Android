@@ -121,7 +121,7 @@ class HostRoundSettingFragment : BaseRoundFragment(R.layout.fragment_host_round_
         roundPurpose = textview_round_goal.text.toString()
 
         if (roundPurpose.isNullOrBlank() || roundTime == null) {
-            Toast.makeText(context, "라운드 목표 혹은 라운드 소요시간을 입력해주세요", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "라운드 목표 혹은 소요 시간을 입력해주세요\n", Toast.LENGTH_SHORT).show()
         } else {
             Log.d(TAG, "createRound: userIdx : $userIdx, projectIdx: $projectIdx, roundPurpose: $roundPurpose")
             RetrofitClient

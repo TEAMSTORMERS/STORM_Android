@@ -55,7 +55,6 @@
         android:drawablePadding="12.6dp"
         android:elevation="10dp"
         android:ellipsize="end"
-        android:textSize="14sp"
         android:fontFamily="@font/notosans_regular"
         android:hint="참여 코드 입력"
         android:inputType="text"
@@ -63,6 +62,7 @@
         android:paddingHorizontal="15dp"
         android:textColor="@color/brownish_grey"
         android:textColorHint="@color/brownish_grey"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_participate_project" />
@@ -131,11 +131,11 @@
                 android:id="@+id/textview_main_tabandadd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/notosans_medium"
                 android:letterSpacing="-0.03"
                 android:lineSpacingExtra="5sp"
                 android:text="탭하여 추가하기"
                 android:textColor="#cc707070"
-                android:fontFamily="@font/notosans_medium"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -186,15 +186,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/recycler_participated_projects_list"
         app:layout_constraintTop_toBottomOf="@+id/textview_past_project_list"
-        app:layout_constraintVertical_bias="0.18" />
+        app:layout_constraintVertical_bias="0.31" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintlayout_main_showmore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="5dp"
         android:layout_marginEnd="21dp"
         android:foreground="?android:selectableItemBackground"
+        android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/textview_past_project_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -252,7 +252,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_participated_projects_list"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:clipToPadding="false"
         android:orientation="horizontal"
@@ -272,4 +272,5 @@
         app:layout_constraintTop_toBottomOf="@+id/textview_past_project_list"
         app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/item_participated_projects_list" />
+    
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -155,7 +155,7 @@
                     android:id="@+id/textView_more"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="더보기"
+                    android:text="전체보기"
                     android:textColor="@color/storm_white"
                     android:textSize="12sp"
                     app:layout_constraintEnd_toStartOf="@+id/imageButton_more"

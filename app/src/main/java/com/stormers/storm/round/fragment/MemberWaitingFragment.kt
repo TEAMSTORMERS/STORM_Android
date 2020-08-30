@@ -113,6 +113,6 @@ class MemberWaitingFragment : BaseWaitingFragment(R.layout.fragment_memberwaitin
     private fun initRoundInfo(roundPurpose: String, roundTime: Int, roundNumber: Int) {
         textview_memberwaiting_roundpurpose.text = StringBuilder("총 ").append(roundTime).append("분 예정").toString()
         textview_memberwaiting_roundtime.text = roundPurpose
-        textview_memberwaiting_roundnumber.text = StringBuilder("Round ").append(roundNumber).toString()
+        textview_memberwaiting_roundnumber.text = StringBuilder("Round ").append(roundNumber).append( "대기 중").toString()
     }
 }

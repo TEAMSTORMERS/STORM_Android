@@ -40,9 +40,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/storm_white"
-                        android:scaleType="fitCenter"
                         android:padding="3dp"
-                        android:src="@drawable/h_roundstart_popup_symbol" />
+                        android:scaleType="fitCenter" />
 
                     <TextView
                         android:id="@+id/textview_cardpreview_txt1"
@@ -59,7 +58,7 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="@color/storm_divide_gray"/>
+                    android:background="@color/storm_divide_gray" />
 
                 <FrameLayout
                     android:layout_width="0dp"
@@ -71,9 +70,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/storm_white"
-                        android:scaleType="fitCenter"
                         android:padding="3dp"
-                        android:src="@drawable/h_roundstart_popup_symbol" />
+                        android:scaleType="fitCenter" />
 
                     <TextView
                         android:id="@+id/textview_cardpreview_txt2"
@@ -92,7 +90,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/storm_divide_gray"/>
+                android:background="@color/storm_divide_gray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -110,9 +108,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/storm_white"
-                        android:scaleType="fitCenter"
                         android:padding="3dp"
-                        android:src="@drawable/h_roundstart_popup_symbol" />
+                        android:scaleType="fitCenter" />
 
                     <TextView
                         android:id="@+id/textview_cardpreview_txt3"
@@ -129,7 +126,7 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="@color/storm_divide_gray"/>
+                    android:background="@color/storm_divide_gray" />
 
                 <FrameLayout
                     android:layout_width="0dp"
@@ -141,9 +138,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/storm_white"
-                        android:scaleType="fitCenter"
                         android:padding="3dp"
-                        android:src="@drawable/h_roundstart_popup_symbol" />
+                        android:scaleType="fitCenter" />
 
                     <TextView
                         android:id="@+id/textview_cardpreview_txt4"
@@ -165,16 +161,18 @@
 
     <TextView
         android:id="@+id/name_of_project"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:lineSpacingExtra="6sp"
         android:text="프로젝트 제목"
         android:textColor="@color/storm_gray"
         android:textSize="11sp"
+        android:paddingStart="6dp"
+        android:singleLine="true"
+        android:ellipsize="end"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/cardview_project_forder"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/cardview_project_forder"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardview_project_forder" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

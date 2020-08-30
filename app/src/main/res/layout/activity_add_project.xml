@@ -105,7 +105,7 @@
                 android:layout_marginTop="12dp"
                 android:background="@drawable/box_roundcorner"
                 android:ems="10"
-                android:hint="프로젝트 소개 혹은 안내 사항을 입력해주세요"
+                android:hint="프로젝트 소개 및 안내 사항을 입력해주세요"
                 android:lines="3"
                 android:inputType="textMultiLine"
                 android:textColor="@color/storm_gray"

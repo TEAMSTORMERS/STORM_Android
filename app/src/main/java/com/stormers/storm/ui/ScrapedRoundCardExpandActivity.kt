@@ -68,7 +68,7 @@ class ScrapedRoundCardExpandActivity : BaseActivity(), ExpandScrapedCardFragment
 
     private fun setRoundData(round: RoundModelOfScrapedCard) {
         round.run {
-            textview_expandcard_roundnumber.text = StringBuilder("Round ")
+            textview_expandcard_roundnumber.text = StringBuilder("ROUND ")
                 .append(roundNumber).toString()
 
             textview_expandcard_roundpurpose.text = roundPurpose
