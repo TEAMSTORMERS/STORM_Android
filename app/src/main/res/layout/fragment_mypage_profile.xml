@@ -199,7 +199,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/notosans_medium"
-        android:text="2자 이상 입력해주세요."
+        android:text="2자 이상 입력해주세요"
         android:textColor="@color/storm_red"
         android:textSize="11sp"
         android:layout_marginTop="10dp"
