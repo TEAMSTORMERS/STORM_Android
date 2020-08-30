@@ -121,4 +121,6 @@ dependencies {
 
     //TedPermission 사용
     implementation 'gun0912.ted:tedpermission:2.2.3'
+
+    implementation 'com.android.support:customtabs:28.0.0'
 }

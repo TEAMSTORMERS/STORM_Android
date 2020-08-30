@@ -21,13 +21,17 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         toos:replace="android:label,android:allowBackup">
-        <activity android:name=".ui.RoundCardExpandActivity"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.ScrapedRoundCardExpandActivity"
-            android:windowSoftInputMode="adjustResize"/>
-
+        <activity android:name=".ui.WebviewForUsingServiceLegacyActivity"></activity>
+        <activity android:name=".ui.WebviewPersonalInfoLegacyActivity" />
+        <activity
+            android:name=".ui.RoundCardExpandActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.ScrapedRoundCardExpandActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".ui.MemberRoundFinishActivity" />
-        <activity android:name=".ui.CompleteSignUpActivity"
+        <activity
+            android:name=".ui.CompleteSignUpActivity"
             android:theme="@style/signUpTheme" />
         <activity
             android:name=".ui.SetEmailPasswordActivity"
@@ -38,7 +42,8 @@
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />
 
-        <activity android:name=".ui.SplashActivity"
+        <activity
+            android:name=".ui.SplashActivity"
             android:theme="@style/splashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,28 +55,31 @@
             android:name=".ui.LoginActivity"
             android:theme="@style/loginTheme"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ui.AddProjectActivity"
-            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".ui.AddProjectActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.MainActivity"
             android:windowSoftInputMode="adjustNothing" />
-        <activity android:name=".ui.MemberRoundWaitingActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".ui.MemberRoundWaitingActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity android:name=".ui.ParticipatedProjectListActivity" />
         <activity android:name=".ui.ParticipatedProjectDetailActivity" />
         <activity android:name=".ui.HostRoundFinishActivity" />
         <activity android:name=".ui.RoundListActivity" />
         <activity android:name=".ui.RoundProgressActivity" />
-        <activity android:name=".ui.HostRoundSettingActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:configChanges="orientation"/>
-
+        <activity
+            android:name=".ui.HostRoundSettingActivity"
+            android:configChanges="orientation"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".ui.ScrapCardCollectingActivity" />
         <activity
             android:name=".ui.MypageActivity"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".ui.RoundFinishRoundCardExpandActivity"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.RoundFinishRoundCardExpandActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.MypageWithdrawalActivity"
             android:windowSoftInputMode="adjustPan" />
