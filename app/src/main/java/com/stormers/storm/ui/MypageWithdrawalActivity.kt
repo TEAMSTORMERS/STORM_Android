@@ -29,6 +29,8 @@ class MypageWithdrawalActivity : BaseActivity() {
             startActivity(nextIntent)
         }
 
+        scrollViewKeyBoard(scrollview_mypage_withdrawal)
+
         //전체 지우기 버튼 활성화/비활성화
         edittext_withdrawal_pwd.setEditTextWatcher(null, null, true)
 
