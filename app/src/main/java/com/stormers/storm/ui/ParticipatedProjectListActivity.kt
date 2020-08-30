@@ -55,13 +55,11 @@ class ParticipatedProjectListActivity : BaseActivity() {
 
             override fun onProjectsLoaded(projects: List<ProjectPreviewModel>) {
                 projectPreviewAdapter.setList(projects)
-                group_main_noprojectlist.visibility = View.GONE
-                recycler_participated_projects_list.visibility = View.VISIBLE
+                recyclerview_participatedproject.visibility = View.VISIBLE
             }
 
             override fun onDataNotAvailable() {
-                group_main_noprojectlist.visibility = View.VISIBLE
-                recycler_participated_projects_list.visibility = View.GONE
+                recyclerview_participatedproject.visibility = View.GONE
             }
         })
     }

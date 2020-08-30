@@ -9,6 +9,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/storm_yellow"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@id/textview_participantitem_name"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@id/textview_participantitem_name"

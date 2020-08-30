@@ -45,9 +45,10 @@ import kotlinx.android.synthetic.main.view_timepicker.view.*
  */
 class StormDialog(@DrawableRes val imageRes: Int, private val title: String, private val contentText: String?,
                   @LayoutRes val contentRes: Int?, private val buttonArray: ArrayList<StormDialogButton>?,
-                  private val horizontalButtonArray: ArrayList<StormDialogButton>?, private val isPicker: Boolean,
-                  private val isCode: Boolean, private val code: String?, private var minValue: Int?,
-                  private var maxValue: Int?, private val callback: OnContentAttachedCallback?) : DialogFragment() {
+                  private val horizontalButtonArray: ArrayList<StormDialogButton>?, private val exitButton: Boolean,
+                  private val cancelable: Boolean, private val isPicker: Boolean,
+                  private val isCode: Boolean, private val code: String?, private val minValue: Int?,
+                  private val maxValue: Int?, private val callback: OnContentAttachedCallback?) : DialogFragment() {
 
     companion object {
         const val TAG = "storm_dialog"
@@ -178,12 +179,25 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
                 .setMargins(0, MetricsUtil.convertDpToPixel(20f, context).toInt(), 0, 0)
         }
 
+        if (exitButton) {
+            view.imagebutton_dialog_exit.run {
+                visibility = View.VISIBLE
+                setOnClickListener {
+                    dismiss()
+                }
+            }
+        }
+
         //직각 모서리를 없애기 위함
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         //별도 타이틀 없애기
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
-        //다이얼로그 밖 화면 터치시 닫히지 않음
-        isCancelable = false
+        //다이얼로그 밖 화면 터치시 닫힐지
+        isCancelable = if (imageRes != LOADING) {
+            cancelable
+        } else {
+            false
+        }
 
         return view
     }

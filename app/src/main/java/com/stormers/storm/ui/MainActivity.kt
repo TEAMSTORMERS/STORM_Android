@@ -3,6 +3,7 @@ package com.stormers.storm.ui
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputFilter
 import android.text.TextWatcher
 import android.util.Log
 import android.view.*
@@ -57,7 +58,11 @@ class MainActivity : BaseActivity() {
 
         initView()
 
+        loadProjectPreviews()
+
         initListener()
+
+        setUpperCase()
 
         initAllRemoveButton()
 
@@ -66,12 +71,18 @@ class MainActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        loadProjectPreviews()
 
         GlobalApplication.run {
             currentRound = null
             currentProject = null
             isHost = false
+
+            //참여한 프로젝트 목록에 변화가 있으면
+            if (projectPreviewIsDirty) {
+                //목록 갱신
+                loadProjectPreviews()
+                projectPreviewIsDirty = false
+            }
         }
     }
 
@@ -119,13 +130,9 @@ class MainActivity : BaseActivity() {
         }
 
         edittext_input_participate_code.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
+            override fun afterTextChanged(s: Editable?) { }
 
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 //공백이 아니면 전체 지우기 버튼 활성화
@@ -137,6 +144,10 @@ class MainActivity : BaseActivity() {
                 }
             }
         })
+    }
+
+    private fun setUpperCase() {
+        edittext_input_participate_code.filters = Array(1) { InputFilter.AllCaps()}
     }
 
     private fun showLookupProject(projectCode: String) {
@@ -254,7 +265,13 @@ class MainActivity : BaseActivity() {
         projectRepository.getProjectPreviews(GlobalApplication.userIdx, object: ProjectsDataSource.LoadProjectsCallback<ProjectPreviewModel> {
 
             override fun onProjectsLoaded(projects: List<ProjectPreviewModel>) {
-                recentProjectsAdapter.setList(projects)
+                //개수가 15개 이상이면
+                if (projects.size > 15) {
+                    //0 ~ 14 인덱스만 잘라내어 삽입
+                    recentProjectsAdapter.setList(projects.subList(0, 15))
+                } else {
+                    recentProjectsAdapter.setList(projects)
+                }
                 group_main_noprojectlist.visibility = View.GONE
                 recycler_participated_projects_list.visibility = View.VISIBLE
             }

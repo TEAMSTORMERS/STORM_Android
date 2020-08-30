@@ -158,7 +158,12 @@ class ParticipatedProjectDetailActivity : BaseActivity() {
         //스크랩한 카드는 변동이 있을 수 있으니 onResume()에서 목록을 초기화
         cardRepository.getScrapedCardsWithInfo(projectIdx, userIdx, object: CardDataSource.GetCardCallback<ScrapedCardModel> {
             override fun onCardLoaded(card: ScrapedCardModel) {
-                scrapedCardListAdapter.setList(card.cardItem)
+                if (card.cardItem.size > 15) {
+                    scrapedCardListAdapter.setList(card.cardItem.subList(0, 15))
+                } else {
+                    scrapedCardListAdapter.setList(card.cardItem)
+                }
+
                 recyclerview_participateddetail_scrapedcard.visibility = View.VISIBLE
                 constraintlayout_participatedproject_seemore.visibility = View.VISIBLE
                 textview_participateddetail_noscraped.visibility = View.GONE

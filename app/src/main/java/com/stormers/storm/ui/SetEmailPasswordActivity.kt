@@ -15,7 +15,7 @@ import com.stormers.storm.customview.StormEditText
 import com.stormers.storm.customview.dialog.StormDialogButton
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.network.SimpleResponse
-import kotlinx.android.synthetic.main.activity_add_project.*
+import com.stormers.storm.util.ChromeTabHelper
 import kotlinx.android.synthetic.main.activity_set_email_password.*
 import kotlinx.android.synthetic.main.activity_set_email_password.button_back_signup
 import retrofit2.Call
@@ -46,6 +46,7 @@ class SetEmailPasswordActivity : BaseActivity() {
 
         goSignUpActivity()
         goBackActivity()
+        checkPersonalInfoLegacy()
 
     }
 
@@ -251,6 +252,30 @@ class SetEmailPasswordActivity : BaseActivity() {
             usableNextButton()
         } else {
             unusableNextButton()
+        }
+    }
+
+    //크롬이 설치되어 있으면 크롬으로 실행, 이 외에는 기본 웹뷰
+    fun checkPersonalInfoLegacy(){
+        textview_personal_information.setOnClickListener{
+            try {
+                ChromeTabHelper.launchChromeTab(this,
+                    "https://stormbrainstorming.creatorlink.net/%EA%B0%9C%EC%9D%B8%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EB%B0%A9%EC%B9%A8")
+
+            } catch (e: Exception) {
+                startActivity(Intent(this,WebviewPersonalInfoLegacyActivity::class.java))
+
+            }
+        }
+
+        textview_service_legacy.setOnClickListener{
+            try {
+                ChromeTabHelper.launchChromeTab(this,
+                    "https://stormbrainstorming.creatorlink.net/%EC%9D%B4%EC%9A%A9%EC%95%BD%EA%B4%80")
+
+            } catch (e: Exception) {
+                startActivity(Intent(this,WebviewPersonalInfoLegacyActivity::class.java))
+            }
         }
     }
 }
