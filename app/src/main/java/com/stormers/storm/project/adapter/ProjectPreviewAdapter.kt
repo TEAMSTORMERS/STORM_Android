@@ -12,12 +12,6 @@ class ProjectPreviewAdapter(private val isMain: Boolean, private val listener: O
         return ProjectPreviewViewHolder(parent, isMain, listener)
     }
 
-    override fun onBindViewHolder(holder: BaseViewHolder<ProjectPreviewModel>, position: Int) {
-        super.onBindViewHolder(holder, position)
-        //Fixme: 재사용하면 스크롤 할 수록 아이템이 작아지고 중첩됨. 지금의 방법은 좋은 해결방법이 아닌듯 함.
-        //holder.setIsRecyclable(false)
-    }
-
     interface OnProjectClickListener {
         fun onProjectClick(projectIdx: Int)
     }
