@@ -1,5 +1,6 @@
 package com.stormers.storm.round.base
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import com.stormers.storm.R
@@ -11,6 +12,10 @@ open class BaseRoundFinishActivity : BaseRoundProgressActivity() {
 
     companion object {
         private const val TAG = "BaseRoundFinishActivity"
+
+        const val REQUEST_EXPAND = 100
+
+        const val RESULT_DIRTY = 10
     }
 
     protected lateinit var finishButton: Button
