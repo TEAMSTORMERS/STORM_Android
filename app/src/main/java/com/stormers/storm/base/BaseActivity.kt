@@ -1,9 +1,11 @@
 package com.stormers.storm.base
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
+import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.ScrollView
@@ -18,8 +20,6 @@ import com.stormers.storm.util.SharedPreference
 import java.net.URL
 
 abstract class BaseActivity : AppCompatActivity() {
-
-    protected var webViewForLegacy : WebView? = null
 
     private var fragmentId: Int? = null
 
@@ -103,17 +103,19 @@ abstract class BaseActivity : AppCompatActivity() {
             })
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     fun moveToWebView(webView: WebView, url: String) {
 
-        webViewForLegacy = webView
+        webView.settings.javaScriptEnabled = true
 
-        webViewForLegacy!!.webViewClient = object : WebViewClient() {
+        webView.webChromeClient = WebChromeClient()
+        webView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
                 view?.loadUrl(url)
                 return true
             }
         }
-        webViewForLegacy!!.loadUrl(url)
+        webView.loadUrl(url)
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
