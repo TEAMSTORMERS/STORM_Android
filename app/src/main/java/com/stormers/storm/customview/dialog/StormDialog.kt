@@ -1,30 +1,34 @@
 package com.stormers.storm.customview.dialog
 
+import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context.CLIPBOARD_SERVICE
 import android.graphics.Color
+import android.graphics.Paint
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.NumberPicker
 import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
+import com.aigestudio.wheelpicker.WheelPicker
 import com.stormers.storm.R
 import com.stormers.storm.util.MetricsUtil
 import kotlinx.android.synthetic.main.dialog_custom.view.*
-import kotlinx.android.synthetic.main.dialog_custom.view.imageview_dialog_symbol
-import kotlinx.android.synthetic.main.dialog_custom.view.textview_dialog_content
 import kotlinx.android.synthetic.main.item_dialog_buttons.view.*
 import kotlinx.android.synthetic.main.view_participation_code.view.*
-import kotlinx.android.synthetic.main.view_timepicker.view.numberpicker_minute
+import kotlinx.android.synthetic.main.view_timepicker.view.*
 
 /**
  * 커스텀 다이얼로그 생성 클래스
@@ -55,6 +59,7 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
         const val LOADING = -1
     }
 
+    @SuppressLint("LongLogTag")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.dialog_custom, container)
 
@@ -88,16 +93,16 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
 
             if (isPicker) {
                 view.numberpicker_minute.run {
-                    maxValue = this@StormDialog.maxValue?: DEFAULT_MAX_VALUE_MINUTE
-                    minValue = this@StormDialog.minValue?: DEFAULT_MIN_VALUE_MINUTE
-                    wrapSelectorWheel = false
-                    descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                        textColor = context.getColor(R.color.storm_gray)
+                    val data = mutableListOf<Int>()
+                    for (i in 1..20) {
+                        data.add(i)
                     }
+                    numberpicker_minute.data = data
+                    numberpicker_minute.visibleItemCount = 3
+                    numberpicker_minute.itemTextColor = ContextCompat.getColor(context, R.color.storm_popup_gray)
+                    numberpicker_minute.selectedItemTextColor = ContextCompat.getColor(context, R.color.storm_gray)
                 }
             }
-
 
             if (isCode) {
                 view.textview_dialog_code.text = code
@@ -126,7 +131,7 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
 
                 button.constraintlayout_dialog_button.setOnClickListener {
                     stormDialogButton.listener?.onClick()
-                    stormDialogButton.pickerListener?.onClick(view.numberpicker_minute.value)
+                    stormDialogButton.pickerListener?.onClick(view.numberpicker_minute.currentItemPosition + 1)
                     dismiss()
                 }
 
@@ -151,7 +156,7 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
 
                 button.constraintlayout_dialog_button.setOnClickListener {
                     stormDialogButton.listener?.onClick()
-                    stormDialogButton.pickerListener?.onClick(view.numberpicker_minute.value)
+                    stormDialogButton.pickerListener?.onClick(view.numberpicker_minute.currentItemPosition + 1)
                     dismiss()
                 }
 
@@ -206,4 +211,5 @@ class StormDialog(@DrawableRes val imageRes: Int, private val title: String, pri
     interface OnContentAttachedCallback {
         fun onContentAttached(view: View)
     }
+
 }
