@@ -40,6 +40,8 @@ class SetEmailPasswordActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_set_email_password)
 
+        scrollViewKeyBoard(scrollview_signup_email)
+
         checkVaildEmailType()
         checkPasswordTextWatcher()
         isCheckedLegacy()
