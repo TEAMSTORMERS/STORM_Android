@@ -39,7 +39,7 @@ open class BaseRoundWaitingActivity : OnProjectActivity() {
 
             clipboardManager.setPrimaryClip(clipData);
 
-            Toast.makeText(application, "참여코드가 복사되었습니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(application, "참여 코드가 복사되었습니다", Toast.LENGTH_SHORT).show()
         }
     }
 
