@@ -18,35 +18,16 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    signingConfigs {
-        release {
-            Properties keystoreProperties = new Properties()
-            keystoreProperties.load(rootProject.file("./keystores/keystore.properties").newDataInputStream())
-
-            storeFile rootProject.file("./keystores/STORM_keystores.jks")
-
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storePassword keystoreProperties['storePassword']
-        }
-        debug {
-
-        }
-    }
-
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
         }
 
         debug {
-            signingConfig signingConfigs.release // debug일때도 release로 서명 유지
         }
     }
 
-    //Retrofit
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8

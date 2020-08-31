@@ -117,7 +117,7 @@ class CanvasDrawingFragment : BaseCanvasFragment(DRAWING_MODE, R.layout.view_dra
 
                 override fun onFailure(call: Call<Response>, t: Throwable) {
                     dismissLoadingDialog()
-                    Log.d("postCard", t.message)
+                    Log.d("postCard", "${t.message}")
                 }
 
                 override fun onResponse(call: Call<Response>, response: retrofit2.Response<Response>) {
