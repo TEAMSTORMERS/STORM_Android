@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/storm_white"
     app:paintAlpha="255"
-    app:paintColor="@color/cardshadow_5"
+    app:paintColor="@color/draw_pen_color"
     app:paintWidth="4dp"
     app:resizeBehaviour="crop" />
 
