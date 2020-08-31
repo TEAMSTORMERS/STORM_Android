@@ -1,8 +1,11 @@
 package com.stormers.storm.canvas.base
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import com.stormers.storm.R
@@ -51,6 +54,23 @@ abstract class BaseCanvasFragment(private val mode: Int, @LayoutRes private val 
 
             else -> {
                 targetModeStr = "그림 "
+
+                var pretext = ""
+
+                val editText = view.findViewById<EditText>(R.id.edittext_addcard)
+
+
+                editText.addTextChangedListener(object: TextWatcher {
+                    override fun afterTextChanged(p0: Editable?) { }
+
+                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
+
+                    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                        if (editText.layout != null && editText.lineCount > 10) {
+                            editText.text.delete(editText.text.length - 1, editText.text.length)
+                        }
+                    }
+                })
 
                 imagebutton_change_draw.alpha = 0.5f
 
