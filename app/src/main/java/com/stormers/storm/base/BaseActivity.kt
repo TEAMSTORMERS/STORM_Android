@@ -40,7 +40,9 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     fun showLoadingDialog() {
-        loadingDialog.show(supportFragmentManager, "loading_dialog")
+        if(!loadingDialog.isAdded) {
+            loadingDialog.show(supportFragmentManager, "loading_dialog")
+        }
     }
 
     fun dismissLoadingDialog() {
