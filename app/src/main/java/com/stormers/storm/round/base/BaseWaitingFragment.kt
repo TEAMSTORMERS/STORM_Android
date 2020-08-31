@@ -50,6 +50,8 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseRoundFragmen
 
     private var cacheParticipants: List<User>? = null
 
+    private var isBackground = false
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -86,6 +88,23 @@ abstract class BaseWaitingFragment(@LayoutRes layoutRes: Int) : BaseRoundFragmen
         } else {
             enterNextRound()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (isBackground) {
+            Log.d(TAG, "onResume: refresh!")
+            refreshParticipants(roundIdx!!)
+            isBackground = false
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        Log.d(TAG, "onPause: bye..")
+        isBackground = true
     }
 
     override fun onExitRound() {
