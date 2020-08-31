@@ -132,3 +132,9 @@ fabric.properties
 /app/google-services.json
 ### key
 keystores/
+
+#output.json
+/app/release/output.json
+### release key
+STORM_keystores.jks
+
