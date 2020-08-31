@@ -6,6 +6,6 @@ data class UserWithdrawalModel(
     @SerializedName("user_idx")
     val userIdx : Int,
     @SerializedName("user_password")
-    val userPassword : String,
+    val userPassword : String?,
     val reason : String?
 )

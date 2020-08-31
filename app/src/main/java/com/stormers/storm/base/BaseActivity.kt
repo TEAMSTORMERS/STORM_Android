@@ -110,7 +110,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
         webView.webChromeClient = WebChromeClient()
         webView.webViewClient = object : WebViewClient() {
-            override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+            override fun shouldOverrideUrlLoading(view: WebView?, url: String): Boolean {
                 view?.loadUrl(url)
                 return true
             }

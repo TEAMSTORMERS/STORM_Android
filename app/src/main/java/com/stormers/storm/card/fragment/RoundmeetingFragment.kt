@@ -59,15 +59,18 @@ class RoundMeetingFragment : BaseRoundFragment(R.layout.fragment_roundmeeting) {
     }
 
     private fun requestCards(projectIdx: Int, roundIdx: Int, userIdx: Int) {
+        showLoadingDialog()
         cardRepository.getCardWithProjectAndRoundInfo(projectIdx, roundIdx, userIdx,
             object : CardDataSource.GetCardCallback<RoundInfoWithCardsModel> {
 
                 override fun onCardLoaded(card: RoundInfoWithCardsModel) {
+                    dismissLoadingDialog()
                     roundMeetingListAdapter.setList(card.cardWithOwnerList)
                     RecyclerView_added_card_roundmeeting.scrollToPosition(scrollPosition)
                 }
 
                 override fun onDataNotAvailable() {
+                    dismissLoadingDialog()
                     Log.d(TAG, "No card in DB")
                 }
             }

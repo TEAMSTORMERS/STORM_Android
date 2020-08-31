@@ -22,27 +22,22 @@ class GlobalApplication : Application() {
         //databaseManager = DatabaseManager.getInstance(this)
 
         registerActivityLifecycleCallbacks(object: ActivityLifecycleCallbacks {
-            override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
-                activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+            override fun onActivityPaused(p0: Activity) { }
+
+            override fun onActivityStarted(p0: Activity) { }
+
+            override fun onActivityDestroyed(p0: Activity) { }
+
+            override fun onActivitySaveInstanceState(p0: Activity, p1: Bundle) { }
+
+            override fun onActivityStopped(p0: Activity) { }
+
+            override fun onActivityCreated(p0: Activity, p1: Bundle?) {
+                p0.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
             }
 
-            override fun onActivityPaused(activity: Activity?) {
-            }
+            override fun onActivityResumed(p0: Activity) { }
 
-            override fun onActivityResumed(activity: Activity?) {
-            }
-
-            override fun onActivityDestroyed(activity: Activity?) {
-            }
-
-            override fun onActivitySaveInstanceState(activity: Activity?, outState: Bundle?) {
-            }
-
-            override fun onActivityStarted(activity: Activity?) {
-            }
-
-            override fun onActivityStopped(activity: Activity?) {
-            }
         })
     }
 

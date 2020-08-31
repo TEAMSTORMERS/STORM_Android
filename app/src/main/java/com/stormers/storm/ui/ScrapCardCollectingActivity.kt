@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.stormers.storm.R
+import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.card.adapter.CardListAdapter
 import com.stormers.storm.card.adapter.ScrapedCardListAdapter
 import com.stormers.storm.card.data.source.CardDataSource
@@ -16,7 +17,7 @@ import com.stormers.storm.card.model.ScrapedCardModel
 import com.stormers.storm.util.MarginDecoration
 import kotlinx.android.synthetic.main.activity_scrapcard_collecting.*
 
-class ScrapCardCollectingActivity : AppCompatActivity() {
+class ScrapCardCollectingActivity : BaseActivity() {
 
     companion object {
         private const val TAG = "ScrapCardCollectingActivity"
@@ -79,10 +80,12 @@ class ScrapCardCollectingActivity : AppCompatActivity() {
     }
 
     private fun setScrapedCardList() {
+        showLoadingDialog()
         cardRepository.getScrapedCardsWithInfo(projectIdx, userIdx, object: CardDataSource.GetCardCallback<ScrapedCardModel> {
 
             //카드를 성공적으로 불러왔을 때
             override fun onCardLoaded(card: ScrapedCardModel) {
+                dismissLoadingDialog()
                 scrapCollectListAdapter.setList(card.cardItem)
 
                 //총 몇개의 카드인지 초기화
@@ -92,6 +95,7 @@ class ScrapCardCollectingActivity : AppCompatActivity() {
 
             @SuppressLint("LongLogTag")
             override fun onDataNotAvailable() {
+                dismissLoadingDialog()
                 Log.e(TAG, "No data in DB. projectIdx: $projectIdx")
             }
         })

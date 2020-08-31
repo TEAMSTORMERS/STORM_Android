@@ -103,7 +103,7 @@ class ProjectPreviewViewHolder(parent: ViewGroup, private val isMain: Boolean, p
             } else {
                 if (data[3].cardImage != null) {
                     imageview_cardpreview_img4.visibility = View.VISIBLE
-                    Glide.with(this).load(data[3].cardImage).into(imageview_cardpreview_img3)
+                    Glide.with(this).load(data[3].cardImage).into(imageview_cardpreview_img4)
                     textview_cardpreview_txt4.visibility = View.GONE
                 } else {
                     textview_cardpreview_txt4.visibility = View.VISIBLE

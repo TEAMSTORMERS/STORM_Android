@@ -62,7 +62,7 @@ class LoginActivity : BaseActivity() {
                 ).enqueue(object :retrofit2.Callback<ResponseLogIn>{
                     override fun onFailure(call: Call<ResponseLogIn>, t: Throwable) {
                         dismissLoadingDialog()
-                        Log.d("로그인 실패", t.message)
+                        Log.d("로그인 실패", "${t.message}")
                     }
 
                     override fun onResponse(

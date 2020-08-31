@@ -24,14 +24,8 @@ open class BaseRoundProgressActivity : OnProjectActivity() {
     }
 
     private fun initRoundInfo() {
-        val roundNumber = StringBuilder()
-
-        roundNumber.append("ROUND ")
-            .append(this.roundNumber).toString()
-
         textView_round_goal.text = roundPurpose
-        textView_round.text = roundNumber
-
+        textView_round.text = StringBuilder("ROUND ").append(roundNumber).toString()
         textView_project_name.text = GlobalApplication.currentProject!!.projectName
     }
 }
