@@ -18,6 +18,8 @@
     <color name="pale_salmon">#f5b2b2</color>
     <color name="very_light_pink">#b9b9b9</color>
 
+    <color name="draw_pen_color">4e4e4e</color>
+
     <color name="storm_lightyellow">#fff4dd</color>
 
     <color name="gray_copy_button">#d5d5d5</color>
