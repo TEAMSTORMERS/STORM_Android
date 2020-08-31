@@ -133,7 +133,7 @@ fabric.properties
 ### key
 keystores/
 
-#output.json
+# output.json
 /app/release/output.json
 ### release key
 STORM_keystores.jks
