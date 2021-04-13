@@ -132,3 +132,6 @@ fabric.properties
 /app/google-services.json
 ### key
 keystores/
+
+# SecretStrings. ex) baseUrl
+app/src/main/java/com/stormers/storm/SecretStrings.kt
