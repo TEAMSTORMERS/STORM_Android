@@ -1,12 +1,11 @@
 package com.stormers.storm.network
 
-import com.stormers.storm.ui.LoginActivity
+import com.stormers.storm.SecretStrings
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
 object RetrofitClient {
-    private const val BASE_URL = "http://3.34.179.75:3000"
+    private const val BASE_URL = SecretStrings.BASE_URL
 
     private fun getInstance() : Retrofit {
         return Retrofit.Builder()
