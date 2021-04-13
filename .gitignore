@@ -1,6 +1,7 @@
 # Built application files
 *.apk
 *.ap_
+*.aab
 
 # Files for the ART/Dalvik VM
 *.dex
@@ -42,6 +43,13 @@ captures/
 *~
 *.swp
 
+# Keystore files
+*.jks
+*.keystore
+
+# Google Services (e.g. APIs or Firebase)
+# google-services.json
+
 # Android Patch
 gen-external-apklibs
 
@@ -80,6 +88,7 @@ obj/
 .idea/assetWizardSettings.xml
 .idea/gradle.xml
 .idea/jarRepositories.xml
+.idea/navEditor.xml
 
 # OS-specific files
 .DS_Store
@@ -127,9 +136,9 @@ fabric.properties
 
 !/gradle/wrapper/gradle-wrapper.jar
 
-
 # goolge-services.json
 /app/google-services.json
+
 ### key
 keystores/
 
