@@ -16,8 +16,8 @@ buildscript {
     }
 
     project.ext {
-        versionCode = 2
-        versionName = "1.1.1"
+        versionCode = 3
+        versionName = "1.1.2"
 
         compileSdkVersion = 30
         targetSdkVersion = 30
