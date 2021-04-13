@@ -50,16 +50,11 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.1.0'
 
-    //Firebase Google 로그인
+    //Firebase
     implementation 'com.google.firebase:firebase-analytics:17.2.2'
-    implementation 'com.google.firebase:firebase-auth:18.0.0'
-    implementation 'com.google.android.gms:play-services-auth:18.0.0'
 
 
-    //Kakao 로그인 api
-    implementation group: project.KAKAO_SDK_GROUP, name: 'usermgmt', version: project.KAKAO_SDK_VERSION
-
-    //로그인뷰 lottie애니메이션
+    //Lottie
     implementation "com.airbnb.android:lottie:3.4.1"
 
 
@@ -89,9 +84,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
 
-    //평화랑 겹칠 수 있음 둘 중 하나 지우기
-    implementation 'com.airbnb.android:lottie:3.4.1'
-
     //drawing
     implementation 'com.rm:freedrawview:1.1.2'
 
@@ -102,7 +94,6 @@ dependencies {
 
     //TedPermission 사용
     implementation 'gun0912.ted:tedpermission:2.2.3'
-
 
     //numberPicker
     implementation 'cn.aigestudio.wheelpicker:WheelPicker:1.1.3'
