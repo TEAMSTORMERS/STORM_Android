@@ -1,4 +1,4 @@
-package com.stormers.storm.LogIn.model.response
+package com.stormers.storm.logIn.model.response
 
 data class ResponseLogIn(
     val status : Int,

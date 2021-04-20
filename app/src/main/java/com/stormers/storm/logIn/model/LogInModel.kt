@@ -1,4 +1,4 @@
-package com.stormers.storm.LogIn.model
+package com.stormers.storm.logIn.model
 
 data class LogInModel(
     val user_email : String,

@@ -9,9 +9,9 @@ import android.view.View
 import android.widget.EditText
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable.INFINITE
-import com.stormers.storm.LogIn.RequestLogIn
-import com.stormers.storm.LogIn.model.LogInModel
-import com.stormers.storm.LogIn.model.response.ResponseLogIn
+import com.stormers.storm.logIn.RequestLogIn
+import com.stormers.storm.logIn.model.LogInModel
+import com.stormers.storm.logIn.model.response.ResponseLogIn
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.customview.StormEditText
