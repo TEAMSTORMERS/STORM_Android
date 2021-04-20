@@ -21,6 +21,13 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         toos:replace="android:label,android:allowBackup">
+        <activity android:name=".SingleActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.WebviewForUsingServiceLegacyActivity" />
         <activity android:name=".ui.WebviewPersonalInfoLegacyActivity" />
         <activity
