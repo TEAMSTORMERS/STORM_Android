@@ -8,5 +8,7 @@ import com.stormers.storm.databinding.FragmentLoginBinding
 
 class LoginFragment: BaseBindingFragment<FragmentLoginBinding>(R.layout.fragment_login) {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) { }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setSoftInputModeToResize()
+    }
 }
