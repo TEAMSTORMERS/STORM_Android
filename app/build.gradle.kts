@@ -1,6 +1,8 @@
 import dependencies.Dependencies
 import dependencies.AnnotationProcessorsDependencies
 import extensions.addTestsDependencies
+import extensions.implementation
+import extensions.kapt
 
 plugins {
     id(BuildPlugins.ANDROID_APPLICATION)
