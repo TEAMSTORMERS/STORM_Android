@@ -1,6 +1,7 @@
 package com.stormers.storm.network
 
 import android.util.Log
+import com.stormers.storm.SecretStrings
 import io.socket.client.IO
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
@@ -26,7 +27,7 @@ object SocketClient {
     const val FINISH_PROJECT = "finishProject"
     const val MEMBER_FINISH_PROJECT = "memberFinishProject"
 
-    private const val SERVER_URL = "http://3.34.179.75:3000"
+    private const val SERVER_URL = SecretStrings.BASE_URL
     private var socket: Socket? = null
 
     fun getInstance() : Socket? {
