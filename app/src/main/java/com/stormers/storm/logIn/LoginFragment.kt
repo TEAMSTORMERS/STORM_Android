@@ -10,5 +10,6 @@ class LoginFragment: BaseBindingFragment<FragmentLoginBinding>(R.layout.fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setSoftInputModeToResize()
+        setRootScrollView(binding.scrollviewLogin)
     }
 }

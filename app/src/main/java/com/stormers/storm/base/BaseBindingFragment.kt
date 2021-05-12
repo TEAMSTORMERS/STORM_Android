@@ -2,10 +2,12 @@ package com.stormers.storm.base
 
 import android.os.Bundle
 import android.view.*
+import android.widget.ScrollView
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import com.stormers.storm.util.KeyBoardVisibilityUtils
 
 
 open class BaseBindingFragment<B : ViewDataBinding>(@LayoutRes private val layoutRes: Int) :
@@ -34,7 +36,17 @@ open class BaseBindingFragment<B : ViewDataBinding>(@LayoutRes private val layou
                 insets
             }
         } else {
-            requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         }
+    }
+
+    protected fun setRootScrollView(scrollView: ScrollView){
+        KeyBoardVisibilityUtils(requireActivity().window,
+            onShowKeyboard = { keyboardHeight ->
+                scrollView.run {
+                    smoothScrollTo(scrollX, scrollY + keyboardHeight)
+                }
+            }
+        )
     }
 }
