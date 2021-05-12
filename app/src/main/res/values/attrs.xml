@@ -24,6 +24,7 @@
         <attr name="android:hint" />
         <attr name="android:inputType" />
         <attr name="android:lines" />
+
         <attr name="drawable" format="enum">
             <enum name="email" value="0" />
             <enum name="password" value="1" />
