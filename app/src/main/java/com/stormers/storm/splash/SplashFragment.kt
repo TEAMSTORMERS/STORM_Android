@@ -13,6 +13,7 @@ import android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
 import android.view.WindowManager
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.airbnb.lottie.LottieAnimationView
 import com.stormers.storm.ui.LoginActivity
 
@@ -30,9 +31,6 @@ class SplashFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        requireActivity().window.run {
-            statusBarColor = Color.WHITE
-        }
         (view as LottieAnimationView).run {
             setAnimation("splash_real_0825.json")
             playAnimation()
@@ -42,9 +40,7 @@ class SplashFragment : Fragment() {
                 override fun onAnimationRepeat(animation: Animator?) {}
 
                 override fun onAnimationEnd(animation: Animator?) {
-                    //Todo: 프래그먼트 전환으로 수정해야함
-                    startActivity(Intent(requireActivity(), LoginActivity::class.java))
-                    requireActivity().finish()
+                    findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToLoginFragment())
                 }
 
                 override fun onAnimationCancel(animation: Animator?) {}
