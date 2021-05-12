@@ -7,6 +7,7 @@
         android:id="@+id/scrollview_login"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:overScrollMode="never"
         android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,15 +20,15 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:scaleType="centerCrop"
-                app:lottie_autoPlay="true"
-                app:lottie_repeatCount="-1"
-                app:lottie_fileName="login_0816.json"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintVertical_bias="1.0"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="login_0816.json"
+                app:lottie_repeatCount="-1" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imageview_login_logo"
@@ -54,31 +55,33 @@
                 app:layout_constraintStart_toStartOf="@+id/imageview_login_logo"
                 app:layout_constraintTop_toBottomOf="@id/imageview_login_logo" />
 
-            <com.stormers.storm.customview.StormEditText
+            <com.stormers.storm.view.RoundEditText
                 android:id="@+id/edittext_login_email"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="43dp"
-                android:drawableStart="@drawable/login_ic_email"
-                android:drawablePadding="16dp"
                 android:hint="@string/login_email_hint"
                 android:inputType="textEmailAddress"
+                app:drawable="email"
                 app:layout_constraintBottom_toTopOf="@id/edittext_login_password"
                 app:layout_constraintDimensionRatio="1:0.14"
                 app:layout_constraintEnd_toEndOf="@id/imageview_login_stormlogo"
                 app:layout_constraintStart_toStartOf="@id/imageview_login_stormlogo"
                 app:layout_constraintTop_toBottomOf="@id/imageview_login_stormlogo"
-                app:layout_constraintWidth_percent="0.78" />
+                app:layout_constraintWidth_percent="0.78"
+                app:removeAll="false" />
 
-            <com.stormers.storm.customview.StormEditText
+            <com.stormers.storm.view.RoundEditText
                 android:id="@+id/edittext_login_password"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="24dp"
                 android:background="@drawable/background_edittext_gray_radius"
-                android:drawableStart="@drawable/login_password_icn"
                 android:hint="@string/login_password_hint"
                 android:inputType="textPassword"
+                android:drawableStart="@drawable/login_password_icn"
+                app:removeAll="false"
+                app:drawable="password"
                 app:layout_constraintBottom_toTopOf="@id/checkbox_auto_login"
                 app:layout_constraintDimensionRatio="1:0.14"
                 app:layout_constraintEnd_toEndOf="@id/edittext_login_email"
