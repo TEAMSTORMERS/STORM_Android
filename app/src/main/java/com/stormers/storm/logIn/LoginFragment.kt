@@ -6,7 +6,9 @@ import androidx.fragment.app.viewModels
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseBindingFragment
 import com.stormers.storm.databinding.FragmentLoginBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginFragment: BaseBindingFragment<FragmentLoginBinding>(R.layout.fragment_login) {
 
     private val loginViewModel: LoginViewModel by viewModels()

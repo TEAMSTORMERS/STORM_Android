@@ -16,8 +16,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.airbnb.lottie.LottieAnimationView
 import com.stormers.storm.ui.LoginActivity
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class SplashFragment : Fragment() {
 
     override fun onCreateView(

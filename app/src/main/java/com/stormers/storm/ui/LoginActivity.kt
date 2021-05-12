@@ -2,25 +2,20 @@ package com.stormers.storm.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import android.widget.EditText
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable.INFINITE
-import com.stormers.storm.logIn.RequestLogIn
-import com.stormers.storm.logIn.model.LogInModel
-import com.stormers.storm.logIn.model.response.ResponseLogIn
+import com.stormers.storm.logIn.service.LoginService
+import com.stormers.storm.logIn.model.LoginRequest
+import com.stormers.storm.logIn.model.LoginResponse
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
-import com.stormers.storm.customview.StormEditText
 import com.stormers.storm.network.RetrofitClient
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_mypage_withdrawal.*
 import retrofit2.Call
 import retrofit2.Response
-import javax.security.auth.callback.Callback
 
 class LoginActivity : BaseActivity() {
 
@@ -55,34 +50,34 @@ class LoginActivity : BaseActivity() {
 
                 showLoadingDialog()
 
-                RetrofitClient.create(RequestLogIn::class.java).requestLogIn(
-                    LogInModel(
+                RetrofitClient.create(LoginService::class.java).requestLogIn(
+                    LoginRequest(
                         edittext_email_login.text.toString(),
                         edittext_password_login.text.toString())
-                ).enqueue(object :retrofit2.Callback<ResponseLogIn>{
-                    override fun onFailure(call: Call<ResponseLogIn>, t: Throwable) {
+                ).enqueue(object :retrofit2.Callback<LoginResponse>{
+                    override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                         dismissLoadingDialog()
                         Log.d("로그인 실패", "${t.message}")
                     }
 
                     override fun onResponse(
-                        call: Call<ResponseLogIn>,
-                        response: Response<ResponseLogIn>
+                        call: Call<LoginResponse>,
+                        loginResponse: Response<LoginResponse>
                     ) {
                         dismissLoadingDialog()
-                        if(response.isSuccessful){
-                            if (response.body()!!.success){
-                                Log.d("userIdx", response.body()!!.data.toString())
-                                preference.setUserIdx(response.body()!!.data)
+                        if(loginResponse.isSuccessful){
+                            if (loginResponse.body()!!.success){
+                                Log.d("userIdx", loginResponse.body()!!.userId.toString())
+                                preference.setUserIdx(loginResponse.body()!!.userId!!)
 
                                 val intent = Intent(this@LoginActivity, MainActivity::class.java)
                                 startActivity(intent)
                                 finish()
                             } else {
-                                Log.d("로그인 실패", response.message())
+                                Log.d("로그인 실패", loginResponse.message())
                             }
                         } else {
-                            Log.d("로그인 실패", response.message())
+                            Log.d("로그인 실패", loginResponse.message())
                             textview_login_info.visibility = View.VISIBLE
                         }
                     }
