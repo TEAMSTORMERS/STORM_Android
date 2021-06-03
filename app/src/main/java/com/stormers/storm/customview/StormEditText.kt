@@ -24,18 +24,18 @@ import java.util.regex.Pattern
 
 class StormEditText : ConstraintLayout {
 
-    constructor(context: Context?) : super(context) {
+    constructor(context: Context) : super(context) {
         init()
     }
 
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
         init()
         if (attrs != null) {
             getAttrs(attrs)
         }
     }
 
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         init()
         if (attrs != null) {
             getAttrs(attrs,defStyleAttr)

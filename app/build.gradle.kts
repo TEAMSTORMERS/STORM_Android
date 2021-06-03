@@ -40,6 +40,7 @@ android {
 
     buildFeatures {
         dataBinding = true
+        viewBinding = true
     }
 
     compileOptions {
@@ -82,6 +83,13 @@ android {
 
         implementation(Dependencies.CHROME_TAB)
 
+        implementation(Dependencies.DAGGER_HILT)
+        kapt(AnnotationProcessorsDependencies.DAGGER_HILT_COMPILER)
+
         addTestsDependencies()
     }
+}
+dependencies {
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.extra["kotlin_version"]}")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
 }

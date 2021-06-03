@@ -61,7 +61,7 @@ class HostRoundSettingFragment : BaseRoundFragment(R.layout.fragment_host_round_
 
         //라운드 목표 시간 버튼 초기화
         textview_roundsetting_time.setOnClickListener {
-            timePickerDialog.show(fragmentManager!!, "timepicker")
+            timePickerDialog.show(childFragmentManager!!, "timepicker")
         }
 
         //전체 지우기 버튼 활성화/비활성화, 글자 수 23자 제한

@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 
-class BaseBindingFragment<B: ViewDataBinding>(@LayoutRes private val layoutRes: Int): Fragment() {
+open class BaseBindingFragment<B: ViewDataBinding>(@LayoutRes private val layoutRes: Int): Fragment() {
     protected lateinit var binding: B
 
     override fun onCreateView(

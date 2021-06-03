@@ -10,7 +10,9 @@ import com.stormers.storm.project.model.ProjectModel
 import com.stormers.storm.round.model.RoundModel
 //import com.stormers.storm.util.DatabaseManager
 import com.stormers.storm.util.SharedPreference
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class GlobalApplication : Application() {
 
     override fun onCreate() {

@@ -22,6 +22,8 @@ object BuildDependenciesVersions {
     const val TED_PERMISSION = "2.2.3"
     const val WHEEL_PICKER = "1.1.3"
     const val CHROME_TAB = "28.0.0"
+    const val DAGGER_HILT = "2.35.1"
+
 
     //Test
     const val JUNIT = "4.13.2"

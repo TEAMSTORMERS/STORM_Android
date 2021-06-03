@@ -17,4 +17,7 @@
     <string name="check_email_type">이메일 형식이 올바르지 않습니다</string>
     <string name="email_already_used">이미 사용 중인 이메일입니다</string>
     <string name="prepare_next_round">다음 라운드 준비 중</string>
+    <string name="user_name">사용자 이름</string>
+    <string name="logout">로그아웃</string>
+    <string name="withdrawal">회원 탈퇴</string>
 </resources>
