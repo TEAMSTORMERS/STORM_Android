@@ -1,11 +1,13 @@
 package com.stormers.storm.logIn
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseBindingFragment
 import com.stormers.storm.databinding.FragmentLoginBinding
+import com.stormers.storm.ui.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,5 +19,12 @@ class LoginFragment: BaseBindingFragment<FragmentLoginBinding>(R.layout.fragment
         setSoftInputModeToResize()
         setRootScrollView(binding.scrollviewLogin)
         binding.viewModel = loginViewModel
+
+        loginViewModel.isLoginSuccessful.observe(viewLifecycleOwner) {
+            //Todo: 싱글액티비티로 변환
+            if (it) {
+                requireActivity().startActivity(Intent(requireActivity(), MainActivity::class.java))
+            }
+        }
     }
 }

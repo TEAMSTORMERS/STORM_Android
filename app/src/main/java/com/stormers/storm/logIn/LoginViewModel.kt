@@ -5,13 +5,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.stormers.storm.logIn.controller.LoginController
+import com.stormers.storm.preference.UserPreferenceManager
 import com.stormers.storm.util.TextUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val loginController: LoginController
+    private val loginController: LoginController,
+    private val userPreferenceManager: UserPreferenceManager
 ) : ViewModel() {
 
     val email = MutableLiveData<String>()
@@ -36,6 +38,7 @@ class LoginViewModel @Inject constructor(
         loginController.requestLogin(email, password, object : LoginController.LoginCallback {
             override fun onLoginSuccess(userId: Int) {
                 Log.d("LoginViewModel", "requestLogin(): Login success. userId : $userId")
+                userPreferenceManager.setUserId(userId)
                 _isLoginSuccessful.value = true
             }
 
