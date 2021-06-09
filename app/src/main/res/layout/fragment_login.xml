@@ -122,6 +122,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
                 android:button="@drawable/checkbox_login"
+                android:checked="@={viewModel.isAutoLogin()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/edittext_login_password"
                 app:layout_constraintHorizontal_bias="0.0"

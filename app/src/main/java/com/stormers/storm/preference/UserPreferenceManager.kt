@@ -4,6 +4,7 @@ class UserPreferenceManager(private val preferenceManager: SharedPreferenceManag
 
     companion object {
         private const val PREF_KEY_USER_ID = "user_id"
+        private const val PREF_KEY_AUTO_LOGIN = "auto_login"
     }
 
     fun setUserId(userId: Int) {
@@ -12,5 +13,13 @@ class UserPreferenceManager(private val preferenceManager: SharedPreferenceManag
 
     fun getUserId(): Int {
         return preferenceManager.getInt(PREF_KEY_USER_ID, -1)
+    }
+
+    fun setAutoLogin(isAutoLogin: Boolean) {
+        preferenceManager.setBoolean(PREF_KEY_AUTO_LOGIN, isAutoLogin)
+    }
+
+    fun getAutoLogin(): Boolean {
+        return preferenceManager.getBoolean(PREF_KEY_AUTO_LOGIN, false)
     }
 }

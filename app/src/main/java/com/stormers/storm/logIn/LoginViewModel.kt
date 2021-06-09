@@ -27,6 +27,8 @@ class LoginViewModel @Inject constructor(
     val isLoginSuccessful: LiveData<Boolean>
         get() = _isLoginSuccessful
 
+    val isAutoLogin = MutableLiveData(userPreferenceManager.getAutoLogin())
+
     fun requestLogin() {
         val email = email.value
         val password = password.value
@@ -38,6 +40,7 @@ class LoginViewModel @Inject constructor(
         loginController.requestLogin(email, password, object : LoginController.LoginCallback {
             override fun onLoginSuccess(userId: Int) {
                 Log.d("LoginViewModel", "requestLogin(): Login success. userId : $userId")
+                setAutoLogin()
                 userPreferenceManager.setUserId(userId)
                 _isLoginSuccessful.value = true
             }
@@ -46,5 +49,9 @@ class LoginViewModel @Inject constructor(
                 _isLoginFail.value = true
             }
         })
+    }
+
+    private fun setAutoLogin() {
+        userPreferenceManager.setAutoLogin(isAutoLogin.value!!)
     }
 }

@@ -23,7 +23,10 @@ class LoginFragment: BaseBindingFragment<FragmentLoginBinding>(R.layout.fragment
         loginViewModel.isLoginSuccessful.observe(viewLifecycleOwner) {
             //Todo: 싱글액티비티로 변환
             if (it) {
-                requireActivity().startActivity(Intent(requireActivity(), MainActivity::class.java))
+                requireActivity().run {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                }
             }
         }
     }
