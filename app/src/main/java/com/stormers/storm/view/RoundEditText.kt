@@ -38,6 +38,11 @@ class RoundEditText @JvmOverloads constructor(
         }
 
     init {
+        rootView.run {
+            setBackgroundResource(R.drawable.round_square_background)
+            setBackgroundTint(R.color.storm_gray2)
+        }
+
         val typeArray = context.theme.obtainStyledAttributes(
             attrs,
             R.styleable.RoundEditText,
