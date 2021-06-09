@@ -63,6 +63,10 @@ class RoundEditText @JvmOverloads constructor(
             }
         }
 
+        if (typeArray.hasValue(R.styleable.RoundEditText_android_inputType)) {
+            editText.inputType = typeArray.getInteger(R.styleable.RoundEditText_android_inputType, 0)
+        }
+
         typeArray.recycle()
     }
 
