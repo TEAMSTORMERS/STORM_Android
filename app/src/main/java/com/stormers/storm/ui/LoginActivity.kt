@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_mypage_withdrawal.*
 import retrofit2.Call
 import retrofit2.Response
 
+@Deprecated("Use LoginFragment")
 class LoginActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
