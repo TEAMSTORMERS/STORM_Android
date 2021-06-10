@@ -1,4 +1,4 @@
-package com.stormers.storm.logIn
+package com.stormers.storm.login
 
 import android.content.Intent
 import android.os.Bundle

@@ -1,8 +1,8 @@
-package com.stormers.storm.logIn
+package com.stormers.storm.login
 
-import com.stormers.storm.logIn.controller.LoginController
-import com.stormers.storm.logIn.controller.LoginControllerImpl
-import com.stormers.storm.logIn.service.LoginService
+import com.stormers.storm.login.controller.LoginController
+import com.stormers.storm.login.controller.LoginControllerImpl
+import com.stormers.storm.login.service.LoginService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

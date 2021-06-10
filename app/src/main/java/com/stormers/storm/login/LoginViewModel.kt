@@ -1,10 +1,10 @@
-package com.stormers.storm.logIn
+package com.stormers.storm.login
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.stormers.storm.logIn.controller.LoginController
+import com.stormers.storm.login.controller.LoginController
 import com.stormers.storm.preference.UserPreferenceManager
 import com.stormers.storm.util.TextUtils
 import dagger.hilt.android.lifecycle.HiltViewModel

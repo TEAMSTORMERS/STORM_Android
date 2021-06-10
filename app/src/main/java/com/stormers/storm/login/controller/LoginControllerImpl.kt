@@ -1,8 +1,8 @@
-package com.stormers.storm.logIn.controller
+package com.stormers.storm.login.controller
 
-import com.stormers.storm.logIn.service.LoginService
-import com.stormers.storm.logIn.model.LoginRequest
-import com.stormers.storm.logIn.model.LoginResponse
+import com.stormers.storm.login.service.LoginService
+import com.stormers.storm.login.model.LoginRequest
+import com.stormers.storm.login.model.LoginResponse
 import com.stormers.storm.network.RequestCallback
 import com.stormers.storm.network.request
 import okhttp3.ResponseBody

@@ -1,7 +1,7 @@
-package com.stormers.storm.logIn.service
+package com.stormers.storm.login.service
 
-import com.stormers.storm.logIn.model.LoginRequest
-import com.stormers.storm.logIn.model.LoginResponse
+import com.stormers.storm.login.model.LoginRequest
+import com.stormers.storm.login.model.LoginResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST

@@ -1,4 +1,4 @@
-package com.stormers.storm.logIn.model
+package com.stormers.storm.login.model
 
 import com.google.gson.annotations.SerializedName
 

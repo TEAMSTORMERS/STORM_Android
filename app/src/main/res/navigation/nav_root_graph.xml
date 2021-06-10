@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.stormers.storm.logIn.LoginFragment"
+        android:name="com.stormers.storm.login.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login" />
 

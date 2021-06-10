@@ -1,4 +1,4 @@
-package com.stormers.storm.logIn.controller
+package com.stormers.storm.login.controller
 
 interface LoginController {
 

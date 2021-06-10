@@ -6,9 +6,9 @@ import android.util.Log
 import android.view.View
 import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable.INFINITE
-import com.stormers.storm.logIn.service.LoginService
-import com.stormers.storm.logIn.model.LoginRequest
-import com.stormers.storm.logIn.model.LoginResponse
+import com.stormers.storm.login.service.LoginService
+import com.stormers.storm.login.model.LoginRequest
+import com.stormers.storm.login.model.LoginResponse
 import com.stormers.storm.R
 import com.stormers.storm.base.BaseActivity
 import com.stormers.storm.network.RetrofitClient
