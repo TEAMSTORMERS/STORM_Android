@@ -20,4 +20,13 @@
     <string name="user_name">사용자 이름</string>
     <string name="logout">로그아웃</string>
     <string name="withdrawal">회원 탈퇴</string>
+
+    <!--New-->
+    <string name="login_email_hint">이메일을 입력하세요</string>
+    <string name="login_password_hint">비밀번호를 입력하세요</string>
+    <string name="login_info_wrongdata">이메일/비밀번호를 확인해주세요</string>
+    <string name="login_checkbox_autologin">로그인 상태 유지</string>
+    <string name="login_button_login">로그인</string>
+    <string name="login_info_signup">아직 회원이 아니신가요?</string>
+    <string name="login_signup">가입하기</string>
 </resources>

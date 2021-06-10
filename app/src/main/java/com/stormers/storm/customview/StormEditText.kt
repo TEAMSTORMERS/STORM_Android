@@ -7,21 +7,18 @@ import android.text.InputFilter
 import android.text.InputType
 import android.text.TextWatcher
 import android.util.AttributeSet
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.core.view.marginTop
 import com.stormers.storm.R
 import com.stormers.storm.util.MetricsUtil
 import kotlinx.android.synthetic.main.view_edittext_custom.view.*
 import java.util.regex.Pattern
 
-
+@Deprecated("Use com.stormers.storm.view.RoundEditText")
 class StormEditText : ConstraintLayout {
 
     constructor(context: Context) : super(context) {

@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
 import com.stormers.storm.project.model.ProjectModel
 import com.stormers.storm.round.model.RoundModel
 //import com.stormers.storm.util.DatabaseManager
@@ -17,6 +18,8 @@ class GlobalApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         instance = this
 

@@ -3,6 +3,7 @@ package com.stormers.storm.util
 import android.content.Context
 import android.content.SharedPreferences
 
+@Deprecated("Use com.stormers.storm.preference.SharedPreferenceManager")
 class SharedPreference(context: Context) {
 
     companion object {

@@ -25,5 +25,6 @@ object Dependencies {
     const val TED_PERMISSION = "gun0912.ted:tedpermission:${BuildDependenciesVersions.TED_PERMISSION}"
     const val WHEEL_PICKER = "cn.aigestudio.wheelpicker:WheelPicker:${BuildDependenciesVersions.WHEEL_PICKER}"
     const val CHROME_TAB = "com.android.support:customtabs:${BuildDependenciesVersions.CHROME_TAB}"
-    const val DAGGER_HILT = "com.google.dagger:hilt-android:${BuildDependenciesVersions.DAGGER_HILT}"
+    const val HILT_GRADLE_PLUGIN = "com.google.dagger:hilt-android-gradle-plugin:${BuildDependenciesVersions.HILT}"
+    const val HILT = "com.google.dagger:hilt-android:${BuildDependenciesVersions.HILT}"
 }
