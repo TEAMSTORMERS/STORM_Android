@@ -17,4 +17,15 @@
     <string name="check_email_type">이메일 형식이 올바르지 않습니다</string>
     <string name="email_already_used">이미 사용 중인 이메일입니다</string>
     <string name="prepare_next_round">다음 라운드 준비 중</string>
+
+
+
+    <!--New-->
+    <string name="login_email_hint">이메일을 입력하세요</string>
+    <string name="login_password_hint">비밀번호를 입력하세요</string>
+    <string name="login_info_wrongdata">이메일/비밀번호를 확인해주세요</string>
+    <string name="login_checkbox_autologin">로그인 상태 유지</string>
+    <string name="login_button_login">로그인</string>
+    <string name="login_info_signup">아직 회원이 아니신가요?</string>
+    <string name="login_signup">가입하기</string>
 </resources>

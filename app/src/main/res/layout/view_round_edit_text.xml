@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <merge xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/round_square_background"
+        android:backgroundTint="@color/storm_gray2"
+        android:minHeight="41dp"
+        android:orientation="horizontal"
+        tools:parentTag="android.widget.LinearLayout">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageview_roundedit_left"
+            android:layout_width="18.5dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="17dp"
+            android:layout_marginEnd="5dp"
+            android:visibility="gone" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edittext_roundeidt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:fontFamily="@font/notosans_font_family"
+            android:textColor="@color/storm_popup_line_gray"
+            android:textSize="13sp" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/button_roundedit_remove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:src="@drawable/ic_remove_all" />
+
+    </merge>
+
+</layout>

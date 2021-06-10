@@ -3,6 +3,8 @@ import dependencies.AnnotationProcessorsDependencies
 import extensions.addTestsDependencies
 import extensions.implementation
 import extensions.kapt
+import java.util.Properties
+import java.io.FileInputStream
 
 plugins {
     id(BuildPlugins.ANDROID_APPLICATION)
@@ -11,7 +13,11 @@ plugins {
     id(BuildPlugins.KOTLIN_KAPT)
     id(BuildPlugins.GOOGLE_SERVICES)
     id(BuildPlugins.NAVIGATION_SAFE_ARGS)
+    id(BuildPlugins.HILT_PLUGIN)
 }
+
+val properties = Properties()
+properties.load(FileInputStream(rootProject.file("./local.properties")))
 
 android {
     compileSdkVersion(BuildAndroidConfig.COMPILE_SDK_VERSION)
@@ -26,6 +32,7 @@ android {
         versionName = BuildAndroidConfig.VERSION_NAME
 
         testInstrumentationRunner = BuildAndroidConfig.TEST_INSTRUMENTATION_RUNNER
+        buildConfigField("String", "BASE_URL", properties["baseUrl"] as String)
     }
 
     buildTypes {
@@ -81,6 +88,9 @@ android {
         implementation(Dependencies.WHEEL_PICKER)
 
         implementation(Dependencies.CHROME_TAB)
+
+        implementation(Dependencies.HILT)
+        kapt(AnnotationProcessorsDependencies.HILT_COMPILER)
 
         addTestsDependencies()
     }

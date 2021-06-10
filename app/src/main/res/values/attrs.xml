@@ -18,5 +18,18 @@
         <attr name="showHeartButton" format="reference|boolean"/>
         <attr name="isTouchable" format="reference|boolean"/>
     </declare-styleable>
+
+
+    <declare-styleable name="RoundEditText">
+        <attr name="android:hint" />
+        <attr name="android:inputType" />
+        <attr name="android:lines" />
+
+        <attr name="drawable" format="enum">
+            <enum name="email" value="0" />
+            <enum name="password" value="1" />
+        </attr>
+        <attr name="removeAll" format="boolean" />
+    </declare-styleable>
 </resources>
 

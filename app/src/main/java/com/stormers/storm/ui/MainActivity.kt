@@ -19,6 +19,7 @@ import com.stormers.storm.project.network.RequestProject
 import com.stormers.storm.project.network.response.ResponseJoinProjectUsingCode
 import com.stormers.storm.network.RetrofitClient
 import com.stormers.storm.network.SocketClient
+import com.stormers.storm.preference.UserPreferenceManager
 import com.stormers.storm.project.data.source.ProjectRepository
 import com.stormers.storm.project.adapter.ProjectPreviewAdapter
 import com.stormers.storm.project.data.source.ProjectsDataSource
@@ -29,17 +30,24 @@ import com.stormers.storm.project.network.response.ResponseLookupProject
 import com.stormers.storm.round.model.RoundModel
 import com.stormers.storm.util.DateUtils
 import com.stormers.storm.util.MarginDecoration
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.view_edittext_custom.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
     companion object {
         private const val TAG = "MainActivity"
     }
+
+    //Todo: Crash 를 막기위해 Field Injection 하였음. 추후 수정
+    @Inject
+    lateinit var userPreference: UserPreferenceManager
 
     private lateinit var recentProjectsAdapter: ProjectPreviewAdapter
 
@@ -54,7 +62,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        GlobalApplication.userIdx = preference.getUserIdx()!!
+        GlobalApplication.userIdx = userPreference.getUserId()
 
         initView()
 

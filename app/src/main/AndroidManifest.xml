@@ -21,7 +21,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         toos:replace="android:label,android:allowBackup">
-        <activity android:name=".SingleActivity">
+        <activity android:name=".SingleActivity"
+            android:theme="@style/activityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -55,7 +56,7 @@
         </activity>
         <activity
             android:name=".ui.LoginActivity"
-            android:theme="@style/loginTheme"
+            android:theme="@style/activityTheme"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.AddProjectActivity"

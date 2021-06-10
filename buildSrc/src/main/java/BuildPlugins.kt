@@ -5,4 +5,5 @@ object BuildPlugins {
     const val KOTLIN_KAPT = "kotlin-kapt"
     const val GOOGLE_SERVICES = "com.google.gms.google-services"
     const val NAVIGATION_SAFE_ARGS = "androidx.navigation.safeargs.kotlin"
+    const val HILT_PLUGIN = "dagger.hilt.android.plugin"
 }
