@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 
 class SharedPreferenceManager(context: Context) {
     companion object {
-        const val SHARED_PREFERENCES_FILE_NAME = "manitto_preference"
+        const val SHARED_PREFERENCES_FILE_NAME = "storm_preference"
     }
 
     private val sharedPreferences =
