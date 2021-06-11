@@ -33,7 +33,7 @@ class MyPageViewModel @Inject constructor(
     }
 
     private fun fetchUserData() {
-        dataSource.requestFetchUserData(19, object : MyPageDataSource.MyPageCallback {
+        dataSource.requestFetchUserData(userIdx, object : MyPageDataSource.MyPageCallback {
             override fun onSuccessFetchUserData(responseMyPage: ResponseMyPage) {
                 _userData.value = responseMyPage.data
                 userName.value = responseMyPage.data.userName
