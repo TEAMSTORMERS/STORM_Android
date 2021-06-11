@@ -15,6 +15,13 @@ import com.google.android.material.shape.ShapeAppearanceModel
 import com.stormers.storm.R
 
 object BindingAdapter {
+
+    @BindingAdapter("setCircleOutline")
+    @JvmStatic
+    fun ShapeableImageView.setCircleOutline(radius: Float) {
+        shapeAppearanceModel = ShapeAppearanceModel().withCornerSize(radius)
+    }
+
     @BindingAdapter("loadImageUrl")
     @JvmStatic
     fun ImageView.loadImageUrl(url: String?) {
