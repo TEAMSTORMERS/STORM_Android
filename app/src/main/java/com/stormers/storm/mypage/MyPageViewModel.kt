@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.stormers.storm.mypage.datasource.MyPageDataSource
-import com.stormers.storm.mypage.model.MyPageResponse
+import com.stormers.storm.mypage.model.ResponseMyPage
 import com.stormers.storm.ui.GlobalApplication
 import dagger.hilt.android.lifecycle.HiltViewModel
 import okhttp3.ResponseBody
@@ -30,15 +30,14 @@ class MyPageViewModel @Inject constructor(
 
     private fun fetchUserData() {
         dataSource.requestFetchUserData(userIdx, object : MyPageDataSource.MyPageCallback {
-            override fun onSuccessFetchUserData(myPageResponse: MyPageResponse) {
-                _userImage.value = myPageResponse.data.userImage
-                userName.value = myPageResponse.data.userName
+            override fun onSuccessFetchUserData(responseMyPage: ResponseMyPage) {
+                _userImage.value = responseMyPage.data.userImage
+                userName.value = responseMyPage.data.userName
             }
-
             override fun onFailedFetchUserData(networkError: Boolean, errorBody: ResponseBody?) {
-                val error = errorBody ?: return
-                val jsonObject = JSONObject(error.string())
-                Log.e("error", jsonObject.toString())
+                val errorBody = errorBody ?: return
+                val jsonObject = JSONObject(errorBody.string())
+                Log.e("error", "networkError: $networkError, errorMessage: $jsonObject")
             }
         })
     }
