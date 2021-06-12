@@ -6,7 +6,7 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
-
+@Deprecated("Use MyPageService")
 interface MypageInterface {
 
     @GET("/user/mypage/{user_idx}")

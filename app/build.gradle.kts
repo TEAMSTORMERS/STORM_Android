@@ -47,6 +47,7 @@ android {
 
     buildFeatures {
         dataBinding = true
+        viewBinding = true
     }
 
     compileOptions {
@@ -88,7 +89,6 @@ android {
         implementation(Dependencies.WHEEL_PICKER)
 
         implementation(Dependencies.CHROME_TAB)
-
         implementation(Dependencies.HILT)
         kapt(AnnotationProcessorsDependencies.HILT_COMPILER)
 

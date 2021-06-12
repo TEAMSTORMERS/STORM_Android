@@ -1,7 +1,7 @@
 object BuildDependenciesVersions {
     const val GRADLE = "4.1.3"
     const val GOOGLE_SERVICE = "4.3.5"
-    const val KOTLIN = "1.4.32"
+    const val KOTLIN = "1.5.10"
     const val CORE_KTX = "1.3.2"
     const val RECYCLE_VIEW = "1.2.0"
     const val CONSTRAIN_LAYOUT = "2.0.4"
@@ -22,7 +22,7 @@ object BuildDependenciesVersions {
     const val TED_PERMISSION = "2.2.3"
     const val WHEEL_PICKER = "1.1.3"
     const val CHROME_TAB = "28.0.0"
-    const val HILT = "2.31-alpha"
+    const val HILT = "2.35.1"
 
     //Test
     const val JUNIT = "4.13.2"

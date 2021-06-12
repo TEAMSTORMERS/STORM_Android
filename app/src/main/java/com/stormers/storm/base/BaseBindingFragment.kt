@@ -9,7 +9,6 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.stormers.storm.util.KeyBoardVisibilityUtils
 
-
 open class BaseBindingFragment<B : ViewDataBinding>(@LayoutRes private val layoutRes: Int) :
     Fragment() {
     protected lateinit var binding: B
@@ -20,7 +19,7 @@ open class BaseBindingFragment<B : ViewDataBinding>(@LayoutRes private val layou
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, layoutRes, container, false)
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 

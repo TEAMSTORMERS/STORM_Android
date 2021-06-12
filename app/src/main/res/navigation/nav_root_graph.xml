@@ -5,6 +5,7 @@
     android:id="@+id/nav_root_graph.xml"
     app:startDestination="@id/splashFragment">
 
+
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.stormers.storm.splash.SplashFragment"
@@ -23,5 +24,10 @@
         android:name="com.stormers.storm.login.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login" />
+
+    <fragment
+        android:id="@+id/myPageFragment"
+        android:name="com.stormers.storm.mypage.fragment.MyPageFragment"
+        android:label="MyPageFragment" />
 
 </navigation>

@@ -70,4 +70,9 @@
         <item name="android:textFontWeight">700</item>
     </style>
 
+    <style name="ShapeAppearance.App.CircleImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
 </resources>
