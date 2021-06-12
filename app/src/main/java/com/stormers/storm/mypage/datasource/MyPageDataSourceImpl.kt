@@ -1,7 +1,7 @@
 package com.stormers.storm.mypage.datasource
 
 import com.stormers.storm.mypage.MyPageService
-import com.stormers.storm.mypage.model.ResponseMyPage
+import com.stormers.storm.mypage.model.MyPageResponse
 import com.stormers.storm.network.RequestCallback
 import com.stormers.storm.network.request
 import okhttp3.ResponseBody
@@ -14,8 +14,8 @@ class MyPageDataSourceImpl @Inject constructor(
         userIdx: Int,
         callback: MyPageDataSource.MyPageCallback
     ) = myPageService.getMypageData(userIdx)
-        .request(object : RequestCallback<ResponseMyPage>{
-            override fun onSuccess(response: ResponseMyPage) {
+        .request(object : RequestCallback<MyPageResponse>{
+            override fun onSuccess(response: MyPageResponse) {
                 callback.onSuccessFetchUserData(response)
             }
 

@@ -5,6 +5,9 @@ import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatEditText
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
@@ -24,7 +27,7 @@ object BindingAdapter {
 
     @BindingAdapter("loadImageUrl")
     @JvmStatic
-    fun ImageView.loadImageUrl(url: String?) {
+    fun AppCompatImageView.loadImageUrl(url: String?) {
         if(url == null) {
             setBackgroundResource(R.drawable.ic_launcher_background)
         } else {
@@ -34,7 +37,7 @@ object BindingAdapter {
 
     @BindingAdapter("android:text")
     @JvmStatic
-    fun TextView.setText(content: MutableLiveData<String>) {
+    fun AppCompatTextView.setText(content: MutableLiveData<String>) {
         if(content != null) {
             text = content.value
         } else {
@@ -44,13 +47,13 @@ object BindingAdapter {
 
     @InverseBindingAdapter(attribute = "android:text", event = "textAttrChanged")
     @JvmStatic
-    fun EditText.getText(): String {
+    fun AppCompatEditText.getText(): String {
         return text.toString()
     }
 
     @BindingAdapter("textAttrChanged")
     @JvmStatic
-    fun EditText.setTextWatcher(textAttrChanged: InverseBindingListener?) {
+    fun AppCompatEditText.setTextWatcher(textAttrChanged: InverseBindingListener?) {
         addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 

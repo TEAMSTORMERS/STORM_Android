@@ -1,8 +1,6 @@
 package com.stormers.storm.mypage.model
 
-import com.stormers.storm.mypage.model.MyPageModel
-
-data class ResponseMyPage(
+data class MyPageResponse(
     val status : Int,
     val success : Boolean,
     val message : String,

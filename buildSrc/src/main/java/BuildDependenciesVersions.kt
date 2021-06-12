@@ -1,7 +1,7 @@
 object BuildDependenciesVersions {
     const val GRADLE = "4.1.3"
     const val GOOGLE_SERVICE = "4.3.5"
-    const val KOTLIN = "1.4.32"
+    const val KOTLIN = "1.5.0"
     const val CORE_KTX = "1.3.2"
     const val RECYCLE_VIEW = "1.2.0"
     const val CONSTRAIN_LAYOUT = "2.0.4"

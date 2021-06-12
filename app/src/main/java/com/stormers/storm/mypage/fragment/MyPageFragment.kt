@@ -20,19 +20,9 @@ class MyPageFragment : BaseBindingFragment<FragmentMyPageBinding>(R.layout.fragm
         binding.lifecycleOwner = viewLifecycleOwner
 
         setToolbar()
-        setUserData()
     }
 
     private fun setToolbar() {
         binding.layoutBackground.stormtoolbarMypage.setBackButton()
     }
-
-    private fun setUserData() {
-        viewModel.isSuccessFetchData.observe(viewLifecycleOwner) { isSuccessed ->
-            if(isSuccessed[true].isNullOrEmpty()) {
-                Toast.makeText(requireContext(), "유저정보를 불러올 수 없습니다.", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
 }

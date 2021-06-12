@@ -1,11 +1,11 @@
 package com.stormers.storm.mypage.datasource
 
-import com.stormers.storm.mypage.model.ResponseMyPage
+import com.stormers.storm.mypage.model.MyPageResponse
 import okhttp3.ResponseBody
 
 interface MyPageDataSource {
     interface MyPageCallback{
-        fun onSuccessFetchUserData(responseMyPage: ResponseMyPage)
+        fun onSuccessFetchUserData(myPageResponse: MyPageResponse)
         fun onFailedFetchUserData(networkError: Boolean, errorBody: ResponseBody?)
     }
 
